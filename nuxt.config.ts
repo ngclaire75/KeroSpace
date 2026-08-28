@@ -12,7 +12,12 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'en' },
       meta: [
         { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        {
+          name: 'viewport',
+          // maximum-scale=1 stops iOS Safari auto-zooming into inputs on focus;
+          // pinch-zoom still works on iOS 10+ (it ignores this for accessibility)
+          content: 'width=device-width, initial-scale=1, maximum-scale=1',
+        },
         { name: 'description', content: 'KeroSpace — AI workspace dashboard.' },
         { name: 'theme-color', content: '#df2531' },
 
