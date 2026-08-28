@@ -4,23 +4,21 @@ const loading = ref(true)
 let timer: ReturnType<typeof setTimeout> | undefined
 
 onMounted(() => {
-  // 1.5s cycle = one logo swap every 0.75s; hold for 3 swaps (~2.25s)
+  // 0.7s cycle, hard-cut swap at 50% (every 0.35s); hold for ~5 swaps
   timer = setTimeout(() => {
     loading.value = false
-  }, 2400)
+  }, 1900)
 })
 onBeforeUnmount(() => clearTimeout(timer))
 </script>
 
 <template>
-  <Transition name="splash-fade">
-    <div v-if="loading" class="splash" aria-hidden="true">
-      <div class="splash__logo">
-        <img src="/images/logo.webp" alt="" />
-        <img src="/images/logo2.webp" alt="" />
-      </div>
+  <div v-if="loading" class="splash" aria-hidden="true">
+    <div class="splash__logo">
+      <img src="/images/logo.webp" alt="" />
+      <img src="/images/logo2.webp" alt="" />
     </div>
-  </Transition>
+  </div>
 
   <NuxtPage />
 </template>
@@ -56,16 +54,16 @@ onBeforeUnmount(() => clearTimeout(timer))
   object-fit: contain;
 }
 
+/* hard cut between the two logos — no cross-fade */
 .splash__logo img:nth-child(1) {
-  animation: splash-a 1.5s ease-in-out infinite;
+  animation: splash-a 0.7s step-end infinite;
 }
 .splash__logo img:nth-child(2) {
-  animation: splash-b 1.5s ease-in-out infinite;
+  animation: splash-b 0.7s step-end infinite;
 }
 
 @keyframes splash-a {
-  0%,
-  100% {
+  0% {
     opacity: 1;
   }
   50% {
@@ -73,21 +71,12 @@ onBeforeUnmount(() => clearTimeout(timer))
   }
 }
 @keyframes splash-b {
-  0%,
-  100% {
+  0% {
     opacity: 0;
   }
   50% {
     opacity: 1;
   }
-}
-
-/* fade the whole splash out when loading finishes */
-.splash-fade-leave-active {
-  transition: opacity 0.45s ease;
-}
-.splash-fade-leave-to {
-  opacity: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
