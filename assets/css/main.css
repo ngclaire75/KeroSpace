@@ -726,10 +726,18 @@ svg {
   }
 }
 @media (max-width: 560px) {
-  .topbar,
   .app__content {
     padding-left: 14px;
     padding-right: 14px;
+  }
+  .topbar {
+    padding-left: 14px;
+    /* the last icon button carries ~8px of internal whitespace, so trim the
+       track padding to leave the same visual gap as the logo has on the left */
+    padding-right: 6px;
+  }
+  .actions {
+    margin-left: auto;
   }
   .stats {
     grid-template-columns: 1fr;
