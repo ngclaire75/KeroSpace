@@ -12,7 +12,7 @@ const pct = (v: number) => `${(v / max) * 100}%`
 <template>
   <PanelCard title="Storage Overview">
     <div class="stor__box">
-      <p class="stor__label">Total Used</p>
+      <p class="stor__label">Total Used:</p>
       <span class="stor__big">19 GB <span>(68% of 10 GB)</span></span>
     </div>
 

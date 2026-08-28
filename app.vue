@@ -3,13 +3,23 @@
 const loading = ref(true)
 let timer: ReturnType<typeof setTimeout> | undefined
 
+function lockScroll(lock: boolean) {
+  if (typeof document === 'undefined') return
+  document.documentElement.classList.toggle('is-loading-lock', lock)
+}
+
 onMounted(() => {
+  lockScroll(true)
   // 0.7s cycle, hard-cut swap at 50% (every 0.35s); hold for ~5 swaps
   timer = setTimeout(() => {
     loading.value = false
   }, 1900)
 })
-onBeforeUnmount(() => clearTimeout(timer))
+watch(loading, (v) => lockScroll(v))
+onBeforeUnmount(() => {
+  clearTimeout(timer)
+  lockScroll(false)
+})
 </script>
 
 <template>
@@ -24,6 +34,14 @@ onBeforeUnmount(() => clearTimeout(timer))
 </template>
 
 <style>
+/* freeze the page while the splash is up (desktop + mobile) */
+html.is-loading-lock,
+html.is-loading-lock body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
 .splash {
   position: fixed;
   inset: 0;
@@ -31,6 +49,8 @@ onBeforeUnmount(() => clearTimeout(timer))
   display: grid;
   place-items: center;
   background: #de1320;
+  overscroll-behavior: none;
+  touch-action: none;
 }
 
 .splash__logo {

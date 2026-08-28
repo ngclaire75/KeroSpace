@@ -24,7 +24,12 @@ const pct = (h: number) => `${(h / MAX) * 100}%`
       <div class="pt__body">
         <div class="pt__plot">
           <div v-for="d in days" :key="d.day" class="pt__col">
-            <span v-if="d.hot" class="pt__tip">{{ d.hours }}h</span>
+            <span v-if="d.hot" class="pt__tip">
+              <span class="pt__tip-label">Hours</span>
+              <span class="pt__tip-val">
+                <i class="pt__tip-dot" />{{ d.hours }}h
+              </span>
+            </span>
             <div
               class="pt__bar"
               :class="{ 'pt__bar--hot': d.hot }"
