@@ -30,7 +30,7 @@ export default defineNuxtConfig({
           content: 'https://kerospace.vercel.app/images/thumbnail.png',
         },
         { property: 'og:image:width', content: '3018' },
-        { property: 'og:image:height', content: '1718' },
+        { property: 'og:image:height', content: '1308' },
         { property: 'og:image:alt', content: 'KeroSpace Workspace dashboard' },
 
         // Twitter / X
