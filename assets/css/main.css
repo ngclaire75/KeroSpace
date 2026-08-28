@@ -93,6 +93,8 @@ svg {
   display: grid;
   place-items: center;
   flex: 0 0 auto;
+  background: var(--accent);
+  padding: 4px;
 }
 .logo img {
   width: 100%;

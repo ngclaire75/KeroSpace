@@ -1,6 +1,28 @@
 <script setup lang="ts">
 useHead({ title: 'KeroSpace Workspace' })
 
+// greeting follows the device clock (set on the client to avoid an SSR mismatch)
+const greeting = ref('Good morning')
+function pickGreeting() {
+  const h = new Date().getHours()
+  return h < 5
+    ? 'Good evening'
+    : h < 12
+      ? 'Good morning'
+      : h < 17
+        ? 'Good afternoon'
+        : 'Good evening'
+}
+let clock: ReturnType<typeof setInterval> | undefined
+onMounted(() => {
+  greeting.value = pickGreeting()
+  // re-check every minute so it flips as the day rolls over
+  clock = setInterval(() => {
+    greeting.value = pickGreeting()
+  }, 60_000)
+})
+onBeforeUnmount(() => clearInterval(clock))
+
 const stats = [
   { label: 'AI Chats', value: '256', delta: '+15% vs last month' },
   { label: 'Files', value: '1,428', delta: '+8% vs last month' },
@@ -36,7 +58,7 @@ const files = [
 
     <main class="app__content">
       <div class="greeting">
-        <h1>Good morning,</h1>
+        <h1>{{ greeting }},</h1>
         <p>Here's what's happening in your workspace today.</p>
       </div>
 
