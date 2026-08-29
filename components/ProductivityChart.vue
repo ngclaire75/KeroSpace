@@ -12,6 +12,21 @@ const days = [
 ]
 const yTicks = [30, 25, 20, 15, 10, 5]
 const pct = (h: number) => `${(h / MAX) * 100}%`
+
+// tap-to-reveal on touch devices (hover handles the rest on desktop)
+const activeIdx = ref<number | null>(null)
+const plot = ref<HTMLElement | null>(null)
+
+function toggle(i: number) {
+  activeIdx.value = activeIdx.value === i ? null : i
+}
+function onDocPointer(e: Event) {
+  if (plot.value && !plot.value.contains(e.target as Node)) activeIdx.value = null
+}
+onMounted(() => document.addEventListener('pointerdown', onDocPointer, true))
+onBeforeUnmount(() =>
+  document.removeEventListener('pointerdown', onDocPointer, true),
+)
 </script>
 
 <template>
@@ -22,8 +37,14 @@ const pct = (h: number) => `${(h / MAX) * 100}%`
       </div>
 
       <div class="pt__body">
-        <div class="pt__plot">
-          <div v-for="d in days" :key="d.day" class="pt__col">
+        <div ref="plot" class="pt__plot">
+          <div
+            v-for="(d, i) in days"
+            :key="d.day"
+            class="pt__col"
+            :class="{ 'is-active': activeIdx === i }"
+            @click="toggle(i)"
+          >
             <div class="pt__bar" :style="{ height: pct(d.hours) }">
               <span class="pt__tip">
                 <span class="pt__tip-label">Hours</span>

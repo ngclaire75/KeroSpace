@@ -674,7 +674,8 @@ svg {
   background: #e4e5e7;
   transition: background 0.15s ease;
 }
-.pt__col:hover .pt__bar {
+.pt__col:hover .pt__bar,
+.pt__col.is-active .pt__bar {
   background: var(--accent);
 }
 .pt__tip {
@@ -699,7 +700,8 @@ svg {
   transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
   pointer-events: none;
 }
-.pt__col:hover .pt__tip {
+.pt__col:hover .pt__tip,
+.pt__col.is-active .pt__tip {
   opacity: 1;
   visibility: visible;
   transform: translate(-50%, 0);
