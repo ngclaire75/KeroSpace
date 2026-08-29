@@ -6,7 +6,7 @@ const days = [
   { day: 'Tue', hours: 9 },
   { day: 'Wed', hours: 17 },
   { day: 'Thu', hours: 12 },
-  { day: 'Fri', hours: 26, hot: true },
+  { day: 'Fri', hours: 26 },
   { day: 'Sat', hours: 8 },
   { day: 'Sun', hours: 11 },
 ]
@@ -24,17 +24,14 @@ const pct = (h: number) => `${(h / MAX) * 100}%`
       <div class="pt__body">
         <div class="pt__plot">
           <div v-for="d in days" :key="d.day" class="pt__col">
-            <span v-if="d.hot" class="pt__tip">
-              <span class="pt__tip-label">Hours</span>
-              <span class="pt__tip-val">
-                <i class="pt__tip-dot" />{{ d.hours }}h
+            <div class="pt__bar" :style="{ height: pct(d.hours) }">
+              <span class="pt__tip">
+                <span class="pt__tip-label">Hours</span>
+                <span class="pt__tip-val">
+                  <i class="pt__tip-dot" />{{ d.hours }}h
+                </span>
               </span>
-            </span>
-            <div
-              class="pt__bar"
-              :class="{ 'pt__bar--hot': d.hot }"
-              :style="{ height: pct(d.hours) }"
-            />
+            </div>
           </div>
         </div>
 

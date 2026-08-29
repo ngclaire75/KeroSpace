@@ -664,18 +664,25 @@ svg {
   justify-content: flex-end;
   align-items: center;
   gap: 6px;
+  cursor: pointer;
 }
 .pt__bar {
+  position: relative;
   width: 62%;
   max-width: 28px;
   border-radius: 5px 5px 0 0;
   background: #e4e5e7;
+  transition: background 0.15s ease;
 }
-.pt__bar--hot {
+.pt__col:hover .pt__bar {
   background: var(--accent);
 }
 .pt__tip {
-  position: relative;
+  /* absolute so it never widens its column (mobile overflow) */
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 7px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -685,6 +692,17 @@ svg {
   padding: 5px 9px;
   border-radius: 6px;
   white-space: nowrap;
+  /* revealed only on hover of that bar's column */
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 4px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+  pointer-events: none;
+}
+.pt__col:hover .pt__tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
 }
 .pt__tip-label {
   font-size: 9px;
