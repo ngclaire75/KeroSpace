@@ -3,7 +3,7 @@
 AI workspace dashboard — **Nuxt 3 + HTML5 + WebGL**.
 
 Rebuilt pixel-for-pixel from the reference mock, in the **Mokoto** palette
-(`#df2531` / `#ffffff` / `#000000`) with **Urbanist** throughout.
+(`#df2531` / `#ffffff` / `#000000`) with **Open Sans** throughout.
 
 ## Run
 
@@ -25,7 +25,7 @@ npm run build && npm run preview   # production
 | WebGL | `components/GradientCanvas.vue` | Raw WebGL + GLSL fragment shader. Animated `70deg` linear gradient (`#df2531 → #ff5a63 → #7a0f16`). `requestAnimationFrame` loop, `ResizeObserver`, DPR-aware, context-loss safe. Static single frame under `prefers-reduced-motion`; CSS-gradient fallback with no WebGL. Mounted via `<ClientOnly>`. |
 | UI icons | `components/AppIcon.vue` | [Lucide](https://lucide.dev) geometry (ISC), inlined — no runtime icon dependency |
 | File-type icons | `public/icons/` | Official brand SVGs: `figma.svg`, `pdf.svg` (Adobe), `excel.svg` + `powerpoint.svg` (Microsoft) — from Wikimedia Commons |
-| Type | `nuxt.config.ts` head | Urbanist 400–800 via Google Fonts |
+| Type | `nuxt.config.ts` head | Open Sans 400–800 via Google Fonts |
 | Styles | `assets/css/main.css` | Design tokens + all component classes (BEM-ish) |
 
 ## Structure

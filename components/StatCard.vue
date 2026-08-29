@@ -1,9 +1,15 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   label: string
   value: string
   delta: string
 }>()
+
+// split "+15% vs last month" -> coloured "+15%" + plain "vs last month"
+const parsed = computed(() => {
+  const [change, ...rest] = props.delta.split(' ')
+  return { change, rest: rest.join(' ') }
+})
 </script>
 
 <template>
@@ -25,7 +31,16 @@ defineProps<{
     <div class="stat__num">{{ value }}</div>
 
     <div class="stat__bot">
-      <span class="stat__delta">{{ delta }}</span>
+      <span class="stat__delta">
+        <span
+          class="stat__change"
+          :class="{
+            'is-up': parsed.change.startsWith('+'),
+            'is-down': parsed.change.startsWith('-'),
+          }"
+          >{{ parsed.change }}</span>
+        {{ parsed.rest }}
+      </span>
       <span class="stat__more" aria-hidden="true">
         <AppIcon name="more-vertical" :size="14" />
       </span>

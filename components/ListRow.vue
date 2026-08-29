@@ -17,7 +17,7 @@ withDefaults(
 </script>
 
 <template>
-  <div class="row">
+  <div class="row" :class="{ 'row--file': variant === 'img' }">
     <span
       class="row__ico"
       :class="{

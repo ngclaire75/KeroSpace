@@ -1,7 +1,7 @@
 /* ============================================================
    KeroSpace Workspace — global styles
    Palette: Mokoto  #df2531 / #ffffff / #000000  (+ chosen neutrals)
-   Type: Urbanist (400/500/600/700/800)
+   Type: Open Sans (400/500/600/700/800)
    ============================================================ */
 
 :root {
@@ -39,7 +39,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Urbanist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -279,6 +279,12 @@ svg {
   font-weight: 700;
   color: #000000;
 }
+.stat__change.is-up {
+  color: var(--pos);
+}
+.stat__change.is-down {
+  color: #df2531;
+}
 .stat__more {
   color: #000000;
 }
@@ -395,6 +401,10 @@ svg {
   font-size: 12.5px;
   color: #000000;
   line-height: 1.4;
+}
+/* file list ("6.3 MB · PowerPoint") stays grey */
+.row--file .row__sub {
+  color: var(--ink-3);
 }
 .row__time {
   font-size: 12px;
