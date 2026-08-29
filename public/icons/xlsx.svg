@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- page body with folded top-right corner (width 365, corner radius 56) -->
-  <path fill="#22a447" d="M130 8 H295 L439 152 V448 Q439 504 383 504 H130 Q74 504 74 448 V64 Q74 8 130 8 Z"/>
+  <!-- page body with folded top-right corner (width 365, corner radius 68) -->
+  <path fill="#22a447" d="M142 8 H295 L439 152 V436 Q439 504 371 504 H142 Q74 504 74 436 V76 Q74 8 142 8 Z"/>
   <!-- folded corner flap -->
   <path fill="#69cc90" d="M295 8 L439 152 H295 Z"/>
   <!-- label -->
