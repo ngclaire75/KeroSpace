@@ -2,11 +2,12 @@
 const nav = [
   { label: 'Overview', active: true },
   { label: 'AI Chat', active: false },
+  { label: 'Files', active: false },
   { label: 'Tasks', active: false },
   { label: 'Automations', active: false },
   { label: 'Templates', active: false },
   { label: 'Analytics', active: false },
-  { label: 'Settings', active: false },
+  { label: 'Teams', active: false },
 ]
 </script>
 
