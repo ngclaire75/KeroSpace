@@ -429,13 +429,13 @@ svg {
 }
 .stor__big {
   font-size: 28px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
   color: #000000;
 }
 .stor__big span {
-  font-weight: 800;
+  font-weight: 700;
   font-size: 28px;
   color: #000000;
 }
