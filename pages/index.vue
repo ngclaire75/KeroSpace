@@ -44,12 +44,6 @@ const workflows = [
   { title: 'Data Backup', sub: 'Backup important data', time: '1h Ago', icon: 'database', iconSize: 25 },
 ]
 
-const files = [
-  { title: 'Project Proposal.pdf', sub: '2.4 MB · PDF', time: '10m Ago', img: '/icons/pdf.png' },
-  { title: 'Market Research.xlsx', sub: '1.8 MB · Excel', time: 'Yesterday', img: '/icons/xlsx.svg' },
-  { title: 'Design Mockup.fig', sub: '4.2 MB · Figma', time: 'Tomorrow', img: '/icons/figma.svg' },
-  { title: 'Presentation.pptx', sub: '6.3 MB · PowerPoint', time: '1h Ago', img: '/icons/powerpoint.svg', iconSize: 34 },
-]
 </script>
 
 <template>
@@ -107,18 +101,7 @@ const files = [
 
         <ProductivityChart />
 
-        <PanelCard title="Automation Workflows" action="see-more">
-          <ListRow
-            v-for="f in files"
-            :key="f.title"
-            variant="img"
-            :img="f.img"
-            :icon-size="f.iconSize"
-            :title="f.title"
-            :sub="f.sub"
-            :time="f.time"
-          />
-        </PanelCard>
+        <TeamMembers />
       </section>
     </main>
   </div>

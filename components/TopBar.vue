@@ -7,7 +7,7 @@ const nav = [
   { label: 'Automations', active: false },
   { label: 'Templates', active: false },
   { label: 'Analytics', active: false },
-  { label: 'Teams', active: false },
+  { label: 'Team', active: false },
 ]
 </script>
 
