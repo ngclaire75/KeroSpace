@@ -30,9 +30,16 @@ export default defineNuxtConfig({
           content: 'KeroSpace — AI workspace dashboard.',
         },
         { property: 'og:url', content: 'https://kerospace.vercel.app/' },
+        // Versioned filename: LinkedIn/Slack/etc. cache OG data by URL, and
+        // Vercel's CDN serves /images/* as immutable — bump the name to force
+        // every scraper + edge to fetch the new file.
         {
           property: 'og:image',
-          content: 'https://kerospace.vercel.app/images/thumbnail.png',
+          content: 'https://kerospace.vercel.app/images/thumbnail-v3.png',
+        },
+        {
+          property: 'og:image:secure_url',
+          content: 'https://kerospace.vercel.app/images/thumbnail-v3.png',
         },
         { property: 'og:image:type', content: 'image/png' },
         { property: 'og:image:width', content: '1200' },
@@ -48,11 +55,15 @@ export default defineNuxtConfig({
         },
         {
           name: 'twitter:image',
-          content: 'https://kerospace.vercel.app/images/thumbnail.png',
+          content: 'https://kerospace.vercel.app/images/thumbnail-v3.png',
         },
       ],
       link: [
         { rel: 'icon', href: '/favicon.webp' },
+        {
+          rel: 'image_src',
+          href: 'https://kerospace.vercel.app/images/thumbnail-v3.png',
+        },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {
