@@ -30,7 +30,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', href: '/favicon.webp' },
-        { rel: 'preload', as: 'image', href: '/images/bunny.webp' },
+        { rel: 'preload', as: 'image', href: '/images/egg-3.webp' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {

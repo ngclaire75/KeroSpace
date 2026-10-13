@@ -8,11 +8,11 @@ type Item = {
 }
 
 const items: Item[] = [
-  { img: '/images/cloud-pup.webp', name: 'Cloud Ears', game: "Kero's Dreamland", type: 'Pet', rarity: 'Epic' },
-  { img: '/images/skull-hood.webp', name: 'Skull Hood', game: "Kero's Dreamland", type: 'Headwear', rarity: 'Epic' },
-  { img: '/images/bunny.webp', name: 'Bloom Hood', game: "Kero's Dreamland", type: 'Headwear', rarity: 'Legendary' },
-  { img: '/images/kitty-sleepy.webp', name: 'Dream Pillow', game: "Kero's Dreamland", type: 'Consumable', rarity: 'Common' },
-  { img: '/images/puppy.webp', name: 'Floppy Pup', game: "Kero's Dreamland", type: 'Companion', rarity: 'Rare' },
+  { img: '/images/egg-1.webp', name: 'Lazy Yolk', game: "Kero's Dreamland", type: 'Food', rarity: 'Common' },
+  { img: '/images/egg-2.webp', name: 'Side Eye Yolk', game: "Kero's Dreamland", type: 'Food', rarity: 'Rare' },
+  { img: '/images/egg-3.webp', name: 'Sunny Side', game: "Kero's Dreamland", type: 'Food', rarity: 'Legendary' },
+  { img: '/images/egg-4.webp', name: 'Nap Yolk', game: "Kero's Dreamland", type: 'Food', rarity: 'Epic' },
+  { img: '/images/egg-5.webp', name: 'Lounge Yolk', game: "Kero's Dreamland", type: 'Food', rarity: 'Uncommon' },
 ]
 
 const n = items.length
@@ -99,8 +99,9 @@ function release(el: HTMLElement) {
   for (const p of ['--tx', '--ty', '--mx', '--my', '--lift']) el.style.removeProperty(p)
 }
 
+// Touch gets the same tilt as the mouse: pointermove only fires for touch while
+// a finger is down, and pointerdown starts it on the first tap.
 function track(e: PointerEvent) {
-  if (e.pointerType === 'touch') return
   const el = cardEls[active.value]
   if (!el) return
   if (live !== el) {
@@ -120,6 +121,10 @@ function track(e: PointerEvent) {
   target.lift = over ? 1 : 0
   el.classList.toggle('is-over', over)
   run()
+}
+// a lifted finger has no hover — settle the card back to rest
+function endTouch(e: PointerEvent) {
+  if (e.pointerType !== 'mouse') untrack()
 }
 function untrack() {
   Object.assign(target, { rx: 0, ry: 0, mx: 50, my: 50, lift: 0 })
@@ -160,7 +165,14 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section class="hero" @pointermove="track" @pointerleave="untrack">
+  <section
+    class="hero"
+    @pointerdown="track"
+    @pointermove="track"
+    @pointerup="endTouch"
+    @pointercancel="endTouch"
+    @pointerleave="untrack"
+  >
     <div class="hero__stars" aria-hidden="true">
       <i
         v-for="(s, k) in stars"
@@ -409,6 +421,8 @@ onBeforeUnmount(() => {
 
 /* ============ cards ============ */
 .card {
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
   --x: 0px;
   --y: 0px;
   --ry: 0deg;
@@ -437,6 +451,9 @@ onBeforeUnmount(() => {
 
 .card[data-pos='0'] {
   z-index: 5;
+  /* a finger on the centre card drives the tilt in every direction instead of
+     being taken over by page scrolling (horizontal swipes still change cards) */
+  touch-action: none;
 }
 .card.is-jump {
   transition: none;
