@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const links = [
+  { label: 'Home', active: true },
   { label: 'Games' },
-  { label: 'Items', active: true },
+  { label: 'Items' },
   { label: 'How It Works' },
   { label: 'Guides' },
 ]

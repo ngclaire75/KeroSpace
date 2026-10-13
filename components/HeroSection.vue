@@ -2,17 +2,17 @@
 type Item = {
   img: string
   name: string
-  game: string
+  tag: string
   type: string
   rarity: string
 }
 
 const items: Item[] = [
-  { img: '/images/egg-1.webp', name: 'Lazy Yolk', game: "Kero's Dreamland", type: 'Food', rarity: 'Common' },
-  { img: '/images/egg-2.webp', name: 'Side Eye Yolk', game: "Kero's Dreamland", type: 'Food', rarity: 'Rare' },
-  { img: '/images/egg-3.webp', name: 'Sunny Side', game: "Kero's Dreamland", type: 'Food', rarity: 'Legendary' },
-  { img: '/images/egg-4.webp', name: 'Nap Yolk', game: "Kero's Dreamland", type: 'Food', rarity: 'Epic' },
-  { img: '/images/egg-5.webp', name: 'Lounge Yolk', game: "Kero's Dreamland", type: 'Food', rarity: 'Uncommon' },
+  { img: '/images/egg-1.webp', name: 'Lazy Yolk', tag: 'Every game, one guide', type: 'Food', rarity: 'Common' },
+  { img: '/images/egg-2.webp', name: 'Side Eye Yolk', tag: 'Identify any item', type: 'Food', rarity: 'Rare' },
+  { img: '/images/egg-3.webp', name: 'Sunny Side', tag: 'Your game item guide', type: 'Food', rarity: 'Legendary' },
+  { img: '/images/egg-4.webp', name: 'Nap Yolk', tag: 'Learn what it does', type: 'Food', rarity: 'Epic' },
+  { img: '/images/egg-5.webp', name: 'Lounge Yolk', tag: 'See how it works', type: 'Food', rarity: 'Uncommon' },
 ]
 
 const n = items.length
@@ -232,7 +232,7 @@ onBeforeUnmount(() => {
             <img
               class="card__img"
               :src="it.img"
-              :alt="`${it.name} from ${it.game}`"
+              :alt="it.name"
               width="900"
               height="900"
               draggable="false"
@@ -245,8 +245,8 @@ onBeforeUnmount(() => {
           <div class="card__chip">
             <img :src="it.img" alt="" width="34" height="34" />
             <span>
-              <small>Game</small>
-              {{ it.game }}
+              <small>Kero</small>
+              {{ it.tag }}
             </span>
           </div>
         </div>
@@ -281,7 +281,7 @@ onBeforeUnmount(() => {
       </div>
 
       <p class="sr-only" aria-live="polite">
-        {{ items[active].name }} — {{ items[active].rarity }} {{ items[active].type }} from {{ items[active].game }}
+        {{ items[active].name }} — {{ items[active].rarity }} {{ items[active].type }}
       </p>
     </div>
   </section>
@@ -380,7 +380,7 @@ onBeforeUnmount(() => {
   font-size: clamp(14px, 1.3vw, 16.5px);
   font-weight: 600;
   line-height: 1.6;
-  color: var(--ink-3);
+  color: #fff;
   animation: rise 1s 0.24s var(--ease) both;
 }
 @keyframes rise {
