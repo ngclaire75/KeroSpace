@@ -381,7 +381,7 @@ onBeforeUnmount(() => {
 
 /* ============ stage ============ */
 .stage {
-  --floor: 72px;
+  --floor: 86px;
   position: relative;
   flex: 1 1 0;
   min-height: 0;
@@ -627,7 +627,7 @@ onBeforeUnmount(() => {
   z-index: 6;
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 14px;
   translate: -50% 0;
 }
 .stage__arrow {
@@ -695,7 +695,7 @@ onBeforeUnmount(() => {
     padding-top: 24px;
   }
   .stage {
-    --floor: 70px;
+    --floor: 84px;
     flex: 0 0 auto;
     height: calc(min(48vw, 210px) * 1.2424 + var(--floor) + 16px);
     margin-top: 28px;
