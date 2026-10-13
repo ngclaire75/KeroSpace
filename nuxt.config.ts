@@ -18,7 +18,7 @@ export default defineNuxtConfig({
           content:
             'KeroSpace — browse a library of games, identify any in-game item and learn what it does and how it works.',
         },
-        { name: 'theme-color', content: '#08080a' },
+        { name: 'theme-color', content: '#000000' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'KeroSpace' },
         { property: 'og:title', content: 'KeroSpace — Explore Every Game Item' },
@@ -30,7 +30,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', href: '/favicon.webp' },
-        { rel: 'preload', as: 'image', href: '/images/kitty-fierce.webp' },
+        { rel: 'preload', as: 'image', href: '/images/bunny.webp' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {

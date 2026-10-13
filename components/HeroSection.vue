@@ -8,23 +8,31 @@ type Item = {
 }
 
 const items: Item[] = [
-  { img: '/images/kitty-smug.webp', name: 'Smirk Mask', game: 'Kitty Dreamland', type: 'Cosmetic', rarity: 'Epic' },
-  { img: '/images/kitty-wink.webp', name: 'Wink Charm', game: 'Pastel Party', type: 'Charm', rarity: 'Rare' },
-  { img: '/images/kitty-fierce.webp', name: 'Fury Badge', game: 'Bow Brawlers', type: 'Power-up', rarity: 'Legendary' },
-  { img: '/images/kitty-sleepy.webp', name: 'Dream Pillow', game: 'Kitty Dreamland', type: 'Consumable', rarity: 'Common' },
-  { img: '/images/kitty-sweet.webp', name: 'Blush Bow', game: 'Pastel Party', type: 'Accessory', rarity: 'Uncommon' },
-  { img: '/images/kitty-classic.webp', name: 'Classic Bow Pin', game: 'Bow Brawlers', type: 'Badge', rarity: 'Rare' },
+  { img: '/images/cloud-pup.webp', name: 'Cloud Ears', game: "Kero's Dreamland", type: 'Pet', rarity: 'Epic' },
+  { img: '/images/skull-hood.webp', name: 'Skull Hood', game: "Kero's Dreamland", type: 'Headwear', rarity: 'Epic' },
+  { img: '/images/bunny.webp', name: 'Bloom Hood', game: "Kero's Dreamland", type: 'Headwear', rarity: 'Legendary' },
+  { img: '/images/kitty-sleepy.webp', name: 'Dream Pillow', game: "Kero's Dreamland", type: 'Consumable', rarity: 'Common' },
+  { img: '/images/puppy.webp', name: 'Floppy Pup', game: "Kero's Dreamland", type: 'Companion', rarity: 'Rare' },
 ]
 
 const n = items.length
 const active = ref(2)
 
-// signed distance from the centre card: -2..2 are on stage, 3+ wait hidden behind
+// signed distance from the centre card, wrapped to -2..2 (5 cards, all on stage)
 function pos(i: number) {
   return ((i - active.value + n + 2) % n) - 2
 }
-function go(i: number) {
+// On mobile the outer slots are off-screen, so a card that wraps from one end
+// to the other (moves 3+ slots) would streak across the view — jump it instead.
+const jumping = ref<number[]>([])
+async function go(i: number) {
+  const before = items.map((_, k) => pos(k))
   active.value = (i + n) % n
+  if (!window.matchMedia('(max-width: 720px)').matches) return
+  jumping.value = items.map((_, k) => k).filter((k) => Math.abs(pos(k) - before[k]) >= 3)
+  if (!jumping.value.length) return
+  await nextTick()
+  requestAnimationFrame(() => requestAnimationFrame(() => (jumping.value = [])))
 }
 const next = () => go(active.value + 1)
 const prev = () => go(active.value - 1)
@@ -37,36 +45,92 @@ function rng(seed: number) {
   }
 }
 const r = rng(7)
-const stars = Array.from({ length: 70 }, () => ({
+const stars = Array.from({ length: 80 }, () => ({
   left: `${(r() * 100).toFixed(2)}%`,
-  top: `${(r() * 62).toFixed(2)}%`,
+  top: `${(r() * 70).toFixed(2)}%`,
   size: `${(r() * 1.6 + 0.6).toFixed(2)}px`,
   delay: `${(r() * 6).toFixed(2)}s`,
   dur: `${(r() * 4 + 3).toFixed(2)}s`,
   o: (r() * 0.5 + 0.2).toFixed(2),
 }))
 
-/* ---------- pointer tilt + holo shine on the centre card ---------- */
-function tilt(e: PointerEvent, i: number) {
-  if (pos(i) !== 0 || e.pointerType === 'touch') return
-  const el = e.currentTarget as HTMLElement
+/* ---------- pointer tracking on the centre card ----------
+   The whole hero is tracked, not just the card: the card leans gently toward
+   the cursor from anywhere, then tilts fully and lifts while hovered. tanh keeps
+   the angle continuous across the card edge. Values are eased every frame
+   (rAF + lerp) instead of being set raw, so motion stays smooth. */
+const cardEls: (HTMLElement | null)[] = []
+const target = { rx: 0, ry: 0, mx: 50, my: 50, lift: 0 }
+const cur = { ...target }
+let live: HTMLElement | null = null
+let raf = 0
+let last = 0
+
+function apply(el: HTMLElement) {
+  el.style.setProperty('--tx', `${cur.rx.toFixed(3)}deg`)
+  el.style.setProperty('--ty', `${cur.ry.toFixed(3)}deg`)
+  el.style.setProperty('--mx', `${cur.mx.toFixed(2)}%`)
+  el.style.setProperty('--my', `${cur.my.toFixed(2)}%`)
+  el.style.setProperty('--lift', cur.lift.toFixed(3))
+}
+// frame-rate independent exponential easing (same feel at 60Hz and 120Hz)
+function loop(t: number) {
+  const dt = Math.min(0.05, (t - last) / 1000 || 0.016)
+  last = t
+  const a = 1 - Math.exp(-dt * 6)
+  let delta = 0
+  for (const k of Object.keys(target) as (keyof typeof target)[]) {
+    const d = target[k] - cur[k]
+    cur[k] += d * a
+    delta += Math.abs(d)
+  }
+  if (live) apply(live)
+  raf = delta > 0.01 ? requestAnimationFrame(loop) : 0
+}
+function run() {
+  if (!raf) {
+    last = performance.now()
+    raf = requestAnimationFrame(loop)
+  }
+}
+// hand a card back to its CSS transition so it settles smoothly
+function release(el: HTMLElement) {
+  el.classList.remove('is-live', 'is-over')
+  for (const p of ['--tx', '--ty', '--mx', '--my', '--lift']) el.style.removeProperty(p)
+}
+
+function track(e: PointerEvent) {
+  if (e.pointerType === 'touch') return
+  const el = cardEls[active.value]
+  if (!el) return
+  if (live !== el) {
+    if (live) release(live)
+    Object.assign(cur, { rx: 0, ry: 0, mx: 50, my: 50, lift: 0 })
+    live = el
+    el.classList.add('is-live')
+  }
   const b = el.getBoundingClientRect()
   const x = (e.clientX - b.left) / b.width
   const y = (e.clientY - b.top) / b.height
-  el.style.setProperty('--tx', `${((0.5 - y) * 14).toFixed(2)}deg`)
-  el.style.setProperty('--ty', `${((x - 0.5) * 18).toFixed(2)}deg`)
-  el.style.setProperty('--mx', `${(x * 100).toFixed(1)}%`)
-  el.style.setProperty('--my', `${(y * 100).toFixed(1)}%`)
-  el.classList.add('is-tilting')
+  const over = x >= 0 && x <= 1 && y >= 0 && y <= 1
+  target.ry = Math.tanh((x - 0.5) * 1.6) * 14
+  target.rx = Math.tanh((0.5 - y) * 1.6) * 11
+  target.mx = Math.min(1, Math.max(0, x)) * 100
+  target.my = Math.min(1, Math.max(0, y)) * 100
+  target.lift = over ? 1 : 0
+  el.classList.toggle('is-over', over)
+  run()
 }
-function untilt(e: PointerEvent) {
-  const el = e.currentTarget as HTMLElement
-  el.style.removeProperty('--tx')
-  el.style.removeProperty('--ty')
-  el.style.removeProperty('--mx')
-  el.style.removeProperty('--my')
-  el.classList.remove('is-tilting')
+function untrack() {
+  Object.assign(target, { rx: 0, ry: 0, mx: 50, my: 50, lift: 0 })
+  live?.classList.remove('is-over')
+  run()
 }
+watch(active, () => {
+  if (live) release(live)
+  live = null
+  Object.assign(target, { rx: 0, ry: 0, mx: 50, my: 50, lift: 0 })
+})
 
 /* ---------- swipe ---------- */
 let downX: number | null = null
@@ -89,11 +153,14 @@ onMounted(() => {
     if (!paused.value && !document.hidden) next()
   }, 4800)
 })
-onBeforeUnmount(() => clearInterval(timer))
+onBeforeUnmount(() => {
+  clearInterval(timer)
+  cancelAnimationFrame(raf)
+})
 </script>
 
 <template>
-  <section class="hero">
+  <section class="hero" @pointermove="track" @pointerleave="untrack">
     <div class="hero__stars" aria-hidden="true">
       <i
         v-for="(s, k) in stars"
@@ -138,31 +205,30 @@ onBeforeUnmount(() => clearInterval(timer))
       @focusin="paused = true"
       @focusout="paused = false"
     >
-      <div class="stage__room" aria-hidden="true" />
-      <div class="stage__floor" aria-hidden="true" />
-      <div class="stage__glow" aria-hidden="true" />
 
       <article
         v-for="(it, i) in items"
         :key="it.name"
+        :ref="(el) => (cardEls[i] = el as HTMLElement | null)"
         class="card"
+        :class="{ 'is-jump': jumping.includes(i) }"
         :data-pos="pos(i)"
         :style="{ '--i': i }"
-        @pointermove="tilt($event, i)"
-        @pointerleave="untilt"
       >
         <div class="card__body">
-          <img
-            class="card__img"
-            :src="it.img"
-            :alt="`${it.name} from ${it.game}`"
-            width="900"
-            height="900"
-            draggable="false"
-            :loading="i === 2 ? 'eager' : 'lazy'"
-          />
-          <div class="card__holo" aria-hidden="true" />
-          <div class="card__shine" aria-hidden="true" />
+          <div class="card__media">
+            <img
+              class="card__img"
+              :src="it.img"
+              :alt="`${it.name} from ${it.game}`"
+              width="900"
+              height="900"
+              draggable="false"
+              :loading="i === 2 ? 'eager' : 'lazy'"
+            />
+            <div class="card__holo" aria-hidden="true" />
+            <div class="card__shine" aria-hidden="true" />
+          </div>
 
           <div class="card__chip">
             <img :src="it.img" alt="" width="34" height="34" />
@@ -170,22 +236,6 @@ onBeforeUnmount(() => clearInterval(timer))
               <small>Game</small>
               {{ it.game }}
             </span>
-          </div>
-
-          <div class="card__panel">
-            <div>
-              <small>{{ it.type }}</small>
-              <strong>
-                {{ it.name }}
-                <span class="card__rarity">{{ it.rarity }}</span>
-              </strong>
-            </div>
-            <a href="#" class="card__more" :tabindex="pos(i) === 0 ? 0 : -1">
-              Explain
-              <svg viewBox="0 0 10 10" width="8" height="8" aria-hidden="true">
-                <path d="M3 1v8l5-4z" fill="currentColor" />
-              </svg>
-            </a>
           </div>
         </div>
 
@@ -226,23 +276,17 @@ onBeforeUnmount(() => clearInterval(timer))
 </template>
 
 <style scoped>
-/* ============ frame ============ */
+/* ============ full-screen section ============ */
 .hero {
   position: relative;
   isolation: isolate;
-  max-width: 1320px;
-  margin: 0 auto;
-  border: 1px solid var(--line);
-  border-radius: clamp(22px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 600px;
   overflow: hidden;
-  background:
-    radial-gradient(50% 32% at 50% 30%, rgba(255, 42, 61, 0.09), transparent 70%),
-    radial-gradient(80% 50% at 50% -10%, #1d1d22, transparent 70%),
-    var(--frame);
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.6),
-    0 40px 120px -30px rgba(0, 0, 0, 0.9),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  background: #000;
 }
 
 /* ============ stars ============ */
@@ -293,12 +337,30 @@ onBeforeUnmount(() => clearInterval(timer))
 }
 .hero__title em {
   font-style: normal;
-  background: linear-gradient(95deg, #ff1830 0%, #ff3b4f 30%, #ff8a95 62%, #ffffff 100%);
+  /* one full red→white→red cycle across a 200%-wide background, so sliding
+     it by exactly its own width loops with no seam */
+  background: linear-gradient(
+      90deg,
+      #ff1830 0%,
+      #ff4a5d 18%,
+      #ff9aa4 34%,
+      #ffffff 50%,
+      #ff9aa4 66%,
+      #ff4a5d 82%,
+      #ff1830 100%
+    )
+    0 50% / 200% 100% repeat-x;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   text-shadow: none;
   filter: drop-shadow(0 0 18px rgba(255, 42, 61, 0.45));
+  animation: shimmer 7s linear infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 50%;
+  }
 }
 .hero__sub {
   max-width: 440px;
@@ -319,13 +381,12 @@ onBeforeUnmount(() => clearInterval(timer))
 
 /* ============ stage ============ */
 .stage {
-  --cw: clamp(210px, min(23vw, 32vh), 330px);
-  --s1: calc(var(--cw) * 0.78);
-  --s2: calc(var(--cw) * 1.34);
-  --floor: 64px;
+  --floor: 72px;
   position: relative;
-  height: calc(var(--cw) * 1.2424 + var(--floor) + 44px);
-  margin-top: clamp(20px, 3vh, 44px);
+  flex: 1 1 0;
+  min-height: 0;
+  container-type: size;
+  margin-top: clamp(16px, 3vh, 44px);
   perspective: 1100px;
   perspective-origin: 50% 35%;
   touch-action: pan-y;
@@ -333,67 +394,17 @@ onBeforeUnmount(() => clearInterval(timer))
   user-select: none;
   -webkit-user-select: none;
 }
-.stage:focus-visible .card[data-pos='0'] .card__body {
+.stage:focus-visible .card[data-pos='0'] .card__media {
   outline: 2px solid var(--red);
   outline-offset: 4px;
 }
 
-/* curved back wall — concave top edge like the inside of a cylinder */
-.stage__room {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(42% 60% at 14% 70%, rgba(255, 42, 61, 0.16), transparent 70%),
-    radial-gradient(42% 60% at 86% 70%, rgba(255, 42, 61, 0.16), transparent 70%),
-    linear-gradient(180deg, #25252b 0%, #18181c 34%, #141417 62%, #1f1f24 100%);
-  -webkit-mask: radial-gradient(72% 120px at 50% 0, transparent calc(100% - 1.5px), #000 100%);
-  mask: radial-gradient(72% 120px at 50% 0, transparent calc(100% - 1.5px), #000 100%);
-}
-
-/* perspective grid floor, slowly drifting toward the viewer */
-.stage__floor {
-  position: absolute;
-  left: -40%;
-  right: -40%;
-  bottom: 0;
-  height: 300px;
-  z-index: -1;
-  transform: perspective(420px) rotateX(64deg);
-  transform-origin: 50% 100%;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 90px 90px;
-  background-position: 50% 0;
-  -webkit-mask: linear-gradient(to top, #000 10%, transparent 85%);
-  mask: linear-gradient(to top, #000 10%, transparent 85%);
-  animation: drift 6s linear infinite;
-}
-@keyframes drift {
-  to {
-    background-position: 50% 90px;
-  }
-}
-
-.stage__glow {
-  position: absolute;
-  left: 50%;
-  bottom: calc(var(--floor) - 60px);
-  width: calc(var(--cw) * 2.4);
-  height: 180px;
-  translate: -50% 0;
-  z-index: -1;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(255, 42, 61, 0.42), rgba(255, 42, 61, 0.1) 60%, transparent);
-  filter: blur(14px);
-  animation: pulse 4.8s ease-in-out infinite;
-}
-@keyframes pulse {
-  50% {
-    opacity: 0.6;
-    scale: 0.92;
-  }
+/* card size follows the space left under the copy (cqh = stage height),
+   so the section is always exactly one screen tall */
+.stage > * {
+  --cw: clamp(170px, min(24vw, calc((100cqh - var(--floor) - 16px) / 1.2424)), 350px);
+  --s1: calc(var(--cw) * 0.78);
+  --s2: calc(var(--cw) * 1.34);
 }
 
 /* ============ cards ============ */
@@ -402,6 +413,7 @@ onBeforeUnmount(() => clearInterval(timer))
   --y: 0px;
   --ry: 0deg;
   --sc: 1;
+  --radius: 22px;
   position: absolute;
   left: 50%;
   bottom: var(--floor);
@@ -413,9 +425,8 @@ onBeforeUnmount(() => clearInterval(timer))
     scale(var(--sc));
   transition:
     transform 0.9s var(--ease),
-    filter 0.9s var(--ease),
     opacity 0.6s;
-  animation: deal 1.1s calc(0.35s + var(--i) * 0.08s) var(--ease) both;
+  animation: deal 0.9s calc(0.3s + var(--i) * 0.06s) var(--ease) backwards;
 }
 @keyframes deal {
   from {
@@ -427,19 +438,20 @@ onBeforeUnmount(() => clearInterval(timer))
 .card[data-pos='0'] {
   z-index: 5;
 }
+.card.is-jump {
+  transition: none;
+}
 .card[data-pos='-1'],
 .card[data-pos='1'] {
   --y: -30px;
   --sc: 0.68;
   z-index: 4;
-  filter: brightness(0.78) saturate(0.95);
 }
 .card[data-pos='-2'],
 .card[data-pos='2'] {
   --y: -34px;
   --sc: 0.6;
   z-index: 3;
-  filter: brightness(0.62) saturate(0.9);
 }
 .card[data-pos='-1'] {
   --x: calc(var(--s1) * -1);
@@ -457,41 +469,42 @@ onBeforeUnmount(() => clearInterval(timer))
   --x: var(--s2);
   --ry: -34deg;
 }
-.card[data-pos='3'],
-.card[data-pos='4'] {
-  --y: -40px;
-  --sc: 0.45;
-  z-index: 1;
-  opacity: 0;
-  pointer-events: none;
-}
-.card:not([data-pos='0']):hover {
-  filter: brightness(0.95);
-}
 
+/* the tilting layer — no overflow clip here so the chip can float in 3D */
 .card__body {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 22px;
+  border-radius: var(--radius);
+  transform-style: preserve-3d;
+  transform: rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg))
+    translateZ(calc(var(--lift, 0) * 26px));
+  transition: transform 0.8s var(--ease);
+}
+/* while the pointer drives it, rAF does the easing */
+.card.is-live .card__body {
+  transition: none;
+}
+/* clip-path keeps the rounded corners while cards move in 3D
+   (overflow:hidden alone loses them on composited layers) */
+.card__media {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
   overflow: hidden;
+  clip-path: inset(0 round var(--radius));
   background: #2a0b10;
-  transform: rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg));
-  transition: transform 0.6s var(--ease), box-shadow 0.9s var(--ease);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.14) inset,
-    0 30px 60px -20px rgba(0, 0, 0, 0.8);
-  -webkit-box-reflect: below 10px linear-gradient(transparent 72%, rgba(0, 0, 0, 0.14));
 }
-.card.is-tilting .card__body {
-  transition: transform 0.12s linear, box-shadow 0.9s var(--ease);
+.card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14) inset;
+  pointer-events: none;
 }
-.card[data-pos='0'] .card__body {
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.3) inset,
-    0 0 0 1px rgba(255, 42, 61, 0.35),
-    0 0 50px -6px rgba(255, 42, 61, 0.55),
-    0 40px 80px -24px rgba(0, 0, 0, 0.9);
+.card[data-pos='0'] .card__media::after {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
 }
 
 .card__img {
@@ -506,7 +519,7 @@ onBeforeUnmount(() => clearInterval(timer))
   scale: 1.1;
 }
 
-/* iridescent sheen — idles on a slow sweep, follows the pointer on hover */
+/* iridescent sheen — follows the (eased) pointer position */
 .card__holo {
   position: absolute;
   inset: 0;
@@ -519,7 +532,7 @@ onBeforeUnmount(() => clearInterval(timer))
     transparent 75%
   );
   background-size: 260% 260%;
-  background-position: var(--mx, 0%) var(--my, 0%);
+  background-position: var(--mx, 50%) var(--my, 50%);
   mix-blend-mode: overlay;
   opacity: 0;
   transition: opacity 0.6s;
@@ -527,70 +540,61 @@ onBeforeUnmount(() => clearInterval(timer))
 }
 .card[data-pos='0'] .card__holo {
   opacity: 1;
-  animation: sweep 5.5s ease-in-out infinite;
-}
-.card.is-tilting .card__holo {
-  animation: none;
-}
-@keyframes sweep {
-  0%,
-  100% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
 }
 .card__shine {
   position: absolute;
   inset: 0;
   background: radial-gradient(
     circle at var(--mx, 50%) var(--my, 30%),
-    rgba(255, 255, 255, 0.28),
-    transparent 45%
+    rgba(255, 255, 255, 0.32),
+    transparent 50%
   );
   mix-blend-mode: soft-light;
   opacity: 0;
-  transition: opacity 0.4s;
+  transition: opacity 0.5s;
   pointer-events: none;
 }
-.card.is-tilting .card__shine {
+.card.is-over .card__shine {
   opacity: 1;
 }
 
-/* glass chip + panel (only on the centre card) */
-.card__chip,
-.card__panel {
+/* glass chip floats above the art (only on the centre card) */
+.card__chip {
   position: absolute;
+  top: 14px;
+  left: 14px;
   display: flex;
   align-items: center;
+  gap: 9px;
+  padding: 5px 16px 5px 5px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
   background: rgba(14, 8, 10, 0.62);
   backdrop-filter: blur(16px) saturate(1.3);
   -webkit-backdrop-filter: blur(16px) saturate(1.3);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  opacity: 0;
-  translate: 0 10px;
-  transition:
-    opacity 0.5s,
-    translate 0.6s var(--ease);
-  transform: translateZ(30px);
-}
-.card[data-pos='0'] .card__chip,
-.card[data-pos='0'] .card__panel {
-  opacity: 1;
-  translate: 0 0;
-  transition-delay: 0.35s;
-}
-
-.card__chip {
-  top: 14px;
-  left: 14px;
-  gap: 9px;
-  padding: 5px 16px 5px 5px;
-  border-radius: 999px;
   font-size: 12.5px;
   font-weight: 800;
   line-height: 1.15;
+  opacity: 0;
+  transform: translateZ(40px) translateY(10px);
+  transition:
+    opacity 0.5s,
+    transform 0.6s var(--ease);
+  /* load only (set on every card so it never re-runs on switch). Starts the
+     moment the centre card's deal ends (0.3s + 2 * 0.06s delay + 0.9s): while
+     a card is still fading in, its opacity flattens 3D and breaks the blur,
+     which made the label jump */
+  animation: chip-in 0.25s 1.32s ease-out backwards;
+}
+.card[data-pos='0'] .card__chip {
+  opacity: 1;
+  transform: translateZ(40px);
+  transition-delay: 0.35s;
+}
+@keyframes chip-in {
+  from {
+    opacity: 0;
+  }
 }
 .card__chip img {
   width: 34px;
@@ -606,66 +610,11 @@ onBeforeUnmount(() => clearInterval(timer))
   color: var(--ink-2);
 }
 
-.card__panel {
-  left: 14px;
-  right: 14px;
-  bottom: 14px;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 13px 16px;
-  border-radius: 16px;
-}
-.card__panel small {
-  display: block;
-  font-size: 10.5px;
-  font-weight: 600;
-  color: var(--ink-2);
-}
-.card__panel strong {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0 8px;
-  margin-top: 2px;
-  font-family: var(--display);
-  font-size: clamp(14px, 1.45vw, 18px);
-  font-weight: 700;
-  letter-spacing: 0.01em;
-}
-.card__rarity {
-  font-family: var(--ui);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: linear-gradient(90deg, #ff4456, #ffc2c8);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.card__more {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-  font-size: 12.5px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #ff4d5e;
-  text-shadow: 0 0 12px var(--red-glow);
-  transition: gap 0.25s var(--ease), color 0.25s;
-}
-.card__more:hover {
-  gap: 9px;
-  color: #fff;
-}
-
 .card__hit {
   position: absolute;
   inset: 0;
   border: 0;
-  border-radius: 22px;
+  border-radius: var(--radius);
   background: transparent;
   cursor: pointer;
 }
@@ -678,7 +627,7 @@ onBeforeUnmount(() => clearInterval(timer))
   z-index: 6;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 22px;
   translate: -50% 0;
 }
 .stage__arrow {
@@ -686,6 +635,7 @@ onBeforeUnmount(() => clearInterval(timer))
   place-items: center;
   width: 34px;
   height: 34px;
+  padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.04);
@@ -693,6 +643,15 @@ onBeforeUnmount(() => clearInterval(timer))
   -webkit-backdrop-filter: blur(8px);
   cursor: pointer;
   transition: background 0.25s, border-color 0.25s;
+}
+/* optical centring: a chevron's visual weight sits towards its open side
+   (the triangle it outlines centres ~0.7px off its bounding box), so nudge it
+   towards its point */
+.stage__arrow:first-child svg {
+  translate: -0.75px 0;
+}
+.stage__arrow:last-child svg {
+  translate: 0.75px 0;
 }
 .stage__arrow:hover {
   background: var(--red);
@@ -729,20 +688,36 @@ onBeforeUnmount(() => clearInterval(timer))
 
 /* ============ responsive ============ */
 @media (max-width: 720px) {
+  /* stage only as tall as the cards need; copy + cards centred together
+     under the nav so there's no big gap between them */
+  .hero__copy {
+    margin-top: auto;
+    padding-top: 24px;
+  }
   .stage {
-    --cw: min(62vw, 270px);
-    --s1: calc(var(--cw) * 0.74);
     --floor: 70px;
+    flex: 0 0 auto;
+    height: calc(min(48vw, 210px) * 1.2424 + var(--floor) + 16px);
+    margin-top: 28px;
+    margin-bottom: auto;
+  }
+  .stage > * {
+    --cw: min(48vw, 210px, calc((100cqh - var(--floor) - 16px) / 1.2424));
+    --s1: calc(var(--cw) * 0.74);
+    /* outer slots sit just past the screen edge: cards slide out solid,
+       like desktop, instead of fading out on screen */
+    --s2: calc(var(--cw) * 1.75);
+  }
+  .card {
+    --radius: 18px;
   }
   .card[data-pos='-2'],
   .card[data-pos='2'] {
-    opacity: 0;
     pointer-events: none;
   }
   .card[data-pos='-1'],
   .card[data-pos='1'] {
     --sc: 0.7;
-    --ry: 0deg;
   }
   .card[data-pos='-1'] {
     --ry: 34deg;
@@ -750,39 +725,21 @@ onBeforeUnmount(() => clearInterval(timer))
   .card[data-pos='1'] {
     --ry: -34deg;
   }
-  .stage__room {
-    -webkit-mask: radial-gradient(80% 70px at 50% 0, transparent calc(100% - 1.5px), #000 100%);
-    mask: radial-gradient(80% 70px at 50% 0, transparent calc(100% - 1.5px), #000 100%);
-  }
-  .card__body,
-  .card__hit {
-    border-radius: 18px;
-  }
-  .card__body {
-    -webkit-box-reflect: unset;
-  }
   .card__chip {
     top: 10px;
     left: 10px;
-  }
-  .card__panel {
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    padding: 11px 13px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__stars i,
-  .stage__floor,
-  .stage__glow,
-  .card[data-pos='0'] .card__holo {
+  .hero__title em {
     animation: none;
   }
   .hero__line,
   .hero__sub,
-  .card {
+  .card,
+  .card__chip {
     animation: none;
   }
   .card,

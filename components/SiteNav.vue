@@ -4,9 +4,36 @@ const links = [
   { label: 'Items', active: true },
   { label: 'How It Works' },
   { label: 'Guides' },
-  { label: 'Community', caret: true },
+  { label: 'Community', caret: true, sub: ['Discord', 'Events', 'Leaderboard'] },
 ]
+
 const open = ref(false)
+const subOpen = ref(false)
+
+function close() {
+  open.value = false
+}
+function onKey(e: KeyboardEvent) {
+  if (e.key === 'Escape') close()
+}
+// the menu only exists below 900px — drop it if the viewport grows past that
+let mq: MediaQueryList | undefined
+const onMq = (e: MediaQueryListEvent) => e.matches && close()
+
+watch(open, (v) => {
+  document.documentElement.classList.toggle('menu-lock', v)
+  if (!v) subOpen.value = false
+})
+onMounted(() => {
+  window.addEventListener('keydown', onKey)
+  mq = window.matchMedia('(min-width: 901px)')
+  mq.addEventListener('change', onMq)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKey)
+  mq?.removeEventListener('change', onMq)
+  document.documentElement.classList.remove('menu-lock')
+})
 </script>
 
 <template>
@@ -25,39 +52,73 @@ const open = ref(false)
         :aria-current="l.active ? 'page' : undefined"
       >
         {{ l.label }}
-        <svg v-if="l.caret" viewBox="0 0 10 10" width="8" height="8" aria-hidden="true">
-          <path d="M1 3h8L5 8z" fill="currentColor" />
+        <svg v-if="l.caret" viewBox="0 0 10 10" width="9" height="9" aria-hidden="true">
+          <path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </a>
     </nav>
 
     <div class="nav__actions">
-      <button type="button" class="nav__icon" aria-label="Search items">
-        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-          <circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" />
-        </svg>
-      </button>
-      <a href="#" class="nav__cta">Explore</a>
-      <button type="button" class="nav__lang" aria-label="Language: English">
-        <svg viewBox="0 0 20 14" width="20" height="14" aria-hidden="true" class="nav__flag">
-          <rect width="20" height="14" rx="2" fill="#fff" />
-          <path d="M0 2h20M0 6h20M0 10h20" stroke="#e0202d" stroke-width="2" />
-          <rect width="9" height="7.5" rx="1" fill="#1f2a5c" />
-        </svg>
-        EN
-        <svg viewBox="0 0 10 10" width="8" height="8" aria-hidden="true">
-          <path d="M1 3h8L5 8z" fill="currentColor" />
-        </svg>
-      </button>
       <button
         type="button"
         class="nav__burger"
         :aria-expanded="open"
-        aria-label="Toggle menu"
+        aria-controls="mobile-menu"
+        :aria-label="open ? 'Close menu' : 'Open menu'"
         @click="open = !open"
       >
         <span /><span /><span />
       </button>
+    </div>
+
+    <!-- ===== mobile menu (≤ 900px) ===== -->
+    <div id="mobile-menu" class="menu" :aria-hidden="!open" :inert="!open">
+      <div class="menu__inner">
+        <p class="menu__eyebrow"><span />Navigate</p>
+
+        <ol class="menu__list">
+          <li
+            v-for="(l, k) in links"
+            :key="l.label"
+            class="menu__item"
+            :class="{ 'is-active': l.active, 'is-sub-open': l.sub && subOpen }"
+            :style="{ '--d': `${0.12 + k * 0.05}s` }"
+          >
+            <component
+              :is="l.sub ? 'button' : 'a'"
+              :href="l.sub ? undefined : '#'"
+              :type="l.sub ? 'button' : undefined"
+              class="menu__link"
+              :aria-expanded="l.sub ? subOpen : undefined"
+              :aria-current="l.active ? 'page' : undefined"
+              @click="l.sub ? (subOpen = !subOpen) : close()"
+            >
+              <span class="menu__num">{{ String(k + 1).padStart(2, '0') }}</span>
+              <span class="menu__label">{{ l.label }}</span>
+              <svg class="menu__arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path
+                  :d="l.sub ? 'm6 9 6 6 6-6' : 'M7 17 17 7M8 7h9v9'"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </component>
+
+            <div v-if="l.sub" class="menu__sub">
+              <div>
+                <a v-for="s in l.sub" :key="s" href="#" @click="close">{{ s }}</a>
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="menu__foot" :style="{ '--d': `${0.12 + links.length * 0.05}s` }">
+          <small>© {{ new Date().getFullYear() }} KeroSpace</small>
+        </div>
+      </div>
     </div>
   </header>
 </template>
@@ -119,116 +180,59 @@ const open = ref(false)
   color: var(--red);
   text-shadow: 0 0 14px var(--red-glow);
 }
-/* the glowing tab that hangs from the frame's top edge */
-.nav__links a.is-active::before {
-  content: '';
-  position: absolute;
-  top: -42px;
-  left: 50%;
-  width: 58px;
-  height: 5px;
-  translate: -50% 0;
-  border-radius: 0 0 6px 6px;
-  background: var(--red);
-  box-shadow: 0 0 18px 2px var(--red-glow), 0 0 40px 6px rgba(255, 42, 61, 0.25);
-}
-
 .nav__actions {
   display: flex;
   align-items: center;
   gap: 14px;
   margin-left: auto;
 }
-.nav__icon {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border: 0;
-  border-radius: 50%;
-  background: none;
-  color: var(--ink-2);
-  cursor: pointer;
-  transition: background 0.25s, color 0.25s;
-}
-.nav__icon:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
-}
-
-.nav__cta {
-  padding: 11px 24px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #ff4152, var(--red-2));
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  box-shadow:
-    0 0 0 1px rgba(255, 120, 130, 0.35) inset,
-    0 8px 28px -6px var(--red-glow),
-    0 0 22px rgba(255, 42, 61, 0.35);
-  transition: transform 0.25s var(--ease), box-shadow 0.25s;
-}
-.nav__cta:hover {
-  transform: translateY(-1px);
-  box-shadow:
-    0 0 0 1px rgba(255, 140, 150, 0.5) inset,
-    0 10px 34px -4px var(--red-glow),
-    0 0 30px rgba(255, 42, 61, 0.5);
-}
-
-.nav__lang {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 10px 18px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  background: transparent;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: border-color 0.25s, background 0.25s;
-}
-.nav__lang:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.04);
-}
-
+/* ---------- burger: three bare lines that morph into a bare X ---------- */
 .nav__burger {
+  position: relative;
   display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
-  width: 40px;
-  height: 40px;
-  padding: 0 10px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
+  width: 44px;
+  height: 44px;
+  /* 44px tap target, but the lines sit flush with the page's right edge */
+  margin-right: -11px;
+  padding: 0;
+  border: 0;
+  background: none;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 .nav__burger span {
+  position: absolute;
+  left: 11px;
+  width: 22px;
   height: 2px;
   border-radius: 2px;
   background: #fff;
-  transition: transform 0.3s var(--ease), opacity 0.2s;
+  transition:
+    transform 0.45s var(--ease),
+    opacity 0.25s;
+}
+.nav__burger span:nth-child(1) {
+  top: 14px;
+}
+.nav__burger span:nth-child(2) {
+  top: 21px;
+}
+.nav__burger span:nth-child(3) {
+  top: 28px;
 }
 .is-open .nav__burger span:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
+  transform: translateY(7px) rotate(45deg);
 }
 .is-open .nav__burger span:nth-child(2) {
   opacity: 0;
 }
 .is-open .nav__burger span:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
+  transform: translateY(-7px) rotate(-45deg);
 }
 
-@media (max-width: 1080px) {
-  .nav__lang {
-    display: none;
-  }
+/* ---------- full-screen menu ---------- */
+.menu {
+  display: none;
 }
 
 @media (max-width: 900px) {
@@ -236,55 +240,202 @@ const open = ref(false)
     padding-top: 22px;
     gap: 12px;
   }
-  .nav__burger {
-    display: flex;
-  }
   .nav__links {
-    position: absolute;
-    top: calc(100% + 12px);
-    left: 16px;
-    right: 16px;
-    flex-direction: column;
-    gap: 4px;
-    margin: 0;
-    padding: 10px;
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    background: rgba(16, 16, 20, 0.92);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    opacity: 0;
-    pointer-events: none;
-    translate: 0 -8px;
-    transition: opacity 0.25s, translate 0.3s var(--ease);
-  }
-  .is-open .nav__links {
-    opacity: 1;
-    pointer-events: auto;
-    translate: 0 0;
-  }
-  .nav__links a {
-    padding: 13px 14px;
-    border-radius: 12px;
-  }
-  .nav__links a.is-active {
-    background: rgba(255, 42, 61, 0.1);
-  }
-  .nav__links a.is-active::before {
     display: none;
+  }
+  .nav__burger {
+    display: block;
+  }
+  /* logo mark only on mobile — wordmark hidden, mark a touch bigger */
+  .nav__word {
+    display: none;
+  }
+  .nav__mark {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* sits under the nav's own brand + burger (z -1 inside the nav) and
+     opens as a circle growing out of the burger */
+  .menu {
+    --origin: calc(100% - 29px) 44px;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    display: block;
+    overflow-y: auto;
+    background: rgba(11, 11, 14, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    clip-path: circle(0 at var(--origin));
+    visibility: hidden;
+    transition:
+      clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1),
+      visibility 0s 0.6s;
+  }
+  .is-open .menu {
+    clip-path: circle(150vmax at var(--origin));
+    visibility: visible;
+    transition:
+      clip-path 0.7s cubic-bezier(0.7, 0, 0.2, 1),
+      visibility 0s;
+  }
+  .menu__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: 108px 24px 28px;
+  }
+
+  .menu__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .menu__eyebrow span {
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--red);
+  }
+
+  .menu__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .menu__item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    opacity: 0;
+    translate: 0 24px;
+    transition:
+      opacity 0.3s,
+      translate 0.3s;
+  }
+  .is-open .menu__item,
+  .is-open .menu__foot {
+    opacity: 1;
+    translate: 0 0;
+    transition:
+      opacity 0.6s var(--d) var(--ease),
+      translate 0.7s var(--d) var(--ease);
+  }
+
+  .menu__link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 18px 2px;
+    border: 0;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu__num {
+    width: 22px;
+    font-family: var(--display);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-3);
+    transition: color 0.3s;
+  }
+  .menu__label {
+    flex: 1;
+    font-family: var(--display);
+    font-size: clamp(22px, 6.6vw, 30px);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #fff;
+    transition:
+      color 0.3s,
+      translate 0.4s var(--ease);
+  }
+  .menu__arrow {
+    color: var(--ink-3);
+    transition:
+      color 0.3s,
+      transform 0.4s var(--ease);
+  }
+  .menu__link:active .menu__label {
+    translate: 6px 0;
+  }
+  .menu__item.is-active .menu__num,
+  .menu__item.is-active .menu__arrow {
+    color: var(--red);
+  }
+  .menu__item.is-active .menu__label {
+    background: linear-gradient(90deg, #ff2a3d, #ff9aa4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .is-sub-open .menu__arrow {
+    color: #fff;
+    transform: rotate(180deg);
+  }
+
+  /* accordion via grid rows (animates to auto height) */
+  .menu__sub {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.45s var(--ease);
+  }
+  .menu__sub > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    overflow: hidden;
+    padding-left: 38px;
+  }
+  .is-sub-open .menu__sub {
+    grid-template-rows: 1fr;
+  }
+  .is-sub-open .menu__sub > div {
+    padding-bottom: 18px;
+  }
+  .menu__sub a {
+    padding: 9px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-2);
+  }
+
+  .menu__foot {
+    margin-top: auto;
+    padding-top: 36px;
+    opacity: 0;
+    translate: 0 24px;
+    transition:
+      opacity 0.3s,
+      translate 0.3s;
+  }
+  .menu__foot small {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ink-3);
   }
 }
 
-@media (max-width: 480px) {
-  .nav__word {
-    font-size: 16px;
-  }
-  .nav__cta {
-    padding: 10px 16px;
-    font-size: 12px;
-  }
-  .nav__icon {
-    display: none;
+@media (prefers-reduced-motion: reduce) {
+  .menu,
+  .menu__item,
+  .menu__foot,
+  .nav__burger span {
+    transition-duration: 0.01s !important;
+    transition-delay: 0s !important;
   }
 }
 </style>
