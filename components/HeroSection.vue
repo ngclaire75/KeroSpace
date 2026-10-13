@@ -8,11 +8,11 @@ type Item = {
 }
 
 const items: Item[] = [
-  { img: '/images/egg-1.webp', name: 'Lazy Yolk', tag: 'Every game, one guide', type: 'Food', rarity: 'Common' },
-  { img: '/images/egg-2.webp', name: 'Side Eye Yolk', tag: 'Identify any item', type: 'Food', rarity: 'Rare' },
-  { img: '/images/egg-3.webp', name: 'Sunny Side', tag: 'Your game item guide', type: 'Food', rarity: 'Legendary' },
-  { img: '/images/egg-4.webp', name: 'Nap Yolk', tag: 'Learn what it does', type: 'Food', rarity: 'Epic' },
-  { img: '/images/egg-5.webp', name: 'Lounge Yolk', tag: 'See how it works', type: 'Food', rarity: 'Uncommon' },
+  { img: '/images/egg-1.webp', name: 'Lazy Yolk', tag: 'Spot rare loot', type: 'Food', rarity: 'Common' },
+  { img: '/images/egg-2.webp', name: 'Side Eye Yolk', tag: 'Know every stat', type: 'Food', rarity: 'Rare' },
+  { img: '/images/egg-3.webp', name: 'Sunny Side', tag: 'Master your gear', type: 'Food', rarity: 'Legendary' },
+  { img: '/images/egg-4.webp', name: 'Nap Yolk', tag: 'Track drop rates', type: 'Food', rarity: 'Epic' },
+  { img: '/images/egg-5.webp', name: 'Lounge Yolk', tag: 'Tips from players', type: 'Food', rarity: 'Uncommon' },
 ]
 
 const n = items.length
