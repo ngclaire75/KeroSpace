@@ -4,11 +4,9 @@ const links = [
   { label: 'Items', active: true },
   { label: 'How It Works' },
   { label: 'Guides' },
-  { label: 'Community', caret: true, sub: ['Discord', 'Events', 'Leaderboard'] },
 ]
 
 const open = ref(false)
-const subOpen = ref(false)
 
 function close() {
   open.value = false
@@ -22,7 +20,6 @@ const onMq = (e: MediaQueryListEvent) => e.matches && close()
 
 watch(open, (v) => {
   document.documentElement.classList.toggle('menu-lock', v)
-  if (!v) subOpen.value = false
 })
 onMounted(() => {
   window.addEventListener('keydown', onKey)
@@ -52,9 +49,6 @@ onBeforeUnmount(() => {
         :aria-current="l.active ? 'page' : undefined"
       >
         {{ l.label }}
-        <svg v-if="l.caret" viewBox="0 0 10 10" width="9" height="9" aria-hidden="true">
-          <path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
       </a>
     </nav>
 
@@ -81,23 +75,20 @@ onBeforeUnmount(() => {
             v-for="(l, k) in links"
             :key="l.label"
             class="menu__item"
-            :class="{ 'is-active': l.active, 'is-sub-open': l.sub && subOpen }"
+            :class="{ 'is-active': l.active }"
             :style="{ '--d': `${0.12 + k * 0.05}s` }"
           >
-            <component
-              :is="l.sub ? 'button' : 'a'"
-              :href="l.sub ? undefined : '#'"
-              :type="l.sub ? 'button' : undefined"
+            <a
+              href="#"
               class="menu__link"
-              :aria-expanded="l.sub ? subOpen : undefined"
               :aria-current="l.active ? 'page' : undefined"
-              @click="l.sub ? (subOpen = !subOpen) : close()"
+              @click="close"
             >
               <span class="menu__num">{{ String(k + 1).padStart(2, '0') }}</span>
               <span class="menu__label">{{ l.label }}</span>
               <svg class="menu__arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
                 <path
-                  :d="l.sub ? 'm6 9 6 6 6-6' : 'M7 17 17 7M8 7h9v9'"
+                  d="M7 17 17 7M8 7h9v9"
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2"
@@ -105,13 +96,7 @@ onBeforeUnmount(() => {
                   stroke-linejoin="round"
                 />
               </svg>
-            </component>
-
-            <div v-if="l.sub" class="menu__sub">
-              <div>
-                <a v-for="s in l.sub" :key="s" href="#" @click="close">{{ s }}</a>
-              </div>
-            </div>
+            </a>
           </li>
         </ol>
 
@@ -382,40 +367,6 @@ onBeforeUnmount(() => {
     background-clip: text;
     color: transparent;
   }
-  .is-sub-open .menu__arrow {
-    color: #fff;
-    transform: rotate(180deg);
-  }
-
-  /* accordion via grid rows (animates to auto height) */
-  .menu__sub {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.45s var(--ease);
-  }
-  .menu__sub > div {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    overflow: hidden;
-    padding-left: 38px;
-  }
-  .is-sub-open .menu__sub {
-    grid-template-rows: 1fr;
-  }
-  .is-sub-open .menu__sub > div {
-    padding-bottom: 18px;
-  }
-  .menu__sub a {
-    padding: 9px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.03);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--ink-2);
-  }
-
   .menu__foot {
     margin-top: auto;
     padding-top: 36px;
