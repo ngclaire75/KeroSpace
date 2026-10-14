@@ -149,17 +149,36 @@ function onUp(e: PointerEvent) {
   if (Math.abs(dx) > 45) (dx < 0 ? next : prev)()
 }
 
-/* ---------- autoplay (paused on hover / focus / reduced motion) ---------- */
+/* ---------- autoplay: a new 4s countdown after every slide, hover or tap ----
+   A self-scheduling timeout rather than setInterval: pausing cancels the
+   pending slide, so resuming always waits a full 4s instead of firing the
+   tick that elapsed while hovered. */
+const DELAY = 4000
 const paused = ref(false)
-let timer: ReturnType<typeof setInterval> | undefined
+let timer: ReturnType<typeof setTimeout> | undefined
+let still = false
+
+function schedule() {
+  clearTimeout(timer)
+  if (still || paused.value || document.hidden) return
+  timer = setTimeout(() => {
+    next()
+    schedule()
+  }, DELAY)
+}
+const onVisibility = () => schedule()
+
+// hover/focus in or out, and any manual change, restart the countdown
+watch([paused, active], schedule)
+
 onMounted(() => {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-  timer = setInterval(() => {
-    if (!paused.value && !document.hidden) next()
-  }, 4800)
+  still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  document.addEventListener('visibilitychange', onVisibility)
+  schedule()
 })
 onBeforeUnmount(() => {
-  clearInterval(timer)
+  clearTimeout(timer)
+  document.removeEventListener('visibilitychange', onVisibility)
   cancelAnimationFrame(raf)
 })
 </script>
