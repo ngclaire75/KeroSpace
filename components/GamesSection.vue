@@ -64,11 +64,11 @@ const games: Game[] = [
 ]
 
 const posters: Record<string, { src: string; width: number; height: number }> = {
-  hsr: { src: '/images/games/hsr-poster.webp', width: 960, height: 1280 },
-  genshin: { src: '/images/games/genshin-uploaded.webp', width: 1200, height: 1200 },
-  hi3: { src: '/images/games/hi3-uploaded.webp', width: 1200, height: 1260 },
-  wuwa: { src: '/images/games/wuwa-card.webp', width: 736, height: 736 },
-  nte: { src: '/images/games/nte-poster.webp', width: 1152, height: 923 },
+  hsr: { src: '/images/games/card-hsr.webp', width: 1600, height: 2134 },
+  genshin: { src: '/images/games/card-genshin.webp', width: 1600, height: 1600 },
+  hi3: { src: '/images/games/card-hi3.webp', width: 1600, height: 1680 },
+  wuwa: { src: '/images/games/card-wuwa.webp', width: 1600, height: 1600 },
+  nte: { src: '/images/games/card-nte.webp', width: 1600, height: 1282 },
 }
 
 const facts = [
@@ -78,8 +78,8 @@ const facts = [
   { k: 'Get started', v: 'Beginner introductions' },
 ]
 const banners = [
-  { src: '/images/Crimson Heir of Chrysos.png', alt: 'Honkai: Star Rail — Crimson Heir of Chrysos banner', width: 1916, height: 821 },
-  { src: '/images/Crimson Spider Lily Character Reveal.png', alt: 'Wuthering Waves — Crimson Spider Lily character reveal banner', width: 1916, height: 821 },
+  { src: '/images/games/banner-hsr-chrysos.webp', alt: 'Honkai: Star Rail — Crimson Heir of Chrysos banner', width: 2560, height: 1096 },
+  { src: '/images/games/banner-wuwa-lily.webp', alt: 'Wuthering Waves — Crimson Spider Lily character reveal banner', width: 2560, height: 1096 },
 ]
 const activeBanner = ref(0)
 let bannerTimer: ReturnType<typeof setInterval> | undefined
@@ -901,13 +901,6 @@ onBeforeUnmount(() => {
   }
   .covers__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* tighter join with the hero on phones */
-@media (max-width: 720px) {
-  .games {
-    padding-top: 4px;
   }
 }
 

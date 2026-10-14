@@ -3,8 +3,12 @@ useHead({ title: 'KeroSpace — Explore Every Game Item' })
 </script>
 
 <template>
-  <main class="page">
-    <HeroSection />
-    <GamesSection />
-  </main>
+  <div>
+    <main class="page">
+      <HeroSection />
+      <GamesSection />
+      <StreamerSpotlightSection />
+    </main>
+    <SiteFooter />
+  </div>
 </template>
