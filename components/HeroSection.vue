@@ -263,9 +263,6 @@ onBeforeUnmount(() => {
       </article>
 
       <div class="stage__nav">
-        <button type="button" class="stage__arrow" aria-label="Previous item" @click="prev">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6" /></svg>
-        </button>
         <div class="stage__dots">
           <button
             v-for="(it, i) in items"
@@ -277,9 +274,6 @@ onBeforeUnmount(() => {
             @click="go(i)"
           />
         </div>
-        <button type="button" class="stage__arrow" aria-label="Next item" @click="next">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6" /></svg>
-        </button>
       </div>
 
       <p class="sr-only" aria-live="polite">
@@ -677,33 +671,6 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 14px;
   translate: -50% 0;
-}
-.stage__arrow {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  cursor: pointer;
-  transition: background 0.25s, border-color 0.25s;
-}
-/* optical centring: a chevron's visual weight sits towards its open side
-   (the triangle it outlines centres ~0.7px off its bounding box), so nudge it
-   towards its point */
-.stage__arrow:first-child svg {
-  translate: -0.75px 0;
-}
-.stage__arrow:last-child svg {
-  translate: 0.75px 0;
-}
-.stage__arrow:hover {
-  background: var(--red);
-  border-color: var(--red);
 }
 .stage__dots {
   display: flex;
