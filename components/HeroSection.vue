@@ -243,7 +243,9 @@ onBeforeUnmount(() => {
           </div>
 
           <div class="card__chip">
-            <img :src="it.img" alt="" width="34" height="34" />
+            <span class="card__avatar">
+              <img :src="it.img" alt="" width="34" height="34" />
+            </span>
             <span>
               <small>Kero</small>
               {{ it.tag }}
@@ -536,17 +538,18 @@ onBeforeUnmount(() => {
   scale: 1.1;
 }
 
-/* iridescent sheen — follows the (eased) pointer position */
+/* neon sheen in the logo's red→pink — follows the (eased) pointer position */
 .card__holo {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     115deg,
-    transparent 25%,
-    rgba(255, 255, 255, 0.35) 42%,
-    rgba(255, 70, 90, 0.35) 50%,
-    rgba(255, 255, 255, 0.3) 58%,
-    transparent 75%
+    transparent 24%,
+    rgba(232, 16, 28, 0.3) 39%,
+    rgba(255, 47, 110, 0.45) 47%,
+    rgba(255, 179, 200, 0.4) 53%,
+    rgba(255, 47, 110, 0.38) 61%,
+    transparent 76%
   );
   background-size: 260% 260%;
   background-position: var(--mx, 50%) var(--my, 50%);
@@ -563,10 +566,11 @@ onBeforeUnmount(() => {
   inset: 0;
   background: radial-gradient(
     circle at var(--mx, 50%) var(--my, 30%),
-    rgba(255, 255, 255, 0.32),
-    transparent 50%
+    rgba(255, 90, 140, 0.3),
+    rgba(232, 16, 28, 0.12) 30%,
+    transparent 52%
   );
-  mix-blend-mode: soft-light;
+  mix-blend-mode: screen;
   opacity: 0;
   transition: opacity 0.5s;
   pointer-events: none;
@@ -589,9 +593,11 @@ onBeforeUnmount(() => {
   background: rgba(14, 8, 10, 0.62);
   backdrop-filter: blur(16px) saturate(1.3);
   -webkit-backdrop-filter: blur(16px) saturate(1.3);
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 800;
   line-height: 1.15;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   opacity: 0;
   transform: translateZ(40px) translateY(10px);
   transition:
@@ -613,17 +619,42 @@ onBeforeUnmount(() => {
     opacity: 0;
   }
 }
-.card__chip img {
+/* avatar ring: a red→pink conic gradient spinning behind the picture */
+.card__avatar {
+  position: relative;
+  flex-shrink: 0;
   width: 34px;
   height: 34px;
+  padding: 2px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.75);
+  overflow: hidden;
+  isolation: isolate;
+}
+.card__avatar::before {
+  content: '';
+  position: absolute;
+  inset: -25%;
+  z-index: -1;
+  background: conic-gradient(#e8101c, #ff2f6e, #ffb3c8, #ff2f6e, #e8101c);
+  animation: ring-spin 3s linear infinite;
+}
+@keyframes ring-spin {
+  to {
+    rotate: 1turn;
+  }
+}
+.card__avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   object-fit: cover;
 }
 .card__chip small {
   display: block;
-  font-size: 10px;
-  font-weight: 600;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   color: var(--ink-2);
 }
 
@@ -742,15 +773,29 @@ onBeforeUnmount(() => {
   .card[data-pos='1'] {
     --ry: -34deg;
   }
+  /* compact label so the all-caps line stays on one row on small cards */
   .card__chip {
     top: 10px;
     left: 10px;
+    gap: 7px;
+    padding: 4px 12px 4px 4px;
+    font-size: 10px;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+  .card__chip small {
+    font-size: 8.5px;
+  }
+  .card__avatar {
+    width: 29px;
+    height: 29px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__stars i,
-  .hero__title em {
+  .hero__title em,
+  .card__avatar::before {
     animation: none;
   }
   .hero__line,

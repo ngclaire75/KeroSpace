@@ -227,7 +227,7 @@ onBeforeUnmount(() => {
   .nav__burger {
     display: block;
     /* optical nudge: sit level with the logo mark */
-    translate: 0 -1px;
+    translate: 0 -1.5px;
   }
   /* logo mark only on mobile — wordmark hidden, mark a touch bigger */
   .nav__word {
@@ -242,7 +242,7 @@ onBeforeUnmount(() => {
   /* sits under the nav's own brand + burger (z -1 inside the nav) and
      opens as a circle growing out of the burger */
   .menu {
-    --origin: calc(100% - 29px) 43px;
+    --origin: calc(100% - 29px) 42.5px;
     position: fixed;
     inset: 0;
     z-index: -1;
