@@ -349,24 +349,24 @@ onBeforeUnmount(() => {
 }
 .hero__title em {
   font-style: normal;
-  /* one full red→white→red cycle across a 200%-wide background, so sliding
+  /* one full red→pink→red cycle (logo colours) across a 200%-wide background, so sliding
      it by exactly its own width loops with no seam */
   background: linear-gradient(
       90deg,
-      #ff1830 0%,
-      #ff4a5d 18%,
-      #ff9aa4 34%,
-      #ffffff 50%,
-      #ff9aa4 66%,
-      #ff4a5d 82%,
-      #ff1830 100%
+      #e8101c 0%,
+      #f5103f 18%,
+      #ff2f6e 34%,
+      #ffb3c8 50%,
+      #ff2f6e 66%,
+      #f5103f 82%,
+      #e8101c 100%
     )
     0 50% / 200% 100% repeat-x;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   text-shadow: none;
-  filter: drop-shadow(0 0 18px rgba(255, 42, 61, 0.45));
+  filter: drop-shadow(0 0 18px rgba(255, 30, 90, 0.5));
   animation: shimmer 7s linear infinite;
 }
 @keyframes shimmer {

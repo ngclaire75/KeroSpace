@@ -38,7 +38,7 @@ onBeforeUnmount(() => {
   <header class="nav" :class="{ 'is-open': open }">
     <a href="#" class="nav__brand" aria-label="KeroSpace home">
       <img class="nav__mark" src="/images/logo.webp" alt="" width="34" height="34" />
-      <img class="nav__word" src="/images/wordmark.webp" alt="" width="840" height="179" />
+      <img class="nav__word" src="/images/wordmark-neon.webp" alt="" width="840" height="206" />
     </a>
 
     <nav class="nav__links" aria-label="Primary">
@@ -102,7 +102,7 @@ onBeforeUnmount(() => {
         </ol>
 
         <div class="menu__foot" :style="{ '--d': `${0.12 + links.length * 0.05}s` }">
-          <small>© {{ new Date().getFullYear() }} KeroSpace</small>
+          <img class="menu__mark" src="/images/wordmark-neon.webp" alt="KeroSpace" width="840" height="206" />
         </div>
       </div>
     </div>
@@ -133,7 +133,7 @@ onBeforeUnmount(() => {
 }
 .nav__word {
   /* trimmed to the artwork incl. its glow; letters sit centred in the box */
-  height: 34px;
+  height: 26px;
   width: auto;
 }
 
@@ -158,8 +158,8 @@ onBeforeUnmount(() => {
   color: #fff;
 }
 .nav__links a.is-active {
-  color: var(--red);
-  text-shadow: 0 0 14px var(--red-glow);
+  color: #fff;
+  font-weight: 800;
 }
 .nav__actions {
   display: flex;
@@ -287,7 +287,8 @@ onBeforeUnmount(() => {
     width: 22px;
     height: 2px;
     border-radius: 2px;
-    background: var(--red);
+    /* logo red → pink */
+    background: linear-gradient(90deg, #f5103f, #ff2f6e);
   }
 
   .menu__list {
@@ -355,13 +356,10 @@ onBeforeUnmount(() => {
   }
   .menu__item.is-active .menu__num,
   .menu__item.is-active .menu__arrow {
-    color: var(--red);
+    color: #fff;
   }
   .menu__item.is-active .menu__label {
-    background: linear-gradient(90deg, #ff2a3d, #ff9aa4);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-weight: 900;
   }
   .menu__foot {
     margin-top: auto;
@@ -372,10 +370,10 @@ onBeforeUnmount(() => {
       opacity 0.3s,
       translate 0.3s;
   }
-  .menu__foot small {
-    font-size: 11.5px;
-    font-weight: 600;
-    color: var(--ink-3);
+  .menu__mark {
+    display: block;
+    height: 30px;
+    width: auto;
   }
 }
 
