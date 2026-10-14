@@ -262,20 +262,6 @@ onBeforeUnmount(() => {
         />
       </article>
 
-      <div class="stage__nav">
-        <div class="stage__dots">
-          <button
-            v-for="(it, i) in items"
-            :key="it.name"
-            type="button"
-            :class="{ 'is-on': i === active }"
-            :aria-label="`Go to ${it.name}`"
-            :aria-current="i === active"
-            @click="go(i)"
-          />
-        </div>
-      </div>
-
       <p class="sr-only" aria-live="polite">
         {{ items[active].name }} — {{ items[active].rarity }} {{ items[active].type }}
       </p>
@@ -662,36 +648,6 @@ onBeforeUnmount(() => {
 }
 
 /* ============ controls ============ */
-.stage__nav {
-  position: absolute;
-  left: 50%;
-  bottom: 18px;
-  z-index: 6;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  translate: -50% 0;
-}
-.stage__dots {
-  display: flex;
-  gap: 7px;
-}
-.stage__dots button {
-  width: 7px;
-  height: 7px;
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.25);
-  cursor: pointer;
-  transition: width 0.5s var(--ease), background 0.3s;
-}
-.stage__dots button.is-on {
-  width: 26px;
-  background: var(--red);
-  box-shadow: 0 0 12px var(--red-glow);
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
