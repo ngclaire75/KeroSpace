@@ -3,7 +3,7 @@ type Game = {
   id: string
   name: string
   dev: string
-  year: number
+  year: number | string
   genre: string
   desc: string
   items: string
@@ -42,16 +42,6 @@ const games: Game[] = [
     platforms: 'PC · Mobile',
   },
   {
-    id: 'valorant',
-    name: 'Valorant',
-    dev: 'Riot Games',
-    year: 2020,
-    genre: 'Tactical shooter',
-    desc: '5v5 precision gunplay meets unique Agent abilities in round-based tactical matches.',
-    items: 'Weapons · Armor',
-    platforms: 'PC · PS5 · Xbox',
-  },
-  {
     id: 'wuwa',
     name: 'Wuthering Waves',
     dev: 'Kuro Games',
@@ -61,7 +51,25 @@ const games: Game[] = [
     items: 'Weapons · Echoes',
     platforms: 'PC · PS5 · Mobile',
   },
+  {
+    id: 'nte',
+    name: 'Neverness to Everness',
+    dev: 'Hotta Studio',
+    year: 2026,
+    genre: 'Urban open-world RPG',
+    desc: 'Explore Hethereau as an Anomaly Hunter, uncover supernatural mysteries and shape your own life in the city.',
+    items: 'Arcs · Cartridges',
+    platforms: 'PC · Mac · PS5 · Mobile',
+  },
 ]
+
+const posters: Record<string, { src: string; width: number; height: number }> = {
+  hsr: { src: '/images/games/hsr-poster.webp', width: 960, height: 1280 },
+  genshin: { src: '/images/games/genshin-uploaded.webp', width: 1200, height: 1200 },
+  hi3: { src: '/images/games/hi3-uploaded.webp', width: 1200, height: 1260 },
+  wuwa: { src: '/images/games/wuwa-uploaded.webp', width: 1200, height: 1147 },
+  nte: { src: '/images/games/nte-poster.webp', width: 1152, height: 923 },
+}
 
 const facts = [
   { k: 'Explore', v: 'Worlds & stories' },
@@ -194,10 +202,11 @@ onBeforeUnmount(() => {
         </div>
         <div class="feature__body">
           <div class="feature__summary">
-            <p class="feature__label">Explore with KeroSpace</p>
-            <h3 id="feature-title" class="feature__title">Your guide to every game</h3>
-            <p class="feature__text">Get to know the games you love with KeroSpace. Explore their worlds, understand how they play and learn about the items and equipment that shape your experience—all in one place.</p>
+            <p class="feature__label"><span aria-hidden="true" />Explore with KeroSpace</p>
+            <h3 id="feature-title" class="feature__title">Your guide to <em>every game</em></h3>
+            <p class="feature__text">Get to know the games you love with KeroSpace. Explore their worlds, understand how they play and learn about the items and equipment that shape your experience.</p>
           </div>
+
           <dl class="feature__facts">
             <div v-for="f in facts" :key="f.k">
               <dt>{{ f.k }}</dt>
@@ -230,32 +239,49 @@ onBeforeUnmount(() => {
         </div>
 
         <ul class="shelf__list" data-reveal>
-          <li v-for="g in games" :key="g.id" class="gcard">
+          <li v-for="(g, k) in games" :key="g.id" class="gcard" :style="{ '--k': k }">
             <article class="gcard__link" :aria-label="g.name">
-              <img
-                class="gcard__poster"
-                :src="`/images/games/${g.id}-poster.webp`"
-                alt=""
-                width="960"
-                height="1280"
-                loading="lazy"
-              />
-              <span class="gcard__body">
-                <span class="gcard__genre">{{ g.genre }}</span>
-                <span class="gcard__logo" :class="{ 'gcard__logo--hsr': g.id === 'hsr', 'gcard__logo--valorant': g.id === 'valorant', 'gcard__logo--hi3': g.id === 'hi3' }">
+              <span class="gcard__poster-frame">
+                <img
+                  class="gcard__poster"
+                  :class="`gcard__poster--${g.id}`"
+                  :src="posters[g.id].src"
+                  alt=""
+                  :width="posters[g.id].width"
+                  :height="posters[g.id].height"
+                  loading="lazy"
+                />
+                <span class="gcard__veil" aria-hidden="true" />
+
+                <span class="gcard__tags">
+                  <span class="gcard__genre">{{ g.genre }}</span>
+                </span>
+
+                <span class="gcard__logo" :class="`gcard__logo--${g.id}`">
                   <img :src="`/images/games/${g.id}-logo.webp`" :alt="g.name" loading="lazy" />
                 </span>
+              </span>
+
+              <span class="gcard__body">
                 <span class="gcard__name">{{ g.name }}</span>
-                <span class="gcard__meta">{{ g.dev }} · {{ g.year }}</span>
+                <span class="gcard__meta">
+                  <span class="gcard__dev">{{ g.dev }}</span>
+                </span>
                 <span class="gcard__desc">{{ g.desc }}</span>
-                <span class="gcard__row">
-                  <span class="gcard__items">
-                    <img :src="artwork[8]" alt="" width="22" height="22" loading="lazy" />
-                    {{ g.items }}
+
+                <span class="gcard__stats">
+                  <span class="gcard__stat">
+                    <span class="gcard__stat-k">Items</span>
+                    <span class="gcard__stat-v">{{ g.items }}</span>
+                  </span>
+                  <span class="gcard__stat">
+                    <span class="gcard__stat-k">Platforms</span>
+                    <span class="gcard__stat-v">{{ g.platforms }}</span>
                   </span>
                 </span>
+
                 <span class="gcard__foot">
-                  <span class="gcard__platforms">{{ g.platforms }}</span>
+                  <span class="gcard__cta">Read introduction</span>
                   <span class="gcard__go" aria-hidden="true">
                     <svg viewBox="0 0 24 24" width="16" height="16">
                       <path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
@@ -358,7 +384,6 @@ onBeforeUnmount(() => {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   margin-top: 28px;
-  border: 1px solid var(--edge);
   border-radius: 10px;
   overflow: hidden;
   background: var(--panel);
@@ -461,15 +486,25 @@ onBeforeUnmount(() => {
   gap: clamp(24px, 4vw, 56px);
   align-items: start;
   padding: clamp(22px, 3vw, 36px);
-  border-top: 1px solid var(--edge);
+  border: 1px solid var(--edge);
 }
 .feature__label {
-  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 12px;
   color: #ff5a8a;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+.feature__label span {
+  flex-shrink: 0;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #e8101c, #ff2f6e);
 }
 .feature__title {
   margin: 0;
@@ -477,6 +512,14 @@ onBeforeUnmount(() => {
   font-size: clamp(21px, 2.4vw, 30px);
   line-height: 1.3;
   text-transform: uppercase;
+  text-wrap: balance;
+}
+.feature__title em {
+  font-style: normal;
+  background: linear-gradient(90deg, #e8101c, #ff2f6e 58%, #ffb3c8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 .feature__text {
   margin: 12px 0 0;
@@ -497,23 +540,24 @@ onBeforeUnmount(() => {
 .feature__facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px 18px;
+  gap: 30px 18px;
   margin: 0;
   padding: 0 0 0 28px;
   border-left: 1px solid var(--edge);
 }
 .feature__facts div { min-width: 0; }
 .feature__facts dt {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
 .feature__facts dd {
-  margin: 6px 0 0;
-  font-size: 14px;
+  margin: 8px 0 0;
+  font-size: 16px;
   font-weight: 700;
+  line-height: 1.4;
 }
 
 .feature__summary { min-width: 0; }
@@ -591,8 +635,8 @@ onBeforeUnmount(() => {
 }
 .shelf__list {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -610,74 +654,147 @@ onBeforeUnmount(() => {
   padding: 0;
   text-align: left;
   border: 1px solid var(--edge);
+  /* matches the feature panel above */
   border-radius: 10px;
   overflow: hidden;
-  background: var(--panel);
-  transition: border-color 0.35s, box-shadow 0.35s;
+  background:
+    radial-gradient(120% 70% at 50% 0%, rgba(232, 16, 28, 0.1), transparent 62%),
+    var(--panel);
+  transition: border-color 0.4s var(--ease);
+}
+.gcard__poster-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  flex-shrink: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: 9px 9px 0 0;
+  overflow: hidden;
+  /* the scaling poster is composited, so clip it here rather than relying on
+     the card's overflow — keeps the card's own 1px outline unclipped */
+  clip-path: inset(0 round 9px 9px 0 0);
 }
 .gcard__poster {
   width: 100%;
-  height: auto;
-  flex-shrink: 0;
-  aspect-ratio: 4 / 3;
+  height: 100%;
   object-fit: cover;
   object-position: 50% 20%;
-  border-bottom: 1px solid var(--edge);
 }
-.gcard__genre {
-  align-self: start;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #ff8aaa;
+.gcard__poster--hi3 {
+  object-position: 50% 35%;
 }
-.gcard__body {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 12px;
-  min-width: 0;
-  width: 100%;
-  padding: 18px 16px;
+/* art fades into the panel so the logo always has a dark bed */
+.gcard__veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.05) 26%,
+    rgba(0, 0, 0, 0.35) 62%,
+    rgba(11, 11, 14, 0.92) 88%,
+    var(--panel) 100%
+  );
+  pointer-events: none;
 }
-.gcard__logo {
+.gcard__tags {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
   display: flex;
   align-items: center;
-  height: 48px;
+  justify-content: space-between;
+  gap: 8px;
+}
+.gcard__genre {
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(10, 6, 8, 0.62);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.gcard__genre {
+  min-width: 0;
+  overflow: hidden;
+  color: #ff8aaa;
+  text-overflow: ellipsis;
+}
+
+/* every logo centres in the same box, so different shapes line up */
+.gcard__logo {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  display: flex;
+  align-items: flex-end;
+  height: 56px;
 }
 .gcard__logo img {
-  max-width: 90%;
+  max-width: 88%;
   max-height: 100%;
   width: auto;
   height: auto;
   object-fit: contain;
-  object-position: left center;
+  object-position: left bottom;
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.75));
 }
+/* both marks are tall for their width, so the 56px bed left them small —
+   give them height to match the wide wordmarks (they overflow upward) */
 .gcard__logo--hsr img {
-  height: 62px;
-  max-height: 62px;
+  height: 86px;
+  max-height: 86px;
   max-width: 100%;
 }
 .gcard__logo--hi3 img {
-  height: 56px;
-  max-height: 56px;
+  height: 72px;
+  max-height: 72px;
   max-width: 100%;
 }
-.gcard__logo--valorant img {
-  max-width: 78%;
+/* near-square mark: give it height so it reads at a similar weight
+   to the wide wordmarks (it overflows the 56px bed upward, by design) */
+.gcard__logo--nte img {
+  height: 78px;
+  max-height: 78px;
+  max-width: 100%;
+}
+
+/* ---- body ---- */
+.gcard__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  width: 100%;
+  padding: 16px;
 }
 .gcard__name {
   font-family: var(--display);
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 800;
-  line-height: 1.4;
-  min-height: 2.8em;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
 }
 .gcard__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: -4px;
+}
+.gcard__dev {
   font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
@@ -685,44 +802,65 @@ onBeforeUnmount(() => {
   flex: 1;
   font-size: 13px;
   font-weight: 600;
-  line-height: 1.65;
+  line-height: 1.62;
+  color: var(--ink-2);
+}
+
+/* ---- stat rows ---- */
+.gcard__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.gcard__stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  padding: 9px 12px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background:
+    linear-gradient(100deg, rgba(232, 16, 28, 0.3), rgba(255, 47, 110, 0.26) 58%, rgba(150, 60, 255, 0.28)) padding-box,
+    linear-gradient(100deg, #e8101c, #ff2f6e 58%, #9b3cff) border-box;
+}
+.gcard__stat-k {
+  flex-shrink: 0;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: #fff;
 }
-.gcard__items {
+.gcard__stat-v {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  max-width: 100%;
-  padding: 6px 11px;
-  border: 1px solid transparent;
-  border-radius: 5px;
-  background:
-    linear-gradient(110deg, #2a080f, #260b1c) padding-box,
-    linear-gradient(110deg, #ff173b, #ff3a9a) border-box;
-  box-shadow: 0 0 9px rgba(255, 32, 100, 0.16), inset 0 0 8px rgba(255, 47, 139, 0.08);
-  color: #fff;
-  font-size: 11px;
+  min-width: 0;
+  font-size: 11.5px;
   font-weight: 700;
-  line-height: 1.5;
+  line-height: 1.45;
+  text-align: right;
+  color: #fff;
 }
-.gcard__items img,
-.gcard__go img {
-  flex-shrink: 0;
-  object-fit: contain;
-}
+
+/* ---- footer ---- */
 .gcard__foot {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding-top: 12px;
+  margin-top: 2px;
+  padding-top: 4px;
 }
-.gcard__platforms {
-  min-width: 0;
+.gcard__cta {
   font-size: 11px;
-  font-weight: 700;
-  line-height: 1.6;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--ink-2);
+  transition: color 0.3s;
 }
 .gcard__go {
   display: grid;
@@ -731,13 +869,17 @@ onBeforeUnmount(() => {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  transition: background 0.3s;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background 0.35s;
 }
 
 @media (hover: hover) {
+  /* no motion on hover: the card and arrow stay put */
   .gcard__link:hover {
-    border-color: rgba(255, 47, 110, 0.55);
+    border-color: rgba(255, 47, 110, 0.45);
+  }
+  .gcard__link:hover .gcard__cta {
+    color: #fff;
   }
   .gcard__link:hover .gcard__go {
     background: var(--grad);
@@ -745,28 +887,6 @@ onBeforeUnmount(() => {
 }
 
 /* ============ responsive ============ */
-@media (max-width: 1180px) {
-  /* five posters get too narrow: switch to a swipeable shelf */
-  .shelf__list {
-    display: flex;
-    gap: 14px;
-    margin: 0 calc(-1 * clamp(16px, 4vw, 40px));
-    padding: 8px clamp(16px, 4vw, 40px) 4px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: clamp(16px, 4vw, 40px);
-    scrollbar-width: none;
-    overscroll-behavior-x: contain;
-  }
-  .shelf__list::-webkit-scrollbar {
-    display: none;
-  }
-  .gcard {
-    flex: 0 0 clamp(236px, 30vw, 270px);
-    scroll-snap-align: start;
-  }
-}
-
 @media (max-width: 980px) {
   .feature { grid-template-columns: minmax(0, 1fr); }
   .feature__body { grid-template-columns: minmax(0, 1fr); }
@@ -780,7 +900,18 @@ onBeforeUnmount(() => {
   }
 }
 
+/* tighter join with the hero on phones */
+@media (max-width: 720px) {
+  .games {
+    padding-top: 4px;
+  }
+}
+
 @media (max-width: 560px) {
+  .shelf__list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
   .banner-indicators {
     bottom: -5px;
   }
@@ -826,9 +957,6 @@ onBeforeUnmount(() => {
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
-  }
-  .gcard {
-    flex-basis: min(280px, 82vw);
   }
 }
 

@@ -681,11 +681,13 @@ onBeforeUnmount(() => {
     padding-top: 40px;
   }
   .stage {
-    --floor: 84px;
+    --floor: 34px;
     flex: 0 0 auto;
     height: calc(min(48vw, 210px) * 1.2424 + var(--floor) + 16px);
     margin-top: 28px;
-    margin-bottom: auto;
+    /* free space goes above the copy instead of below the cards, so the
+       next section starts right after the carousel */
+    margin-bottom: 0;
   }
   .stage > * {
     --cw: min(48vw, 210px, calc((100cqh - var(--floor) - 16px) / 1.2424));
