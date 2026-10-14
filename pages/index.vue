@@ -5,5 +5,6 @@ useHead({ title: 'KeroSpace — Explore Every Game Item' })
 <template>
   <main class="page">
     <HeroSection />
+    <GamesSection />
   </main>
 </template>

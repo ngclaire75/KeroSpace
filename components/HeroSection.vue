@@ -325,7 +325,7 @@ onBeforeUnmount(() => {
 .hero__copy {
   position: relative;
   z-index: 2;
-  padding: clamp(40px, min(6vw, 7vh), 80px) 20px 0;
+  padding: calc(clamp(40px, min(6vw, 7vh), 80px) + 16px) 20px 0;
   text-align: center;
 }
 .hero__title {
@@ -350,25 +350,21 @@ onBeforeUnmount(() => {
 }
 .hero__title em {
   font-style: normal;
-  /* one full red→pink→red cycle (logo colours) across a 200%-wide background, so sliding
-     it by exactly its own width loops with no seam */
+  /* Matching endpoints keep the pink → red → purple cycle seamless. */
   background: linear-gradient(
       90deg,
-      #e8101c 0%,
-      #f5103f 18%,
-      #ff2f6e 34%,
-      #ffb3c8 50%,
-      #ff2f6e 66%,
-      #f5103f 82%,
-      #e8101c 100%
+      #ff54bb 0%,
+      #ff183b 33.333%,
+      #b26bff 66.667%,
+      #ff54bb 100%
     )
     0 50% / 200% 100% repeat-x;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   text-shadow: none;
-  filter: drop-shadow(0 0 18px rgba(255, 30, 90, 0.5));
-  animation: shimmer 7s linear infinite;
+  filter: drop-shadow(0 0 18px rgba(255, 84, 187, 0.3)) drop-shadow(0 0 10px rgba(178, 107, 255, 0.2));
+  animation: shimmer 10s linear infinite;
 }
 @keyframes shimmer {
   to {
@@ -682,7 +678,7 @@ onBeforeUnmount(() => {
      under the nav so there's no big gap between them */
   .hero__copy {
     margin-top: auto;
-    padding-top: 24px;
+    padding-top: 40px;
   }
   .stage {
     --floor: 84px;
