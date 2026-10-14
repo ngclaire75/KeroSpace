@@ -103,6 +103,7 @@ onBeforeUnmount(() => {
 
         <div class="menu__foot" :style="{ '--d': `${0.12 + links.length * 0.05}s` }">
           <img class="menu__mark" src="/images/wordmark-neon.webp" alt="KeroSpace" width="840" height="206" />
+          <p class="menu__credit">designed by claire.</p>
         </div>
       </div>
     </div>
@@ -374,6 +375,18 @@ onBeforeUnmount(() => {
     display: block;
     height: 30px;
     width: auto;
+  }
+  .menu__credit {
+    display: inline-block;
+    margin: -2px 0 0;
+    font-family: var(--display);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    background: linear-gradient(90deg, #ff304f, #bd7aff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 }
 

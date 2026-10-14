@@ -614,7 +614,7 @@ onBeforeUnmount(() => {
     opacity: 0;
   }
 }
-/* avatar ring: a red→pink conic gradient spinning behind the picture */
+/* avatar ring: a red → pink → purple gradient spinning behind the picture */
 .card__avatar {
   position: relative;
   flex-shrink: 0;
@@ -630,7 +630,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: -25%;
   z-index: -1;
-  background: conic-gradient(#e8101c, #ff2f6e, #ffb3c8, #ff2f6e, #e8101c);
+  background: conic-gradient(#ff183b 0%, #ff54bb 33.333%, #b26bff 66.667%, #ff183b 100%);
   animation: ring-spin 3s linear infinite;
 }
 @keyframes ring-spin {

@@ -209,7 +209,9 @@ onBeforeUnmount(() => {
 
       <!-- ===== what each introduction covers ===== -->
       <div class="covers" data-reveal>
-        <p class="covers__label">Every introduction covers</p>
+        <div class="shelf__head">
+          <h3 class="shelf__title">Every introduction covers</h3>
+        </div>
         <ol class="covers__list">
           <li v-for="c in covers" :key="c.t" class="cover">
             <span class="cover__icon" :class="{ 'cover__icon--first-steps': c.t === 'First steps' }" aria-hidden="true">
@@ -517,15 +519,7 @@ onBeforeUnmount(() => {
 .feature__summary { min-width: 0; }
 /* ============ covers ============ */
 .covers {
-  margin-top: clamp(40px, 5vw, 64px);
-}
-.covers__label {
-  margin: 0 0 16px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ink-3);
+  margin-top: clamp(56px, 7vw, 88px);
 }
 .covers__list {
   display: grid;
@@ -706,7 +700,7 @@ onBeforeUnmount(() => {
     linear-gradient(110deg, #2a080f, #260b1c) padding-box,
     linear-gradient(110deg, #ff173b, #ff3a9a) border-box;
   box-shadow: 0 0 9px rgba(255, 32, 100, 0.16), inset 0 0 8px rgba(255, 47, 139, 0.08);
-  color: #ffd3e5;
+  color: #fff;
   font-size: 11px;
   font-weight: 700;
   line-height: 1.5;
@@ -787,13 +781,29 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 560px) {
+  .banner-indicators {
+    bottom: -5px;
+  }
   .games__lede {
     font-size: 15px;
   }
   .feature {
     border-radius: 10px;
   }
-  .feature__facts dd { font-size: 13px; }
+  .feature__facts { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .feature__facts div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .feature__facts dt { flex-shrink: 0; letter-spacing: 0.1em; }
+  .feature__facts dd {
+    margin: 0;
+    font-size: clamp(11px, 3.3vw, 13px);
+    white-space: nowrap;
+    text-align: right;
+  }
   .covers__list {
     grid-template-columns: 1fr;
   }
