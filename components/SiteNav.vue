@@ -38,7 +38,7 @@ onBeforeUnmount(() => {
   <header class="nav" :class="{ 'is-open': open }">
     <a href="#" class="nav__brand" aria-label="KeroSpace home">
       <img class="nav__mark" src="/images/logo.webp" alt="" width="34" height="34" />
-      <span class="nav__word">KERO<b>SPACE</b></span>
+      <img class="nav__word" src="/images/wordmark.webp" alt="" width="840" height="179" />
     </a>
 
     <nav class="nav__links" aria-label="Primary">
@@ -132,14 +132,9 @@ onBeforeUnmount(() => {
   filter: drop-shadow(0 0 10px rgba(255, 42, 61, 0.45));
 }
 .nav__word {
-  font-family: var(--display);
-  font-weight: 800;
-  font-size: 19px;
-  letter-spacing: 0.06em;
-}
-.nav__word b {
-  font-weight: 800;
-  color: var(--red);
+  /* trimmed to the artwork incl. its glow; letters sit centred in the box */
+  height: 34px;
+  width: auto;
 }
 
 .nav__links {
