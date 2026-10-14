@@ -67,7 +67,7 @@ const posters: Record<string, { src: string; width: number; height: number }> = 
   hsr: { src: '/images/games/hsr-poster.webp', width: 960, height: 1280 },
   genshin: { src: '/images/games/genshin-uploaded.webp', width: 1200, height: 1200 },
   hi3: { src: '/images/games/hi3-uploaded.webp', width: 1200, height: 1260 },
-  wuwa: { src: '/images/games/wuwa-uploaded.webp', width: 1200, height: 1147 },
+  wuwa: { src: '/images/games/wuwa-card.webp', width: 736, height: 736 },
   nte: { src: '/images/games/nte-poster.webp', width: 1152, height: 923 },
 }
 
@@ -682,6 +682,10 @@ onBeforeUnmount(() => {
 }
 .gcard__poster--hi3 {
   object-position: 50% 35%;
+}
+/* square source: pull the crop down so the face clears the logo */
+.gcard__poster--wuwa {
+  object-position: 50% 100%;
 }
 /* art fades into the panel so the logo always has a dark bed */
 .gcard__veil {
