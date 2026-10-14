@@ -78,8 +78,8 @@ const facts = [
   { k: 'Get started', v: 'Beginner introductions' },
 ]
 const banners = [
-  { src: '/images/games/banner-hsr-chrysos.webp', alt: 'Honkai: Star Rail — Crimson Heir of Chrysos banner', width: 2560, height: 1096 },
-  { src: '/images/games/banner-wuwa-lily.webp', alt: 'Wuthering Waves — Crimson Spider Lily character reveal banner', width: 2560, height: 1096 },
+  { src: '/images/games/banner-hsr-chrysos.webp', mobile: '/images/games/banner-hsr-mobile.webp', alt: 'Honkai: Star Rail — Crimson Heir of Chrysos banner', width: 2560, height: 1096 },
+  { src: '/images/games/banner-wuwa-resonance-esrgan.webp', mobile: '/images/games/banner-wuwa-mobile-resonance.webp', alt: 'Wuthering Waves — Crimson Spider Lily Resonance banner', width: 3832, height: 1642 },
 ]
 const activeBanner = ref(0)
 let bannerTimer: ReturnType<typeof setInterval> | undefined
@@ -175,18 +175,16 @@ onBeforeUnmount(() => {
 
       <article id="game-introduction" tabindex="-1" class="feature" data-reveal aria-labelledby="feature-title">
         <div id="banner-slides" class="feature__media">
-          <img
+          <picture
             v-for="(banner, index) in banners"
             :key="banner.src"
-            class="feature__art"
+            class="feature__slide"
             :class="{ 'is-active': activeBanner === index }"
-            :width="banner.width"
-            :height="banner.height"
-            :src="banner.src"
-            :alt="banner.alt"
             :aria-hidden="activeBanner !== index"
-            loading="eager"
-          />
+          >
+            <source v-if="banner.mobile" media="(max-width: 560px)" :srcset="banner.mobile" />
+            <img class="feature__art" :width="banner.width" :height="banner.height" :src="banner.src" :alt="banner.alt" loading="eager" />
+          </picture>
           <div class="banner-indicators" role="group" aria-label="Choose a banner">
             <button
               v-for="(banner, index) in banners"
@@ -434,18 +432,20 @@ onBeforeUnmount(() => {
   filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.35));
   animation: banner-outline 6s linear infinite;
 }
-.feature__art {
+.feature__slide {
   position: absolute;
   inset: 0;
   opacity: 0;
   transition: opacity 0.65s ease;
+}
+.feature__art {
   display: block;
   width: 100%;
   height: 100%;
   min-height: 0;
   object-fit: cover;
 }
-.feature__art.is-active { opacity: 1; }
+.feature__slide.is-active { opacity: 1; }
 .banner-indicators {
   position: absolute;
   bottom: 6px;
@@ -905,6 +905,8 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 560px) {
+  .feature__media { aspect-ratio: 1672 / 941; }
+  .feature__art { object-fit: contain; }
   .shelf__list {
     grid-template-columns: minmax(0, 1fr);
     gap: 20px;
@@ -959,6 +961,7 @@ onBeforeUnmount(() => {
 
 @media (prefers-reduced-motion: reduce) {
   .feature__media::after { animation: none; }
+  .feature__slide,
   .feature__art,
   .banner-indicators span,
   .games [data-reveal],
