@@ -236,7 +236,7 @@ onBeforeUnmount(() => {
   .nav__mark {
     width: 48px;
     height: 48px;
-    translate: 0 1px;
+    translate: 0 2px;
   }
 
   /* sits under the nav's own brand + burger (z -1 inside the nav) and
