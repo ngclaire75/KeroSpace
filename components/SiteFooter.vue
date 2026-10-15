@@ -1,6 +1,9 @@
 <script setup lang="ts">
 const year = new Date().getFullYear()
 
+// ticker words (Korean gaming vocabulary)
+const tickerWords = ['게임', '아이템', '레벨 업', '크로스 플레이', '협동 플레이', '퀘스트', '보스 레이드', '파티 모집', '랭크전', '모험', '장비', '승리']
+
 const columns = [
   {
     title: 'Explore',
@@ -29,6 +32,29 @@ const columns = [
 
 <template>
   <footer class="footer">
+    <!-- neon ticker along the top edge -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <ul v-for="copy in 2" :key="copy" class="ticker__list">
+          <li v-for="word in tickerWords" :key="word">
+            <span>{{ word }}</span>
+            <svg class="ticker__star" viewBox="0 0 80 80" width="12" height="12" focusable="false">
+              <path fill="currentColor" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="4"
+                d="m40 12l7.92 20.08L68 40l-20.08 7.92L40 68l-7.92-20.08L12 40l20.08-7.92z" />
+            </svg>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Vexana artwork, fading into the black footer -->
+    <figure class="footer__art">
+      <picture>
+        <source media="(max-width: 700px)" srcset="/images/vexana-mobile-esrgan.webp" width="1080" height="608" />
+        <img src="/images/vexana-esrgan.webp" alt="Vexana character banner from Mobile Legends: Bang Bang" width="3200" height="1067" loading="lazy" decoding="async" />
+      </picture>
+    </figure>
+
     <div class="footer__wrap">
       <!-- ===== brand + link columns ===== -->
       <div class="grid">
@@ -69,10 +95,98 @@ const columns = [
   --f-line: rgba(255, 255, 255, 0.28);
   --f-grad: linear-gradient(100deg, var(--f-purple), var(--f-red) 52%, var(--f-pink));
   position: relative;
+  isolation: isolate;
   padding: 0 0 28px;
   overflow: hidden;
-  /* solid dark red → pink */
-  background: linear-gradient(115deg, #a50b1b 0%, #cf1030 38%, #ec2a6c 74%, #ff4ea5 100%);
+  background: #000;
+}
+/* ---------- neon ticker (slim) ---------- */
+.ticker {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  padding: 6px 0;
+  background: linear-gradient(90deg, #5b1dff 0%, #8a3dff 25%, #b26bff 50%, #8a3dff 75%, #5b1dff 100%);
+  box-shadow:
+    0 0 18px rgba(160, 90, 255, 0.6),
+    0 0 40px rgba(120, 50, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: footer-ticker 40s linear infinite;
+}
+.ticker__list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ticker__list li {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.8vw, 24px);
+  padding-right: clamp(14px, 1.8vw, 24px);
+  white-space: nowrap;
+}
+.ticker__list span {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Noto Sans CJK KR', 'Malgun Gothic', var(--ui);
+  font-size: clamp(12px, 1vw, 14px);
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 18px rgba(230, 190, 255, 0.55);
+}
+.ticker__star {
+  flex-shrink: 0;
+  width: clamp(10px, 0.9vw, 12px);
+  height: auto;
+  color: #fff;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+}
+@keyframes footer-ticker {
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track {
+    animation: none;
+  }
+}
+
+/* ---------- artwork ---------- */
+.footer__art {
+  position: relative;
+  z-index: -1;
+  margin: 0;
+  height: clamp(280px, 34vw, 500px);
+  --fade: linear-gradient(180deg,
+    #000 0%, #000 30%,
+    rgba(0, 0, 0, 0.94) 40%, rgba(0, 0, 0, 0.82) 50%, rgba(0, 0, 0, 0.64) 60%,
+    rgba(0, 0, 0, 0.44) 70%, rgba(0, 0, 0, 0.26) 80%, rgba(0, 0, 0, 0.11) 90%,
+    rgba(0, 0, 0, 0.03) 96%, transparent 100%);
+  -webkit-mask-image: var(--fade);
+  mask-image: var(--fade);
+}
+.footer__art picture,
+.footer__art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.footer__art img {
+  object-fit: cover;
+  object-position: center 35%;
+}
+/* push the art toward the neon red → purple palette */
+.footer__art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 24, 59, 0.32) 0%, rgba(255, 24, 59, 0.18) 20%, rgba(255, 84, 187, 0.06) 45%, rgba(178, 107, 255, 0.08) 60%, rgba(178, 107, 255, 0.22) 80%, rgba(178, 107, 255, 0.36) 100%);
+  mix-blend-mode: color;
 }
 .footer__wrap {
   width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px));
@@ -86,7 +200,7 @@ const columns = [
   grid-template-columns: repeat(2, minmax(0, 240px));
   column-gap: clamp(28px, 5vw, 72px);
   row-gap: 28px;
-  padding: clamp(48px, 6vw, 72px) 0 clamp(36px, 5vw, 56px);
+  padding: clamp(28px, 3.5vw, 48px) 0 clamp(36px, 5vw, 56px);
 }
 .brand {
   grid-column: 1 / -1;
@@ -141,7 +255,7 @@ const columns = [
   gap: 24px;
   margin-top: clamp(20px, 3vw, 32px);
   padding-top: 22px;
-  border-top: 1px solid var(--f-line);
+  border-top: 1px solid #fff;
 }
 .bar__copy,
 .bar__note {
@@ -162,6 +276,7 @@ const columns = [
 @media (hover: hover) {
   .col a:hover {
     color: #fff;
+    text-shadow: 0 0 12px rgba(178, 107, 255, 0.9);
   }
 }
 
@@ -176,6 +291,13 @@ const columns = [
   }
   .bar__note {
     text-align: left;
+  }
+}
+
+@media (max-width: 700px) {
+  .footer__art {
+    height: auto;
+    aspect-ratio: 1080 / 608;
   }
 }
 

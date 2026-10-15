@@ -80,12 +80,6 @@ onBeforeUnmount(() => {
         </div>
       </header>
 
-      <figure class="together__banner neon-hover-outline" data-together-reveal>
-        <picture>
-          <img src="/images/vexana-esrgan.webp" alt="Vexana character banner from Mobile Legends: Bang Bang" width="3200" height="1067" loading="lazy" decoding="async" />
-        </picture>
-      </figure>
-
       <div class="party-cards" :aria-label="`${compatibilityGames.length} games`" @scroll.passive="onScroll"
         @pointerdown="release" @touchstart.passive="release" ref="track">
         <article v-for="game in compatibilityGames" :key="game.id" class="party-card neon-hover-outline"
@@ -126,14 +120,9 @@ onBeforeUnmount(() => {
 .together h2 { margin: 0; font: 800 clamp(28px, 3.4vw, 46px)/1.25 var(--display); letter-spacing: -.01em; text-transform: uppercase; }
 .together h2 em { font-style: normal; color: var(--together-pink); background: linear-gradient(100deg, var(--together-pink), var(--together-red) 50%, var(--together-purple)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .together__intro { max-width: 480px; }
+.together__head { margin-bottom: 32px; }
 .together__intro p { margin: 0; color: var(--together-muted); font-size: 16px; font-weight: 600; line-height: 1.8; }
 
-/* banner */
-/* no border: the neon ring (::after, inset 0) must sit on the outer edge, same radius as the clip */
-.together__banner { margin: 32px 0 28px; border: 0; border-radius: 12px; overflow: hidden; background: #09080c; }
-.together__banner::after { opacity: 1; animation: card-outline-turn 3s linear infinite; }
-.together__banner picture { display: block; }
-.together__banner img { width: 100%; height: auto; aspect-ratio: 3200 / 1067; object-fit: cover; }
 
 /* cards */
 .party-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 20px; }
@@ -160,7 +149,6 @@ onBeforeUnmount(() => {
 
 /* phone: swipeable cards */
 @media (max-width: 700px) {
-  .together__banner { display: none; }
   .together__head { margin-bottom: 24px; }
   .party-cards { display: flex; gap: 16px; overflow-x: auto; overflow-y: hidden; touch-action: pan-x pan-y; overscroll-behavior-y: none; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
   .party-cards::-webkit-scrollbar { display: none; }
@@ -175,6 +163,6 @@ onBeforeUnmount(() => {
 @media (prefers-reduced-motion: reduce) {
   [data-together-reveal] { transition: none; }
   .is-armed [data-together-reveal]:not(.is-visible) { opacity: 1; transform: none; }
-  .party-card::after, .together__banner::after { animation: none; }
+  .party-card::after { animation: none; }
 }
 </style>
