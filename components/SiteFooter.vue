@@ -14,6 +14,7 @@ const columns = [
       { label: 'Community', href: '/community' },
       { label: 'Guides', href: '/#' },
       { label: 'Top Up', href: '/top-up' },
+      { label: 'E-Sports', href: '/#' },
     ],
   },
   {
@@ -140,10 +141,23 @@ const columns = [
   color: #fff;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 18px rgba(230, 190, 255, 0.55);
 }
+/* trim the text box to the glyphs (cap height → baseline) so the Korean
+   letters sit dead-centre in the band and level with the stars, instead of
+   riding high on the font's tall descent area. Padding grows to keep the
+   band the same slim height. */
+@supports (text-box: trim-both cap alphabetic) {
+  .ticker {
+    padding: 9px 0;
+  }
+  .ticker__list span {
+    text-box: trim-both cap alphabetic;
+  }
+}
 .ticker__star {
   flex-shrink: 0;
   width: clamp(10px, 0.9vw, 12px);
   height: auto;
+  display: block;
   color: #fff;
   filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
 }

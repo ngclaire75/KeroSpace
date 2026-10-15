@@ -8,10 +8,13 @@ const links = computed(() => [
   { label: 'Items' },
   { label: 'Community', href: '/community', active: route.path === '/community' },
   { label: 'Guides' },
+  { label: 'Top Up', href: '/top-up', active: route.path === '/top-up' },
   { label: 'E-Sports' },
 ])
 
 const open = ref(false)
+// the menu item that was just tapped keeps its neon text while the menu closes
+const pressed = ref<string | null>(null)
 
 function close() {
   open.value = false
@@ -25,6 +28,7 @@ const onMq = (e: MediaQueryListEvent) => e.matches && close()
 
 watch(open, (v) => {
   document.documentElement.classList.toggle('menu-lock', v)
+  if (v) pressed.value = null
 })
 onMounted(() => {
   window.addEventListener('keydown', onKey)
@@ -83,7 +87,7 @@ onBeforeUnmount(() => {
             v-for="(l, k) in links"
             :key="l.label"
             class="menu__item"
-            :class="{ 'is-active': l.active }"
+            :class="{ 'is-active': l.active, 'is-pressed': pressed === l.label }"
             :style="{ '--d': `${0.12 + k * 0.05}s` }"
           >
             <component
@@ -93,6 +97,7 @@ onBeforeUnmount(() => {
               :role="!l.href ? 'link' : undefined"
               :aria-disabled="!l.href ? true : undefined"
               :aria-current="l.active ? 'page' : undefined"
+              @pointerdown="l.href && (pressed = l.label)"
               @click="l.href && close()"
             >
               <span class="menu__num">{{ String(k + 1).padStart(2, '0') }}</span>
@@ -352,9 +357,7 @@ onBeforeUnmount(() => {
     letter-spacing: 0.02em;
     text-transform: uppercase;
     color: #fff;
-    transition:
-      color 0.3s,
-      translate 0.4s var(--ease);
+    transition: color 0.3s;
   }
   .menu__arrow {
     color: var(--ink-3);
@@ -365,8 +368,16 @@ onBeforeUnmount(() => {
   .menu__link[aria-disabled="true"] {
     cursor: default;
   }
-  .menu__link:not([aria-disabled="true"]):active .menu__label {
-    translate: 6px 0;
+  /* tap: the label lights up in an animated neon pink → purple gradient */
+  .menu__link:not([aria-disabled="true"]):active .menu__label,
+  .menu__item.is-pressed .menu__label {
+    background: linear-gradient(90deg, #ff54bb, #b26bff, #ff54bb, #b26bff);
+    background-size: 300% 100%;
+    background-position: 0% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: menu-neon 1.2s linear infinite;
   }
   .menu__item.is-active .menu__num,
   .menu__item.is-active .menu__arrow {
@@ -410,13 +421,19 @@ onBeforeUnmount(() => {
   }
 }
 
+@keyframes menu-neon {
+  /* one full pink → purple → pink period, so the loop is seamless */
+  to { background-position: 100% 50%; }
+}
+
 @keyframes credit-gradient {
   to { background-position: 200% 50%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .menu__credit {
-    animation: none;
+  .menu__credit,
+  .menu__label {
+    animation: none !important;
   }
   .menu,
   .menu__item,

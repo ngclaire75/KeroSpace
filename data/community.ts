@@ -30,18 +30,24 @@ export type CommunityCreator = {
   handle: string
   photo: string
   banner: string
+  /** artwork for the featured streamer card on the community page */
+  card: string
+  /** optional object-position override for that card artwork */
+  cardPosition?: string
+  /** artwork for the hero mosaic tile on the community page */
+  tile: string
   role: string
   bio: string
 }
 
 // same creators as the home page spotlight; channels verified on Twitch
 export const communityCreators: CommunityCreator[] = [
-  { game: 'hsr', name: 'Tectone', handle: 'tectone', photo: '/images/streamers/tectone.webp', banner: '/images/streamers/banner-hsr.webp', role: 'Gacha streamer', bio: 'Star Rail updates, reactions and lively discussion, all in one place.' },
-  { game: 'genshin', name: 'Tuonto', handle: 'tuonto', photo: '/images/streamers/tuonto.webp', banner: '/images/streamers/banner-genshin.webp', role: 'Gaming creator', bio: 'Character builds, challenges and pulls, with a famous soft spot for Jean.' },
-  { game: 'hi3', name: 'Fenrysk', handle: 'fenrysk', photo: '/images/streamers/fenrysk.webp', banner: '/images/streamers/banner-hi3.webp', role: 'Streamer & artist', bio: 'Competitive Honkai combat, gameplay and theorycrafting.' },
-  { game: 'wuwa', name: 'Rubee', handle: 'rubee', photo: '/images/streamers/rubee.webp', banner: '/images/streamers/banner-wuwa.webp', role: 'VTuber', bio: 'Exploration and finds worth sharing with chat across Solaris-3.' },
-  { game: 'nte', name: 'Bnuy', handle: 'bnuy', photo: '/images/streamers/bnuy.webp', banner: '/images/streamers/banner-nte.webp', role: 'Streamer & cosplayer', bio: 'A Sweden-based gamer mixing play with creativity in Neverness to Everness.' },
-  { game: 'mlbb', name: 'smetanduck', handle: 'smetanduck', photo: '/images/streamers/smetanduck.webp', banner: '/images/streamers/banner-mlbb.webp', role: 'Russian-language creator', bio: 'Ranked-climb strategy, live matches and answers to chat’s questions.' },
+  { game: 'hsr', name: 'Tectone', handle: 'tectone', photo: '/images/streamers/tectone.webp', banner: '/images/streamers/banner-hsr.webp', card: '/images/r-hsr.jpg', cardPosition: 'center 58%', tile: '/images/starrailcom.JPG', role: 'Gacha streamer', bio: 'Star Rail updates, reactions and lively discussion, all in one place.' },
+  { game: 'genshin', name: 'Tuonto', handle: 'tuonto', photo: '/images/streamers/tuonto.webp', banner: '/images/streamers/banner-genshin.webp', card: '/images/k-genshin.jpg', tile: '/images/genshincom.JPG', role: 'Gaming creator', bio: 'Character builds, challenges and pulls, with a famous soft spot for Jean.' },
+  { game: 'hi3', name: 'Fenrysk', handle: 'fenrysk', photo: '/images/streamers/fenrysk.webp', banner: '/images/streamers/banner-hi3.webp', card: '/images/r-hsr3.jpg', tile: '/images/hsr3com.JPG', role: 'Streamer & artist', bio: 'Competitive Honkai combat, gameplay and theorycrafting.' },
+  { game: 'wuwa', name: 'Rubee', handle: 'rubee', photo: '/images/streamers/rubee.webp', banner: '/images/streamers/banner-wuwa.webp', card: '/images/c-wuwa.jpg', tile: '/images/wuwacom.JPG', role: 'VTuber', bio: 'Exploration and finds worth sharing with chat across Solaris-3.' },
+  { game: 'nte', name: 'Bnuy', handle: 'bnuy', photo: '/images/streamers/bnuy.webp', banner: '/images/streamers/banner-nte.webp', card: '/images/s-nte.JPG', tile: '/images/ntecom.JPG', role: 'Streamer & cosplayer', bio: 'A Sweden-based gamer mixing play with creativity in Neverness to Everness.' },
+  { game: 'mlbb', name: 'smetanduck', handle: 'smetanduck', photo: '/images/streamers/smetanduck.webp', banner: '/images/streamers/banner-mlbb.webp', card: '/images/c-mlbb.jpg', tile: '/images/mlbbcom.jpg', role: 'Russian-language creator', bio: 'Ranked-climb strategy, live matches and answers to chat’s questions.' },
 ]
 
 export const teamUpSteps = [
