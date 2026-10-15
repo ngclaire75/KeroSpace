@@ -67,7 +67,8 @@ const pad = (n: number) => String(n).padStart(2, '0')
   --c-line: rgba(255, 255, 255, 0.1);
   --c-card: #0b0a0f;
   --c-grad: linear-gradient(100deg, var(--c-pink), var(--c-red) 50%, var(--c-purple));
-  min-height: 100dvh;
+  min-height: 100vh;
+  min-height: 100svh;
   background: #000;
 }
 .wrap {

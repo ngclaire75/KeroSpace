@@ -203,13 +203,23 @@ onBeforeUnmount(() => {
             </span>
           </div>
 
-          <Transition name="creator-swap" mode="out-in">
-            <div :key="creator.handle" class="creator-identity">
-              <p class="creator-category">{{ creator.category }}</p>
-              <h3 id="streamer-name">{{ creator.name }}</h3>
-              <p class="creator-bio">{{ creator.bio }}</p>
+          <!-- every creator's text is stacked in the same grid cell, so the box is
+               always as tall as the longest one and never changes height on a swap
+               (an out-in transition used to empty it for a moment, which made the
+               whole page below jump every 5s — felt as a shake at the bottom) -->
+          <div class="creator-identity">
+            <div
+              v-for="(entry, index) in creators"
+              :key="entry.handle"
+              class="creator-identity__slide"
+              :class="{ 'is-active': activeIndex === index }"
+              :aria-hidden="activeIndex !== index"
+            >
+              <p class="creator-category">{{ entry.category }}</p>
+              <h3 :id="activeIndex === index ? 'streamer-name' : undefined">{{ entry.name }}</h3>
+              <p class="creator-bio">{{ entry.bio }}</p>
             </div>
-          </Transition>
+          </div>
 
           <a
             class="creator-cta"
@@ -559,19 +569,25 @@ onBeforeUnmount(() => {
 .creator-fade-leave-to {
   opacity: 0;
 }
-.creator-swap-enter-active,
-.creator-swap-leave-active {
-  transition:
-    opacity 0.26s var(--ease),
-    translate 0.26s var(--ease);
+.creator-identity {
+  display: grid;
 }
-.creator-swap-enter-from {
+.creator-identity__slide {
+  grid-area: 1 / 1;
+  min-width: 0;
   opacity: 0;
   translate: 0 8px;
+  visibility: hidden;
+  transition:
+    opacity 0.26s var(--ease),
+    translate 0.26s var(--ease),
+    visibility 0s linear 0.26s;
 }
-.creator-swap-leave-to {
-  opacity: 0;
-  translate: 0 -6px;
+.creator-identity__slide.is-active {
+  opacity: 1;
+  translate: none;
+  visibility: visible;
+  transition-delay: 0.12s, 0.12s, 0s;
 }
 
 /* ---------- entrance ---------- */
@@ -678,8 +694,7 @@ onBeforeUnmount(() => {
   .creator-cta-text-leave-active,
   .creator-fade-enter-active,
   .creator-fade-leave-active,
-  .creator-swap-enter-active,
-  .creator-swap-leave-active {
+  .creator-identity__slide {
     transition: none;
   }
   .creator-section.is-armed [data-enter]:not(.is-visible) {

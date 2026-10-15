@@ -296,6 +296,9 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  /* svh, not dvh: dvh changes size whenever the mobile toolbar shows/hides
+     (which happens right at the bottom of the page), resizing the hero and
+     the whole page with it — that feedback loop made the bottom shake */
   height: 100svh;
   min-height: 600px;
   overflow: hidden;

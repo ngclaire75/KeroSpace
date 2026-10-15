@@ -12,7 +12,8 @@ useHead({ title: 'Top Up — KeroSpace' })
 
 <style scoped>
 .blank-page {
-  min-height: 100dvh;
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
 }

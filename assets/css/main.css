@@ -34,6 +34,10 @@ body {
 
 html {
   scroll-behavior: smooth;
+  /* no rubber-band bounce at the top/bottom edge (iOS Safari, macOS
+     trackpads) — the bounce dragged the masked/blended footer art with it
+     and read as a shake when hitting the bottom */
+  overscroll-behavior-y: none;
 }
 
 body {
@@ -43,6 +47,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  overscroll-behavior-y: none;
 }
 
 img {
@@ -71,7 +76,7 @@ svg {
 
 .page {
   min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100svh;
   background: var(--bg);
 }
 

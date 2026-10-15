@@ -116,6 +116,7 @@ const columns = [
 .ticker__track {
   display: flex;
   width: max-content;
+  will-change: transform;
   animation: footer-ticker 40s linear infinite;
 }
 .ticker__list {
@@ -183,6 +184,8 @@ const columns = [
     rgba(0, 0, 0, 0.03) 96%, transparent 100%);
   -webkit-mask-image: var(--fade);
   mask-image: var(--fade);
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 .footer__art picture,
 .footer__art img {
