@@ -58,7 +58,7 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
 .party-detail__art-copy { position: absolute; z-index: 1; left: 22px; right: 22px; bottom: 16px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
 .party-detail__logo { width: 140px; height: 64px; object-fit: contain; object-position: left bottom; filter: drop-shadow(0 4px 14px rgba(0, 0, 0, .7)); }
 
-.party-detail__platforms { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 16px 22px; border-bottom: 1px solid var(--together-line, #302a37); }
+.party-detail__platforms { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 16px 22px; }
 .party-detail__label, .party-mode__note > span { color: var(--together-purple, #bd91ff); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 .party-detail__platforms ul { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 0; padding: 0; list-style: none; }
 .party-detail__platforms :deep(.platform-mark__icon) { width: 26px; height: 26px; }
@@ -70,8 +70,7 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
 .party-detail__platform-note { flex-basis: 100%; margin: 0; color: var(--together-muted, #c1b9c9); font-size: 11px; }
 
 .party-detail__modes { margin: 0; padding: 0; list-style: none; }
-.party-mode { position: relative; padding: 18px 22px 12px; border-bottom: 1px solid var(--together-line, #302a37); }
-.party-mode:last-child { border-bottom: 0; }
+.party-mode { position: relative; padding: 18px 22px 12px; }
 .party-mode__name { display: block; font: 800 12px/1.4 var(--display); letter-spacing: .06em; text-transform: uppercase; }
 .party-mode h4 { margin: 12px 0 6px; font-size: 19px; font-weight: 800; line-height: 1.3; letter-spacing: -.02em; }
 .party-mode p { margin: 0; color: #f3edf7; font-size: 14px; line-height: 1.65; }
