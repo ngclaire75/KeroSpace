@@ -294,6 +294,14 @@ const columns = [
   }
 }
 
+/* desktop: tuck the content up into the faded bottom of the art */
+@media (min-width: 701px) {
+  .grid {
+    margin-top: clamp(-72px, -4.5vw, -40px);
+    padding-top: 12px;
+  }
+}
+
 @media (max-width: 700px) {
   .footer__art {
     height: auto;
