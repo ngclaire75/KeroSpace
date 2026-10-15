@@ -26,7 +26,6 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
       <img :src="cardArt.src" :style="{ objectPosition: cardArt.pos }" alt="" loading="lazy" width="480" height="300" />
       <div class="party-detail__art-copy">
         <img class="party-detail__logo" :src="`/images/games/${game.id}-logo.webp`" :alt="game.name" width="140" height="64" loading="lazy" />
-        <span class="party-detail__category">{{ game.category }}</span>
       </div>
     </div>
 
@@ -58,7 +57,6 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
 .party-detail__art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9, 8, 12, .05) 0%, rgba(9, 8, 12, .3) 60%, #09080c 100%); }
 .party-detail__art-copy { position: absolute; z-index: 1; left: 22px; right: 22px; bottom: 16px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
 .party-detail__logo { width: 140px; height: 64px; object-fit: contain; object-position: left bottom; filter: drop-shadow(0 4px 14px rgba(0, 0, 0, .7)); }
-.party-detail__category { padding: 5px 9px; border: 1px solid rgba(255, 255, 255, .18); border-radius: 999px; background: rgba(0, 0, 0, .55); color: #ded5e7; font-size: 11px; font-weight: 800; white-space: nowrap; backdrop-filter: blur(6px); }
 
 .party-detail__platforms { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 16px 22px; border-bottom: 1px solid var(--together-line, #302a37); }
 .party-detail__label, .party-mode__note > span { color: var(--together-purple, #bd91ff); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
