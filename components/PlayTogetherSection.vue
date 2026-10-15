@@ -6,8 +6,16 @@ const activeIndex = ref(0)
 function onScroll() {
   const el = track.value
   if (!el || !el.firstElementChild) return
-  const step = (el.firstElementChild as HTMLElement).offsetWidth + 12
+  const step = (el.firstElementChild as HTMLElement).offsetWidth + 16
   activeIndex.value = Math.min(compatibilityGames.length - 1, Math.round(el.scrollLeft / step))
+}
+function goTo(i: number) {
+  const el = track.value
+  if (!el || !el.firstElementChild) return
+  const index = Math.max(0, Math.min(compatibilityGames.length - 1, i))
+  const step = (el.firstElementChild as HTMLElement).offsetWidth + 16
+  activeIndex.value = index
+  el.scrollTo({ left: index * step, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
 }
 
 const section = ref<HTMLElement>()
@@ -52,8 +60,9 @@ onBeforeUnmount(() => observer?.disconnect())
           <PlayTogetherDetail :game="game" id-prefix="card" />
         </article>
       </div>
-      <div class="party-dots" aria-hidden="true">
-        <span v-for="(game, i) in compatibilityGames" :key="game.id" :class="{ 'is-on': i === activeIndex }" />
+      <div class="party-indicators" role="group" aria-label="Choose a game">
+        <button v-for="(game, i) in compatibilityGames" :key="game.id" type="button" :class="{ 'is-active': i === activeIndex }"
+          :aria-label="`Show ${game.name}`" :aria-pressed="i === activeIndex" @click="goTo(i)"><span aria-hidden="true" /></button>
       </div>
 
       <div class="together__foot" data-together-reveal>
@@ -95,7 +104,7 @@ onBeforeUnmount(() => observer?.disconnect())
 .party-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 20px; }
 .party-card { display: flex; flex-direction: column; min-width: 0; border: 2px solid transparent; border-radius: 12px; background: #09080c; overflow: hidden; }
 .party-card::after { opacity: 1; animation: card-outline-turn 3s linear infinite; }
-.party-dots { display: none; }
+.party-indicators { display: none; }
 
 /* footer */
 .together__foot { display: flex; align-items: baseline; gap: 30px; margin-top: 30px; padding: 22px 0 0; border-top: 1px solid var(--together-line); }
@@ -117,17 +126,18 @@ onBeforeUnmount(() => observer?.disconnect())
 /* phone: swipeable cards */
 @media (max-width: 700px) {
   .together__banner { margin: 22px 0 20px; border-radius: 10px; }
-  .party-cards { display: flex; gap: 12px; margin: 0 calc(-1 * clamp(16px, 4vw, 40px)); padding: 2px clamp(16px, 4vw, 40px) 6px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: clamp(16px, 4vw, 40px); scrollbar-width: none; overscroll-behavior-x: contain; }
+  .party-cards { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
   .party-cards::-webkit-scrollbar { display: none; }
-  .party-card { flex: 0 0 86%; scroll-snap-align: start; }
-  .party-dots { display: flex; justify-content: center; gap: 6px; margin-top: 14px; }
-  .party-dots span { width: 6px; height: 6px; border-radius: 999px; background: #3a3241; transition: width .3s var(--ease), background .3s ease; }
-  .party-dots span.is-on { width: 22px; background: linear-gradient(90deg, #ff3859, #ff83cf, #bd91ff); }
+  .party-card { flex: 0 0 100%; scroll-snap-align: center; scroll-snap-stop: always; }
+  .party-indicators { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+  .party-indicators button { display: grid; place-items: center; width: 48px; height: 36px; padding: 0; border: 0; border-radius: 4px; background: transparent; cursor: pointer; }
+  .party-indicators span { width: 40px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, 0.55); box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8); transition: background .3s ease, box-shadow .3s ease; }
   .together__foot { flex-direction: column; gap: 9px; }
+  .party-indicators button.is-active span { background: linear-gradient(90deg, #ff9bdd, #c69aff); box-shadow: 0 0 7px rgba(221, 154, 255, 0.65); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-together-reveal], .party-dots span { transition: none; }
+  [data-together-reveal], .party-indicators span { transition: none; }
   .is-armed [data-together-reveal]:not(.is-visible) { opacity: 1; transform: none; }
   .party-card::after, .together__banner::after { animation: none; }
 }
