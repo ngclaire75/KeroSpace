@@ -25,7 +25,7 @@ const creators: Creator[] = [
     photo: '/images/streamers/tectone.webp',
     banner: '/images/streamers/banner-hsr.webp',
     category: 'Honkai: Star Rail · Gacha streamer',
-    bio: 'One of the best-known gacha streamers on Twitch and an OTK member, now focused on Honkai: Star Rail.',
+    bio: 'A gacha creator with plenty to say. His Star Rail coverage brings game updates, reactions and lively discussion together.',
   },
   {
     game: 'genshin',
@@ -35,7 +35,7 @@ const creators: Creator[] = [
     photo: '/images/streamers/tuonto.webp',
     banner: '/images/streamers/banner-genshin.webp',
     category: 'Genshin Impact · Gaming creator',
-    bio: 'A familiar face from the Genshin community. Explore his channel for gaming, personality and a different way to experience the worlds you know.',
+    bio: 'Known for his dedication to Jean, Tuonto brings a playful side to Genshin through character builds, challenges and pulls.',
   },
   {
     game: 'hi3',
@@ -45,7 +45,7 @@ const creators: Creator[] = [
     photo: '/images/streamers/fenrysk.webp',
     banner: '/images/streamers/banner-hi3.webp',
     category: 'Honkai Impact 3rd · Streamer',
-    bio: 'An English Honkai Impact 3rd streamer with one of the larger followings for the game on Twitch.',
+    bio: 'An artist and competitive Honkai player. Fenrysk shares the challenge of mastering combat through gameplay and theorycrafting.',
   },
   {
     game: 'wuwa',
@@ -55,7 +55,7 @@ const creators: Creator[] = [
     photo: '/images/streamers/rubee.webp',
     banner: '/images/streamers/banner-wuwa.webp',
     category: 'Wuthering Waves · Streamer',
-    bio: 'One of the most-watched English Wuthering Waves channels on Twitch.',
+    bio: 'A worm VTuber with a taste for discovery. Join Rubee in Wuthering Waves for exploration and finds worth sharing with chat.',
   },
   {
     game: 'nte',
@@ -65,7 +65,17 @@ const creators: Creator[] = [
     photo: '/images/streamers/bnuy.webp',
     banner: '/images/streamers/banner-nte.webp',
     category: 'Neverness to Everness · Streamer',
-    bio: 'An English streamer with one of the biggest channels covering Neverness to Everness.',
+    bio: 'A Sweden-based gamer and cosplayer, Bnuy mixes gaming with creativity. Discover her channel through Neverness to Everness.',
+  },
+  {
+    game: 'mlbb',
+    gameName: 'Mobile Legends: Bang Bang',
+    name: 'smetanduck',
+    handle: 'smetanduck',
+    photo: '/images/streamers/smetanduck.webp',
+    banner: '/images/streamers/banner-mlbb.webp',
+    category: 'Mobile Legends · Russian-language creator',
+    bio: 'Known as SMETANA, this MLBB creator breaks down the ranked climb. Tune in for strategy, live matches and answers to chat’s questions.',
   },
 ]
 const activeIndex = ref(1)
@@ -466,6 +476,11 @@ onBeforeUnmount(() => {
 }
 .creator-bio {
   margin: 12px 0 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
   font-size: 14px;
   line-height: 1.75;
   color: var(--ink-2);

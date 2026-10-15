@@ -20,13 +20,7 @@ const columns = [
       { label: 'Honkai Impact 3rd', href: '#supported-games' },
       { label: 'Wuthering Waves', href: '#supported-games' },
       { label: 'Neverness to Everness', href: '#supported-games' },
-    ],
-  },
-  {
-    title: 'Community',
-    links: [
-      { label: 'Creator spotlight', href: '#creator-spotlight' },
-      { label: 'Game introductions', href: '#game-introduction' },
+      { label: 'Mobile Legends: Bang Bang', href: '#supported-games' },
     ],
   },
 ]
@@ -58,7 +52,7 @@ const columns = [
         <p class="bar__copy">© {{ year }} KeroSpace. All rights reserved.</p>
         <p class="bar__note">
           Game names, logos and artwork belong to their respective owners, including
-          HoYoverse, Kuro Games and Hotta Studio.
+          HoYoverse, Kuro Games, Hotta Studio and MOONTON Games.
         </p>
       </div>
     </div>
@@ -85,10 +79,10 @@ const columns = [
 }
 
 /* ---------- grid ---------- */
-/* wordmark on its own row, the three link columns directly under it */
+/* wordmark on its own row, the two link columns directly under it */
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 240px));
+  grid-template-columns: repeat(2, minmax(0, 240px));
   column-gap: clamp(28px, 5vw, 72px);
   row-gap: 28px;
   padding: clamp(48px, 6vw, 72px) 0 clamp(36px, 5vw, 56px);
@@ -173,7 +167,7 @@ const columns = [
 /* ---------- responsive ---------- */
 @media (max-width: 980px) {
   .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .bar {
     grid-template-columns: minmax(0, 1fr);

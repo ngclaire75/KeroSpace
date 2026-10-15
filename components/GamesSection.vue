@@ -61,6 +61,16 @@ const games: Game[] = [
     items: 'Arcs · Cartridges',
     platforms: 'PC · Mac · PS5 · Mobile',
   },
+  {
+    id: 'mlbb',
+    name: 'Mobile Legends: Bang Bang',
+    dev: 'MOONTON Games',
+    year: 2016,
+    genre: '5v5 MOBA',
+    desc: 'Choose your hero, team up in fast-paced 5v5 battles and turn smart builds into match-winning plays.',
+    items: 'Equipment · Emblems',
+    platforms: 'iOS · Android',
+  },
 ]
 
 const posters: Record<string, { src: string; width: number; height: number }> = {
@@ -69,6 +79,7 @@ const posters: Record<string, { src: string; width: number; height: number }> = 
   hi3: { src: '/images/games/card-hi3.webp', width: 1600, height: 1680 },
   wuwa: { src: '/images/games/card-wuwa.webp', width: 1600, height: 1600 },
   nte: { src: '/images/games/card-nte.webp', width: 1600, height: 1282 },
+  mlbb: { src: '/images/games/card-mlbb.webp', width: 1800, height: 1792 },
 }
 
 const facts = [
@@ -79,7 +90,7 @@ const facts = [
 ]
 const banners = [
   { src: '/images/games/banner-hsr-chrysos.webp', mobile: '/images/games/banner-hsr-mobile.webp', alt: 'Honkai: Star Rail — Crimson Heir of Chrysos banner', width: 2560, height: 1096 },
-  { src: '/images/games/banner-wuwa-resonance-esrgan.webp', mobile: '/images/games/banner-wuwa-mobile-resonance.webp', alt: 'Wuthering Waves — Crimson Spider Lily Resonance banner', width: 3832, height: 1642 },
+  { src: '/images/games/banner-wuwa-desktop-jpg-esrgan.webp', mobile: '/images/games/banner-wuwa-mobile-5461-esrgan.webp', alt: 'Wuthering Waves — Crimson character banner', width: 3832, height: 1642 },
 ]
 const activeBanner = ref(0)
 let bannerTimer: ReturnType<typeof setInterval> | undefined
