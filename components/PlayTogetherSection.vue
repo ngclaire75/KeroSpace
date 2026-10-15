@@ -135,8 +135,8 @@ onBeforeUnmount(() => {
 .together__foot-label { flex-shrink: 0; color: var(--together-pink); font: 700 14px/1.8 var(--display); text-transform: uppercase; }
 .together__foot p { margin: 0; color: var(--together-muted); font-size: 14px; line-height: 1.8; }
 
-[data-together-reveal] { transition: opacity .65s ease, transform .65s var(--ease); }
-.is-armed [data-together-reveal]:not(.is-visible) { opacity: 0; transform: translateY(18px); }
+[data-together-reveal] { transition: opacity .65s ease; }
+.is-armed [data-together-reveal]:not(.is-visible) { opacity: 0; }
 
 @media (max-width: 1100px) {
   .party-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -162,7 +162,7 @@ onBeforeUnmount(() => {
 
 @media (prefers-reduced-motion: reduce) {
   [data-together-reveal] { transition: none; }
-  .is-armed [data-together-reveal]:not(.is-visible) { opacity: 1; transform: none; }
+  .is-armed [data-together-reveal]:not(.is-visible) { opacity: 1; }
   .party-card::after { animation: none; }
 }
 </style>

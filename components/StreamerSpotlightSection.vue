@@ -577,12 +577,9 @@ onBeforeUnmount(() => {
 /* ---------- entrance ---------- */
 .creator-section.is-armed [data-enter]:not(.is-visible) {
   opacity: 0;
-  translate: 0 22px;
 }
 [data-enter] {
-  transition:
-    opacity 0.8s var(--ease),
-    translate 0.8s var(--ease);
+  transition: opacity 0.8s var(--ease);
 }
 
 @media (hover: hover) {

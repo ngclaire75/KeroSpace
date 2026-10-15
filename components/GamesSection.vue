@@ -323,12 +323,9 @@ onBeforeUnmount(() => {
 /* ============ reveal ============ */
 .games.is-armed [data-reveal]:not(.is-in) {
   opacity: 0;
-  translate: 0 28px;
 }
 .games [data-reveal] {
-  transition:
-    opacity 0.8s var(--ease),
-    translate 0.9s var(--ease);
+  transition: opacity 0.8s var(--ease);
 }
 
 /* ============ heading ============ */
