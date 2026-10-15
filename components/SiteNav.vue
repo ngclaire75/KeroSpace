@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import { NuxtLink } from '#components'
+
 const route = useRoute()
 const links = computed(() => [
   { label: 'Home', href: '/', active: route.path === '/' && !route.hash },
   { label: 'Games', href: '/#supported-games', active: route.path === '/' && route.hash === '#supported-games' },
-  { label: 'Items', href: '/#' },
-  { label: 'Community', href: '/community', active: route.path === '/community' },
-  { label: 'Guides', href: '/#' },
-  { label: 'Top Up', href: '/top-up', active: route.path === '/top-up' },
+  { label: 'Items' },
+  { label: 'Community' },
+  { label: 'Guides' },
+  { label: 'Top Up' },
 ])
 
 const open = ref(false)
@@ -44,15 +46,18 @@ onBeforeUnmount(() => {
     </NuxtLink>
 
     <nav class="nav__links" aria-label="Primary">
-      <NuxtLink
+      <component
         v-for="l in links"
         :key="l.label"
+        :is="l.href ? NuxtLink : 'span'"
         :to="l.href"
+        :role="!l.href ? 'link' : undefined"
+        :aria-disabled="!l.href ? true : undefined"
         :class="{ 'is-active': l.active }"
         :aria-current="l.active ? 'page' : undefined"
       >
         {{ l.label }}
-      </NuxtLink>
+      </component>
     </nav>
 
     <div class="nav__actions">
@@ -81,11 +86,14 @@ onBeforeUnmount(() => {
             :class="{ 'is-active': l.active }"
             :style="{ '--d': `${0.12 + k * 0.05}s` }"
           >
-            <NuxtLink
+            <component
+              :is="l.href ? NuxtLink : 'span'"
               :to="l.href"
               class="menu__link"
+              :role="!l.href ? 'link' : undefined"
+              :aria-disabled="!l.href ? true : undefined"
               :aria-current="l.active ? 'page' : undefined"
-              @click="close"
+              @click="l.href && close()"
             >
               <span class="menu__num">{{ String(k + 1).padStart(2, '0') }}</span>
               <span class="menu__label">{{ l.label }}</span>
@@ -99,7 +107,7 @@ onBeforeUnmount(() => {
                   stroke-linejoin="round"
                 />
               </svg>
-            </NuxtLink>
+            </component>
           </li>
         </ol>
 
@@ -145,7 +153,7 @@ onBeforeUnmount(() => {
   gap: clamp(18px, 2.6vw, 36px);
   margin-left: clamp(16px, 4vw, 52px);
 }
-.nav__links a {
+.nav__links > * {
   position: relative;
   display: flex;
   align-items: center;
@@ -354,7 +362,10 @@ onBeforeUnmount(() => {
       color 0.3s,
       transform 0.4s var(--ease);
   }
-  .menu__link:active .menu__label {
+  .menu__link[aria-disabled="true"] {
+    cursor: default;
+  }
+  .menu__link:not([aria-disabled="true"]):active .menu__label {
     translate: 6px 0;
   }
   .menu__item.is-active .menu__num,

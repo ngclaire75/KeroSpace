@@ -630,6 +630,7 @@ onBeforeUnmount(() => {
 /* ============ supported games ============ */
 .shelf {
   margin-top: clamp(56px, 7vw, 88px);
+  scroll-margin-top: 32px;
 }
 .shelf__head {
   display: flex;

@@ -32,6 +32,10 @@ body {
   min-height: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--bg);
   color: var(--ink);
@@ -120,6 +124,10 @@ svg {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .neon-hover-outline::after,
   .neon-hover-outline:hover::after,
   .neon-hover-outline:focus-within::after {
