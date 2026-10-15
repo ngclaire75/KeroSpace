@@ -139,17 +139,22 @@ onBeforeUnmount(() => {
       <!-- ===== creator panel: banner + profile side by side ===== -->
       <article class="creator-card neon-hover-outline" data-enter aria-labelledby="streamer-name">
         <div class="creator-banner">
-          <Transition name="creator-fade">
+          <div
+            v-for="(entry, index) in creators"
+            :key="entry.handle"
+            class="creator-banner__slide"
+            :class="{ 'is-active': activeIndex === index }"
+            aria-hidden="true"
+          >
             <img
-              :key="creator.banner"
               class="creator-banner__art"
-              :src="creator.banner"
+              :src="entry.banner"
               alt=""
               width="1200"
               height="675"
-              loading="lazy"
+              loading="eager"
             />
-          </Transition>
+          </div>
           <span class="creator-banner__shade" aria-hidden="true" />
           <span class="creator-banner__brand">
             <img src="/images/streamers/twitch-wordmark.svg" alt="Twitch" width="64" height="22" />
@@ -209,14 +214,21 @@ onBeforeUnmount(() => {
           <a
             class="creator-cta"
             :href="`https://www.twitch.tv/${creator.handle}`"
+            :aria-label="`Watch ${creator.name} on Twitch`"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="/images/streamers/twitch-glitch.svg" alt="" width="26" height="26" />
-            <span>Watch {{ creator.name }} on Twitch</span>
-            <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
-              <path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+            <span class="creator-cta__content" aria-hidden="true">
+              <Transition name="creator-cta-text">
+                <span :key="creator.handle" class="creator-cta__group">
+                  <img src="/images/streamers/twitch-glitch.svg" alt="" width="26" height="26" />
+                  <span>Watch {{ creator.name }} on Twitch</span>
+                  <svg viewBox="0 0 24 24" width="17" height="17">
+                    <path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </Transition>
+            </span>
           </a>
         </div>
       </article>
@@ -303,7 +315,7 @@ onBeforeUnmount(() => {
   grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
   margin-top: clamp(28px, 4vw, 44px);
   overflow: hidden;
-  border: 1px solid var(--creator-line);
+  border: 2px solid var(--creator-line);
   border-radius: 14px;
   background: var(--creator-panel);
 }
@@ -315,12 +327,25 @@ onBeforeUnmount(() => {
   overflow: hidden;
   background: #08080c;
 }
+.creator-banner__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.65s ease;
+}
+.creator-banner__slide.is-active { opacity: 1; }
 .creator-banner__art {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform-origin: center;
+  transform: scale(1);
+  transition: transform 4.5s cubic-bezier(0.2, 0.45, 0.35, 1);
+}
+.creator-banner__slide.is-active .creator-banner__art {
+  transform: scale(1.065);
 }
 /* light top darkening keeps the Twitch pill readable; no side fade */
 .creator-banner__shade {
@@ -497,6 +522,30 @@ onBeforeUnmount(() => {
   width: 26px;
   height: 26px;
 }
+.creator-cta__content {
+  display: inline-grid;
+  align-items: center;
+  justify-items: center;
+  white-space: nowrap;
+}
+.creator-cta__group {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cta-gap, 12px);
+}
+.creator-cta__group > img,
+.creator-cta__group > svg {
+  flex-shrink: 0;
+}
+.creator-cta-text-enter-active,
+.creator-cta-text-leave-active {
+  transition: opacity 0.4s ease;
+}
+.creator-cta-text-enter-from,
+.creator-cta-text-leave-to {
+  opacity: 0;
+}
 
 /* ---------- swaps ---------- */
 .creator-fade-enter-active,
@@ -595,6 +644,7 @@ onBeforeUnmount(() => {
     height: 72px;
   }
   .creator-cta {
+    --cta-gap: 10px;
     width: 100%;
     gap: 10px;
     padding: 13px 14px;
@@ -608,9 +658,27 @@ onBeforeUnmount(() => {
   }
 }
 
+@media (max-width: 380px) {
+  .creator-cta {
+    --cta-gap: 6px;
+    gap: 6px;
+    padding-inline: 10px;
+    font-size: 10px;
+  }
+  .creator-cta img { width: 18px; height: 18px; }
+  .creator-cta__group > svg { width: 14px; height: 14px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .creator-banner__slide.is-active .creator-banner__art {
+    transform: none;
+  }
   [data-enter],
+  .creator-banner__slide,
+  .creator-banner__art,
   .creator-cta,
+  .creator-cta-text-enter-active,
+  .creator-cta-text-leave-active,
   .creator-fade-enter-active,
   .creator-fade-leave-active,
   .creator-swap-enter-active,

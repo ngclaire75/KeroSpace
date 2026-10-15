@@ -587,10 +587,14 @@ onBeforeUnmount(() => {
 .cover {
   position: relative;
   padding: 22px;
-  border: 1px solid var(--edge);
+  border: 2px solid transparent;
   border-radius: 8px;
   background: var(--panel);
   transition: border-color 0.3s;
+}
+.cover::after {
+  opacity: 1;
+  animation: card-outline-turn 3s linear infinite;
 }
 .cover__icon {
   display: grid;
@@ -661,7 +665,7 @@ onBeforeUnmount(() => {
   height: 100%;
   padding: 0;
   text-align: left;
-  border: 1px solid var(--edge);
+  border: 2px solid var(--edge);
   /* matches the feature panel above */
   border-radius: 10px;
   overflow: hidden;
@@ -687,6 +691,11 @@ onBeforeUnmount(() => {
   height: 100%;
   object-fit: cover;
   object-position: 50% 20%;
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1) translateZ(0);
+  transform-origin: center;
+  backface-visibility: hidden;
+  will-change: transform;
+  transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .gcard__poster--hi3 {
   object-position: 50% 35%;
@@ -834,8 +843,13 @@ onBeforeUnmount(() => {
   border: 1px solid transparent;
   border-radius: 9px;
   background:
-    linear-gradient(100deg, rgba(232, 16, 28, 0.3), rgba(255, 47, 110, 0.26) 58%, rgba(150, 60, 255, 0.28)) padding-box,
-    linear-gradient(100deg, #e8101c, #ff2f6e 58%, #9b3cff) border-box;
+    linear-gradient(90deg, rgba(232, 16, 28, 0.3), rgba(255, 47, 110, 0.26) 25%, rgba(150, 60, 255, 0.28) 50%, rgba(255, 47, 110, 0.26) 75%, rgba(232, 16, 28, 0.3)) padding-box,
+    linear-gradient(90deg, #e8101c, #ff2f6e 25%, #9b3cff 50%, #ff2f6e 75%, #e8101c) border-box;
+  background-size: 200% 100%;
+  animation: stat-gradient-flow 7s linear infinite;
+}
+@keyframes stat-gradient-flow {
+  to { background-position: 200% 50%; }
 }
 .gcard__stat-k {
   flex-shrink: 0;
@@ -886,6 +900,9 @@ onBeforeUnmount(() => {
 }
 
 @media (hover: hover) {
+  .gcard__link:hover .gcard__poster {
+    transform: perspective(1000px) rotateX(1deg) rotateY(-1.5deg) scale(1.045) translateZ(0);
+  }
   .gcard__link:hover .gcard__cta {
     color: #fff;
   }
@@ -964,6 +981,13 @@ onBeforeUnmount(() => {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .gcard__poster,
+  .gcard__link:hover .gcard__poster {
+    transform: none;
+    will-change: auto;
+  }
+  .cover::after { animation: none; }
+  .gcard__stat { animation: none; }
   .feature__media::after { animation: none; }
   .feature__slide,
   .feature__art,
