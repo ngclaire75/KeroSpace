@@ -8,6 +8,7 @@ useHead({ title: 'KeroSpace — Explore Every Game Item' })
       <HeroSection />
       <GamesSection />
       <StreamerSpotlightSection />
+      <PlayTogetherSection />
     </main>
     <SiteFooter />
   </div>

@@ -8,7 +8,7 @@ const links = computed(() => [
   { label: 'Items' },
   { label: 'Community' },
   { label: 'Guides' },
-  { label: 'Top Up' },
+  { label: 'E-Sports' },
 ])
 
 const open = ref(false)
