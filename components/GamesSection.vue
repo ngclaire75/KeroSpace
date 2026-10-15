@@ -231,7 +231,7 @@ onBeforeUnmount(() => {
           <h3 class="shelf__title">Every introduction covers</h3>
         </div>
         <ol class="covers__list">
-          <li v-for="c in covers" :key="c.t" class="cover">
+          <li v-for="c in covers" :key="c.t" class="cover neon-hover-outline">
             <span class="cover__icon" :class="{ 'cover__icon--first-steps': c.t === 'First steps' }" aria-hidden="true">
               <img :src="c.image" alt="" width="64" height="64" loading="lazy" />
             </span>
@@ -249,7 +249,7 @@ onBeforeUnmount(() => {
 
         <ul class="shelf__list" data-reveal>
           <li v-for="(g, k) in games" :key="g.id" class="gcard" :style="{ '--k': k }">
-            <article class="gcard__link" :aria-label="g.name">
+            <article class="gcard__link neon-hover-outline" :aria-label="g.name">
               <span class="gcard__poster-frame">
                 <img
                   class="gcard__poster"
@@ -592,9 +592,6 @@ onBeforeUnmount(() => {
   background: var(--panel);
   transition: border-color 0.3s;
 }
-.cover:hover {
-  border-color: rgba(255, 47, 110, 0.4);
-}
 .cover__icon {
   display: grid;
   place-items: center;
@@ -889,10 +886,6 @@ onBeforeUnmount(() => {
 }
 
 @media (hover: hover) {
-  /* no motion on hover: the card and arrow stay put */
-  .gcard__link:hover {
-    border-color: rgba(255, 47, 110, 0.45);
-  }
   .gcard__link:hover .gcard__cta {
     color: #fff;
   }

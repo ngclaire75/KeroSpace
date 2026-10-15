@@ -379,20 +379,34 @@ onBeforeUnmount(() => {
     width: auto;
   }
   .menu__credit {
-    display: inline-block;
+    display: block;
+    width: fit-content;
     margin: -2px 0 0;
     font-family: var(--display);
     font-size: 10px;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.04em;
-    background: linear-gradient(90deg, #ff304f, #bd7aff);
+    background: linear-gradient(90deg, #ff304f, #ff75cc, #bd7aff, #ff75cc, #ff304f);
+    background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    animation: credit-gradient 3.5s linear infinite;
+    animation-play-state: paused;
+  }
+  .is-open .menu__credit {
+    animation-play-state: running;
   }
 }
 
+@keyframes credit-gradient {
+  to { background-position: 200% 50%; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .menu__credit {
+    animation: none;
+  }
   .menu,
   .menu__item,
   .menu__foot,

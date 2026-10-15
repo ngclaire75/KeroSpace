@@ -71,6 +71,63 @@ svg {
   background: var(--bg);
 }
 
+@property --card-outline-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes card-outline-turn {
+  to { --card-outline-angle: 360deg; }
+}
+
+.neon-hover-outline {
+  position: relative;
+}
+.neon-hover-outline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--card-outline-angle),
+    #ff69c8, #b26bff, #ff3158, #ff69c8
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+.neon-hover-outline.neon-hover-outline:focus-within {
+  border-color: transparent;
+}
+.neon-hover-outline:focus-within::after {
+  opacity: 1;
+  animation: card-outline-turn 3s linear infinite;
+}
+@media (hover: hover) {
+  .neon-hover-outline.neon-hover-outline:hover {
+    border-color: transparent;
+  }
+  .neon-hover-outline:hover::after {
+    opacity: 1;
+    animation: card-outline-turn 3s linear infinite;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .neon-hover-outline::after,
+  .neon-hover-outline:hover::after,
+  .neon-hover-outline:focus-within::after {
+    animation: none;
+    transition: none;
+  }
+}
+
 /* mobile menu open: freeze the page underneath */
 html.menu-lock,
 html.menu-lock body {

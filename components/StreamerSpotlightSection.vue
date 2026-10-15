@@ -137,7 +137,7 @@ onBeforeUnmount(() => {
       </header>
 
       <!-- ===== creator panel: banner + profile side by side ===== -->
-      <article class="creator-card" data-enter aria-labelledby="streamer-name">
+      <article class="creator-card neon-hover-outline" data-enter aria-labelledby="streamer-name">
         <div class="creator-banner">
           <Transition name="creator-fade">
             <img
@@ -181,12 +181,12 @@ onBeforeUnmount(() => {
                   loading="lazy"
                 />
               </Transition>
-              <!-- verified seal, in neon pink -->
+              <!-- verified seal, in neon purple -->
               <svg class="creator-avatar__badge" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
                 <path
-                  fill="#ff3fa8"
+                  fill="#b26bff"
                   stroke="#0b0b0e"
-                  stroke-width="1.6"
+                  stroke-width="2.2"
                   paint-order="stroke"
                   d="M12 1.5l2.2 1.6 2.7-.3 1.1 2.5 2.5 1.1-.3 2.7L21.8 11.3 20.2 13.5l.3 2.7-2.5 1.1-1.1 2.5-2.7-.3L12 21.1l-2.2-1.6-2.7.3-1.1-2.5-2.5-1.1.3-2.7L2.2 11.3 3.8 9.1l-.3-2.7 2.5-1.1 1.1-2.5 2.7.3z"
                 />
@@ -429,18 +429,6 @@ onBeforeUnmount(() => {
      visibly jiggles. Own layer so the fade underneath can't nudge it. */
   overflow: visible;
   transform: translateZ(0);
-}
-/* soft pink glow behind the seal, painted once */
-.creator-avatar::after {
-  content: '';
-  position: absolute;
-  right: -7px;
-  bottom: -5px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(255, 63, 168, 0.55), transparent);
-  pointer-events: none;
 }
 .creator-count {
   font-family: var(--display);
