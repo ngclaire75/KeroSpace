@@ -1,11 +1,13 @@
 <script setup lang="ts">
-const links = [
-  { label: 'Home', active: true },
-  { label: 'Games' },
-  { label: 'Items' },
-  { label: 'How It Works' },
-  { label: 'Guides' },
-]
+const route = useRoute()
+const links = computed(() => [
+  { label: 'Home', href: '/', active: route.path === '/' && !route.hash },
+  { label: 'Games', href: '/#supported-games', active: route.path === '/' && route.hash === '#supported-games' },
+  { label: 'Items', href: '/#' },
+  { label: 'Community', href: '/community', active: route.path === '/community' },
+  { label: 'Guides', href: '/#' },
+  { label: 'Top Up', href: '/top-up', active: route.path === '/top-up' },
+])
 
 const open = ref(false)
 
@@ -36,21 +38,21 @@ onBeforeUnmount(() => {
 
 <template>
   <header class="nav" :class="{ 'is-open': open }">
-    <a href="#" class="nav__brand" aria-label="KeroSpace home">
+    <NuxtLink to="/" class="nav__brand" aria-label="KeroSpace home">
       <img class="nav__mark" src="/images/logo.webp" alt="" width="34" height="34" />
       <img class="nav__word" src="/images/wordmark-neon.webp" alt="" width="840" height="206" />
-    </a>
+    </NuxtLink>
 
     <nav class="nav__links" aria-label="Primary">
-      <a
+      <NuxtLink
         v-for="l in links"
         :key="l.label"
-        href="#"
+        :to="l.href"
         :class="{ 'is-active': l.active }"
         :aria-current="l.active ? 'page' : undefined"
       >
         {{ l.label }}
-      </a>
+      </NuxtLink>
     </nav>
 
     <div class="nav__actions">
@@ -79,8 +81,8 @@ onBeforeUnmount(() => {
             :class="{ 'is-active': l.active }"
             :style="{ '--d': `${0.12 + k * 0.05}s` }"
           >
-            <a
-              href="#"
+            <NuxtLink
+              :to="l.href"
               class="menu__link"
               :aria-current="l.active ? 'page' : undefined"
               @click="close"
@@ -97,7 +99,7 @@ onBeforeUnmount(() => {
                   stroke-linejoin="round"
                 />
               </svg>
-            </a>
+            </NuxtLink>
           </li>
         </ol>
 

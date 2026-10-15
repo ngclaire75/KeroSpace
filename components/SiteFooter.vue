@@ -5,22 +5,23 @@ const columns = [
   {
     title: 'Explore',
     links: [
-      { label: 'Home', href: '#' },
-      { label: 'Games', href: '#supported-games' },
-      { label: 'Items', href: '#' },
-      { label: 'How it works', href: '#game-introduction' },
-      { label: 'Guides', href: '#' },
+      { label: 'Home', href: '/' },
+      { label: 'Games', href: '/#supported-games' },
+      { label: 'Items', href: '/#' },
+      { label: 'Community', href: '/community' },
+      { label: 'Guides', href: '/#' },
+      { label: 'Top Up', href: '/top-up' },
     ],
   },
   {
     title: 'Games',
     links: [
-      { label: 'Honkai: Star Rail', href: '#supported-games' },
-      { label: 'Genshin Impact', href: '#supported-games' },
-      { label: 'Honkai Impact 3rd', href: '#supported-games' },
-      { label: 'Wuthering Waves', href: '#supported-games' },
-      { label: 'Neverness to Everness', href: '#supported-games' },
-      { label: 'Mobile Legends: Bang Bang', href: '#supported-games' },
+      { label: 'Honkai: Star Rail', href: '/#supported-games' },
+      { label: 'Genshin Impact', href: '/#supported-games' },
+      { label: 'Honkai Impact 3rd', href: '/#supported-games' },
+      { label: 'Wuthering Waves', href: '/#supported-games' },
+      { label: 'Neverness to Everness', href: '/#supported-games' },
+      { label: 'Mobile Legends: Bang Bang', href: '/#supported-games' },
     ],
   },
 ]
@@ -32,7 +33,7 @@ const columns = [
       <!-- ===== brand + link columns ===== -->
       <div class="grid">
         <div class="brand">
-          <a href="#" class="brand__mark" aria-label="KeroSpace home">
+          <a href="/" class="brand__mark" aria-label="KeroSpace home">
             <img src="/images/logo.webp" alt="" width="44" height="44" />
           </a>
         </div>
