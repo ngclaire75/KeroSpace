@@ -52,7 +52,6 @@ onBeforeUnmount(() => observer?.disconnect())
 
       <figure class="together__banner neon-hover-outline" data-together-reveal>
         <picture>
-          <source media="(max-width: 700px)" srcset="/images/vexana-mobile-esrgan.webp" width="1080" height="608" />
           <img src="/images/vexana-esrgan.webp" alt="Vexana character banner from Mobile Legends: Bang Bang" width="3200" height="1067" loading="lazy" decoding="async" />
         </picture>
       </figure>
@@ -99,14 +98,15 @@ onBeforeUnmount(() => observer?.disconnect())
 .together__intro p { margin: 0; color: var(--together-muted); font-size: 16px; font-weight: 600; line-height: 1.8; }
 
 /* banner */
-.together__banner { margin: 32px 0 28px; border: 2px solid transparent; border-radius: 12px; overflow: hidden; background: #09080c; }
+/* no border: the neon ring (::after, inset 0) must sit on the outer edge, same radius as the clip */
+.together__banner { margin: 32px 0 28px; border: 0; border-radius: 12px; overflow: hidden; background: #09080c; }
 .together__banner::after { opacity: 1; animation: card-outline-turn 3s linear infinite; }
 .together__banner picture { display: block; }
 .together__banner img { width: 100%; height: auto; aspect-ratio: 3200 / 1067; object-fit: cover; }
 
 /* cards */
 .party-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 20px; }
-.party-card { display: flex; flex-direction: column; min-width: 0; border: 2px solid transparent; border-radius: 12px; background: #09080c; overflow: hidden; }
+.party-card { display: flex; flex-direction: column; min-width: 0; border: 0; border-radius: 12px; background: #09080c; overflow: hidden; }
 .party-card::after { opacity: 1; animation: card-outline-turn 3s linear infinite; }
 .party-indicators { display: none; }
 
@@ -129,8 +129,8 @@ onBeforeUnmount(() => observer?.disconnect())
 
 /* phone: swipeable cards */
 @media (max-width: 700px) {
-  .together__banner { margin: 22px 0 20px; border-radius: 10px; }
-  .together__banner img { aspect-ratio: 1080 / 608; }
+  .together__banner { display: none; }
+  .together__head { margin-bottom: 24px; }
   .party-cards { display: flex; gap: 16px; overflow-x: auto; overflow-y: hidden; touch-action: pan-x pan-y; overscroll-behavior-y: none; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
   .party-cards::-webkit-scrollbar { display: none; }
   .party-card { flex: 0 0 100%; scroll-snap-align: center; scroll-snap-stop: always; }

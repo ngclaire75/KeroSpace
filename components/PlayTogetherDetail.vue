@@ -52,7 +52,7 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
 
 <style scoped>
 .party-detail { display: flex; flex: 1; flex-direction: column; min-width: 0; }
-.party-detail__art { position: relative; height: 210px; overflow: hidden; border-radius: 10px 10px 0 0; background: #120d18; }
+.party-detail__art { position: relative; height: 210px; overflow: hidden; border-radius: 12px 12px 0 0; background: #120d18; }
 .party-detail__art > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
 .party-detail__art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9, 8, 12, .05) 0%, rgba(9, 8, 12, .3) 60%, #09080c 100%); }
 .party-detail__art-copy { position: absolute; z-index: 1; left: 22px; right: 22px; bottom: 16px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
@@ -80,7 +80,7 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
 .party-mode a > span { color: #ff83cf; font-size: 16px; }
 
 @media (max-width: 860px) {
-  .party-detail__art { height: 190px; border-radius: 0; }
+  .party-detail__art { height: 190px; }
   .party-detail__logo { width: 120px; height: 52px; }
   .party-detail__platforms, .party-mode { padding-inline: 18px; }
 }
