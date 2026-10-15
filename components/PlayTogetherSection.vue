@@ -3,18 +3,45 @@ import { compatibilityGames } from '~/data/playTogether'
 
 const track = ref<HTMLElement>()
 const activeIndex = ref(0)
+// while a bar click is scrolling the track, hold the highlight on the target
+// so the bars don't flash through every card in between
+let target: number | null = null
+let settle: ReturnType<typeof setTimeout> | undefined
+
+function stepOf(el: HTMLElement) {
+  const first = el.firstElementChild as HTMLElement | null
+  if (!first) return 0
+  return first.offsetWidth + parseFloat(getComputedStyle(el).columnGap || '0')
+}
+function release() {
+  target = null
+  clearTimeout(settle)
+}
 function onScroll() {
   const el = track.value
-  if (!el || !el.firstElementChild) return
-  const step = (el.firstElementChild as HTMLElement).offsetWidth + 16
-  activeIndex.value = Math.min(compatibilityGames.length - 1, Math.round(el.scrollLeft / step))
+  if (!el) return
+  const step = stepOf(el)
+  if (!step) return
+  const index = Math.min(compatibilityGames.length - 1, Math.max(0, Math.round(el.scrollLeft / step)))
+  if (target !== null) {
+    // keep waiting until the smooth scroll lands (or stalls)
+    clearTimeout(settle)
+    settle = setTimeout(release, 150)
+    if (index !== target) return
+    release()
+  }
+  if (index !== activeIndex.value) activeIndex.value = index
 }
 function goTo(i: number) {
   const el = track.value
-  if (!el || !el.firstElementChild) return
+  if (!el) return
+  const step = stepOf(el)
+  if (!step) return
   const index = Math.max(0, Math.min(compatibilityGames.length - 1, i))
-  const step = (el.firstElementChild as HTMLElement).offsetWidth + 16
   activeIndex.value = index
+  target = index
+  clearTimeout(settle)
+  settle = setTimeout(release, 900)
   el.scrollTo({ left: index * step, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
 }
 
@@ -34,7 +61,10 @@ onMounted(() => {
   section.value?.querySelectorAll('[data-together-reveal]').forEach(element => observer?.observe(element))
   armed.value = true
 })
-onBeforeUnmount(() => observer?.disconnect())
+onBeforeUnmount(() => {
+  observer?.disconnect()
+  clearTimeout(settle)
+})
 </script>
 
 <template>
@@ -56,9 +86,10 @@ onBeforeUnmount(() => observer?.disconnect())
         </picture>
       </figure>
 
-      <div class="party-cards" :aria-label="`${compatibilityGames.length} games`" @scroll.passive="onScroll" ref="track">
+      <div class="party-cards" :aria-label="`${compatibilityGames.length} games`" @scroll.passive="onScroll"
+        @pointerdown="release" @touchstart.passive="release" ref="track">
         <article v-for="game in compatibilityGames" :key="game.id" class="party-card neon-hover-outline"
-:aria-labelledby="`card-${game.id}-crossplay`" data-together-reveal>
+:aria-labelledby="`card-${game.id}-crossplay`">
           <PlayTogetherDetail :game="game" id-prefix="card" />
         </article>
       </div>
@@ -136,13 +167,13 @@ onBeforeUnmount(() => observer?.disconnect())
   .party-card { flex: 0 0 100%; scroll-snap-align: center; scroll-snap-stop: always; }
   .party-indicators { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
   .party-indicators button { display: grid; place-items: center; width: 48px; height: 36px; padding: 0; border: 0; border-radius: 4px; background: transparent; cursor: pointer; }
-  .party-indicators span { width: 40px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, 0.55); box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8); transition: background .3s ease, box-shadow .3s ease; }
+  .party-indicators span { width: 40px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, 0.55); box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8); }
   .together__foot { flex-direction: column; gap: 9px; }
   .party-indicators button.is-active span { background: linear-gradient(90deg, #ff9bdd, #c69aff); box-shadow: 0 0 7px rgba(221, 154, 255, 0.65); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-together-reveal], .party-indicators span { transition: none; }
+  [data-together-reveal] { transition: none; }
   .is-armed [data-together-reveal]:not(.is-visible) { opacity: 1; transform: none; }
   .party-card::after, .together__banner::after { animation: none; }
 }
