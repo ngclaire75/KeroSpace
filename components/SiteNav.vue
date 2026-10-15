@@ -6,7 +6,7 @@ const links = computed(() => [
   { label: 'Home', href: '/', active: route.path === '/' && !route.hash },
   { label: 'Games', href: '/#supported-games', active: route.path === '/' && route.hash === '#supported-games' },
   { label: 'Items' },
-  { label: 'Community' },
+  { label: 'Community', href: '/community', active: route.path === '/community' },
   { label: 'Guides' },
   { label: 'E-Sports' },
 ])
