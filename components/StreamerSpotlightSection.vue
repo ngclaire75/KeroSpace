@@ -137,7 +137,7 @@ onBeforeUnmount(() => {
       </header>
 
       <!-- ===== creator panel: banner + profile side by side ===== -->
-      <article class="creator-card neon-hover-outline" data-enter aria-labelledby="streamer-name">
+      <article class="creator-card" data-enter aria-labelledby="streamer-name">
         <div class="creator-banner">
           <div
             v-for="(entry, index) in creators"
@@ -321,13 +321,17 @@ onBeforeUnmount(() => {
 
 /* ---------- creator panel ---------- */
 .creator-card {
+  --creator-radius: 14px;
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
   margin-top: clamp(28px, 4vw, 44px);
   overflow: hidden;
-  border: 2px solid var(--creator-line);
-  border-radius: 14px;
-  background: var(--creator-panel);
+  border: 2px solid transparent;
+  border-radius: var(--creator-radius);
+  background:
+    linear-gradient(var(--creator-panel), var(--creator-panel)) padding-box,
+    conic-gradient(from var(--card-outline-angle), #ff69c8, #b26bff, #ff3158, #ff69c8) border-box;
+  animation: card-outline-turn 3s linear infinite;
 }
 
 .creator-banner {
@@ -336,6 +340,7 @@ onBeforeUnmount(() => {
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #08080c;
+  border-radius: calc(var(--creator-radius) - 2px) 0 0 calc(var(--creator-radius) - 2px);
 }
 .creator-banner__slide {
   position: absolute;
@@ -426,6 +431,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   min-width: 0;
   padding: clamp(22px, 2.6vw, 34px);
+  border-radius: 0 calc(var(--creator-radius) - 2px) calc(var(--creator-radius) - 2px) 0;
 }
 .creator-top {
   display: flex;
@@ -615,6 +621,8 @@ onBeforeUnmount(() => {
   .creator-card {
     grid-template-columns: minmax(0, 1fr);
   }
+  .creator-banner { border-radius: calc(var(--creator-radius) - 2px) calc(var(--creator-radius) - 2px) 0 0; }
+  .creator-body { border-radius: 0 0 calc(var(--creator-radius) - 2px) calc(var(--creator-radius) - 2px); }
   .creator-banner__shade {
     background:
       linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, transparent 30%),
@@ -633,7 +641,7 @@ onBeforeUnmount(() => {
     font-size: 15px;
   }
   .creator-card {
-    border-radius: 12px;
+    --creator-radius: 12px;
   }
   .creator-banner__brand {
     top: 10px;
@@ -683,6 +691,7 @@ onBeforeUnmount(() => {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .creator-card { animation: none; }
   .creator-banner__slide.is-active .creator-banner__art {
     transform: none;
   }

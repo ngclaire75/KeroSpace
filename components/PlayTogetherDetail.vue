@@ -62,11 +62,12 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
 .party-detail__label, .party-mode__note > span { color: var(--together-purple, #bd91ff); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 .party-detail__platforms ul { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 0; padding: 0; list-style: none; }
 .party-detail__platforms :deep(.platform-mark__icon) { width: 26px; height: 26px; }
+.party-detail__platforms :deep(.platform-mark[title^="Windows PC"] .platform-mark__icon) { width: 24px; height: 24px; }
 .party-detail__platforms :deep(.platform-mark__label) { display: none; }
 .party-detail__platforms :deep(.platform-mark[title="PlayStation 5"] .platform-mark__icon) { width: 36px; height: 36px; }
 .party-detail__platforms :deep(.platform-mark[title^="Mac"] .platform-mark__icon),
 .party-detail__platforms :deep(.platform-mark[title^="iOS"] .platform-mark__icon) { width: 31px; height: 31px; }
-.party-detail__platforms :deep(.platform-mark[title="Android"] .platform-mark__icon) { width: 34px; height: 34px; }
+.party-detail__platforms :deep(.platform-mark[title="Android"] .platform-mark__icon) { width: 37px; height: 37px; }
 .party-detail__platform-note { flex-basis: 100%; margin: 0; color: var(--together-muted, #c1b9c9); font-size: 11px; }
 
 .party-detail__modes { margin: 0; padding: 0; list-style: none; }

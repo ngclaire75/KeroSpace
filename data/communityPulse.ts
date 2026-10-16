@@ -15,6 +15,8 @@ export type PulseCharacter = {
   /** optional different art for the big spotlight card (falls back to art) */
   spotArt?: string
   spotPosition?: string
+  /** optional crop for the taller mobile spotlight */
+  spotMobilePosition?: string
 }
 export type PulseItem = { name: string; type: string; comments: number }
 export type PulseFeedback = { topic: string; tone: 'praised' | 'mixed' | 'criticised'; summary: string }
@@ -37,7 +39,7 @@ export const pulseGames: PulseGame[] = [
     id: 'hsr', name: 'Honkai: Star Rail', short: 'Star Rail', art: '/images/games/card-hsr.webp', artPosition: 'center 22%',
     characters: [
       { name: 'Firefly', tag: 'Destruction', art: '/images/firefly-hd.webp', artPosition: 'center 40%', spotArt: '/images/firefly-spot-hd.webp', spotPosition: 'center 18%', comments: 48200, sentiment: { loved: 71, mixed: 20, critical: 9 } },
-      { name: 'Acheron', tag: 'Nihility', art: '/images/acheron-hd.webp', comments: 39600, sentiment: { loved: 64, mixed: 26, critical: 10 } },
+      { name: 'Acheron', tag: 'Nihility', art: '/images/acheron-hd.webp', artPosition: 'center 30%', spotPosition: 'center top', spotMobilePosition: '58% top', comments: 39600, sentiment: { loved: 64, mixed: 26, critical: 10 } },
       { name: 'Castorice', tag: 'Remembrance', art: '/images/castorice-hd.webp', artPosition: 'center 50%', comments: 31100, sentiment: { loved: 60, mixed: 28, critical: 12 } },
       { name: 'Kafka', tag: 'Nihility', art: '/images/kafka-hd.webp', artPosition: '30% 50%', comments: 24800, sentiment: { loved: 66, mixed: 24, critical: 10 } },
       { name: 'Sparkle', tag: 'Harmony', art: '/images/sparkle-hd.webp', artPosition: '35% 65%', comments: 19300, sentiment: { loved: 58, mixed: 30, critical: 12 } },
@@ -58,11 +60,11 @@ export const pulseGames: PulseGame[] = [
   {
     id: 'genshin', name: 'Genshin Impact', short: 'Genshin', art: '/images/games/card-genshin.webp',
     characters: [
-      { name: 'Furina', tag: 'Hydro', comments: 52700, sentiment: { loved: 74, mixed: 18, critical: 8 } },
-      { name: 'Mavuika', tag: 'Pyro', comments: 41900, sentiment: { loved: 63, mixed: 25, critical: 12 } },
-      { name: 'Neuvillette', tag: 'Hydro', comments: 33500, sentiment: { loved: 61, mixed: 27, critical: 12 } },
-      { name: 'Nahida', tag: 'Dendro', comments: 27400, sentiment: { loved: 72, mixed: 21, critical: 7 } },
-      { name: 'Raiden Shogun', tag: 'Electro', comments: 21600, sentiment: { loved: 65, mixed: 25, critical: 10 } },
+      { name: 'Furina', tag: 'Hydro', art: '/images/characters/pulse/hd/genshin-1-art.webp', artPosition: '50% 25%', spotArt: '/images/characters/pulse/hd/genshin-1-spotArt.webp', spotPosition: '50% 18%', spotMobilePosition: '50% 8%', comments: 52700, sentiment: { loved: 74, mixed: 18, critical: 8 } },
+      { name: 'Mavuika', tag: 'Pyro', art: '/images/characters/pulse/hd/genshin-2-art.webp', artPosition: '50% 60%', spotPosition: '50% 55%', spotMobilePosition: '35% 40%', comments: 41900, sentiment: { loved: 63, mixed: 25, critical: 12 } },
+      { name: 'Neuvillette', tag: 'Hydro', art: '/images/characters/pulse/hd/genshin-3-art.webp', artPosition: '55% 50%', spotPosition: '55% 55%', spotMobilePosition: '55% 40%', comments: 33500, sentiment: { loved: 61, mixed: 27, critical: 12 } },
+      { name: 'Nahida', tag: 'Dendro', art: '/images/characters/pulse/hd/genshin-4-art.webp', artPosition: '45% 45%', spotPosition: '45% 25%', spotMobilePosition: '40% 25%', comments: 27400, sentiment: { loved: 72, mixed: 21, critical: 7 } },
+      { name: 'Raiden Shogun', tag: 'Electro', art: '/images/characters/pulse/hd/genshin-5-art.webp', artPosition: '50% 38%', spotPosition: '50% 28%', spotMobilePosition: '50% 28%', comments: 21600, sentiment: { loved: 65, mixed: 25, critical: 10 } },
     ],
     items: [
       { name: 'Emblem of Severed Fate', type: 'Artifact set', comments: 11200 },
@@ -80,11 +82,11 @@ export const pulseGames: PulseGame[] = [
   {
     id: 'hi3', name: 'Honkai Impact 3rd', short: 'Honkai Impact', art: '/images/games/card-hi3.webp',
     characters: [
-      { name: 'Elysia', tag: 'Fan favourite', comments: 14800, sentiment: { loved: 78, mixed: 16, critical: 6 } },
-      { name: 'Kiana Kaslana', tag: 'Main cast', comments: 12100, sentiment: { loved: 69, mixed: 22, critical: 9 } },
-      { name: 'Raiden Mei', tag: 'Main cast', comments: 9600, sentiment: { loved: 70, mixed: 21, critical: 9 } },
-      { name: 'Bronya Zaychik', tag: 'Main cast', comments: 8200, sentiment: { loved: 67, mixed: 23, critical: 10 } },
-      { name: 'Fu Hua', tag: 'Main cast', comments: 6900, sentiment: { loved: 72, mixed: 20, critical: 8 } },
+      { name: 'Elysia', tag: 'Fan favourite', art: '/images/characters/pulse/hd/hi3-1-art.webp', artPosition: '50% 35%', spotArt: '/images/characters/pulse/hd/hi3-1-spotArt.webp', spotPosition: '45% 35%', spotMobilePosition: '40% 25%', comments: 14800, sentiment: { loved: 78, mixed: 16, critical: 6 } },
+      { name: 'Kiana Kaslana', tag: 'Main cast', art: '/images/characters/pulse/hd/hi3-2-art.webp', artPosition: '50% 55%', spotPosition: '50% 60%', spotMobilePosition: '50% 35%', comments: 12100, sentiment: { loved: 69, mixed: 22, critical: 9 } },
+      { name: 'Raiden Mei', tag: 'Main cast', art: '/images/characters/pulse/hd/hi3-3-art.webp', artPosition: '50% 50%', spotPosition: '50% 45%', spotMobilePosition: '50% 30%', comments: 9600, sentiment: { loved: 70, mixed: 21, critical: 9 } },
+      { name: 'Bronya Zaychik', tag: 'Main cast', art: '/images/characters/pulse/hd/hi3-4-art.webp', artPosition: '50% 45%', spotPosition: '50% 50%', spotMobilePosition: '50% 30%', comments: 8200, sentiment: { loved: 67, mixed: 23, critical: 10 } },
+      { name: 'Fu Hua', tag: 'Main cast', art: '/images/characters/pulse/hd/hi3-5-art.webp', artPosition: '50% 40%', spotPosition: '50% 40%', spotMobilePosition: '20% 30%', comments: 6900, sentiment: { loved: 72, mixed: 20, critical: 8 } },
     ],
     items: [
       { name: 'Stigmata sets', type: 'Gear', comments: 4100 },
@@ -102,11 +104,11 @@ export const pulseGames: PulseGame[] = [
   {
     id: 'wuwa', name: 'Wuthering Waves', short: 'Wuthering Waves', art: '/images/games/card-wuwa.webp',
     characters: [
-      { name: 'Camellya', tag: 'Havoc', comments: 36400, sentiment: { loved: 68, mixed: 22, critical: 10 } },
-      { name: 'Changli', tag: 'Fusion', comments: 29800, sentiment: { loved: 70, mixed: 21, critical: 9 } },
-      { name: 'Jinhsi', tag: 'Spectro', comments: 25100, sentiment: { loved: 66, mixed: 23, critical: 11 } },
-      { name: 'Carlotta', tag: 'Glacio', comments: 21700, sentiment: { loved: 62, mixed: 27, critical: 11 } },
-      { name: 'Phoebe', tag: 'Spectro', comments: 16200, sentiment: { loved: 64, mixed: 26, critical: 10 } },
+      { name: 'Camellya', tag: 'Havoc', art: '/images/characters/pulse/hd/wuwa-1-art.webp', artPosition: '50% 40%', spotArt: '/images/characters/pulse/hd/wuwa-1-spotArt.webp', spotPosition: '50% 60%', spotMobilePosition: '50% 35%', comments: 36400, sentiment: { loved: 68, mixed: 22, critical: 10 } },
+      { name: 'Changli', tag: 'Fusion', art: '/images/characters/pulse/hd/wuwa-2-art.webp', artPosition: '50% 40%', spotPosition: '50% 45%', spotMobilePosition: '50% 30%', comments: 29800, sentiment: { loved: 70, mixed: 21, critical: 9 } },
+      { name: 'Jinhsi', tag: 'Spectro', art: '/images/characters/pulse/hd/wuwa-3-art.webp', artPosition: '50% 35%', spotPosition: '50% 35%', spotMobilePosition: '45% 30%', comments: 25100, sentiment: { loved: 66, mixed: 23, critical: 11 } },
+      { name: 'Carlotta', tag: 'Glacio', art: '/images/characters/pulse/hd/wuwa-4-art.webp', artPosition: '50% 40%', spotPosition: '50% 50%', spotMobilePosition: '55% 30%', comments: 21700, sentiment: { loved: 62, mixed: 27, critical: 11 } },
+      { name: 'Phoebe', tag: 'Spectro', art: '/images/characters/pulse/hd/wuwa-5-art.webp', artPosition: '50% 35%', spotPosition: '50% 40%', spotMobilePosition: '50% 30%', comments: 16200, sentiment: { loved: 64, mixed: 26, critical: 10 } },
     ],
     items: [
       { name: 'Inferno Rider', type: 'Echo', comments: 9400 },
@@ -124,11 +126,11 @@ export const pulseGames: PulseGame[] = [
   {
     id: 'nte', name: 'Neverness to Everness', short: 'NTE', art: '/images/games/card-nte.webp',
     characters: [
-      { name: 'Nanally', tag: 'Esper', comments: 18900, sentiment: { loved: 69, mixed: 22, critical: 9 } },
-      { name: 'Main cast', tag: 'Story', comments: 14300, sentiment: { loved: 60, mixed: 29, critical: 11 } },
-      { name: 'Anomaly bosses', tag: 'Encounters', comments: 11200, sentiment: { loved: 57, mixed: 30, critical: 13 } },
-      { name: 'City residents', tag: 'Hethereau', comments: 8800, sentiment: { loved: 63, mixed: 27, critical: 10 } },
-      { name: 'Rival espers', tag: 'Story', comments: 6100, sentiment: { loved: 55, mixed: 31, critical: 14 } },
+      { name: 'Nanally', tag: 'Esper', art: '/images/characters/pulse/hd/nte-1-art.webp', artPosition: '50% 50%', spotArt: '/images/characters/pulse/hd/nte-1-spotArt.webp', spotPosition: '50% 55%', spotMobilePosition: '50% 35%', comments: 18900, sentiment: { loved: 69, mixed: 22, critical: 9 } },
+      { name: 'Daffodill', tag: 'Esper', art: '/images/characters/pulse/hd/nte-2-art.webp', artPosition: '50% 60%', spotPosition: '50% 60%', spotMobilePosition: '50% 35%', comments: 14300, sentiment: { loved: 60, mixed: 29, critical: 11 } },
+      { name: 'Sakiri', tag: 'Esper', art: '/images/characters/pulse/hd/nte-3-art.webp', artPosition: '50% 50%', spotPosition: '50% 60%', spotMobilePosition: '50% 35%', comments: 11200, sentiment: { loved: 57, mixed: 30, critical: 13 } },
+      { name: 'Mint', tag: 'Esper', art: '/images/characters/pulse/hd/nte-4-art.webp', artPosition: '50% 60%', spotPosition: '50% 55%', spotMobilePosition: '50% 35%', comments: 8800, sentiment: { loved: 63, mixed: 27, critical: 10 } },
+      { name: 'Hathor', tag: 'Esper', art: '/images/characters/pulse/hd/nte-5-art.webp', artPosition: '50% 40%', spotPosition: '50% 40%', spotMobilePosition: '50% 30%', comments: 6100, sentiment: { loved: 55, mixed: 31, critical: 14 } },
     ],
     items: [
       { name: 'Vehicles', type: 'Driving', comments: 7800 },
@@ -146,11 +148,11 @@ export const pulseGames: PulseGame[] = [
   {
     id: 'mlbb', name: 'Mobile Legends: Bang Bang', short: 'Mobile Legends', art: '/images/games/card-mlbb.webp',
     characters: [
-      { name: 'Ling', tag: 'Assassin', comments: 44100, sentiment: { loved: 52, mixed: 28, critical: 20 } },
-      { name: 'Fanny', tag: 'Assassin', comments: 39800, sentiment: { loved: 50, mixed: 27, critical: 23 } },
-      { name: 'Gusion', tag: 'Assassin', comments: 31500, sentiment: { loved: 56, mixed: 27, critical: 17 } },
-      { name: 'Vexana', tag: 'Mage', comments: 22300, sentiment: { loved: 61, mixed: 26, critical: 13 } },
-      { name: 'Lancelot', tag: 'Assassin', comments: 20900, sentiment: { loved: 54, mixed: 29, critical: 17 } },
+      { name: 'Ling', tag: 'Assassin', art: '/images/characters/pulse/hd/mlbb-ling-card-blue.webp', artPosition: '50% 35%', spotArt: '/images/characters/pulse/hd/mlbb-1-art.webp', spotPosition: '50% 30%', spotMobilePosition: '50% 25%', comments: 44100, sentiment: { loved: 52, mixed: 28, critical: 20 } },
+      { name: 'Fanny', tag: 'Assassin', art: '/images/characters/pulse/hd/mlbb-fanny-latest.webp', artPosition: '50% 35%', spotPosition: '50% 35%', spotMobilePosition: '50% 30%', comments: 39800, sentiment: { loved: 50, mixed: 27, critical: 23 } },
+      { name: 'Gusion', tag: 'Assassin', art: '/images/characters/pulse/hd/mlbb-3-art.webp', artPosition: '55% 30%', spotPosition: '55% 25%', spotMobilePosition: '55% 25%', comments: 31500, sentiment: { loved: 56, mixed: 27, critical: 17 } },
+      { name: 'Vexana', tag: 'Mage', art: '/images/characters/pulse/hd/mlbb-4-art.webp', artPosition: '52% 32%', spotPosition: '52% 25%', spotMobilePosition: '52% 25%', comments: 22300, sentiment: { loved: 61, mixed: 26, critical: 13 } },
+      { name: 'Lancelot', tag: 'Assassin', art: '/images/characters/pulse/hd/mlbb-5-art.webp', artPosition: '50% 25%', spotPosition: '50% 25%', spotMobilePosition: '50% 20%', comments: 20900, sentiment: { loved: 54, mixed: 29, critical: 17 } },
     ],
     items: [
       { name: 'Blade of Despair', type: 'Attack', comments: 10600 },

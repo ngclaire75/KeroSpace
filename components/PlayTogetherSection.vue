@@ -126,7 +126,8 @@ onBeforeUnmount(() => {
 
 /* cards */
 .party-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 20px; }
-.party-card { display: flex; flex-direction: column; min-width: 0; border: 0; border-radius: 12px; background: #000; overflow: hidden; }
+.party-card { display: flex; flex-direction: column; min-width: 0; border: 0; border-radius: 0; background: #000; overflow: hidden; }
+.party-card :deep(.party-detail__art) { border-radius: 0; }
 .party-card::after { opacity: 1; animation: card-outline-turn 3s linear infinite; }
 .party-indicators { display: none; }
 
@@ -150,7 +151,7 @@ onBeforeUnmount(() => {
 /* phone: swipeable cards */
 @media (max-width: 700px) {
   .together__head { margin-bottom: 24px; }
-  .party-cards { display: flex; gap: 16px; overflow-x: auto; overflow-y: hidden; touch-action: pan-x pan-y; overscroll-behavior-y: none; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .party-cards { display: flex; gap: 16px; overflow-x: auto; overflow-y: hidden; touch-action: pan-x pan-y; overscroll-behavior-y: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
   .party-cards::-webkit-scrollbar { display: none; }
   .party-card { flex: 0 0 100%; scroll-snap-align: center; scroll-snap-stop: always; }
   .party-indicators { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }

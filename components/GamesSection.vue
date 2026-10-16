@@ -390,9 +390,11 @@ onBeforeUnmount(() => {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   margin-top: 28px;
+  padding: 2px;
   border-radius: 10px;
   overflow: hidden;
-  background: var(--panel);
+  background: conic-gradient(from var(--kero-banner-angle), #ffb3df, #d8b4ff, #9e4dff, #ffb3df);
+  animation: banner-outline 6s linear infinite;
   scroll-margin-top: 100px;
 }
 .feature:focus-visible {
@@ -406,39 +408,8 @@ onBeforeUnmount(() => {
   min-width: 0;
   aspect-ratio: 1916 / 821;
   overflow: hidden;
-  border-radius: 10px 10px 0 0;
+  border-radius: 8px 8px 0 0;
   background: #08080a;
-}
-.feature__media::before,
-.feature__media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: inherit;
-  pointer-events: none;
-}
-.feature__media::before {
-  box-shadow:
-    inset 0 0 14px rgba(255, 16, 43, 0.12),
-    inset 0 0 14px rgba(255, 47, 139, 0.12),
-    inset 0 0 14px rgba(168, 60, 255, 0.12);
-}
-.feature__media::after {
-  padding: 2px;
-  background: conic-gradient(
-    from var(--kero-banner-angle),
-    #ff102b 0%,
-    #ff2f8b 33.333%,
-    #a83cff 66.667%,
-    #ff102b 100%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.35));
-  animation: banner-outline 6s linear infinite;
 }
 .feature__slide {
   position: absolute;
@@ -488,16 +459,13 @@ onBeforeUnmount(() => {
 .feature__body {
   position: relative;
   isolation: isolate;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 8px 8px;
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   gap: clamp(24px, 4vw, 56px);
   align-items: start;
   padding: clamp(22px, 3vw, 36px);
-  /* grey edge, same 2px weight as the banner outline above; no top edge,
-     the banner's own outline already closes that side */
-  border: 2px solid var(--edge);
-  border-top: 0;
+  background: var(--panel);
 }
 .feature__label {
   display: flex;
@@ -666,7 +634,7 @@ onBeforeUnmount(() => {
   height: 100%;
   padding: 0;
   text-align: left;
-  border: 2px solid var(--edge);
+  border: 2px solid transparent;
   /* matches the feature panel above */
   border-radius: 10px;
   overflow: hidden;
@@ -675,6 +643,7 @@ onBeforeUnmount(() => {
     var(--panel);
   transition: border-color 0.4s var(--ease);
 }
+.gcard__link::after { opacity: 1; animation: card-outline-turn 3s linear infinite; }
 .gcard__poster-frame {
   position: relative;
   display: block;
@@ -987,9 +956,9 @@ onBeforeUnmount(() => {
     transform: none;
     will-change: auto;
   }
-  .cover::after { animation: none; }
+  .cover::after, .gcard__link::after { animation: none; }
   .gcard__stat { animation: none; }
-  .feature__media::after { animation: none; }
+  .feature { animation: none; }
   .feature__slide,
   .feature__art,
   .banner-indicators span,

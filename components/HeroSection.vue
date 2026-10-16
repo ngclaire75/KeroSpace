@@ -99,9 +99,9 @@ function release(el: HTMLElement) {
   for (const p of ['--tx', '--ty', '--mx', '--my', '--lift']) el.style.removeProperty(p)
 }
 
-// Touch gets the same tilt as the mouse: pointermove only fires for touch while
-// a finger is down, and pointerdown starts it on the first tap.
+// Keep tilt on mouse input so touch gestures can scroll the page naturally.
 function track(e: PointerEvent) {
+  if (e.pointerType !== 'mouse') return
   const el = cardEls[active.value]
   if (!el) return
   if (live !== el) {
@@ -138,15 +138,16 @@ watch(active, () => {
 })
 
 /* ---------- swipe ---------- */
-let downX: number | null = null
+let downPoint: { x: number; y: number } | null = null
 function onDown(e: PointerEvent) {
-  downX = e.clientX
+  downPoint = { x: e.clientX, y: e.clientY }
 }
 function onUp(e: PointerEvent) {
-  if (downX === null) return
-  const dx = e.clientX - downX
-  downX = null
-  if (Math.abs(dx) > 45) (dx < 0 ? next : prev)()
+  if (!downPoint) return
+  const dx = e.clientX - downPoint.x
+  const dy = e.clientY - downPoint.y
+  downPoint = null
+  if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) (dx < 0 ? next : prev)()
 }
 
 /* ---------- autoplay: a new 4s countdown after every slide, hover or tap ----
@@ -231,6 +232,7 @@ onBeforeUnmount(() => {
       @keydown.right.prevent="next"
       @pointerdown="onDown"
       @pointerup="onUp"
+      @pointercancel="downPoint = null"
       @pointerenter="paused = true"
       @pointerleave="paused = false"
       @focusin="paused = true"
@@ -328,14 +330,14 @@ onBeforeUnmount(() => {
 .hero__copy {
   position: relative;
   z-index: 2;
-  padding: calc(clamp(40px, min(6vw, 7vh), 80px) + 16px) 20px 0;
+  padding: calc(clamp(40px, min(6vw, 7svh), 80px) + 16px) 20px 0;
   text-align: center;
 }
 .hero__title {
   margin: 0;
   font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(30px, min(5.4vw, 8.4vh), 78px);
+  font-size: clamp(30px, min(5.4vw, 8.4svh), 78px);
   line-height: 1.08;
   letter-spacing: 0.01em;
   text-transform: uppercase;
@@ -398,7 +400,7 @@ onBeforeUnmount(() => {
   flex: 1 1 0;
   min-height: 0;
   container-type: size;
-  margin-top: clamp(16px, 3vh, 44px);
+  margin-top: clamp(16px, 3svh, 44px);
   perspective: 1100px;
   perspective-origin: 50% 35%;
   touch-action: pan-y;
@@ -451,9 +453,7 @@ onBeforeUnmount(() => {
 
 .card[data-pos='0'] {
   z-index: 5;
-  /* a finger on the centre card drives the tilt in every direction instead of
-     being taken over by page scrolling (horizontal swipes still change cards) */
-  touch-action: none;
+  touch-action: pan-y;
 }
 .card.is-jump {
   transition: none;

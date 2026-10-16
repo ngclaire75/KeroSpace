@@ -15,7 +15,31 @@ const split = (s: PulseSentiment) => [
   { key: 'critical', label: 'Critical', value: s.critical },
 ]
 
-function selectGame(i: number) { active.value = i; pick.value = 0 }
+const imageReady = new Map<string, Promise<void>>()
+function preloadGame(i: number) {
+  const sources = pulseGames[i]!.characters.flatMap(c => [c.art, c.spotArt]).filter((src): src is string => !!src)
+  return Promise.all(sources.map(src => {
+    if (!imageReady.has(src)) {
+      const image = new Image()
+      image.src = src
+      imageReady.set(src, image.decode().catch(() => {}))
+    }
+    return imageReady.get(src)!
+  }))
+}
+
+onMounted(() => {
+  pulseGames.forEach((_, i) => { void preloadGame(i) })
+})
+
+let selection = 0
+async function selectGame(i: number) {
+  const request = ++selection
+  await preloadGame(i)
+  if (request !== selection) return
+  active.value = i
+  pick.value = 0
+}
 
 const tabs = ref<HTMLButtonElement[]>([])
 function onKey(e: KeyboardEvent, i: number) {
@@ -44,14 +68,14 @@ function onKey(e: KeyboardEvent, i: number) {
     <div class="seg" role="tablist" aria-label="Choose a game">
       <button v-for="(g, i) in pulseGames" :id="`pulse-tab-${g.id}`" :key="g.id" ref="tabs" type="button" role="tab"
         :aria-selected="active === i" aria-controls="pulse-stage" :tabindex="active === i ? 0 : -1"
-        @click="selectGame(i)" @keydown="onKey($event, i)">{{ g.short }}</button>
+        @click="selectGame(i)" @keydown="onKey($event, i)">{{ g.id === 'genshin' || g.id === 'nte' ? g.name : g.short }}</button>
     </div>
 
     <div id="pulse-stage" class="stage" role="tabpanel" :aria-labelledby="`pulse-tab-${game.id}`">
       <!-- ============ spotlight ============ -->
       <Transition name="fade" mode="out-in">
         <article :key="`${game.id}-${star.name}`" class="spot" :class="{ 'spot--noart': !(star.spotArt || star.art) }">
-          <img v-if="star.spotArt || star.art" class="spot__art" :src="star.spotArt || star.art" alt="" :style="{ objectPosition: star.spotPosition || star.artPosition || 'center top' }" />
+          <img v-if="star.spotArt || star.art" class="spot__art" :src="star.spotArt || star.art" alt="" :style="{ '--spot-position': star.spotPosition || star.artPosition || 'center top', '--spot-mobile-position': star.spotMobilePosition || star.spotPosition || star.artPosition || 'center top' }" />
           <!-- no official art yet: oversized initial on a soft colour field -->
           <span v-else class="spot__mono" aria-hidden="true">{{ star.name.slice(0, 1) }}</span>
 
@@ -78,7 +102,9 @@ function onKey(e: KeyboardEvent, i: number) {
       <div class="rail" role="group" aria-label="Most discussed characters">
         <button v-for="(c, i) in game.characters" :key="c.name" type="button" class="rtile" :class="[`rtile--${i + 1}`, { 'is-on': pick === i, 'has-art': c.art }]"
           :aria-pressed="pick === i" @click="pick = i">
-          <img v-if="c.art" class="rtile__art" :src="c.art" alt="" :style="{ objectPosition: c.artPosition || 'center 25%' }" />
+          <span class="rtile__surface" aria-hidden="true">
+            <img v-if="c.art" class="rtile__art" :src="c.art" alt="" :style="{ objectPosition: c.artPosition || 'center 25%' }" />
+          </span>
           <span class="rtile__n" aria-hidden="true">{{ i + 1 }}</span>
           <span class="rtile__who"><b>{{ c.name }}</b><small>{{ c.tag }}</small></span>
           <span class="rtile__v">{{ fmt(c.comments) }}</span>
@@ -154,7 +180,7 @@ function onKey(e: KeyboardEvent, i: number) {
   border-radius: 10px;
   background: #000;
 }
-.spot__art { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.spot__art { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--spot-position, center top); }
 .spot--noart {
   background:
     radial-gradient(70% 90% at 85% 15%, rgba(178, 107, 255, .55), transparent 65%),
@@ -177,8 +203,8 @@ function onKey(e: KeyboardEvent, i: number) {
 
 /* black glass panel */
 .glass {
-  width: min(440px, 100%);
-  padding: 22px 24px;
+  width: min(400px, 100%);
+  padding: 18px 20px;
   border-radius: 8px;
   background: rgba(0, 0, 0, .78);
   -webkit-backdrop-filter: blur(36px) saturate(110%);
@@ -186,17 +212,17 @@ function onKey(e: KeyboardEvent, i: number) {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12), inset 0 1px 0 rgba(255, 255, 255, .1), 0 24px 60px rgba(0, 0, 0, .35);
 }
 .glass__label { margin: 0; font-size: 12px; font-weight: 800; color: rgba(255, 255, 255, .62); }
-.glass__name { margin: 8px 0 0; font: 900 clamp(26px, 2.6vw, 34px)/1.05 var(--display); text-transform: uppercase; letter-spacing: -.02em; }
-.glass__tag { margin: 6px 0 0; font-size: 13px; font-weight: 700; color: #ffb3e1; }
-.glass__row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-top: 18px; }
-.glass__big { display: flex; align-items: baseline; gap: 8px; margin: 0; font: 900 clamp(34px, 3.2vw, 44px)/1 var(--display); letter-spacing: -.03em; background: var(--blob); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.glass__name { margin: 6px 0 0; font: 900 clamp(24px, 2.3vw, 30px)/1.05 var(--display); text-transform: uppercase; letter-spacing: -.02em; }
+.glass__tag { margin: 5px 0 0; font-size: 12px; font-weight: 700; color: #ffb3e1; }
+.glass__row { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; margin-top: 14px; }
+.glass__big { display: flex; align-items: baseline; gap: 6px; margin: 0; font: 900 clamp(30px, 2.8vw, 38px)/1 var(--display); letter-spacing: -.03em; background: var(--blob); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .glass__big small { font: 800 12px/1 var(--ui); letter-spacing: 0; -webkit-text-fill-color: rgba(255, 255, 255, .7); }
-.glass__mood { display: flex; gap: 14px; margin: 0; }
+.glass__mood { display: flex; gap: 12px; margin: 0; }
 .m dt { font-size: 11px; font-weight: 700; color: rgba(255, 255, 255, .55); }
 .m dd { margin: 2px 0 0; font: 900 14px/1 var(--display); }
 .m--loved dd { color: #ff8fd0; }
 .m--critical dd { color: #ff6b81; }
-.meter { display: flex; gap: 3px; height: 6px; margin-top: 16px; }
+.meter { display: flex; gap: 3px; height: 5px; margin-top: 12px; }
 .meter__seg { min-width: 4px; border-radius: 999px; }
 .meter__seg--loved { background: var(--blob); }
 .meter__seg--mixed { background: rgba(255, 255, 255, .28); }
@@ -221,23 +247,33 @@ function onKey(e: KeyboardEvent, i: number) {
   font: inherit;
   text-align: left;
   cursor: pointer;
-  background: #121016;
-  transition: box-shadow .25s;
+  background: linear-gradient(120deg, #ffb3df, #642a96 48%, #353238);
+}
+.rtile__surface {
+  position: absolute;
+  z-index: -1;
+  inset: 2px;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--tile-background, #121016);
+  pointer-events: none;
 }
 /* each tile carries its own soft colour field */
-.rtile--1 { background: radial-gradient(70% 140% at 100% 50%, rgba(255, 84, 187, .5), transparent 70%), radial-gradient(50% 120% at 70% 100%, rgba(160, 92, 255, .4), transparent 70%), #120e16; }
-.rtile--2 { background: radial-gradient(70% 140% at 100% 50%, rgba(160, 92, 255, .5), transparent 70%), radial-gradient(50% 120% at 70% 0%, rgba(255, 61, 106, .3), transparent 70%), #110e18; }
-.rtile--3 { background: radial-gradient(70% 140% at 100% 50%, rgba(255, 45, 85, .45), transparent 70%), radial-gradient(50% 120% at 70% 100%, rgba(255, 84, 187, .3), transparent 70%), #140d12; }
-.rtile--4 { background: radial-gradient(70% 140% at 100% 50%, rgba(255, 95, 180, .3), transparent 70%), #100e14; }
-.rtile--5 { background: radial-gradient(70% 140% at 100% 50%, rgba(160, 92, 255, .3), transparent 70%), #100e14; }
-.rtile__art { position: absolute; z-index: -1; top: 0; right: 0; width: 62%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(90deg, transparent, #000 60%); mask-image: linear-gradient(90deg, transparent, #000 60%); opacity: .85; }
-.rtile.has-art::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .55)); }
+.rtile--1 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 84, 187, .5), transparent 70%), radial-gradient(50% 120% at 70% 100%, rgba(160, 92, 255, .4), transparent 70%), #120e16; }
+.rtile--2 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(160, 92, 255, .5), transparent 70%), radial-gradient(50% 120% at 70% 0%, rgba(255, 61, 106, .3), transparent 70%), #110e18; }
+.rtile--3 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 45, 85, .45), transparent 70%), radial-gradient(50% 120% at 70% 100%, rgba(255, 84, 187, .3), transparent 70%), #140d12; }
+.rtile--4 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 95, 180, .3), transparent 70%), #100e14; }
+.rtile--5 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(160, 92, 255, .3), transparent 70%), #100e14; }
+.rtile__art { position: absolute; z-index: -1; top: 0; right: 0; width: 62%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(90deg, transparent, #000 60%); mask-image: linear-gradient(90deg, transparent, #000 60%); opacity: .85; transition: opacity .25s ease; }
+.rtile.has-art .rtile__surface::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .55)); transition: opacity .25s ease; }
+.rtile.is-on .rtile__art { opacity: 1; }
+.rtile.is-on .rtile__surface::after { opacity: 0; }
 .rtile__n { font: 900 30px/1 var(--display); color: #fff; text-align: center; }
 .rtile__who { display: flex; flex-direction: column; min-width: 0; }
 .rtile__who b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 900 14px/1.2 var(--display); text-transform: uppercase; letter-spacing: -.005em; }
 .rtile__who small { margin-top: 4px; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, .6); }
 .rtile__v { font: 900 15px/1 var(--display); }
-.rtile.is-on { box-shadow: inset 0 0 0 1.5px rgba(255, 140, 210, .85); }
 .rtile:focus-visible { outline: 2px solid #e3a3ff; outline-offset: 2px; }
 
 .fade-enter-active, .fade-leave-active { transition: opacity .25s ease; }
@@ -255,11 +291,12 @@ function onKey(e: KeyboardEvent, i: number) {
   .seg button { padding: 0 14px; }
   .stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
   .spot { min-height: 520px; padding: 10px; }
-  .glass { padding: 18px; }
-  .glass__row { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .spot__art { object-position: var(--spot-mobile-position, var(--spot-position, center top)); }
+  .glass { padding: 14px 16px; }
+  .glass__row { flex-direction: column; align-items: flex-start; gap: 10px; }
   .rtile { min-height: 64px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .fade-enter-active, .fade-leave-active, .rtile { transition: none; }
+  .fade-enter-active, .fade-leave-active, .rtile, .rtile__art, .rtile.has-art .rtile__surface::after { transition: none; }
 }
 </style>
