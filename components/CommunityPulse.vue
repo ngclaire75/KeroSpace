@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { pulseGames, pulsePeriod, type PulseSentiment } from '~/data/communityPulse'
+import { pulseGames, type PulseSentiment } from '~/data/communityPulse'
 
 const active = ref(0)
 const pick = ref(0) // which character the spotlight shows
@@ -9,7 +9,6 @@ const star = computed(() => game.value.characters[pick.value] ?? game.value.char
 
 const compact = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 })
 const fmt = (n: number) => compact.format(n)
-const pad = (n: number) => String(n).padStart(2, '0')
 const split = (s: PulseSentiment) => [
   { key: 'loved', label: 'Loved', value: s.loved },
   { key: 'mixed', label: 'Mixed', value: s.mixed },
@@ -85,30 +84,6 @@ function onKey(e: KeyboardEvent, i: number) {
           <span class="rtile__v">{{ fmt(c.comments) }}</span>
         </button>
       </div>
-
-      <!-- ============ gear ============ -->
-      <article class="gear">
-        <p class="gear__k">Most talked-about gear <span>{{ pulsePeriod }}</span></p>
-        <ol class="gear__list">
-          <li v-for="(it, i) in game.items.slice(0, 3)" :key="it.name">
-            <span class="gear__n">{{ pad(i + 1) }}</span>
-            <span class="gear__who"><b>{{ it.name }}</b><small>{{ it.type }}</small></span>
-            <span class="gear__v">{{ fmt(it.comments) }}</span>
-          </li>
-        </ol>
-      </article>
-
-      <!-- ============ verdict ============ -->
-      <article class="verdict verdict--love">
-        <p class="verdict__k">Players love</p>
-        <p class="verdict__big">{{ game.verdict.loved }}<small>% positive</small></p>
-        <p class="verdict__s">{{ game.verdict.praise }}</p>
-      </article>
-      <article class="verdict verdict--fix">
-        <p class="verdict__k">Players want fixed</p>
-        <p class="verdict__big">{{ game.verdict.critical }}<small>% critical</small></p>
-        <p class="verdict__s">{{ game.verdict.complaint }}</p>
-      </article>
     </div>
   </section>
 </template>
@@ -162,7 +137,7 @@ function onKey(e: KeyboardEvent, i: number) {
 .stage {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.15fr);
-  grid-template-areas: 'spot spot rail' 'love fix gear';
+  grid-template-areas: 'spot spot rail';
   gap: 14px;
 }
 
@@ -247,7 +222,7 @@ function onKey(e: KeyboardEvent, i: number) {
   text-align: left;
   cursor: pointer;
   background: #121016;
-  transition: transform .25s var(--ease), box-shadow .25s;
+  transition: box-shadow .25s;
 }
 /* each tile carries its own soft colour field */
 .rtile--1 { background: radial-gradient(70% 140% at 100% 50%, rgba(255, 84, 187, .5), transparent 70%), radial-gradient(50% 120% at 70% 100%, rgba(160, 92, 255, .4), transparent 70%), #120e16; }
@@ -257,56 +232,20 @@ function onKey(e: KeyboardEvent, i: number) {
 .rtile--5 { background: radial-gradient(70% 140% at 100% 50%, rgba(160, 92, 255, .3), transparent 70%), #100e14; }
 .rtile__art { position: absolute; z-index: -1; top: 0; right: 0; width: 62%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(90deg, transparent, #000 60%); mask-image: linear-gradient(90deg, transparent, #000 60%); opacity: .85; }
 .rtile.has-art::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .55)); }
-.rtile__n { font: 900 30px/1 var(--display); color: transparent; -webkit-text-stroke: 1.5px rgba(255, 255, 255, .35); text-align: center; }
+.rtile__n { font: 900 30px/1 var(--display); color: #fff; text-align: center; }
 .rtile__who { display: flex; flex-direction: column; min-width: 0; }
 .rtile__who b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 900 14px/1.2 var(--display); text-transform: uppercase; letter-spacing: -.005em; }
 .rtile__who small { margin-top: 4px; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, .6); }
 .rtile__v { font: 900 15px/1 var(--display); }
 .rtile.is-on { box-shadow: inset 0 0 0 1.5px rgba(255, 140, 210, .85), 0 8px 26px rgba(255, 84, 187, .22); }
-.rtile.is-on .rtile__n { color: #fff; -webkit-text-stroke: 0; background: var(--blob); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .rtile:focus-visible { outline: 2px solid #e3a3ff; outline-offset: 2px; }
-@media (hover: hover) { .rtile:not(.is-on):hover { transform: translateX(-3px); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16); } }
-
-/* gear */
-.gear { grid-area: gear; display: flex; flex-direction: column; min-height: 200px; padding: 20px 22px; border-radius: 10px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--hair); }
-.gear__k { display: flex; justify-content: space-between; gap: 10px; margin: 0; font-size: 12px; font-weight: 800; color: rgba(255, 255, 255, .7); }
-.gear__k span { font-size: 11px; font-weight: 700; color: rgba(255, 255, 255, .32); }
-.gear__list { flex: 1; display: flex; flex-direction: column; justify-content: space-around; margin: 8px 0 0; padding: 0; list-style: none; }
-.gear__list li { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 8px 0; }
-.gear__n { font: 900 11px/1 var(--display); color: rgba(255, 255, 255, .35); }
-.gear__list li:first-child .gear__n { background: var(--blob); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.gear__who { display: flex; flex-direction: column; min-width: 0; }
-.gear__who b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 800; }
-.gear__who small { margin-top: 2px; font-size: 11px; font-weight: 700; color: rgba(255, 255, 255, .45); }
-.gear__v { font: 900 13px/1 var(--display); }
-
-/* verdict cards: gradient lives on the card surface */
-.verdict { display: flex; flex-direction: column; min-height: 200px; padding: 22px 24px; border-radius: 10px; }
-.verdict--love {
-  grid-area: love;
-  background:
-    radial-gradient(90% 90% at 0% 100%, rgba(255, 84, 187, .55), transparent 70%),
-    radial-gradient(80% 80% at 100% 100%, rgba(178, 107, 255, .5), transparent 70%),
-    var(--surface);
-}
-.verdict--fix {
-  grid-area: fix;
-  background:
-    radial-gradient(90% 90% at 100% 100%, rgba(255, 24, 59, .5), transparent 70%),
-    radial-gradient(70% 70% at 0% 100%, rgba(255, 84, 187, .22), transparent 70%),
-    var(--surface);
-}
-.verdict__k { margin: 0; font-size: 12px; font-weight: 800; color: rgba(255, 255, 255, .7); }
-.verdict__big { margin: auto 0 0; padding-top: 18px; font: 900 clamp(38px, 3.4vw, 48px)/1 var(--display); letter-spacing: -.03em; }
-.verdict__big small { margin-left: 2px; font: 800 13px/1 var(--ui); letter-spacing: 0; color: rgba(255, 255, 255, .65); }
-.verdict__s { margin: 10px 0 0; font: 900 clamp(14px, 1.2vw, 16px)/1.3 var(--display); text-transform: uppercase; letter-spacing: -.005em; }
 
 .fade-enter-active, .fade-leave-active { transition: opacity .25s ease; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 1100px) {
-  .stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: 'spot spot' 'rail rail' 'love fix' 'gear gear'; }
+  .stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: 'spot spot' 'rail rail'; }
 }
 @media (max-width: 900px) { .pulse__head { align-items: flex-start; } .pulse__intro { max-width: 280px; font-size: 14px; } }
 @media (max-width: 600px) {
@@ -319,9 +258,6 @@ function onKey(e: KeyboardEvent, i: number) {
   .glass { padding: 18px; }
   .glass__row { flex-direction: column; align-items: flex-start; gap: 14px; }
   .rtile { min-height: 64px; }
-  .verdict { min-height: 170px; padding: 18px; }
-  .verdict__big { font-size: 36px; }
-  .verdict__s { font-size: 13px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .fade-enter-active, .fade-leave-active, .rtile { transition: none; }
