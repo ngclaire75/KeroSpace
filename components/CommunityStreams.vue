@@ -63,11 +63,12 @@ function navigate(event: KeyboardEvent, index: number) {
           <div id="stream-channel-list" class="directory__table-wrap">
             <table>
               <caption class="sr-only">{{ game.name }} channels ranked by viewing hours over 30 days. Page {{ page + 1 }} of 3.</caption>
-              <thead><tr><th scope="col" class="rank">#</th><th scope="col">Channel</th><th scope="col" class="language">Language</th><th scope="col" class="hours"><span class="hours-label">Hours watched</span></th><th scope="col" class="watch"><span class="sr-only">Watch on Twitch</span></th></tr></thead>
+              <colgroup><col class="rank" /><col /><col class="language" /><col class="hours" /><col class="watch" /></colgroup>
+              <thead><tr><th scope="col" class="rank"><svg class="rank-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="m7.784 14l.42-4H4V8h4.415l.525-5h2.011l-.525 5h3.989l.525-5h2.011l-.525 5H20v2h-3.784l-.42 4H20v2h-4.415l-.525 5h-2.011l.525-5H9.585l-.525 5H7.049l.525-5H4v-2zm2.011 0h3.99l.42-4h-3.99z" /></svg><span class="sr-only">Rank</span></th><th scope="col" class="channel-col">Channel</th><th scope="col" class="language">Language</th><th scope="col" class="hours" colspan="2"><span class="hours-label">Hours watched</span></th></tr></thead>
               <tbody :key="`${game.id}-${page}`">
                 <tr v-for="(streamer, index) in visible" :key="streamer.handle">
                   <td class="rank"><span>{{ String(page * 5 + index + 1).padStart(2, '0') }}</span></td>
-                  <th scope="row">
+                  <th scope="row" class="channel-col">
                     <a class="channel" :href="`https://www.twitch.tv/${streamer.handle}`" target="_blank" rel="noopener noreferrer" :aria-label="`${streamer.name} on Twitch (opens in a new tab)`">
                       <span class="channel__avatar">
                         <img v-if="streamer.avatar && !failedAvatars.includes(streamer.handle)" :src="streamer.avatar" alt="" width="40" height="40" loading="lazy" @error="failedAvatars.push(streamer.handle)" />
@@ -130,8 +131,11 @@ thead th { height: 35px; color: #fff; font-size: 10px; font-weight: 800; text-tr
 .rank { width: 36px; color: var(--muted); text-align: center; font-variant-numeric: tabular-nums; }
 .language { width: 69px; text-align: center; }
 .hours { width: 120px; text-align: right; padding: 0 6px 0 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
-/* cancel the trailing letter-spacing so the label's last letter sits flush with the numbers' right edge */
+thead .rank-icon { display: block; width: 14px; height: 14px; margin: 0 auto; }
+/* cancel the trailing letter-spacing so the label's last letter sits flush with the right edge */
 .hours-label { display: inline-block; margin-right: -.04em; }
+/* the header spans the hours + Twitch columns and ends flush with the arrow icon */
+thead th.hours { padding-right: 9px; }
 .watch { width: 48px; padding: 0; }
 tbody tr { height: 64px; border: 0; background: #000; }
 tbody tr:nth-child(even) { background: #000; }
@@ -139,6 +143,9 @@ tbody .rank { color: #ffa0d8; }
 tbody tr:last-child { border-bottom: 0; }
 tbody td { font-size: 13px; font-weight: 700; }
 tbody th { padding: 0; }
+/* breathing room between the rank number and the channel */
+.channel-col { padding-left: 12px; }
+.channel-col .channel { padding-left: 0; }
 .channel { display: flex; align-items: center; gap: 12px; min-width: 0; height: 62px; padding: 10px 4px; }
 .channel__avatar { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background: #211528; color: var(--pink); }
 .channel__avatar img { width: 100%; height: 100%; object-fit: cover; }
@@ -181,11 +188,16 @@ tbody :is(.channel, .rank > span, .language abbr, .hours-value, .watch a) { anim
   thead .language::after { content: 'Lang'; font-size: 9px; }
   .hours { width: 94px; padding-right: 4px; }
   .watch { width: 24px; }
-  .watch img { width: 12px; height: 14px; }
-  .watch span { display: none; }
+  /* mobile: arrow only, no Twitch logo */
+  .watch img { display: none; }
+  .watch span { font-size: 15px; }
+  /* mobile: ends flush with the arrow */
+  thead th.hours { padding-right: 6px; }
   thead th { font-size: 9px; letter-spacing: 0; }
+  thead .rank-icon { width: 12px; height: 12px; }
   tbody td { font-size: 11px; }
   .channel { gap: 7px; padding-inline: 0; }
+  .channel-col { padding-left: 8px; }
   .channel__avatar { flex-basis: 30px; width: 30px; height: 30px; }
   .channel__name { font-size: 12px; }
   .channel__name small { font-size: 10px; }
