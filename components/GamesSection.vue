@@ -406,7 +406,7 @@ onBeforeUnmount(() => {
   min-width: 0;
   aspect-ratio: 1916 / 821;
   overflow: hidden;
-  border-radius: 9px 9px 0 0;
+  border-radius: 10px 10px 0 0;
   background: #08080a;
 }
 .feature__media::before,
@@ -488,13 +488,16 @@ onBeforeUnmount(() => {
 .feature__body {
   position: relative;
   isolation: isolate;
-  border-radius: 0 0 9px 9px;
+  border-radius: 0 0 10px 10px;
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   gap: clamp(24px, 4vw, 56px);
   align-items: start;
   padding: clamp(22px, 3vw, 36px);
-  border: 1px solid var(--edge);
+  /* grey edge, same 2px weight as the banner outline above; no top edge,
+     the banner's own outline already closes that side */
+  border: 2px solid var(--edge);
+  border-top: 0;
 }
 .feature__label {
   display: flex;

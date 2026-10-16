@@ -140,6 +140,9 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  /* the logo artwork has ~19.6% transparent padding: pull the brand left so the
+     visible bear sits exactly on the page gutter, clamp(16px, 4vw, 40px) */
+  margin-left: calc(clamp(16px, 4vw, 40px) - clamp(18px, 3vw, 36px) - 6.7px);
 }
 .nav__mark {
   width: 34px;
@@ -253,6 +256,10 @@ onBeforeUnmount(() => {
     width: 48px;
     height: 48px;
     translate: 0 2px;
+  }
+  .nav__brand {
+    /* 48px mark → ~9.4px transparent edge */
+    margin-left: calc(clamp(16px, 4vw, 40px) - clamp(18px, 3vw, 36px) - 9.4px);
   }
 
   /* sits under the nav's own brand + burger (z -1 inside the nav) and

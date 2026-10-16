@@ -63,7 +63,7 @@ function navigate(event: KeyboardEvent, index: number) {
           <div id="stream-channel-list" class="directory__table-wrap">
             <table>
               <caption class="sr-only">{{ game.name }} channels ranked by viewing hours over 30 days. Page {{ page + 1 }} of 3.</caption>
-              <thead><tr><th scope="col" class="rank">#</th><th scope="col">Channel</th><th scope="col" class="language">Language</th><th scope="col" class="hours">Hours watched</th><th scope="col" class="watch"><span class="sr-only">Watch on Twitch</span></th></tr></thead>
+              <thead><tr><th scope="col" class="rank">#</th><th scope="col">Channel</th><th scope="col" class="language">Language</th><th scope="col" class="hours"><span class="hours-label">Hours watched</span></th><th scope="col" class="watch"><span class="sr-only">Watch on Twitch</span></th></tr></thead>
               <tbody :key="`${game.id}-${page}`">
                 <tr v-for="(streamer, index) in visible" :key="streamer.handle">
                   <td class="rank"><span>{{ String(page * 5 + index + 1).padStart(2, '0') }}</span></td>
@@ -119,10 +119,10 @@ function navigate(event: KeyboardEvent, index: number) {
 .directory__tabs span { display: block; font: 900 12px/1.4 var(--display); text-transform: uppercase; white-space: normal; }
 .directory__panel { width: 100%; min-width: 0; padding: 2px; border: 0; background: #000; }
 .directory__panel.neon-hover-outline::after { opacity: 1; animation: card-outline-turn 3s linear infinite; }
-.directory__heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; height: 112px; padding: 18px 14px; }
+.directory__heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 88px; padding: 16px 14px; }
 .directory__heading > div { min-width: 0; }
-.directory__heading p { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; margin: 0 0 10px; color: #ff8bd2; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; }
-.directory__heading h3 { margin: 0; font: 900 clamp(18px, 1.8vw, 23px)/1.3 var(--display); letter-spacing: -.02em; color: #ff89d2; background: linear-gradient(100deg, #ff82cd, #ff4265, #c48bff, #ff82cd); background-size: 250% 100%; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: directory-title-flow 4s ease-in-out infinite alternate; }
+.directory__heading p { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; margin: 0 0 8px; color: #fff; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; }
+.directory__heading h3 { margin: 0; font: 900 clamp(20px, 2vw, 26px)/1.15 var(--display); letter-spacing: -.02em; text-transform: uppercase; text-wrap: balance; color: #ff9ad8; background: linear-gradient(100deg, #ff9ad8, #ff6a88, #d2a4ff, #ff9ad8); background-size: 250% 100%; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: directory-title-flow 4s ease-in-out infinite alternate; }
 @keyframes directory-title-flow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 table { width: 100%; table-layout: fixed; border-collapse: collapse; text-align: left; }
 thead { background: #000; border-top: 1px solid var(--edge); border-bottom: 1px solid var(--edge); }
@@ -130,6 +130,8 @@ thead th { height: 35px; color: #fff; font-size: 10px; font-weight: 800; text-tr
 .rank { width: 36px; color: var(--muted); text-align: center; font-variant-numeric: tabular-nums; }
 .language { width: 69px; text-align: center; }
 .hours { width: 120px; text-align: right; padding: 0 6px 0 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
+/* cancel the trailing letter-spacing so the label's last letter sits flush with the numbers' right edge */
+.hours-label { display: inline-block; margin-right: -.04em; }
 .watch { width: 48px; padding: 0; }
 tbody tr { height: 64px; border: 0; background: #000; }
 tbody tr:nth-child(even) { background: #000; }
@@ -170,8 +172,9 @@ tbody :is(.channel, .rank > span, .language abbr, .hours-value, .watch a) { anim
   .directory__tabs span { font-size: 11px; }
   .directory__heading { padding: 16px 10px; }
   .directory__pagination { padding-inline: 8px; }
-  .directory__heading h3 { font-size: 16px; }
-  .directory__heading p { font-size: 10px; gap: 6px 8px; }
+  .directory__heading { justify-content: center; min-height: 0; padding: 20px 10px 18px; text-align: center; }
+  .directory__heading h3 { font-size: 22px; }
+  .directory__heading p { justify-content: center; font-size: 11px; gap: 6px 8px; margin-bottom: 6px; }
   .rank { width: 27px; font-size: 10px; }
   .language { width: 39px; }
   thead .language { font-size: 0; }
