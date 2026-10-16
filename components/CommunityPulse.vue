@@ -273,7 +273,6 @@ function onKey(e: KeyboardEvent, i: number) {
 .gear__k span { font-size: 11px; font-weight: 700; color: rgba(255, 255, 255, .32); }
 .gear__list { flex: 1; display: flex; flex-direction: column; justify-content: space-around; margin: 8px 0 0; padding: 0; list-style: none; }
 .gear__list li { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 8px 0; }
-.gear__list li + li { border-top: 1px solid var(--hair); }
 .gear__n { font: 900 11px/1 var(--display); color: rgba(255, 255, 255, .35); }
 .gear__list li:first-child .gear__n { background: var(--blob); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .gear__who { display: flex; flex-direction: column; min-width: 0; }

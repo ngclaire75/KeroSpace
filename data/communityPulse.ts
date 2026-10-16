@@ -33,11 +33,11 @@ export const pulseGames: PulseGame[] = [
   {
     id: 'hsr', name: 'Honkai: Star Rail', short: 'Star Rail', art: '/images/games/card-hsr.webp', artPosition: 'center 22%',
     characters: [
-      { name: 'Firefly', tag: 'Destruction', art: '/images/games/card-hsr.webp', artPosition: 'center 22%', comments: 48200, sentiment: { loved: 71, mixed: 20, critical: 9 } },
-      { name: 'Acheron', tag: 'Nihility', comments: 39600, sentiment: { loved: 64, mixed: 26, critical: 10 } },
-      { name: 'Castorice', tag: 'Remembrance', comments: 31100, sentiment: { loved: 60, mixed: 28, critical: 12 } },
-      { name: 'Kafka', tag: 'Nihility', comments: 24800, sentiment: { loved: 66, mixed: 24, critical: 10 } },
-      { name: 'Sparkle', tag: 'Harmony', comments: 19300, sentiment: { loved: 58, mixed: 30, critical: 12 } },
+      { name: 'Firefly', tag: 'Destruction', art: '/images/firefly.jpg', comments: 48200, sentiment: { loved: 71, mixed: 20, critical: 9 } },
+      { name: 'Acheron', tag: 'Nihility', art: '/images/acheron.jpg', comments: 39600, sentiment: { loved: 64, mixed: 26, critical: 10 } },
+      { name: 'Castorice', tag: 'Remembrance', art: '/images/castorice.jpg', comments: 31100, sentiment: { loved: 60, mixed: 28, critical: 12 } },
+      { name: 'Kafka', tag: 'Nihility', art: '/images/kafka.jpg', comments: 24800, sentiment: { loved: 66, mixed: 24, critical: 10 } },
+      { name: 'Sparkle', tag: 'Harmony', art: '/images/sparkle.jpg', comments: 19300, sentiment: { loved: 58, mixed: 30, critical: 12 } },
     ],
     items: [
       { name: 'Genius of Brilliant Stars', type: 'Relic set', comments: 12400 },
