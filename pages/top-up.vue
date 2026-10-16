@@ -70,7 +70,7 @@ async function copyEnquiry() {
           </div>
         </div>
         <figure class="shop-banner">
-          <img src="/images/KeroSce%20Pastel%20Anime%20Welcome%20Banner.png" alt="KeroSce welcome banner with pastel pink and purple artwork" width="1672" height="941" fetchpriority="high" />
+          <img src="/images/top-up-welcome-banner.webp" alt="Welcome banner with the Instagram handle @koqbisagitu" width="2560" height="1170" fetchpriority="high" />
           <figcaption><span>Kerosce gaming services</span><a href="https://www.instagram.com/koqbisagitu/" target="_blank" rel="noopener noreferrer">@koqbisagitu <span aria-hidden="true">↗</span></a></figcaption>
         </figure>
       </header>
