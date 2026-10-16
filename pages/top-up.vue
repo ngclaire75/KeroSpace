@@ -70,7 +70,7 @@ async function copyEnquiry() {
           </div>
         </div>
         <figure class="shop-banner">
-          <img src="/images/top-up-game-banner.webp" alt="KeroSce game top-up banner: easy and secure top-up service" width="2560" height="1441" fetchpriority="high" />
+          <img src="/images/top-up-game-banner.webp" alt="KeroSce game top-up banner: easy and secure top-up service" width="3344" height="1882" fetchpriority="high" />
           <figcaption><span>Kerosce gaming services</span><a href="https://www.instagram.com/koqbisagitu/" target="_blank" rel="noopener noreferrer">@koqbisagitu <span aria-hidden="true">↗</span></a></figcaption>
         </figure>
       </header>
