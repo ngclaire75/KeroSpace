@@ -156,7 +156,8 @@ onMounted(onRail)
 
 <style scoped>
 .ap {
-  --sf: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  /* same type as the rest of the site: Orbitron for headings and big numbers, Nunito for text */
+  --sf: var(--ui);
   --fg: #f5f5f7;
   --fg-2: #86868b;
   --tile: #161617;
@@ -358,7 +359,6 @@ onMounted(onRail)
   /* mobile keeps its original, larger scale */
   .intro { margin-bottom: 40px; }
   .intro__kicker { font-size: 19px; }
-  .intro h2 { font-size: 44px; }
   .intro__sub { margin-top: 20px; font-size: 17px; }
   .seg button { min-height: 36px; font-size: 14px; }
   .hero__name { font-size: 40px; }
@@ -395,6 +395,45 @@ onMounted(onRail)
   .spec__name, .spec__v { font-size: 18px; }
   .gcard { flex-basis: 82%; padding: 26px; border-radius: 24px; }
   .rail { gap: 14px; border-radius: 24px; }
+}
+/* ============ site typography ============ */
+.intro__kicker { font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.intro h2 { font: 900 clamp(28px, 3.5vw, 46px)/1.16 var(--display); letter-spacing: -.025em; text-transform: uppercase; }
+.intro__sub { font-weight: 600; letter-spacing: 0; }
+.seg button { font-weight: 700; letter-spacing: 0; }
+.hero__label, .tile__kicker { font-weight: 700; letter-spacing: 0; }
+.hero__name { font: 900 clamp(24px, 2.4vw, 32px)/1.1 var(--display); letter-spacing: -.02em; text-transform: uppercase; }
+.hero__big { font: 900 clamp(44px, 4.4vw, 62px)/1 var(--display); letter-spacing: -.03em; }
+.hero__cap { font-weight: 700; }
+.stats dd { font: 900 20px/1.2 var(--display); letter-spacing: -.02em; }
+.stats dd small { font-family: var(--ui); font-weight: 800; }
+.spec__name { font-weight: 800; letter-spacing: 0; }
+.spec__name small { font-weight: 700; }
+.spec__v { font: 800 14px/1.4 var(--display); letter-spacing: 0; }
+.tile__huge { font: 900 clamp(46px, 4vw, 60px)/1 var(--display); letter-spacing: -.03em; }
+.tile__text { font-weight: 600; }
+.tile__text b, .topics b { font-weight: 800; }
+.tile__statement { font: 900 clamp(18px, 1.6vw, 22px)/1.25 var(--display); letter-spacing: -.01em; text-transform: uppercase; }
+.topics p { font-weight: 600; }
+.tone { font-weight: 800; }
+.gallery__title { font: 900 clamp(22px, 2.2vw, 30px)/1.2 var(--display); letter-spacing: -.02em; text-transform: uppercase; }
+.gcard__n { font: 800 12px/1 var(--display); }
+.gcard__name { font: 900 clamp(20px, 1.8vw, 24px)/1.15 var(--display); letter-spacing: -.01em; text-transform: uppercase; }
+.gcard__tag { font-weight: 700; }
+.gcard__big { font: 900 clamp(28px, 2.5vw, 36px)/1 var(--display); letter-spacing: -.03em; }
+.gcard__big small { font-family: var(--ui); font-weight: 800; letter-spacing: 0; }
+.gcard__mood { font-weight: 700; }
+@media (max-width: 734px) {
+  .intro__kicker { font-size: 11px; }
+  .hero__name { font-size: 28px; }
+  .hero__big { font-size: 52px; }
+  .stats dd { font-size: 20px; }
+  .spec__name, .spec__v { font-size: 15px; }
+  .tile__huge { font-size: 56px; }
+  .tile__statement { font-size: 22px; }
+  .gallery__title { font-size: 24px; }
+  .gcard__name { font-size: 24px; }
+  .gcard__big { font-size: 34px; }
 }
 @media (prefers-reduced-motion: reduce) { .fade-enter-active, .fade-leave-active { transition: none; } }
 </style>
