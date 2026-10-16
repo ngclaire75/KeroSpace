@@ -167,7 +167,7 @@ tbody :is(.channel, .rank > span, .language abbr, .hours-value, .watch a) { anim
 @media (min-width: 901px) {
   .streams__layout { align-items: stretch; }
   .streams__poster { position: relative; min-height: 0; }
-  .streams__poster > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: left top; transform: scale(1.025); transform-origin: left center; }
+  .streams__poster > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: left top; transform: scale(1.0125); transform-origin: left top; }
 }
 @media (max-width: 1100px) and (min-width: 901px) { .streams__layout { grid-template-columns: minmax(0, .65fr) minmax(0, 1.35fr); } .directory__tabs span { font-size: 11px; } }
 @media (max-width: 900px) { .streams__layout { grid-template-columns: minmax(0, 1fr); gap: 28px; } .streams__poster { width: min(100%, 420px); margin-inline: auto; } .streams__heading { align-items: flex-start; } .streams__intro { max-width: 280px; font-size: 14px; } }
