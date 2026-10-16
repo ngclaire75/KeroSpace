@@ -10,7 +10,7 @@ onMounted(() => {
 useHead({
   title: 'Top Up — KeroSpace',
   meta: [
-    { name: 'description', content: 'Explore Kerosce game top-ups and services. Choose your game and enquire about packages with @koqbisagitu on Instagram.' },
+    { name: 'description', content: 'Explore Kerosce game top-ups and services. Choose your game and enquire about packages with @koqbisagtu on Instagram.' },
     { name: 'viewport', content: () => `width=device-width, initial-scale=1${preventFocusZoom.value ? ', maximum-scale=1' : ''}` },
   ],
 })
@@ -23,9 +23,9 @@ const games = [
   { id: 'mlbb', name: 'Mobile Legends: Bang Bang' },
 ]
 const services = [
-  { id: 'top-up', name: 'Game top-up', short: 'Top-ups', description: 'Tell us the amount or package you have in mind. Ask about available options for your game and region.' },
-  { id: 'accounts', name: 'Account services', short: 'Account services', description: 'Describe the account service you are looking for. Ask which options are available for your game.' },
-  { id: 'support', name: 'Game support', short: 'Game support', description: 'Tell us what you need a hand with and what you would like to achieve. Ask about available assistance for your game.' },
+  { id: 'top-up', name: 'Game top-up', short: 'Top ups', lines: ['Top ', 'ups'], description: 'Tell us the amount or package you have in mind. Ask about available options for your game and region.' },
+  { id: 'accounts', name: 'Account services', short: 'Account services', lines: ['Account ', 'services'], description: 'Describe the account service you are looking for. Ask which options are available for your game.' },
+  { id: 'support', name: 'Game support', short: 'Game support', lines: ['Game ', 'support'], description: 'Tell us what you need a hand with and what you would like to achieve. Ask about available assistance for your game.' },
 ]
 const selectedGame = ref('hsr')
 const selectedService = ref('top-up')
@@ -71,7 +71,7 @@ async function copyEnquiry() {
         </div>
         <figure class="shop-banner">
           <img src="/images/top-up-game-banner.webp" alt="KeroSce game top-up banner: easy and secure top-up service" width="3344" height="1882" fetchpriority="high" />
-          <figcaption><span>Kerosce gaming services</span><a href="https://www.instagram.com/koqbisagitu/" target="_blank" rel="noopener noreferrer">@koqbisagitu <span aria-hidden="true">↗</span></a></figcaption>
+          <figcaption><span>Kerosce gaming services</span><a href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">@koqbisagtu <span aria-hidden="true">↗</span></a></figcaption>
         </figure>
       </header>
 
@@ -81,7 +81,7 @@ async function copyEnquiry() {
           <p>Start with your game and the service you’re looking for. Packages, availability and prices are confirmed through Instagram.</p>
         </header>
         <div class="service-picker" role="group" aria-label="Choose a service">
-          <button v-for="option in services" :key="option.id" type="button" :aria-pressed="selectedService === option.id" @click="selectedService = option.id">{{ option.short }}<span aria-hidden="true">↗</span></button>
+          <button v-for="option in services" :key="option.id" type="button" :aria-pressed="selectedService === option.id" @click="selectedService = option.id"><b class="sel-label"><template v-for="(part, i) in option.lines" :key="i"><br v-if="i" class="sel-br" />{{ part }}</template></b><span aria-hidden="true">↗</span></button>
         </div>
         <div class="catalog-layout">
           <div class="game-picker" role="group" aria-label="Choose your game">
@@ -94,7 +94,7 @@ async function copyEnquiry() {
           </div>
           <aside class="enquiry" aria-labelledby="enquiry-title">
             <div class="enquiry__inner">
-              <div class="enquiry__heading"><p class="shop-eyebrow">Let’s talk details</p><span aria-hidden="true">↗</span></div>
+              <div class="enquiry__heading"><p class="shop-eyebrow">Let’s talk in detail</p></div>
               <h3 id="enquiry-title">Your selection.<br /><em>Let’s talk.</em></h3>
               <div class="enquiry__selection" aria-live="polite"><img :src="`/images/games/${game.id}-logo.webp`" alt="" width="84" height="52" /><div><span>{{ service.name }}</span><strong>{{ game.name }}</strong></div></div>
               <p class="enquiry__description">{{ service.description }}</p>
@@ -102,9 +102,9 @@ async function copyEnquiry() {
               <label class="shop-field">What do you have in mind? <span>Optional</span><textarea v-model="details" rows="3" maxlength="500" placeholder="A package, amount or a few details…" /></label>
               <div class="enquiry__actions">
                 <button class="copy-button" type="button" @click="copyEnquiry">{{ copyState === 'copied' ? 'Enquiry copied ✓' : 'Copy your enquiry' }}<svg v-if="copyState !== 'copied'" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2" /><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" /></svg></button>
-                <a class="instagram-button" href="https://www.instagram.com/koqbisagitu/" target="_blank" rel="noopener noreferrer">Enquire on Instagram<span aria-hidden="true">↗</span></a>
+                <a class="instagram-button" href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">Enquire on Instagram<span aria-hidden="true">↗</span></a>
               </div>
-              <p class="enquiry__status" role="status">{{ copyState === 'copied' ? 'Ready to paste. Send your enquiry to @koqbisagitu on Instagram.' : copyState === 'manual' ? 'Select and copy the message below, then send it on Instagram.' : 'Copy your selection, then send it to @koqbisagitu for options and prices.' }}</p>
+              <p class="enquiry__status" role="status">{{ copyState === 'copied' ? 'Ready to paste. Send your enquiry to @koqbisagtu on Instagram.' : copyState === 'manual' ? 'Select and copy the message below, then send it on Instagram.' : 'Copy your selection, then send it to @koqbisagtu for options and prices.' }}</p>
               <label v-if="copyState === 'manual'" class="shop-field">Your enquiry<textarea ref="enquiryField" :value="enquiry" readonly rows="7" /></label>
             </div>
           </aside>
@@ -140,6 +140,10 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .service-picker { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 26px; }
 .service-picker button { display: flex; justify-content: space-between; align-items: center; gap: 8px; min-width: 0; min-height: 58px; padding: 14px 18px; border: 1px solid #493350; border-radius: 0; background: #0d0910; font: 800 11px/1.5 var(--display); text-transform: uppercase; cursor: pointer; transition: background-color .2s ease, border-color .2s ease; }
 .service-picker button span { color: var(--shop-purple); font: 400 20px/1 var(--ui); }
+@media (min-width: 761px) { .sel-br { display: none; } }
+/* the button is a flex container, so the label lives in ONE wrapper (otherwise each text run,
+   and the <br> would become separate flex items and scatter across the button) */
+.sel-label { display: block; font: inherit; }
 .service-picker button[aria-pressed='true'] { border-color: var(--shop-pink); background: linear-gradient(110deg, #4a2040, #312048); }
 .catalog-layout { display: grid; grid-template-columns: minmax(0, 1fr) 355px; gap: 28px; align-items: stretch; }
 .game-picker { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
@@ -159,7 +163,6 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .enquiry { padding: 2px; background: conic-gradient(from var(--card-outline-angle), var(--shop-pink), var(--shop-purple), #745295, var(--shop-pink)); animation: card-outline-turn 6s linear infinite; }
 .enquiry__inner { padding: 24px; background: #09060d; }
 .enquiry__heading { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
-.enquiry__heading > span { font-size: 24px; color: var(--shop-pink); }
 .enquiry h3 { margin-bottom: 24px; font: 800 23px/1.3 var(--display); text-transform: uppercase; }
 .enquiry__selection { display: flex; align-items: center; gap: 14px; min-height: 82px; padding: 14px 0; border-block: 1px solid #3a2844; }
 .enquiry__selection img { width: 74px; height: 48px; object-fit: contain; flex-shrink: 0; }
@@ -190,7 +193,7 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
   .catalog-heading > p { margin: 18px 0 0; max-width: 460px; }
   .catalog-layout { grid-template-columns: 1fr; gap: 28px; }
   .service-picker { gap: 7px; }
-  .service-picker button { justify-content: center; text-align: center; min-height: 58px; padding: 10px; font-size: 9px; }
+  .service-picker button { justify-content: center; text-align: center; min-height: 58px; padding: 10px; font-size: 11px; }
   .service-picker button span { display: none; }
   .shop-game__surface { min-height: 230px; }
   .shop-game__logo { padding: 14px; }
