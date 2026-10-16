@@ -56,8 +56,6 @@ function onKey(e: KeyboardEvent, i: number) {
           <!-- no official art yet: oversized initial on a soft colour field -->
           <span v-else class="spot__mono" aria-hidden="true">{{ star.name.slice(0, 1) }}</span>
 
-          <span class="spot__rank" aria-hidden="true">#{{ pick + 1 }}</span>
-
           <div class="glass">
             <p class="glass__label">{{ pick === 0 ? 'Most discussed' : `No. ${pick + 1} most discussed` }} in {{ game.short }}</p>
             <h3 class="glass__name">{{ star.name }}</h3>
@@ -200,22 +198,6 @@ function onKey(e: KeyboardEvent, i: number) {
   -webkit-text-stroke: 2px rgba(255, 255, 255, .16);
   text-transform: uppercase;
   pointer-events: none;
-}
-.spot__rank {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  display: grid;
-  place-items: center;
-  min-width: 46px;
-  height: 30px;
-  padding: 0 12px;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, .7);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14);
-  font: 900 12px/1 var(--display);
 }
 
 /* black glass panel */
