@@ -66,7 +66,7 @@ async function copyEnquiry() {
           <div class="shop-hero__aside">
             <p>For the worlds you keep coming back to.</p>
             <p>Explore game top-ups and services with Kerosce. Choose your game, tell us what you need and ask for a package that fits.</p>
-            <a href="#shop-games" class="text-link">Find your game <span aria-hidden="true">↘</span></a>
+            <a href="#shop-games" class="text-link">Find your game</a>
           </div>
         </div>
         <figure class="shop-banner">
@@ -126,10 +126,9 @@ h1, h2, h3, p, figure { margin-top: 0; }
 h1 { margin-bottom: 0; font: 900 clamp(38px, 5.2vw, 70px)/1.13 var(--display); letter-spacing: -.035em; text-transform: uppercase; }
 em { font-style: normal; background: linear-gradient(105deg, #ffb3df, #bd83ff 55%, #ff4e78); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .shop-hero__aside { max-width: 450px; justify-self: end; }
-.shop-hero__aside > p:first-child { color: #fff; font-weight: 800; font-size: 19px; margin-bottom: 12px; }
-.shop-hero__aside > p:nth-child(2) { color: var(--shop-muted); font-size: 16px; line-height: 1.75; margin-bottom: 18px; }
-.text-link { display: inline-flex; align-items: center; gap: 14px; font-weight: 800; font-size: 17px; color: var(--shop-pink); }
-.text-link span { font-size: 16px; }
+.shop-hero__aside > p:first-child { color: #fff; font-weight: 800; font-size: 15px; margin-bottom: 12px; }
+.shop-hero__aside > p:nth-child(2) { color: var(--shop-muted); font-size: 15px; line-height: 1.75; margin-bottom: 18px; }
+.text-link { font-weight: 800; font-size: 15px; color: var(--shop-pink); }
 .shop-banner { margin: 0; }
 .shop-banner > img { width: 100%; height: auto; }
 .shop-banner figcaption { display: flex; justify-content: space-between; gap: 16px; padding-block: 14px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--shop-muted); }
@@ -187,8 +186,6 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 @media (max-width: 760px) {
   .shop-hero__intro { grid-template-columns: 1fr; gap: 24px; margin-bottom: 26px; }
   .shop-hero__aside { justify-self: start; max-width: 540px; }
-  .shop-hero__aside > p:first-child { font-size: 17px; }
-  .shop-hero__aside > p:nth-child(2) { font-size: 15px; }
   .catalog-heading { display: block; }
   .catalog-heading > p { margin: 18px 0 0; max-width: 460px; }
   .catalog-layout { grid-template-columns: 1fr; gap: 28px; }
