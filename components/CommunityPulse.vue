@@ -49,7 +49,8 @@ function select(i: number) {
   active.value = i
   nextTick(() => { rail.value?.scrollTo({ left: 0 }); onRail() })
 }
-onMounted(onRail)
+onMounted(() => { onRail(); window.addEventListener('resize', onRail) })
+onBeforeUnmount(() => window.removeEventListener('resize', onRail))
 </script>
 
 <template>
@@ -206,7 +207,7 @@ onMounted(onRail)
   min-height: clamp(380px, 32vw, 460px);
   padding: clamp(14px, 1.5vw, 20px);
   overflow: hidden;
-  border-radius: 24px;
+  border-radius: 10px;
   background: #000;
 }
 /* full-bleed art, no fade */
@@ -215,7 +216,7 @@ onMounted(onRail)
 .hero__copy {
   width: min(380px, 100%);
   padding: clamp(22px, 2.4vw, 32px);
-  border-radius: 18px;
+  border-radius: 8px;
   background: rgba(0, 0, 0, .78);
   -webkit-backdrop-filter: blur(36px) saturate(110%);
   backdrop-filter: blur(36px) saturate(110%);
@@ -241,7 +242,7 @@ onMounted(onRail)
   gap: 14px;
   margin-top: 14px;
 }
-.tile { min-width: 0; padding: clamp(22px, 2.2vw, 28px); border-radius: 24px; background: var(--tile); }
+.tile { min-width: 0; padding: clamp(22px, 2.2vw, 28px); border-radius: 10px; background: var(--tile); }
 .tile__kicker { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: -.01em; color: var(--fg-2); }
 .tile--items { grid-area: items; }
 .tile--stat { grid-area: stat; display: flex; flex-direction: column; }
@@ -301,7 +302,7 @@ onMounted(onRail)
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  border-radius: 22px;
+  border-radius: 10px;
 }
 .rail::-webkit-scrollbar { display: none; }
 .gcard {
@@ -311,7 +312,7 @@ onMounted(onRail)
   flex: 0 0 clamp(230px, 21vw, 290px);
   aspect-ratio: 290 / 380;
   padding: 22px;
-  border-radius: 22px;
+  border-radius: 10px;
   scroll-snap-align: start;
   overflow: hidden;
   background: var(--tile);
@@ -323,6 +324,9 @@ onMounted(onRail)
 .gcard--4 { background: radial-gradient(110% 80% at 100% 100%, #ff6db3 0%, transparent 60%), radial-gradient(100% 80% at 0% 0%, #5a2cff 0%, transparent 62%), radial-gradient(60% 50% at 70% 40%, #ff4467 0%, transparent 70%), #120c1f; }
 /* gentle shade so text always reads on the colour field */
 .gcard::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, .35), transparent 35%, transparent 55%, rgba(0, 0, 0, .45)); pointer-events: none; }
+/* desktop: the four cards fill the row exactly, so the last card's right edge
+   lines up with the arrows below (and with the tiles above) */
+@media (min-width: 1069px) { .gcard { flex: 0 0 calc((100% - 3 * 14px) / 4); } }
 .gcard > *:not(.gcard__art) { position: relative; }
 /* official character art fills the card; the colour field stays as a soft tint at the edges */
 .gcard__art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
@@ -380,9 +384,9 @@ onMounted(onRail)
   .gcard__big { font-size: 44px; }
   .seg { margin-top: 28px; }
   .seg button { padding: 0 14px; }
-  .hero { flex-direction: column; align-items: stretch; justify-content: flex-end; min-height: 660px; padding: 12px; border-radius: 24px; }
+  .hero { flex-direction: column; align-items: stretch; justify-content: flex-end; min-height: 660px; padding: 12px; border-radius: 10px; }
   .hero__art { object-position: center top; }
-  .hero__copy { width: 100%; padding: 24px 22px 26px; border-radius: 18px; }
+  .hero__copy { width: 100%; padding: 24px 22px 26px; border-radius: 8px; }
   .hero__label { font-size: 15px; }
   .hero__big { margin-top: 18px; }
   .hero__cap { font-size: 17px; }
@@ -390,11 +394,11 @@ onMounted(onRail)
   .stats__item { padding: 0 16px; }
   .stats dd { font-size: 26px; }
   .bento { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'items' 'stat' 'love' 'fix' 'feedback'; gap: 14px; margin-top: 14px; }
-  .tile { padding: 26px 24px; border-radius: 24px; }
+  .tile { padding: 26px 24px; border-radius: 10px; }
   .tile--love, .tile--fix { min-height: 220px; }
   .spec__name, .spec__v { font-size: 18px; }
-  .gcard { flex-basis: 82%; padding: 26px; border-radius: 24px; }
-  .rail { gap: 14px; border-radius: 24px; }
+  .gcard { flex-basis: 82%; padding: 26px; border-radius: 10px; }
+  .rail { gap: 14px; border-radius: 10px; }
 }
 /* ============ site typography ============ */
 .intro__kicker { font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
