@@ -126,7 +126,7 @@ onBeforeUnmount(() => {
 
 /* cards */
 .party-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 20px; }
-.party-card { display: flex; flex-direction: column; min-width: 0; border: 0; border-radius: 12px; background: #09080c; overflow: hidden; }
+.party-card { display: flex; flex-direction: column; min-width: 0; border: 0; border-radius: 12px; background: #000; overflow: hidden; }
 .party-card::after { opacity: 1; animation: card-outline-turn 3s linear infinite; }
 .party-indicators { display: none; }
 

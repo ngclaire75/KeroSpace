@@ -9,8 +9,7 @@ const gameById = Object.fromEntries(compatibilityGames.map(g => [g.id, g]))
 const shortName: Record<string, string> = { mlbb: 'Mobile Legends' }
 const creators = communityCreators.map(c => ({ ...c, gameName: shortName[c.game] ?? gameById[c.game]?.name ?? '' }))
 
-// one pill per game: a fun hook up front, the game's live channels on Twitch behind it
-const twitchSearch = (game: string) => `https://www.twitch.tv/search?term=${encodeURIComponent(game)}`
+// Static community activities, one per game.
 const jumps = [
   { game: 'Honkai: Star Rail', label: 'Gacha pull parties' },
   { game: 'Genshin Impact', label: 'Co-op chaos' },
@@ -18,7 +17,7 @@ const jumps = [
   { game: 'Wuthering Waves', label: 'Late-night raids' },
   { game: 'Neverness to Everness', label: 'Open-world mayhem' },
   { game: 'Mobile Legends: Bang Bang', label: 'Ranked grind' },
-].map(j => ({ ...j, href: twitchSearch(j.game) }))
+]
 
 const pad = (n: number) => String(n).padStart(2, '0')
 </script>
@@ -35,10 +34,9 @@ const pad = (n: number) => String(n).padStart(2, '0')
             <p class="eyebrow"><span aria-hidden="true" />KeroSpace community</p>
             <h1 id="cm-title">Find your <em>party</em>.<br />Play it <em>together</em>.</h1>
             <p class="lead">Creators worth watching and friends to team up with, for every game we cover.</p>
-            <nav class="jump" aria-label="Live streamers on Twitch">
-              <a v-for="(j, i) in jumps" :key="j.href" :href="j.href" target="_blank" rel="noopener noreferrer"
-                :title="`${j.game} live on Twitch`" :aria-label="`${j.label}: ${j.game} live on Twitch (opens in a new tab)`"><b>{{ pad(i + 1) }}</b>{{ j.label }}</a>
-            </nav>
+            <ul class="jump" aria-label="Community activities">
+              <li v-for="(j, i) in jumps" :key="j.game"><b>{{ pad(i + 1) }}</b>{{ j.label }}</li>
+            </ul>
           </div>
 
           <div class="mosaic" aria-hidden="true">
@@ -140,9 +138,11 @@ h2 em {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 30px;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
 }
-.jump a {
+.jump li {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -153,7 +153,6 @@ h2 em {
   box-shadow: inset 0 0 0 1px var(--c-line);
   font-size: 13px;
   font-weight: 800;
-  transition: background 0.25s, box-shadow 0.25s;
 }
 .jump b {
   display: grid;
@@ -240,14 +239,6 @@ h2 em {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-/* ---------- hover ---------- */
-@media (hover: hover) {
-  .jump a:hover {
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: inset 0 0 0 1px rgba(255, 84, 187, 0.6);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

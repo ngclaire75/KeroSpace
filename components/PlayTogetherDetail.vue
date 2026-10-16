@@ -52,11 +52,11 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
 
 <style scoped>
 .party-detail { display: flex; flex: 1; flex-direction: column; min-width: 0; }
-.party-detail__art { position: relative; height: 210px; overflow: hidden; border-radius: 12px 12px 0 0; background: #120d18; }
+.party-detail__art { position: relative; height: 210px; overflow: hidden; border-radius: 12px 12px 0 0; background: #000; }
 .party-detail__art > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
-.party-detail__art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9, 8, 12, .05) 0%, rgba(9, 8, 12, .3) 60%, #09080c 100%); }
-.party-detail__art-copy { position: absolute; z-index: 1; left: 22px; right: 22px; bottom: 16px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
-.party-detail__logo { width: 140px; height: 64px; object-fit: contain; object-position: left bottom; filter: drop-shadow(0 4px 14px rgba(0, 0, 0, .7)); }
+.party-detail__art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, .05) 0%, rgba(0, 0, 0, .3) 60%, #000 100%); }
+.party-detail__art-copy { position: absolute; z-index: 1; left: 22px; right: 22px; bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 16px; }
+.party-detail__logo { width: 140px; max-width: 100%; height: 64px; object-fit: contain; object-position: center; filter: drop-shadow(0 4px 14px rgba(0, 0, 0, .7)); }
 
 .party-detail__platforms { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 16px 22px; }
 .party-detail__label, .party-mode__note > span { color: var(--together-purple, #bd91ff); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
