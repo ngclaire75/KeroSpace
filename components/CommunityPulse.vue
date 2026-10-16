@@ -237,7 +237,7 @@ function onKey(e: KeyboardEvent, i: number) {
 .rtile__who b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 900 14px/1.2 var(--display); text-transform: uppercase; letter-spacing: -.005em; }
 .rtile__who small { margin-top: 4px; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, .6); }
 .rtile__v { font: 900 15px/1 var(--display); }
-.rtile.is-on { box-shadow: inset 0 0 0 1.5px rgba(255, 140, 210, .85), 0 8px 26px rgba(255, 84, 187, .22); }
+.rtile.is-on { box-shadow: inset 0 0 0 1.5px rgba(255, 140, 210, .85); }
 .rtile:focus-visible { outline: 2px solid #e3a3ff; outline-offset: 2px; }
 
 .fade-enter-active, .fade-leave-active { transition: opacity .25s ease; }

@@ -134,8 +134,8 @@ thead th { height: 35px; color: #fff; font-size: 10px; font-weight: 800; text-tr
 thead .rank-icon { display: block; width: 14px; height: 14px; margin: 0 auto; }
 /* cancel the trailing letter-spacing so the label's last letter sits flush with the right edge */
 .hours-label { display: inline-block; margin-right: -.04em; }
-/* the header spans the hours + Twitch columns and ends flush with the arrow icon */
-thead th.hours { padding-right: 9px; }
+/* The heading spans two columns; reserve the Twitch column to align with the numeric values. */
+thead th.hours { padding-right: 54px; }
 .watch { width: 48px; padding: 0; }
 tbody tr { height: 64px; border: 0; background: #000; }
 tbody tr:nth-child(even) { background: #000; }
