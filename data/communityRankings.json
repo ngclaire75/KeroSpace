@@ -1,0 +1,674 @@
+{
+  "hsr": {
+    "source": "https://www.twitchmetrics.net/channels/viewership?game=Honkai%3A+Star+Rail",
+    "sourceUpdated": "2026-10-14T10:19:37Z",
+    "checked": "2026-10-16",
+    "streamers": [
+      {
+        "name": "MrPokke",
+        "handle": "mrpokke",
+        "language": "EN",
+        "hours": 67062,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/1fc749e9-c96f-4e8e-8c3c-875d8ad8d542-profile_image-300x300.png"
+      },
+      {
+        "name": "CamdenVA",
+        "handle": "camdenva",
+        "language": "EN",
+        "hours": 62665,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/66a23021-7807-4e1c-9b2a-475f579a23c8-profile_image-300x300.png"
+      },
+      {
+        "name": "AngryOwlCat",
+        "handle": "angryowlcat",
+        "language": "EN",
+        "hours": 28406,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/76339ae2-4acf-464a-9220-9cd6beac9309-profile_image-300x300.png"
+      },
+      {
+        "name": "NormandyRen",
+        "handle": "normandyren",
+        "language": "RU",
+        "hours": 19291,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/301aa371-9f58-49cc-9503-2d6565de3386-profile_image-300x300.png"
+      },
+      {
+        "name": "Singollo",
+        "handle": "singollo",
+        "language": "RU",
+        "hours": 18613,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/bc69f15e-1749-4f78-9849-5270727d6fd5-profile_image-300x300.png"
+      },
+      {
+        "name": "nixirl",
+        "handle": "nixirl",
+        "language": "EN",
+        "hours": 17994,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/b01d7b02-dff5-465e-8c9b-7fc2b5b81ee2-profile_image-300x300.png"
+      },
+      {
+        "name": "jumadara1",
+        "handle": "jumadara1",
+        "language": "PT",
+        "hours": 15496,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/ca97ff3b-4f34-464b-9e83-f9e030dcb4db-profile_image-300x300.png"
+      },
+      {
+        "name": "belialhsr",
+        "handle": "belialhsr",
+        "language": "RU",
+        "hours": 15224,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/e97b24e4c6af3b8e-profile_image-300x300.jpeg"
+      },
+      {
+        "name": "reparadoks",
+        "handle": "reparadoks",
+        "language": "RU",
+        "hours": 13935,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/2fa93008-14a7-4a47-bb0b-54c8ba9186d6-profile_image-300x300.png"
+      },
+      {
+        "name": "StarlitFox",
+        "handle": "starlitfox",
+        "language": "EN",
+        "hours": 11060,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/99a3aa92-92e5-4f71-a0eb-16743486023b-profile_image-300x300.png"
+      },
+      {
+        "name": "MIRROR_CUP",
+        "handle": "mirror_cup",
+        "language": "RU",
+        "hours": 8596,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/31b6b9f4-8f91-4adf-9016-56d9e04b99f9-profile_image-300x300.png"
+      },
+      {
+        "name": "CentralBankai",
+        "handle": "centralbankai",
+        "language": "PT",
+        "hours": 8004,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/235e0563-82ca-48b0-88b8-5f71fdf7d83c-profile_image-300x300.png"
+      },
+      {
+        "name": "Chewy_Bar",
+        "handle": "chewy_bar",
+        "language": "EN",
+        "hours": 7374,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/0ee3d503-2ffc-4e2d-bc7e-9c4424fd8a48-profile_image-300x300.png"
+      },
+      {
+        "name": "ELPGP1",
+        "handle": "elpgp1",
+        "language": "ES",
+        "hours": 6791,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/b74f311e-6e04-4685-a553-9155adba6809-profile_image-300x300.png"
+      },
+      {
+        "name": "Elythee",
+        "handle": "elythee",
+        "language": "FR",
+        "hours": 6554,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/fd1c01fa-9aad-464f-b9b9-001462a0ea3d-profile_image-300x300.jpeg"
+      }
+    ]
+  },
+  "genshin": {
+    "source": "https://www.twitchmetrics.net/channels/viewership?game=Genshin+Impact",
+    "sourceUpdated": "2026-10-14T10:19:37Z",
+    "checked": "2026-10-16",
+    "streamers": [
+      {
+        "name": "fobm4ster",
+        "handle": "fobm4ster",
+        "language": "EN",
+        "hours": 359794,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/621a58a8-a9c6-4b6a-8bf0-9fbb29b57a36-profile_image-300x300.png"
+      },
+      {
+        "name": "Zy0xxx",
+        "handle": "zy0xxx",
+        "language": "EN",
+        "hours": 280519,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/d86f9f1f-e346-47b9-8290-a2d980daf7e5-profile_image-300x300.png"
+      },
+      {
+        "name": "Zajef77",
+        "handle": "zajef77",
+        "language": "EN",
+        "hours": 244353,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/8cb6ba5d-ad82-4b41-a0e2-f62df4e208ad-profile_image-300x300.png"
+      },
+      {
+        "name": "chawndo",
+        "handle": "chawndo",
+        "language": "EN",
+        "hours": 72822,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/c69b793b-b0db-4497-a450-123130119789-profile_image-300x300.png"
+      },
+      {
+        "name": "Gigguk",
+        "handle": "gigguk",
+        "language": "EN",
+        "hours": 69097,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/b83ae892-aa5c-41ac-a79f-c4acacb9ed8e-profile_image-300x300.png"
+      },
+      {
+        "name": "Sekapoko",
+        "handle": "sekapoko",
+        "language": "EN",
+        "hours": 64342,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/27097d5d-728d-4595-8dea-3b94cbaf7b10-profile_image-300x300.png"
+      },
+      {
+        "name": "Komemos",
+        "handle": "komemos",
+        "language": "EN",
+        "hours": 51354,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/8c268a1e-129c-413a-a87f-bd346b992cfb-profile_image-300x300.png"
+      },
+      {
+        "name": "bennettarcontepyro",
+        "handle": "bennettarcontepyro",
+        "language": "PT",
+        "hours": 39217,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/f4b7f61c-eb43-446a-b6ab-83c234ac817a-profile_image-300x300.jpeg"
+      },
+      {
+        "name": "MurderofBirds",
+        "handle": "murderofbirds",
+        "language": "EN",
+        "hours": 37604,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/murderofbirds-profile_image-9d6fe5a907b45dbe-300x300.jpeg"
+      },
+      {
+        "name": "BranOnline",
+        "handle": "branonline",
+        "language": "EN",
+        "hours": 37568,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/8027e76d-8f39-431a-8035-9490772f6cde-profile_image-300x300.png"
+      },
+      {
+        "name": "chikano_v",
+        "handle": "chikano_v",
+        "language": "JA",
+        "hours": 33108,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/7774e9bc-b4e6-4000-8e7c-da22e52d06d4-profile_image-300x300.png"
+      },
+      {
+        "name": "thejonathon",
+        "handle": "thejonathon",
+        "language": "EN",
+        "hours": 32770,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/f9ba453c-595a-4c2d-a835-ed0a0f1b8d53-profile_image-300x300.png"
+      },
+      {
+        "name": "Akenouille",
+        "handle": "akenouille",
+        "language": "FR",
+        "hours": 28838,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/0717e94d-b08c-400e-b54e-7113ba1fa703-profile_image-300x300.png"
+      },
+      {
+        "name": "rodan354",
+        "handle": "rodan354",
+        "language": "RU",
+        "hours": 28787,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/62a74063-9ab7-4b81-96d5-d27e3f23f3b0-profile_image-300x300.png"
+      },
+      {
+        "name": "jadealy",
+        "handle": "jadealy",
+        "language": "EN",
+        "hours": 27510,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/8ad2a40d-917d-4bab-a8c8-c9a9c3aa86e7-profile_image-300x300.png"
+      }
+    ]
+  },
+  "hi3": {
+    "source": "https://www.twitchmetrics.net/channels/viewership?game=Honkai+Impact+3rd",
+    "sourceUpdated": "2026-10-14T10:19:37Z",
+    "checked": "2026-10-16",
+    "streamers": [
+      {
+        "name": "RinaArakun",
+        "handle": "rinaarakun",
+        "language": "EN",
+        "hours": 594,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/4c375f5e-aabd-4dd1-ac7c-efafab64b917-profile_image-300x300.png"
+      },
+      {
+        "name": "エム田師匠 (mdamaster)",
+        "handle": "mdamaster",
+        "language": "JA",
+        "hours": 266,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/37f4e98f-2a1d-4090-bcb2-c6e1fa0d28ca-profile_image-300x300.png"
+      },
+      {
+        "name": "Fenrysk",
+        "handle": "fenrysk",
+        "language": "EN",
+        "hours": 255,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/28fce45e-679f-4f09-95e4-29ddacb73d55-profile_image-300x300.png"
+      },
+      {
+        "name": "NekoNikaa",
+        "handle": "nekonikaa",
+        "language": "EN",
+        "hours": 188,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/ffaff310-7c0c-4ab2-bf91-1aeaf59605c7-profile_image-300x300.png"
+      },
+      {
+        "name": "kzfik",
+        "handle": "kzfik",
+        "language": "EN",
+        "hours": 173,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/eee09891-0913-4045-8cd0-44c51a2cdf9e-profile_image-300x300.png"
+      },
+      {
+        "name": "V_RisaLab",
+        "handle": "v_risalab",
+        "language": "ES",
+        "hours": 78,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/0e8939c3-20a9-4a73-b1d1-17bfdbb4ee02-profile_image-300x300.png"
+      },
+      {
+        "name": "slodolo",
+        "handle": "slodolo",
+        "language": "EN",
+        "hours": 45,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/03eb7b09-1cbc-41e8-bad0-c2a2addbe79d-profile_image-300x300.png"
+      },
+      {
+        "name": "GerMen_o",
+        "handle": "germen_o",
+        "language": "ES",
+        "hours": 42,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/6f8328e6-4fdb-4c20-b804-eb7409630244-profile_image-300x300.png"
+      },
+      {
+        "name": "Iotamu",
+        "handle": "iotamu",
+        "language": "ES",
+        "hours": 35,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/0d7dd460-7be4-443f-b769-889416507fe3-profile_image-300x300.png"
+      },
+      {
+        "name": "AerithNayuki",
+        "handle": "aerithnayuki",
+        "language": "EN",
+        "hours": 18,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/7c2f606b-d2b4-4819-93fd-d6eaf4842fea-profile_image-300x300.png"
+      },
+      {
+        "name": "PossibleNeko",
+        "handle": "possibleneko",
+        "language": "EN",
+        "hours": 17,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/4dabaa67-809e-4646-8ee3-7577eeebbdbc-profile_image-300x300.png"
+      },
+      {
+        "name": "RaRacheL",
+        "handle": "rarachel",
+        "language": "UK",
+        "hours": 5,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/052ff8f3-b94f-401d-91d2-a0a55b9bafdd-profile_image-300x300.png"
+      },
+      {
+        "name": "Fro5tburn",
+        "handle": "fro5tburn",
+        "language": "EN",
+        "hours": 3,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/0883e8f6-6b59-4f53-b2c5-2b9a65ba3812-profile_image-300x300.png"
+      },
+      {
+        "name": "Acnologia0130",
+        "handle": "acnologia0130",
+        "language": "ES",
+        "hours": 3,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/47519cf9-810c-4d49-80da-723118c25b4e-profile_image-300x300.jpeg"
+      },
+      {
+        "name": "professeur_honkai",
+        "handle": "professeur_honkai",
+        "language": "EN",
+        "hours": 3,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/4f5a99ad-57dd-4195-b7f6-6983bf02de00-profile_image-300x300.png"
+      }
+    ]
+  },
+  "wuwa": {
+    "source": "https://www.twitchmetrics.net/channels/viewership?game=Wuthering+Waves",
+    "sourceUpdated": "2026-10-14T10:19:37Z",
+    "checked": "2026-10-16",
+    "streamers": [
+      {
+        "name": "Faello1",
+        "handle": "faello1",
+        "language": "ES",
+        "hours": 71754,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/bed6d1d7-044f-487a-bad8-22cd440c9cb2-profile_image-300x300.png"
+      },
+      {
+        "name": "saintontas",
+        "handle": "saintontas",
+        "language": "EN",
+        "hours": 49892,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/e559aaac-d54e-4fe3-b493-ce0263c951c6-profile_image-300x300.png"
+      },
+      {
+        "name": "fgrav_",
+        "handle": "fgrav_",
+        "language": "ES",
+        "hours": 41853,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/cd811bd0-c9ca-4fb0-b58c-4df19f7208a3-profile_image-300x300.png"
+      },
+      {
+        "name": "Maliwan",
+        "handle": "maliwan",
+        "language": "RU",
+        "hours": 27198,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/481f4f71-df78-4362-938c-9c3bfe6471ed-profile_image-300x300.png"
+      },
+      {
+        "name": "Kisuumi",
+        "handle": "kisuumi",
+        "language": "EN",
+        "hours": 24882,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/6ffca211-9c29-4f66-aaad-c6b32374ae89-profile_image-300x300.png"
+      },
+      {
+        "name": "miroichii",
+        "handle": "miroichii",
+        "language": "RU",
+        "hours": 22719,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/bd45949c-5c71-4917-a70f-76c72d1e05e1-profile_image-300x300.png"
+      },
+      {
+        "name": "Kazu477",
+        "handle": "kazu477",
+        "language": "RU",
+        "hours": 21770,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/c42f4efb-1e64-4890-bc52-3191d359b419-profile_image-300x300.png"
+      },
+      {
+        "name": "Yua_Stella",
+        "handle": "yua_stella",
+        "language": "EN",
+        "hours": 21004,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/126e6cf0-5bcd-471a-9381-5d81f40c85bf-profile_image-300x300.png"
+      },
+      {
+        "name": "Cherimu",
+        "handle": "cherimu",
+        "language": "EN",
+        "hours": 19083,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/a883cd67-356f-4ecd-9227-8fab753e8012-profile_image-300x300.png"
+      },
+      {
+        "name": "Hayumi_wa",
+        "handle": "hayumi_wa",
+        "language": "PT",
+        "hours": 16895,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/3aacbc8d-9e15-4716-aaf0-1a72990f673c-profile_image-300x300.png"
+      },
+      {
+        "name": "ShaozTV",
+        "handle": "shaoztv",
+        "language": "FR",
+        "hours": 15193,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/7d9ee1f7-adba-448c-bf12-78477198e8d2-profile_image-300x300.jpeg"
+      },
+      {
+        "name": "letrows",
+        "handle": "letrows",
+        "language": "ES",
+        "hours": 13024,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/4dfdd831-302c-48ba-b924-da290d22a87f-profile_image-300x300.png"
+      },
+      {
+        "name": "S4ninha",
+        "handle": "s4ninha",
+        "language": "PT",
+        "hours": 12693,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/b06a6bb0-a60b-4a4e-82d2-45be4696a1fa-profile_image-300x300.png"
+      },
+      {
+        "name": "StsKarman",
+        "handle": "stskarman",
+        "language": "ES",
+        "hours": 12147,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/59470d95-ee43-4da9-93d1-4d1ea1155623-profile_image-300x300.png"
+      },
+      {
+        "name": "Slyraf",
+        "handle": "slyraf",
+        "language": "FR",
+        "hours": 11637,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/c73ae4da-d874-40c9-a354-c4d42a83915e-profile_image-300x300.png"
+      }
+    ]
+  },
+  "nte": {
+    "source": "https://www.twitchmetrics.net/channels/viewership?game=NTE%3A+Neverness+to+Everness",
+    "sourceUpdated": "2026-10-14T10:19:37Z",
+    "checked": "2026-10-16",
+    "streamers": [
+      {
+        "name": "kariithow",
+        "handle": "kariithow",
+        "language": "EN",
+        "hours": 32685,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/ff461cbe-60dc-4f17-ac02-559196555673-profile_image-300x300.jpeg"
+      },
+      {
+        "name": "gateoo",
+        "handle": "gateoo",
+        "language": "EN",
+        "hours": 28778,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/d97ba07e-c5bf-4917-98da-4a20e5f01f0e-profile_image-300x300.png"
+      },
+      {
+        "name": "KoiNoStream",
+        "handle": "koinostream",
+        "language": "ES",
+        "hours": 24574,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/97d0f7fa-7741-4fa4-bd55-b3d28240ae61-profile_image-300x300.png"
+      },
+      {
+        "name": "KotokiRou",
+        "handle": "kotokirou",
+        "language": "EN",
+        "hours": 22982,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/94e651d6-7964-403e-af62-7e3ae280d5e0-profile_image-300x300.png"
+      },
+      {
+        "name": "Zoeiittv",
+        "handle": "zoeiittv",
+        "language": "EN",
+        "hours": 16558,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/deb7cbf4-4b70-4623-b275-95c67bf258ff-profile_image-300x300.png"
+      },
+      {
+        "name": "idolxCharmie",
+        "handle": "idolxcharmie",
+        "language": "ES",
+        "hours": 13332,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/4e8a0618-c277-48c3-ab78-09770948cf1f-profile_image-300x300.png"
+      },
+      {
+        "name": "CrazyTELEpuzik",
+        "handle": "crazytelepuzik",
+        "language": "RU",
+        "hours": 10235,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/7e704365-c6e5-4ed2-8aef-788b7721bb66-profile_image-300x300.png"
+      },
+      {
+        "name": "Sakura_Ayane",
+        "handle": "sakura_ayane",
+        "language": "ES",
+        "hours": 8245,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/57f00733-ada7-4831-b171-c68a58224019-profile_image-300x300.png"
+      },
+      {
+        "name": "banmido7",
+        "handle": "banmido7",
+        "language": "ES",
+        "hours": 7308,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/c627dd93-b50a-4877-a996-def6069fd670-profile_image-300x300.png"
+      },
+      {
+        "name": "ibrahimoDlegend",
+        "handle": "ibrahimodlegend",
+        "language": "AR",
+        "hours": 6399,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/79e23939-8e0d-42ae-a19a-766a38631faa-profile_image-300x300.png"
+      },
+      {
+        "name": "天神_甘猫 (amagami_channel)",
+        "handle": "amagami_channel",
+        "language": "JA",
+        "hours": 5971,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/f107e8fe-dc9b-4108-8694-a412aa966030-profile_image-300x300.png"
+      },
+      {
+        "name": "ke110x",
+        "handle": "ke110x",
+        "language": "EN",
+        "hours": 5806,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/6452bf00-382c-4ab6-a114-912c36e9b933-profile_image-300x300.png"
+      },
+      {
+        "name": "ゆるいカメ (yuruikame)",
+        "handle": "yuruikame",
+        "language": "JA",
+        "hours": 5662,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/a08c924d-a21a-4ad6-b13b-58bf51fb4310-profile_image-300x300.png"
+      },
+      {
+        "name": "ChikiSenpai",
+        "handle": "chikisenpai",
+        "language": "ES",
+        "hours": 4819,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/d3d54526-3884-4dd4-989e-c66103a20d31-profile_image-300x300.png"
+      },
+      {
+        "name": "Deraxus_",
+        "handle": "deraxus_",
+        "language": "ES",
+        "hours": 4187,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/421195e8-43ad-4652-8362-088089b7b86b-profile_image-300x300.png"
+      }
+    ]
+  },
+  "mlbb": {
+    "source": "https://www.twitchmetrics.net/channels/viewership?game=Mobile+Legends%3A+Bang+Bang",
+    "sourceUpdated": "2026-10-14T10:19:37Z",
+    "checked": "2026-10-16",
+    "streamers": [
+      {
+        "name": "smetanduck",
+        "handle": "smetanduck",
+        "language": "RU",
+        "hours": 195646,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/e835b1b8-b96a-4ffb-8b7b-91b30c51a978-profile_image-300x300.png"
+      },
+      {
+        "name": "titamin1",
+        "handle": "titamin1",
+        "language": "RU",
+        "hours": 186326,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/c7d33e88-0749-4eb5-92a3-4292e578bd57-profile_image-300x300.png"
+      },
+      {
+        "name": "geass81",
+        "handle": "geass81",
+        "language": "RU",
+        "hours": 115850,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/bc0ac3b5-e79d-47a9-8c0e-522e61b2faae-profile_image-300x300.png"
+      },
+      {
+        "name": "wizer02",
+        "handle": "wizer02",
+        "language": "RU",
+        "hours": 109912,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/0ad772cb-4bb1-4da7-82d5-30eda4ae30f9-profile_image-300x300.png"
+      },
+      {
+        "name": "MLBB_CIS",
+        "handle": "mlbb_cis",
+        "language": "RU",
+        "hours": 102701,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/cd375ae6-083d-4469-b421-77f6c7ae2312-profile_image-300x300.png"
+      },
+      {
+        "name": "oneshotmlbb",
+        "handle": "oneshotmlbb",
+        "language": "RU",
+        "hours": 58473,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/d8262c37-52e5-4cc2-9923-e1cc9bc7e15f-profile_image-300x300.png"
+      },
+      {
+        "name": "LegoML",
+        "handle": "legoml",
+        "language": "RU",
+        "hours": 57960,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/b565eb46-f096-4243-848b-d4c28ebe4680-profile_image-300x300.jpeg"
+      },
+      {
+        "name": "ScottyKil",
+        "handle": "scottykil",
+        "language": "RU",
+        "hours": 51500,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/efff270c-bce9-48b1-83ce-1bfd0729359e-profile_image-300x300.png"
+      },
+      {
+        "name": "ecs_tv",
+        "handle": "ecs_tv",
+        "language": "EN",
+        "hours": 50441,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/7132ac5d-3c48-4d0a-ac0a-fb8546deda99-profile_image-300x300.png"
+      },
+      {
+        "name": "troublemakermlbb",
+        "handle": "troublemakermlbb",
+        "language": "RU",
+        "hours": 45621,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/a30b2345-f471-4cbf-83e3-cebbdd2ef363-profile_image-300x300.png"
+      },
+      {
+        "name": "evilkingmlbb",
+        "handle": "evilkingmlbb",
+        "language": "RU",
+        "hours": 45446,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/d99df916-85a0-4fa2-bc57-58448be38d48-profile_image-300x300.png"
+      },
+      {
+        "name": "Tasher3000s",
+        "handle": "tasher3000s",
+        "language": "RU",
+        "hours": 33607,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/327cf653-3ec4-4e69-b7bb-c4e0a269a553-profile_image-300x300.png"
+      },
+      {
+        "name": "woodskiyded",
+        "handle": "woodskiyded",
+        "language": "RU",
+        "hours": 30327,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/4942396c-f997-4401-8a92-fe82d729d665-profile_image-300x300.jpg"
+      },
+      {
+        "name": "disowned_mlbb",
+        "handle": "disowned_mlbb",
+        "language": "RU",
+        "hours": 29971,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/d477c63f-e97e-4516-8f2b-998a3fa7e64d-profile_image-300x300.png"
+      },
+      {
+        "name": "lilcandymlbb",
+        "handle": "lilcandymlbb",
+        "language": "RU",
+        "hours": 24270,
+        "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/f4a3e399-d63d-4757-a939-c93d219f3230-profile_image-300x300.png"
+      }
+    ]
+  }
+}

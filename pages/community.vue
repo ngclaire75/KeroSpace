@@ -50,6 +50,8 @@ const pad = (n: number) => String(n).padStart(2, '0')
           </div>
         </div>
       </section>
+
+      <CommunityStreams />
     </main>
 
     <SiteFooter />
@@ -112,7 +114,6 @@ h2 em {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  /* last section before the footer: extra breathing room underneath */
   padding: clamp(40px, 6vw, 88px) 0 clamp(96px, 11vw, 160px);
 }
 .hero__grid {
