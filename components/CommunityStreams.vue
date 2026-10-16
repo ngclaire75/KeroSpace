@@ -122,7 +122,7 @@ function navigate(event: KeyboardEvent, index: number) {
 .directory__tabs button[aria-selected="true"]::after { opacity: 1; }
 .directory__tabs span { display: block; font: 900 12px/1.4 var(--display); text-transform: uppercase; white-space: normal; }
 .directory__panel { width: 100%; min-width: 0; padding: 2px; border: 0; background: #000; }
-.directory__panel.neon-hover-outline::after { opacity: 1; animation: card-outline-turn 3s linear infinite; }
+.directory__panel.neon-hover-outline::after { opacity: 1; background: conic-gradient(from var(--card-outline-angle), #d8b4ff, #ffb3df, #d8b4ff); animation: card-outline-turn 3s linear infinite; }
 .directory__heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 88px; padding: 16px 26px; }
 .directory__heading > div { min-width: 0; }
 .directory__heading p { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; margin: 0 0 8px; color: #fff; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; }
@@ -133,7 +133,7 @@ function navigate(event: KeyboardEvent, index: number) {
 .directory__heading h3 > span.is-active { visibility: visible; }
 .directory__table-wrap { --table-inset: 12px; width: 100%; min-width: 0; }
 table { width: 100%; table-layout: fixed; border-collapse: collapse; text-align: left; }
-thead { background: #000; border-top: 2px solid #9b65b0; border-bottom: 2px solid #9b65b0; }
+thead { background: linear-gradient(100deg, #462447, #38234f 55%, #292044); opacity: 1; border: 0; }
 thead th { height: 35px; vertical-align: middle; color: #fff; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
 .rank { width: calc(36px + var(--table-inset)); padding-left: var(--table-inset); color: var(--muted); text-align: center; font-variant-numeric: tabular-nums; }
 .language { width: 69px; text-align: center; }

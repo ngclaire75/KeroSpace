@@ -393,7 +393,7 @@ onBeforeUnmount(() => {
   padding: 2px;
   border-radius: 10px;
   overflow: hidden;
-  background: conic-gradient(from var(--kero-banner-angle), #ffb3df, #d8b4ff, #9e4dff, #ffb3df);
+  background: conic-gradient(from var(--kero-banner-angle), #ff3859, #d9d9df, #ff3859);
   animation: banner-outline 6s linear infinite;
   scroll-margin-top: 100px;
 }
@@ -562,6 +562,7 @@ onBeforeUnmount(() => {
 }
 .cover::after {
   opacity: 1;
+  background: conic-gradient(from var(--card-outline-angle), #ffb3df, #d8b4ff, #ffb3df);
   animation: card-outline-turn 3s linear infinite;
 }
 .cover__icon {
@@ -813,13 +814,14 @@ onBeforeUnmount(() => {
   border: 1px solid transparent;
   border-radius: 9px;
   background:
-    linear-gradient(90deg, rgba(232, 16, 28, 0.3), rgba(255, 47, 110, 0.26) 25%, rgba(150, 60, 255, 0.28) 50%, rgba(255, 47, 110, 0.26) 75%, rgba(232, 16, 28, 0.3)) padding-box,
-    linear-gradient(90deg, #e8101c, #ff2f6e 25%, #9b3cff 50%, #ff2f6e 75%, #e8101c) border-box;
-  background-size: 200% 100%;
-  animation: stat-gradient-flow 7s linear infinite;
+    linear-gradient(100deg, rgba(255, 69, 101, .26), rgba(255, 114, 185, .24) 25%, rgba(189, 137, 255, .26) 50%, rgba(255, 114, 185, .24) 75%, rgba(255, 69, 101, .26)) padding-box,
+    linear-gradient(100deg, #ff4565, #ff72b9 25%, #bd89ff 50%, #ff72b9 75%, #ff4565) border-box;
+  background-size: 300% 100%;
+  animation: stat-gradient-flow 10s ease-in-out infinite alternate;
 }
 @keyframes stat-gradient-flow {
-  to { background-position: 200% 50%; }
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
 }
 .gcard__stat-k {
   flex-shrink: 0;

@@ -128,7 +128,7 @@ onBeforeUnmount(() => {
 .party-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 20px; }
 .party-card { display: flex; flex-direction: column; min-width: 0; border: 0; border-radius: 0; background: #000; overflow: hidden; }
 .party-card :deep(.party-detail__art) { border-radius: 0; }
-.party-card::after { opacity: 1; animation: card-outline-turn 3s linear infinite; }
+.party-card::after { opacity: 1; background: conic-gradient(from var(--card-outline-angle), #d8b4ff, #ffb3df, #d8b4ff); animation: card-outline-turn 3s linear infinite; }
 .party-indicators { display: none; }
 
 /* footer */
