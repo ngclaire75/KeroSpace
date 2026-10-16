@@ -143,7 +143,9 @@ onBeforeUnmount(() => {
   /* line the visible bear up with the left edge of the page content below
      (the 1240px centred container with a clamp(16px, 4vw, 40px) gutter).
      The logo artwork has ~19.6% transparent padding, hence the 6.7px. */
-  margin-left: calc(max(clamp(16px, 4vw, 40px), (100vw - 1240px) / 2) - clamp(18px, 3vw, 36px) - 6.7px);
+  /* % = the nav's content width, so this stays exact even when the browser shows
+     a scrollbar (100vw would include it and push the logo right) */
+  margin-left: calc(max(clamp(16px, 4vw, 40px) - clamp(18px, 3vw, 36px), 50% - 620px) - 6.7px);
 }
 .nav__mark {
   width: 34px;
