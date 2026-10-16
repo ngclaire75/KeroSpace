@@ -51,8 +51,8 @@ function onKey(e: KeyboardEvent, i: number) {
     <div id="pulse-stage" class="stage" role="tabpanel" :aria-labelledby="`pulse-tab-${game.id}`">
       <!-- ============ spotlight ============ -->
       <Transition name="fade" mode="out-in">
-        <article :key="`${game.id}-${star.name}`" class="spot" :class="{ 'spot--noart': !star.art }">
-          <img v-if="star.art" class="spot__art" :src="star.art" alt="" :style="{ objectPosition: star.artPosition || 'center top' }" />
+        <article :key="`${game.id}-${star.name}`" class="spot" :class="{ 'spot--noart': !(star.spotArt || star.art) }">
+          <img v-if="star.spotArt || star.art" class="spot__art" :src="star.spotArt || star.art" alt="" :style="{ objectPosition: star.spotPosition || star.artPosition || 'center top' }" />
           <!-- no official art yet: oversized initial on a soft colour field -->
           <span v-else class="spot__mono" aria-hidden="true">{{ star.name.slice(0, 1) }}</span>
 

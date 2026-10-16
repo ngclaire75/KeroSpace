@@ -12,6 +12,9 @@ export type PulseCharacter = {
   /** official HD character art, e.g. /images/characters/hsr/firefly.webp */
   art?: string
   artPosition?: string
+  /** optional different art for the big spotlight card (falls back to art) */
+  spotArt?: string
+  spotPosition?: string
 }
 export type PulseItem = { name: string; type: string; comments: number }
 export type PulseFeedback = { topic: string; tone: 'praised' | 'mixed' | 'criticised'; summary: string }
@@ -33,11 +36,11 @@ export const pulseGames: PulseGame[] = [
   {
     id: 'hsr', name: 'Honkai: Star Rail', short: 'Star Rail', art: '/images/games/card-hsr.webp', artPosition: 'center 22%',
     characters: [
-      { name: 'Firefly', tag: 'Destruction', art: '/images/firefly.jpg', comments: 48200, sentiment: { loved: 71, mixed: 20, critical: 9 } },
-      { name: 'Acheron', tag: 'Nihility', art: '/images/acheron.jpg', comments: 39600, sentiment: { loved: 64, mixed: 26, critical: 10 } },
-      { name: 'Castorice', tag: 'Remembrance', art: '/images/castorice.jpg', comments: 31100, sentiment: { loved: 60, mixed: 28, critical: 12 } },
-      { name: 'Kafka', tag: 'Nihility', art: '/images/kafka.jpg', comments: 24800, sentiment: { loved: 66, mixed: 24, critical: 10 } },
-      { name: 'Sparkle', tag: 'Harmony', art: '/images/sparkle.jpg', comments: 19300, sentiment: { loved: 58, mixed: 30, critical: 12 } },
+      { name: 'Firefly', tag: 'Destruction', art: '/images/firefly-hd.webp', artPosition: 'center 40%', spotArt: '/images/firefly-spot-hd.webp', spotPosition: 'center 18%', comments: 48200, sentiment: { loved: 71, mixed: 20, critical: 9 } },
+      { name: 'Acheron', tag: 'Nihility', art: '/images/acheron-hd.webp', comments: 39600, sentiment: { loved: 64, mixed: 26, critical: 10 } },
+      { name: 'Castorice', tag: 'Remembrance', art: '/images/castorice-hd.webp', artPosition: 'center 50%', comments: 31100, sentiment: { loved: 60, mixed: 28, critical: 12 } },
+      { name: 'Kafka', tag: 'Nihility', art: '/images/kafka-hd.webp', artPosition: '30% 50%', comments: 24800, sentiment: { loved: 66, mixed: 24, critical: 10 } },
+      { name: 'Sparkle', tag: 'Harmony', art: '/images/sparkle-hd.webp', artPosition: '35% 65%', comments: 19300, sentiment: { loved: 58, mixed: 30, critical: 12 } },
     ],
     items: [
       { name: 'Genius of Brilliant Stars', type: 'Relic set', comments: 12400 },
