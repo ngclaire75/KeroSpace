@@ -2,21 +2,22 @@
 import { pulseGames, pulsePeriod, type PulseSentiment } from '~/data/communityPulse'
 
 const active = ref(0)
+const pick = ref(0) // which character the spotlight shows
+
 const game = computed(() => pulseGames[active.value]!)
-const lead = computed(() => game.value.characters[0]!)
-const others = computed(() => game.value.characters.slice(1))
+const star = computed(() => game.value.characters[pick.value] ?? game.value.characters[0]!)
 
 const compact = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 })
 const fmt = (n: number) => compact.format(n)
 const pad = (n: number) => String(n).padStart(2, '0')
-const toneLabel = { praised: 'Praised', mixed: 'Mixed', criticised: 'Needs work' } as const
 const split = (s: PulseSentiment) => [
-  { key: 'loved', label: 'loved', value: s.loved },
-  { key: 'mixed', label: 'mixed', value: s.mixed },
-  { key: 'critical', label: 'critical', value: s.critical },
+  { key: 'loved', label: 'Loved', value: s.loved },
+  { key: 'mixed', label: 'Mixed', value: s.mixed },
+  { key: 'critical', label: 'Critical', value: s.critical },
 ]
 
-/* ---- segmented control keyboard support ---- */
+function selectGame(i: number) { active.value = i; pick.value = 0 }
+
 const tabs = ref<HTMLButtonElement[]>([])
 function onKey(e: KeyboardEvent, i: number) {
   const n = pulseGames.length
@@ -25,419 +26,323 @@ function onKey(e: KeyboardEvent, i: number) {
   else if (e.key === 'ArrowLeft') next = (i + n - 1) % n
   else return
   e.preventDefault()
-  select(next)
+  selectGame(next)
   tabs.value[next]?.focus()
 }
-
-/* ---- character gallery ---- */
-const rail = ref<HTMLElement | null>(null)
-const atStart = ref(true)
-const atEnd = ref(false)
-function onRail() {
-  const el = rail.value
-  if (!el) return
-  atStart.value = el.scrollLeft < 8
-  atEnd.value = el.scrollLeft + el.clientWidth > el.scrollWidth - 8
-}
-function page(dir: 1 | -1) {
-  const el = rail.value
-  if (!el) return
-  const card = el.querySelector<HTMLElement>('.gcard')
-  el.scrollBy({ left: dir * ((card?.offsetWidth ?? 320) + 20), behavior: 'smooth' })
-}
-function select(i: number) {
-  active.value = i
-  nextTick(() => { rail.value?.scrollTo({ left: 0 }); onRail() })
-}
-onMounted(() => { onRail(); window.addEventListener('resize', onRail) })
-onBeforeUnmount(() => window.removeEventListener('resize', onRail))
 </script>
 
 <template>
-  <section id="community-pulse" class="ap" aria-labelledby="pulse-title">
-    <!-- ============ intro ============ -->
-    <header id="pulse-top" class="intro">
-      <p class="intro__kicker">Community pulse</p>
-      <h2 id="pulse-title">What everyone's<br />talking about.</h2>
-      <p class="intro__sub">The characters, gear and feedback driving the most conversation in each game's community.</p>
-
-      <div class="seg" role="tablist" aria-label="Choose a game">
-        <button v-for="(g, i) in pulseGames" :id="`pulse-tab-${g.id}`" :key="g.id" ref="tabs" type="button" role="tab"
-          :aria-selected="active === i" aria-controls="pulse-panel" :tabindex="active === i ? 0 : -1"
-          @click="select(i)" @keydown="onKey($event, i)">{{ g.short }}</button>
+  <section id="community-pulse" class="pulse" aria-labelledby="pulse-title">
+    <!-- heading: same rhythm as "Your game. Their playground." -->
+    <header class="pulse__head">
+      <div>
+        <p class="pulse__eyebrow"><span aria-hidden="true" />Community pulse</p>
+        <h2 id="pulse-title">The talk of<br /><em>every server.</em></h2>
       </div>
-      <p class="intro__note">{{ pulsePeriod }}</p>
+      <p class="pulse__intro">Who players can't stop discussing, the gear everyone's chasing, and what they want fixed next.</p>
     </header>
 
-    <Transition name="fade" mode="out-in">
-      <div id="pulse-panel" :key="game.id" role="tabpanel" :aria-labelledby="`pulse-tab-${game.id}`">
-        <!-- ============ hero tile ============ -->
-        <article class="hero">
-          <img class="hero__art" :src="lead.art || game.art" alt="" :style="{ objectPosition: lead.artPosition || game.artPosition || 'center top' }" />
-          <div class="hero__copy">
-            <p class="hero__label">Most discussed in {{ game.name }}</p>
-            <h3 class="hero__name">{{ lead.name }}</h3>
-            <p class="hero__big"><span class="grad">{{ fmt(lead.comments) }}</span></p>
-            <p class="hero__cap">comments this month</p>
+    <div class="seg" role="tablist" aria-label="Choose a game">
+      <button v-for="(g, i) in pulseGames" :id="`pulse-tab-${g.id}`" :key="g.id" ref="tabs" type="button" role="tab"
+        :aria-selected="active === i" aria-controls="pulse-stage" :tabindex="active === i ? 0 : -1"
+        @click="selectGame(i)" @keydown="onKey($event, i)">{{ g.short }}</button>
+    </div>
 
-            <dl class="stats">
-              <div v-for="s in split(lead.sentiment)" :key="s.key" :class="`stats__item stats__item--${s.key}`">
-                <dt>{{ s.label }}</dt>
-                <dd>{{ s.value }}<small>%</small></dd>
-              </div>
-            </dl>
+    <div id="pulse-stage" class="stage" role="tabpanel" :aria-labelledby="`pulse-tab-${game.id}`">
+      <!-- ============ spotlight ============ -->
+      <Transition name="fade" mode="out-in">
+        <article :key="`${game.id}-${star.name}`" class="spot" :class="{ 'spot--noart': !star.art }">
+          <img v-if="star.art" class="spot__art" :src="star.art" alt="" :style="{ objectPosition: star.artPosition || 'center top' }" />
+          <!-- no official art yet: oversized initial on a soft colour field -->
+          <span v-else class="spot__mono" aria-hidden="true">{{ star.name.slice(0, 1) }}</span>
+
+          <span class="spot__rank" aria-hidden="true">#{{ pick + 1 }}</span>
+
+          <div class="glass">
+            <p class="glass__label">{{ pick === 0 ? 'Most discussed' : `No. ${pick + 1} most discussed` }} in {{ game.short }}</p>
+            <h3 class="glass__name">{{ star.name }}</h3>
+            <p class="glass__tag">{{ star.tag }}</p>
+            <div class="glass__row">
+              <p class="glass__big">{{ fmt(star.comments) }}<small>comments</small></p>
+              <dl class="glass__mood">
+                <div v-for="s in split(star.sentiment)" :key="s.key" :class="`m m--${s.key}`">
+                  <dt>{{ s.label }}</dt><dd>{{ s.value }}%</dd>
+                </div>
+              </dl>
+            </div>
+            <div class="meter" aria-hidden="true">
+              <span v-for="s in split(star.sentiment)" :key="s.key" :class="`meter__seg meter__seg--${s.key}`" :style="{ flexGrow: s.value }" />
+            </div>
           </div>
         </article>
+      </Transition>
 
-        <!-- ============ highlights bento ============ -->
-        <div class="bento">
-          <article class="tile tile--items">
-            <p class="tile__kicker">Most talked-about gear</p>
-            <ol class="spec">
-              <li v-for="(it, i) in game.items" :key="it.name">
-                <span class="spec__n">{{ i + 1 }}</span>
-                <span class="spec__name">{{ it.name }}<small>{{ it.type }}</small></span>
-                <span class="spec__v">{{ fmt(it.comments) }}</span>
-              </li>
-            </ol>
-          </article>
-
-          <article class="tile tile--stat">
-            <p class="tile__kicker">Overall mood</p>
-            <p class="tile__huge"><span class="grad">{{ game.verdict.loved }}%</span></p>
-            <p class="tile__text"><b>of the conversation is positive.</b> {{ game.verdict.mixed }}% is mixed and {{ game.verdict.critical }}% is critical.</p>
-          </article>
-
-          <article class="tile tile--love">
-            <p class="tile__kicker">Players love</p>
-            <p class="tile__statement">{{ game.verdict.praise }}.</p>
-          </article>
-
-          <article class="tile tile--fix">
-            <p class="tile__kicker">Players want fixed</p>
-            <p class="tile__statement">{{ game.verdict.complaint }}.</p>
-          </article>
-
-          <article class="tile tile--feedback">
-            <p class="tile__kicker">Hot topics</p>
-            <ul class="topics">
-              <li v-for="f in game.feedback" :key="f.topic">
-                <p><b>{{ f.topic }}.</b> {{ f.summary }}</p>
-                <span :class="`tone tone--${f.tone}`">{{ toneLabel[f.tone] }}</span>
-              </li>
-            </ul>
-          </article>
-        </div>
-
-        <!-- ============ character gallery ============ -->
-        <div class="gallery">
-          <h3 class="gallery__title">More characters in the conversation.</h3>
-          <ol ref="rail" class="rail" @scroll.passive="onRail">
-            <li v-for="(c, i) in others" :key="c.name" class="gcard" :class="[`gcard--${i + 1}`, { 'has-art': c.art }]">
-              <img v-if="c.art" class="gcard__art" :src="c.art" alt="" loading="lazy" :style="{ objectPosition: c.artPosition || 'center top' }" />
-              <p class="gcard__n">{{ pad(i + 2) }}</p>
-              <h4 class="gcard__name">{{ c.name }}</h4>
-              <p class="gcard__tag">{{ c.tag }}</p>
-              <div class="gcard__foot">
-                <p class="gcard__big">{{ fmt(c.comments) }}<small>comments</small></p>
-                <p class="gcard__mood"><b>{{ c.sentiment.loved }}%</b> loved</p>
-              </div>
-            </li>
-          </ol>
-          <div class="paddles">
-            <button type="button" class="paddle paddle--prev" :disabled="atStart" aria-label="Previous characters" @click="page(-1)" />
-            <button type="button" class="paddle paddle--next" :disabled="atEnd" aria-label="More characters" @click="page(1)" />
-          </div>
-        </div>
+      <!-- ============ character rail: picks the spotlight ============ -->
+      <div class="rail" role="group" aria-label="Most discussed characters">
+        <button v-for="(c, i) in game.characters" :key="c.name" type="button" class="rtile" :class="[`rtile--${i + 1}`, { 'is-on': pick === i, 'has-art': c.art }]"
+          :aria-pressed="pick === i" @click="pick = i">
+          <img v-if="c.art" class="rtile__art" :src="c.art" alt="" :style="{ objectPosition: c.artPosition || 'center 25%' }" />
+          <span class="rtile__n" aria-hidden="true">{{ i + 1 }}</span>
+          <span class="rtile__who"><b>{{ c.name }}</b><small>{{ c.tag }}</small></span>
+          <span class="rtile__v">{{ fmt(c.comments) }}</span>
+        </button>
       </div>
-    </Transition>
 
+      <!-- ============ gear ============ -->
+      <article class="gear">
+        <p class="gear__k">Most talked-about gear <span>{{ pulsePeriod }}</span></p>
+        <ol class="gear__list">
+          <li v-for="(it, i) in game.items.slice(0, 3)" :key="it.name">
+            <span class="gear__n">{{ pad(i + 1) }}</span>
+            <span class="gear__who"><b>{{ it.name }}</b><small>{{ it.type }}</small></span>
+            <span class="gear__v">{{ fmt(it.comments) }}</span>
+          </li>
+        </ol>
+      </article>
+
+      <!-- ============ verdict ============ -->
+      <article class="verdict verdict--love">
+        <p class="verdict__k">Players love</p>
+        <p class="verdict__big">{{ game.verdict.loved }}<small>% positive</small></p>
+        <p class="verdict__s">{{ game.verdict.praise }}</p>
+      </article>
+      <article class="verdict verdict--fix">
+        <p class="verdict__k">Players want fixed</p>
+        <p class="verdict__big">{{ game.verdict.critical }}<small>% critical</small></p>
+        <p class="verdict__s">{{ game.verdict.complaint }}</p>
+      </article>
+    </div>
   </section>
 </template>
 
 <style scoped>
-.ap {
-  /* same type as the rest of the site: Orbitron for headings and big numbers, Nunito for text */
-  --sf: var(--ui);
-  --fg: #f5f5f7;
-  --fg-2: #86868b;
-  --tile: #161617;
-  --tile-2: #1d1d1f;
-  --hair: rgba(255, 255, 255, .1);
-  /* smooth, blobby brand gradient: overlapping colour pools rather than hard stops */
-  --mesh: radial-gradient(80% 140% at 0% 20%, #ff9bd9 0%, transparent 65%), radial-gradient(70% 140% at 100% 80%, #a874ff 0%, transparent 65%), radial-gradient(70% 120% at 55% 110%, #ff4467 0%, transparent 65%), #ff6db3;
+.pulse {
+  --pk: #ff54bb;
+  --pp: #b26bff;
+  --rd: #ff183b;
+  --surface: #0b0a0f;
+  --hair: rgba(255, 255, 255, .08);
+  --muted: rgba(255, 255, 255, .6);
+  /* smooth "blob" fill: overlapping colour pools rather than hard stops */
+  --blob: radial-gradient(70% 160% at 0% 50%, #ff2d55 0%, transparent 70%), radial-gradient(60% 160% at 50% 50%, #ff5fb4 0%, transparent 75%), radial-gradient(70% 160% at 100% 50%, #a05cff 0%, transparent 70%), #ff4f9a;
   width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px));
   margin: 0 auto;
   padding: 0 0 clamp(88px, 10vw, 144px);
-  font-family: var(--sf);
-  color: var(--fg);
-  -webkit-font-smoothing: antialiased;
 }
-.grad { background: var(--mesh); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-/* ============ intro ============ */
-.intro { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: clamp(28px, 3vw, 40px); scroll-margin-top: 24px; }
-.intro__kicker { margin: 0 0 10px; font-size: clamp(16px, 1.3vw, 18px); font-weight: 600; letter-spacing: -.01em; background: var(--mesh); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.intro h2 { margin: 0; font-size: clamp(34px, 3.9vw, 54px); font-weight: 700; line-height: 1.04; letter-spacing: -.045em; }
-.intro__sub { max-width: 560px; margin: 16px 0 0; font-size: clamp(15px, 1.2vw, 17px); font-weight: 500; line-height: 1.45; letter-spacing: -.01em; color: var(--fg-2); }
+/* ---------- heading (matches the Twitch section) ---------- */
+.pulse__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 28px; }
+.pulse__eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; color: #fff; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .16em; }
+.pulse__eyebrow span { width: 26px; height: 2px; border-radius: 2px; background: var(--blob); }
+.pulse h2 { margin: 0; font: 900 clamp(28px, 3.5vw, 46px)/1.16 var(--display); text-transform: uppercase; letter-spacing: -.025em; }
+.pulse h2 em { font-style: normal; background: linear-gradient(100deg, var(--pk), var(--rd) 50%, var(--pp)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.pulse__intro { max-width: 340px; margin: 0 0 3px; font-size: 16px; line-height: 1.75; color: #c1b9c9; }
 
-.intro__note { margin: 14px 0 0; font-size: 12px; font-weight: 500; color: var(--fg-2); }
-.seg { display: inline-flex; gap: 2px; max-width: 100%; margin-top: 26px; padding: 4px; border-radius: 999px; background: var(--tile-2); overflow-x: auto; scrollbar-width: none; }
+/* ---------- game selector ---------- */
+.seg { display: flex; gap: 8px; margin-bottom: 18px; overflow-x: auto; scrollbar-width: none; }
 .seg::-webkit-scrollbar { display: none; }
-.seg button { flex-shrink: 0; min-height: 34px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: var(--fg-2); font: 500 13px/1 var(--sf); letter-spacing: -.01em; white-space: nowrap; cursor: pointer; transition: color .2s, background .25s; }
-.seg button[aria-selected="true"] {
-  color: #fff;
-  font-weight: 600;
-  /* soft red → pink → purple pools */
-  background:
-    radial-gradient(70% 160% at 0% 50%, #ff2d55 0%, transparent 70%),
-    radial-gradient(60% 160% at 50% 50%, #ff5fb4 0%, transparent 75%),
-    radial-gradient(70% 160% at 100% 50%, #a05cff 0%, transparent 70%),
-    #ff4f9a;
-  box-shadow: 0 4px 16px rgba(255, 79, 154, .3);
+.seg button {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #121016;
+  box-shadow: inset 0 0 0 1px var(--hair);
+  color: rgba(255, 255, 255, .62);
+  font: 800 11px/1 var(--display);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color .2s, background .25s;
 }
-.seg button:focus-visible, .paddle:focus-visible { outline: 2px solid #0a84ff; outline-offset: 2px; }
+.seg button[aria-selected="true"] { color: #fff; background: var(--blob); box-shadow: 0 4px 16px rgba(255, 79, 154, .3); }
+.seg button:focus-visible { outline: 2px solid #e3a3ff; outline-offset: 2px; }
 
-/* ============ hero tile ============ */
-.hero {
+/* ---------- stage grid ---------- */
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.15fr);
+  grid-template-areas: 'spot spot rail' 'love fix gear';
+  gap: 14px;
+}
+
+/* spotlight */
+.spot {
+  grid-area: spot;
   position: relative;
   isolation: isolate;
   display: flex;
-  align-items: center;
-  min-height: clamp(380px, 32vw, 460px);
-  padding: clamp(14px, 1.5vw, 20px);
+  align-items: flex-end;
+  min-height: 430px;
+  padding: 16px;
   overflow: hidden;
   border-radius: 10px;
   background: #000;
 }
-/* full-bleed art, no fade */
-.hero__art { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-/* black glass panel holding the copy */
-.hero__copy {
-  width: min(380px, 100%);
-  padding: clamp(22px, 2.4vw, 32px);
+.spot__art { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.spot--noart {
+  background:
+    radial-gradient(70% 90% at 85% 15%, rgba(178, 107, 255, .55), transparent 65%),
+    radial-gradient(60% 80% at 60% 85%, rgba(255, 24, 59, .45), transparent 65%),
+    radial-gradient(60% 70% at 20% 20%, rgba(255, 84, 187, .35), transparent 65%),
+    #0b0a0f;
+}
+.spot__mono {
+  position: absolute;
+  z-index: -1;
+  right: -2%;
+  top: 50%;
+  translate: 0 -55%;
+  font: 900 clamp(240px, 26vw, 380px)/1 var(--display);
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, .16);
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.spot__rank {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  min-width: 46px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .7);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14);
+  font: 900 12px/1 var(--display);
+}
+
+/* black glass panel */
+.glass {
+  width: min(440px, 100%);
+  padding: 22px 24px;
   border-radius: 8px;
   background: rgba(0, 0, 0, .78);
   -webkit-backdrop-filter: blur(36px) saturate(110%);
   backdrop-filter: blur(36px) saturate(110%);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12), inset 0 1px 0 rgba(255, 255, 255, .1), 0 24px 60px rgba(0, 0, 0, .35);
 }
-.hero__label { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: -.01em; color: rgba(245, 245, 247, .7); }
-.hero__name { margin: 6px 0 0; font-size: clamp(30px, 3vw, 42px); font-weight: 700; line-height: 1.02; letter-spacing: -.04em; }
-.hero__big { margin: clamp(18px, 2vw, 26px) 0 0; font-size: clamp(56px, 5.6vw, 80px); font-weight: 700; line-height: .9; letter-spacing: -.055em; }
-.hero__cap { margin: 8px 0 0; font-size: 15px; font-weight: 600; letter-spacing: -.01em; color: var(--fg); }
-.stats { display: flex; gap: 0; margin: clamp(18px, 2vw, 26px) 0 0; }
-.stats__item { padding: 0 18px; border-left: 1px solid rgba(255, 255, 255, .16); }
-.stats__item:first-child { padding-left: 0; border-left: 0; }
-.stats dt { font-size: 12px; font-weight: 500; color: rgba(245, 245, 247, .7); }
-.stats dd { margin: 2px 0 0; font-size: 24px; font-weight: 700; letter-spacing: -.03em; }
-.stats dd small { font-size: 14px; font-weight: 600; color: var(--fg-2); }
-.stats__item--loved dd { background: var(--mesh); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.glass__label { margin: 0; font-size: 12px; font-weight: 800; color: rgba(255, 255, 255, .62); }
+.glass__name { margin: 8px 0 0; font: 900 clamp(26px, 2.6vw, 34px)/1.05 var(--display); text-transform: uppercase; letter-spacing: -.02em; }
+.glass__tag { margin: 6px 0 0; font-size: 13px; font-weight: 700; color: #ffb3e1; }
+.glass__row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-top: 18px; }
+.glass__big { display: flex; align-items: baseline; gap: 8px; margin: 0; font: 900 clamp(34px, 3.2vw, 44px)/1 var(--display); letter-spacing: -.03em; background: var(--blob); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.glass__big small { font: 800 12px/1 var(--ui); letter-spacing: 0; -webkit-text-fill-color: rgba(255, 255, 255, .7); }
+.glass__mood { display: flex; gap: 14px; margin: 0; }
+.m dt { font-size: 11px; font-weight: 700; color: rgba(255, 255, 255, .55); }
+.m dd { margin: 2px 0 0; font: 900 14px/1 var(--display); }
+.m--loved dd { color: #ff8fd0; }
+.m--critical dd { color: #ff6b81; }
+.meter { display: flex; gap: 3px; height: 6px; margin-top: 16px; }
+.meter__seg { min-width: 4px; border-radius: 999px; }
+.meter__seg--loved { background: var(--blob); }
+.meter__seg--mixed { background: rgba(255, 255, 255, .28); }
+.meter__seg--critical { background: #ff3b5c; }
 
-/* ============ bento ============ */
-.bento {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-areas: 'items items stat' 'love fix feedback';
-  gap: 14px;
-  margin-top: 14px;
-}
-.tile { min-width: 0; padding: clamp(22px, 2.2vw, 28px); border-radius: 10px; background: var(--tile); }
-.tile__kicker { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: -.01em; color: var(--fg-2); }
-.tile--items { grid-area: items; }
-.tile--stat { grid-area: stat; display: flex; flex-direction: column; }
-.tile--love { grid-area: love; }
-.tile--fix { grid-area: fix; }
-.tile--feedback { grid-area: feedback; }
-
-.spec { margin: 10px 0 0; padding: 0; list-style: none; }
-.spec li { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: baseline; gap: 12px; padding: 12px 0; border-top: 1px solid var(--hair); }
-.spec li:first-child { border-top: 0; }
-.spec__n { font-size: 13px; font-weight: 600; color: var(--fg-2); }
-.spec__name { display: flex; flex-direction: column; min-width: 0; font-size: 16px; font-weight: 600; letter-spacing: -.02em; }
-.spec__name small { margin-top: 2px; font-size: 12px; font-weight: 500; letter-spacing: 0; color: var(--fg-2); }
-.spec__v { font-size: 16px; font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-.spec li:first-child .spec__v { background: var(--mesh); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-.tile__huge { margin: auto 0 0; padding-top: 18px; font-size: clamp(56px, 5vw, 76px); font-weight: 700; line-height: .9; letter-spacing: -.06em; }
-.tile__text { margin: 10px 0 0; font-size: 14px; font-weight: 500; line-height: 1.45; color: var(--fg-2); }
-.tile__text b { font-weight: 600; color: var(--fg); }
-
-/* statement tiles carry the gradient on the tile itself */
-.tile--love, .tile--fix { display: flex; flex-direction: column; justify-content: space-between; min-height: 210px; }
-.tile--love {
-  background:
-    radial-gradient(90% 80% at 0% 100%, rgba(255, 109, 179, .55), transparent 70%),
-    radial-gradient(80% 70% at 100% 100%, rgba(168, 116, 255, .5), transparent 70%),
-    var(--tile);
-}
-.tile--fix {
-  background:
-    radial-gradient(90% 80% at 100% 100%, rgba(255, 68, 103, .45), transparent 70%),
-    radial-gradient(70% 60% at 0% 100%, rgba(255, 140, 90, .22), transparent 70%),
-    var(--tile);
-}
-.tile--love .tile__kicker, .tile--fix .tile__kicker { color: rgba(245, 245, 247, .7); }
-.tile__statement { margin: 28px 0 0; font-size: clamp(22px, 2vw, 28px); font-weight: 700; line-height: 1.08; letter-spacing: -.035em; }
-
-.topics { margin: 8px 0 0; padding: 0; list-style: none; }
-.topics li { padding: 11px 0; border-top: 1px solid var(--hair); }
-.topics li:first-child { border-top: 0; }
-.topics p { margin: 0; font-size: 14px; font-weight: 500; line-height: 1.45; color: var(--fg-2); }
-.topics b { font-weight: 600; color: var(--fg); }
-.tone { display: inline-block; margin-top: 5px; font-size: 12px; font-weight: 600; }
-.tone--praised { background: var(--mesh); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.tone--mixed { color: #a1a1a6; }
-.tone--criticised { color: #ff6b81; }
-
-/* ============ gallery ============ */
-.gallery { margin-top: clamp(48px, 5vw, 72px); }
-.gallery__title { margin: 0 0 20px; font-size: clamp(24px, 2.4vw, 32px); font-weight: 700; line-height: 1.08; letter-spacing: -.04em; }
-.rail {
-  display: flex;
-  gap: 14px;
-  margin: 0;
-  padding: 0 0 4px;
-  list-style: none;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  border-radius: 10px;
-}
-.rail::-webkit-scrollbar { display: none; }
-.gcard {
+/* character rail: five slim tiles that switch the spotlight */
+.rail { grid-area: rail; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.rtile {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  flex: 0 0 clamp(230px, 21vw, 290px);
-  aspect-ratio: 290 / 380;
-  padding: 22px;
-  border-radius: 10px;
-  scroll-snap-align: start;
+  isolation: isolate;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px;
+  padding: 0 18px 0 14px;
   overflow: hidden;
-  background: var(--tile);
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  background: #121016;
+  transition: transform .25s var(--ease), box-shadow .25s;
 }
-/* each card gets its own smooth colour field */
-.gcard--1 { background: radial-gradient(110% 80% at 0% 0%, #ff5fb0 0%, transparent 60%), radial-gradient(100% 80% at 100% 100%, #6d36ff 0%, transparent 62%), radial-gradient(70% 50% at 100% 10%, #ff3355 0%, transparent 60%), #1a0e1c; }
-.gcard--2 { background: radial-gradient(110% 80% at 100% 0%, #b26bff 0%, transparent 60%), radial-gradient(100% 80% at 0% 100%, #ff4f9e 0%, transparent 62%), radial-gradient(60% 50% at 30% 30%, #3b1d7a 0%, transparent 70%), #150e22; }
-.gcard--3 { background: radial-gradient(110% 80% at 0% 100%, #ff2a4f 0%, transparent 60%), radial-gradient(100% 80% at 100% 0%, #ff8ad0 0%, transparent 60%), radial-gradient(70% 60% at 80% 90%, #7a2bff 0%, transparent 65%), #1d0c14; }
-.gcard--4 { background: radial-gradient(110% 80% at 100% 100%, #ff6db3 0%, transparent 60%), radial-gradient(100% 80% at 0% 0%, #5a2cff 0%, transparent 62%), radial-gradient(60% 50% at 70% 40%, #ff4467 0%, transparent 70%), #120c1f; }
-/* gentle shade so text always reads on the colour field */
-.gcard::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, .35), transparent 35%, transparent 55%, rgba(0, 0, 0, .45)); pointer-events: none; }
-/* desktop: the four cards fill the row exactly, so the last card's right edge
-   lines up with the arrows below (and with the tiles above) */
-@media (min-width: 1069px) { .gcard { flex: 0 0 calc((100% - 3 * 14px) / 4); } }
-.gcard > *:not(.gcard__art) { position: relative; }
-/* official character art fills the card; the colour field stays as a soft tint at the edges */
-.gcard__art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
-.gcard.has-art::before { z-index: 1; background: linear-gradient(180deg, rgba(0, 0, 0, .55) 0%, transparent 30%, transparent 50%, rgba(0, 0, 0, .8) 100%); }
-.gcard.has-art > *:not(.gcard__art) { z-index: 2; }
-@media (hover: hover) { .gcard.has-art:hover .gcard__art { transform: scale(1.04); } }
-.gcard__n { margin: 0; font-size: 13px; font-weight: 600; color: rgba(255, 255, 255, .7); }
-.gcard__name { margin: 6px 0 0; font-size: clamp(24px, 2.1vw, 30px); font-weight: 700; line-height: 1.04; letter-spacing: -.04em; }
-.gcard__tag { margin: 6px 0 0; font-size: 14px; font-weight: 500; color: rgba(255, 255, 255, .78); }
-.gcard__foot { margin-top: auto; }
-.gcard__big { display: flex; align-items: baseline; gap: 6px; margin: 0; font-size: clamp(34px, 3vw, 44px); font-weight: 700; line-height: 1; letter-spacing: -.05em; }
-.gcard__big small { font-size: 14px; font-weight: 600; letter-spacing: -.01em; color: rgba(255, 255, 255, .8); }
-.gcard__mood { margin: 8px 0 0; font-size: 13px; font-weight: 500; color: rgba(255, 255, 255, .8); }
-.gcard__mood b { color: #fff; font-weight: 700; }
+/* each tile carries its own soft colour field */
+.rtile--1 { background: radial-gradient(70% 140% at 100% 50%, rgba(255, 84, 187, .5), transparent 70%), radial-gradient(50% 120% at 70% 100%, rgba(160, 92, 255, .4), transparent 70%), #120e16; }
+.rtile--2 { background: radial-gradient(70% 140% at 100% 50%, rgba(160, 92, 255, .5), transparent 70%), radial-gradient(50% 120% at 70% 0%, rgba(255, 61, 106, .3), transparent 70%), #110e18; }
+.rtile--3 { background: radial-gradient(70% 140% at 100% 50%, rgba(255, 45, 85, .45), transparent 70%), radial-gradient(50% 120% at 70% 100%, rgba(255, 84, 187, .3), transparent 70%), #140d12; }
+.rtile--4 { background: radial-gradient(70% 140% at 100% 50%, rgba(255, 95, 180, .3), transparent 70%), #100e14; }
+.rtile--5 { background: radial-gradient(70% 140% at 100% 50%, rgba(160, 92, 255, .3), transparent 70%), #100e14; }
+.rtile__art { position: absolute; z-index: -1; top: 0; right: 0; width: 62%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(90deg, transparent, #000 60%); mask-image: linear-gradient(90deg, transparent, #000 60%); opacity: .85; }
+.rtile.has-art::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .55)); }
+.rtile__n { font: 900 30px/1 var(--display); color: transparent; -webkit-text-stroke: 1.5px rgba(255, 255, 255, .35); text-align: center; }
+.rtile__who { display: flex; flex-direction: column; min-width: 0; }
+.rtile__who b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 900 14px/1.2 var(--display); text-transform: uppercase; letter-spacing: -.005em; }
+.rtile__who small { margin-top: 4px; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, .6); }
+.rtile__v { font: 900 15px/1 var(--display); }
+.rtile.is-on { box-shadow: inset 0 0 0 1.5px rgba(255, 140, 210, .85), 0 8px 26px rgba(255, 84, 187, .22); }
+.rtile.is-on .rtile__n { color: #fff; -webkit-text-stroke: 0; background: var(--blob); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.rtile:focus-visible { outline: 2px solid #e3a3ff; outline-offset: 2px; }
+@media (hover: hover) { .rtile:not(.is-on):hover { transform: translateX(-3px); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16); } }
 
-.paddles { display: flex; justify-content: flex-end; gap: 12px; margin-top: 18px; }
-.paddle { position: relative; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: #333336; cursor: pointer; transition: background .2s, opacity .2s; }
-/* chevrons drawn with borders */
-.paddle::before { content: ''; position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-top: 2px solid #d6d6d6; border-right: 2px solid #d6d6d6; }
-.paddle--prev::before { transform: translate(-30%, -50%) rotate(-135deg); }
-.paddle--next::before { transform: translate(-70%, -50%) rotate(45deg); }
-.paddle:disabled { opacity: .36; cursor: default; }
-@media (hover: hover) { .paddle:not(:disabled):hover { background: #424245; } }
+/* gear */
+.gear { grid-area: gear; display: flex; flex-direction: column; min-height: 200px; padding: 20px 22px; border-radius: 10px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--hair); }
+.gear__k { display: flex; justify-content: space-between; gap: 10px; margin: 0; font-size: 12px; font-weight: 800; color: rgba(255, 255, 255, .7); }
+.gear__k span { font-size: 11px; font-weight: 700; color: rgba(255, 255, 255, .32); }
+.gear__list { flex: 1; display: flex; flex-direction: column; justify-content: space-around; margin: 8px 0 0; padding: 0; list-style: none; }
+.gear__list li { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 8px 0; }
+.gear__list li + li { border-top: 1px solid var(--hair); }
+.gear__n { font: 900 11px/1 var(--display); color: rgba(255, 255, 255, .35); }
+.gear__list li:first-child .gear__n { background: var(--blob); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.gear__who { display: flex; flex-direction: column; min-width: 0; }
+.gear__who b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 800; }
+.gear__who small { margin-top: 2px; font-size: 11px; font-weight: 700; color: rgba(255, 255, 255, .45); }
+.gear__v { font: 900 13px/1 var(--display); }
 
-/* tab change */
-.fade-enter-active, .fade-leave-active { transition: opacity .3s ease; }
+/* verdict cards: gradient lives on the card surface */
+.verdict { display: flex; flex-direction: column; min-height: 200px; padding: 22px 24px; border-radius: 10px; }
+.verdict--love {
+  grid-area: love;
+  background:
+    radial-gradient(90% 90% at 0% 100%, rgba(255, 84, 187, .55), transparent 70%),
+    radial-gradient(80% 80% at 100% 100%, rgba(178, 107, 255, .5), transparent 70%),
+    var(--surface);
+}
+.verdict--fix {
+  grid-area: fix;
+  background:
+    radial-gradient(90% 90% at 100% 100%, rgba(255, 24, 59, .5), transparent 70%),
+    radial-gradient(70% 70% at 0% 100%, rgba(255, 84, 187, .22), transparent 70%),
+    var(--surface);
+}
+.verdict__k { margin: 0; font-size: 12px; font-weight: 800; color: rgba(255, 255, 255, .7); }
+.verdict__big { margin: auto 0 0; padding-top: 18px; font: 900 clamp(38px, 3.4vw, 48px)/1 var(--display); letter-spacing: -.03em; }
+.verdict__big small { margin-left: 2px; font: 800 13px/1 var(--ui); letter-spacing: 0; color: rgba(255, 255, 255, .65); }
+.verdict__s { margin: 10px 0 0; font: 900 clamp(14px, 1.2vw, 16px)/1.3 var(--display); text-transform: uppercase; letter-spacing: -.005em; }
+
+.fade-enter-active, .fade-leave-active { transition: opacity .25s ease; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
 
-/* ============ responsive ============ */
-@media (max-width: 1068px) {
-  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: 'items items' 'stat feedback' 'love fix'; }
+/* ---------- responsive ---------- */
+@media (max-width: 1100px) {
+  .stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: 'spot spot' 'rail rail' 'love fix' 'gear gear'; }
 }
-@media (max-width: 734px) {
-  /* mobile keeps its original, larger scale */
-  .intro { margin-bottom: 40px; }
-  .intro__kicker { font-size: 19px; }
-  .intro__sub { margin-top: 20px; font-size: 17px; }
-  .seg button { min-height: 36px; font-size: 14px; }
-  .hero__name { font-size: 40px; }
-  .hero__big { font-size: 72px; }
-  .stats dt { font-size: 14px; }
-  .tile__kicker { font-size: 17px; }
-  .spec li { padding: 18px 0; }
-  .spec__n { font-size: 15px; }
-  .spec__name small { font-size: 14px; }
-  .tile__huge { font-size: 80px; }
-  .tile__text { font-size: 17px; }
-  .tile__statement { font-size: 30px; }
-  .topics p { font-size: 16px; }
-  .tone { font-size: 13px; }
-  .gallery { margin-top: 80px; }
-  .gallery__title { font-size: 32px; }
-  .gcard__name { font-size: 30px; }
-  .gcard__tag { font-size: 17px; }
-  .gcard__big { font-size: 44px; }
-  .seg { margin-top: 28px; }
+@media (max-width: 900px) { .pulse__head { align-items: flex-start; } .pulse__intro { max-width: 280px; font-size: 14px; } }
+@media (max-width: 600px) {
+  .pulse__head { display: block; margin-bottom: 22px; }
+  .pulse__intro { max-width: 420px; margin-top: 16px; font-size: 15px; }
+  .seg { gap: 6px; margin: 0 calc(-1 * clamp(16px, 4vw, 40px)) 14px; padding: 0 clamp(16px, 4vw, 40px); }
   .seg button { padding: 0 14px; }
-  .hero { flex-direction: column; align-items: stretch; justify-content: flex-end; min-height: 660px; padding: 12px; border-radius: 10px; }
-  .hero__art { object-position: center top; }
-  .hero__copy { width: 100%; padding: 24px 22px 26px; border-radius: 8px; }
-  .hero__label { font-size: 15px; }
-  .hero__big { margin-top: 18px; }
-  .hero__cap { font-size: 17px; }
-  .stats { margin-top: 24px; }
-  .stats__item { padding: 0 16px; }
-  .stats dd { font-size: 26px; }
-  .bento { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'items' 'stat' 'love' 'fix' 'feedback'; gap: 14px; margin-top: 14px; }
-  .tile { padding: 26px 24px; border-radius: 10px; }
-  .tile--love, .tile--fix { min-height: 220px; }
-  .spec__name, .spec__v { font-size: 18px; }
-  .gcard { flex-basis: 82%; padding: 26px; border-radius: 10px; }
-  .rail { gap: 14px; border-radius: 10px; }
+  .stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+  .spot { min-height: 520px; padding: 10px; }
+  .glass { padding: 18px; }
+  .glass__row { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .rtile { min-height: 64px; }
+  .verdict { min-height: 170px; padding: 18px; }
+  .verdict__big { font-size: 36px; }
+  .verdict__s { font-size: 13px; }
 }
-/* ============ site typography ============ */
-.intro__kicker { font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
-.intro h2 { font: 900 clamp(28px, 3.5vw, 46px)/1.16 var(--display); letter-spacing: -.025em; text-transform: uppercase; }
-.intro__sub { font-weight: 600; letter-spacing: 0; }
-.seg button { font-weight: 700; letter-spacing: 0; }
-.hero__label, .tile__kicker { font-weight: 700; letter-spacing: 0; }
-.hero__name { font: 900 clamp(24px, 2.4vw, 32px)/1.1 var(--display); letter-spacing: -.02em; text-transform: uppercase; }
-.hero__big { font: 900 clamp(44px, 4.4vw, 62px)/1 var(--display); letter-spacing: -.03em; }
-.hero__cap { font-weight: 700; }
-.stats dd { font: 900 20px/1.2 var(--display); letter-spacing: -.02em; }
-.stats dd small { font-family: var(--ui); font-weight: 800; }
-.spec__name { font-weight: 800; letter-spacing: 0; }
-.spec__name small { font-weight: 700; }
-.spec__v { font: 800 14px/1.4 var(--display); letter-spacing: 0; }
-.tile__huge { font: 900 clamp(46px, 4vw, 60px)/1 var(--display); letter-spacing: -.03em; }
-.tile__text { font-weight: 600; }
-.tile__text b, .topics b { font-weight: 800; }
-.tile__statement { font: 900 clamp(18px, 1.6vw, 22px)/1.25 var(--display); letter-spacing: -.01em; text-transform: uppercase; }
-.topics p { font-weight: 600; }
-.tone { font-weight: 800; }
-.gallery__title { font: 900 clamp(22px, 2.2vw, 30px)/1.2 var(--display); letter-spacing: -.02em; text-transform: uppercase; }
-.gcard__n { font: 800 12px/1 var(--display); }
-.gcard__name { font: 900 clamp(20px, 1.8vw, 24px)/1.15 var(--display); letter-spacing: -.01em; text-transform: uppercase; }
-.gcard__tag { font-weight: 700; }
-.gcard__big { font: 900 clamp(28px, 2.5vw, 36px)/1 var(--display); letter-spacing: -.03em; }
-.gcard__big small { font-family: var(--ui); font-weight: 800; letter-spacing: 0; }
-.gcard__mood { font-weight: 700; }
-@media (max-width: 734px) {
-  .intro__kicker { font-size: 11px; }
-  .hero__name { font-size: 28px; }
-  .hero__big { font-size: 52px; }
-  .stats dd { font-size: 20px; }
-  .spec__name, .spec__v { font-size: 15px; }
-  .tile__huge { font-size: 56px; }
-  .tile__statement { font-size: 22px; }
-  .gallery__title { font-size: 24px; }
-  .gcard__name { font-size: 24px; }
-  .gcard__big { font-size: 34px; }
+@media (prefers-reduced-motion: reduce) {
+  .fade-enter-active, .fade-leave-active, .rtile { transition: none; }
 }
-@media (prefers-reduced-motion: reduce) { .fade-enter-active, .fade-leave-active { transition: none; } }
 </style>
