@@ -71,7 +71,7 @@ function navigate(event: KeyboardEvent, index: number) {
                   <th scope="row" class="channel-col">
                     <a class="channel" :href="`https://www.twitch.tv/${streamer.handle}`" target="_blank" rel="noopener noreferrer" :aria-label="`${streamer.name} on Twitch (opens in a new tab)`">
                       <span class="channel__avatar">
-                        <img v-if="streamer.avatar && !failedAvatars.includes(streamer.handle)" :src="streamer.avatar" alt="" width="46" height="46" loading="lazy" @error="failedAvatars.push(streamer.handle)" />
+                        <img v-if="streamer.avatar && !failedAvatars.includes(streamer.handle)" :src="streamer.avatar" alt="" width="40" height="40" loading="lazy" @error="failedAvatars.push(streamer.handle)" />
                         <span v-else aria-hidden="true">{{ streamer.name.slice(0, 1) }}</span>
                       </span>
                       <span class="channel__name">{{ streamer.name }}<small>@{{ streamer.handle }}</small></span>
@@ -147,7 +147,7 @@ tbody th { padding: 0; }
 .channel-col { padding-left: 12px; }
 .channel-col .channel { padding-left: 0; }
 .channel { display: flex; align-items: center; gap: 12px; min-width: 0; height: 62px; padding: 10px 4px; }
-.channel__avatar { display: grid; place-items: center; flex: 0 0 46px; width: 46px; height: 46px; border-radius: 50%; overflow: hidden; background: #211528; color: var(--pink); }
+.channel__avatar { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background: #211528; color: var(--pink); }
 .channel__avatar img { width: 100%; height: 100%; object-fit: cover; }
 .channel__name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 800; }
 .channel__name small { display: block; margin-top: 3px; font-size: 11px; font-weight: 600; color: var(--muted); overflow: hidden; text-overflow: ellipsis; }
