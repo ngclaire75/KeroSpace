@@ -143,9 +143,9 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .service-picker button[aria-pressed='true'] { border-color: var(--shop-pink); background: linear-gradient(110deg, #4a2040, #312048); }
 .catalog-layout { display: grid; grid-template-columns: minmax(0, 1fr) 355px; gap: 28px; align-items: stretch; }
 .game-picker { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.shop-game { position: relative; isolation: isolate; padding: 2px; border: 0; border-radius: 4px; min-width: 0; background: conic-gradient(from var(--card-outline-angle), var(--shop-pink), #7b3eb4, #302735, var(--shop-pink)); animation: card-outline-turn 6s linear infinite; cursor: pointer; text-align: left; }
+.shop-game { position: relative; isolation: isolate; padding: 2px; border: 0; border-radius: 0; min-width: 0; background: conic-gradient(from var(--card-outline-angle), var(--shop-pink), #7b3eb4, #302735, var(--shop-pink)); animation: card-outline-turn 6s linear infinite; cursor: pointer; text-align: left; }
 .shop-game.is-selected { background: conic-gradient(from var(--card-outline-angle), var(--shop-pink), var(--shop-purple), var(--shop-pink)); }
-.shop-game__surface { display: flex; flex-direction: column; position: relative; min-height: 254px; height: 100%; overflow: hidden; border-radius: 2px; background: #000; }
+.shop-game__surface { display: flex; flex-direction: column; position: relative; min-height: 254px; height: 100%; overflow: hidden; border-radius: 0; background: #000; }
 /* fills the space above the name bar and centres the logo in it, both ways */
 .shop-game__logo { position: relative; display: flex; flex: 1; align-items: center; justify-content: center; min-height: 0; padding: 20px; }
 .shop-game__logo img { display: block; width: auto; height: auto; max-width: 100%; max-height: 90px; object-fit: contain; }
