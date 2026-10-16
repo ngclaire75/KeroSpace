@@ -140,9 +140,10 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
-  /* the logo artwork has ~19.6% transparent padding: pull the brand left so the
-     visible bear sits exactly on the page gutter, clamp(16px, 4vw, 40px) */
-  margin-left: calc(clamp(16px, 4vw, 40px) - clamp(18px, 3vw, 36px) - 6.7px);
+  /* line the visible bear up with the left edge of the page content below
+     (the 1240px centred container with a clamp(16px, 4vw, 40px) gutter).
+     The logo artwork has ~19.6% transparent padding, hence the 6.7px. */
+  margin-left: calc(max(clamp(16px, 4vw, 40px), (100vw - 1240px) / 2) - clamp(18px, 3vw, 36px) - 6.7px);
 }
 .nav__mark {
   width: 34px;
