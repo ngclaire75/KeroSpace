@@ -122,7 +122,7 @@ h1 em { font-style: normal; background: var(--es-grad); background-clip: text; -
 h2 { font-family: var(--display); font-size: clamp(21px, 2.5vw, 30px); margin: 0; line-height: 1.4; }
 .game-note { max-width: 820px; color: var(--ink-2); font-size: 15px; line-height: 1.75; margin: 18px 0 0; }
 .tournament-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
-.tournament-card { display: flex; flex-direction: column; overflow: hidden; border: 2px solid #ff8fe0; border-radius: 10px; background: var(--es-panel); min-width: 0; box-shadow: 0 0 0 1px #c27bff66, 0 0 14px #ff8fe066, 0 0 30px #b26bff40; }
+.tournament-card { display: flex; flex-direction: column; overflow: hidden; border: 2px solid #ff8fe0; border-radius: 10px; background: var(--es-panel); min-width: 0; }
 .tournament-card--video { border-radius: 0; }
 .event-video, .event-poster { position: relative; aspect-ratio: 16/9; }
 .event-video { overflow: hidden; background: #100b13; }
