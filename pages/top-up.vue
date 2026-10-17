@@ -81,9 +81,7 @@ async function copyEnquiry() {
             <figcaption class="shop-caption shop-caption--desktop"><span>Kerosce gaming services</span><a href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">@koqbisagtu <span aria-hidden="true">↗</span></a></figcaption>
           </figure>
           <figure class="shop-pricelist">
-            <a class="shop-pricelist__link" href="/images/mlbb-price-list-showcase-esrgan-2x.webp" target="_blank" rel="noopener noreferrer" aria-label="Open the Mobile Legends diamond price list at full size">
-              <AppImage src="/images/mlbb-price-list-showcase-esrgan-2x.webp" sizes="(max-width: 860px) 100vw, 490px" alt="Kerosce's Mobile Legends (MLBB) diamonds price list, from 275 diamonds at Rp 65.000 up to 7155 diamonds at Rp 1.350.000" width="2508" height="2508" />
-            </a>
+            <AppImage src="/images/mlbb-price-list-showcase-esrgan-2x.webp" sizes="(max-width: 860px) 100vw, 490px" alt="Kerosce's Mobile Legends (MLBB) diamonds price list, from 275 diamonds at Rp 65.000 up to 7155 diamonds at Rp 1.350.000" width="2508" height="2508" />
             <figcaption class="shop-caption shop-caption--mobile"><span>Kerosce gaming services</span><a href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">@koqbisagtu <span aria-hidden="true">↗</span></a></figcaption>
           </figure>
         </div>
@@ -124,8 +122,8 @@ async function copyEnquiry() {
               <h3 id="enquiry-title">Your selection.<br /><em>Let’s talk.</em></h3>
               <div class="enquiry__selection" aria-live="polite"><AppImage :src="`/images/games/${game.id}-logo.webp`" alt="" width="84" height="52" /><div><span>{{ service.name }}</span><strong>{{ game.name }}</strong></div></div>
               <p class="enquiry__description">{{ service.description }}</p>
-              <label class="shop-field">Server / region <span>Optional</span><input v-model="region" type="text" maxlength="80" placeholder="e.g. Asia" autocomplete="off" /></label>
-              <label class="shop-field">What do you have in mind? <span>Optional</span><textarea v-model="details" rows="3" maxlength="500" placeholder="A package, amount or a few details…" /></label>
+              <label class="shop-field">Server / region<input v-model="region" type="text" maxlength="80" placeholder="e.g. Asia" autocomplete="off" /></label>
+              <label class="shop-field">What do you have in mind?<textarea v-model="details" rows="3" maxlength="500" placeholder="A package, amount or a few details…" /></label>
               <div class="enquiry__actions">
                 <button class="copy-button" type="button" @click="copyEnquiry">{{ copyState === 'copied' ? 'Enquiry copied ✓' : 'Copy your enquiry' }}<svg v-if="copyState !== 'copied'" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2" /><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" /></svg></button>
                 <a class="instagram-button" href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">Enquire on Instagram<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="17" height="17" viewBox="0 0 48 48"><defs><mask id="top-up-enquiry-chat"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path fill="#555" d="M44 7H4v30h7v5l10-5h23z" /><path d="M31 16v1m-14-1v1m14 8s-2 4-7 4s-7-4-7-4" /></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#top-up-enquiry-chat)" /></svg></a>
@@ -161,8 +159,7 @@ em { font-style: normal; background: linear-gradient(105deg, var(--shop-red), va
 .shop-showcase { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; align-items: start; }
 .shop-banner, .shop-pricelist { margin: 0; min-width: 0; }
 .shop-banner > img, .shop-pricelist img { display: block; width: 100%; height: auto; }
-.shop-pricelist__link { display: block; }
-.shop-promo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: center; margin-top: 26px; }
+.shop-promo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: center; margin-top: 26px; padding: 24px; border: 2px solid #493350; background: #000; }
 .shop-promo .shop-eyebrow { margin-bottom: 12px; }
 .shop-promo h2 { font-size: 20px; font-weight: 800; line-height: 1.5; letter-spacing: normal; }
 .shop-promo__points { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; margin: 0; padding: 0; list-style: none; }
@@ -187,8 +184,8 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .service-picker button[aria-pressed='true'] { border-color: var(--shop-pink); background: linear-gradient(110deg, #4b1322, #481333 50%, #30184d); }
 .catalog-layout { display: grid; grid-template-columns: minmax(0, 1fr) 355px; gap: 28px; align-items: stretch; }
 .game-picker { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.shop-game { position: relative; isolation: isolate; padding: 2px; border: 0; border-radius: 0; min-width: 0; background: conic-gradient(from var(--card-outline-angle), var(--shop-red), var(--shop-pink), var(--shop-purple), var(--shop-red)); animation: card-outline-turn 6s linear infinite; cursor: pointer; text-align: left; }
-.shop-game.is-selected { background: conic-gradient(from var(--card-outline-angle), var(--shop-red), var(--shop-pink), var(--shop-purple), var(--shop-red)); }
+.shop-game { position: relative; isolation: isolate; padding: 2px; border: 0; border-radius: 0; min-width: 0; background: #c4c4cc; cursor: pointer; text-align: left; }
+.shop-game.is-selected { background: #c4c4cc; }
 .shop-game__surface { display: flex; flex-direction: column; position: relative; min-height: 254px; height: 100%; overflow: hidden; border-radius: 0; background: #000; }
 /* fills the space above the name bar and centres the logo in it, both ways */
 .shop-game__logo { position: relative; display: flex; flex: 1; align-items: center; justify-content: center; min-height: 0; padding: 20px; }
@@ -200,7 +197,7 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .shop-game__bottom > span:first-child { font-size: 13px; font-weight: 800; line-height: 1.5; }
 .shop-game__check { display: grid; place-items: center; width: 22px; height: 22px; flex-shrink: 0; border: 1px solid #8f779c; border-radius: 50%; color: transparent; }
 .is-selected .shop-game__check { background: var(--shop-pink); border-color: var(--shop-pink); color: #241227; }
-.enquiry { padding: 2px; scroll-margin-top: 24px; background: conic-gradient(from var(--card-outline-angle), var(--shop-red), var(--shop-pink), var(--shop-purple), var(--shop-red)); animation: card-outline-turn 6s linear infinite; }
+.enquiry { padding: 2px; scroll-margin-top: 24px; background: #ff54bb; }
 .enquiry__inner { padding: 24px; background: #09060d; }
 .enquiry__heading { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
 .enquiry h3 { margin-bottom: 24px; font: 800 23px/1.3 var(--display); text-transform: uppercase; }

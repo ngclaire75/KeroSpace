@@ -1,7 +1,7 @@
 <template>
   <section class="rank-service" aria-labelledby="rank-service-title">
     <header class="rank-service__header">
-      <p class="rank-service__eyebrow">Mobile Legends / Rank-up service</p>
+      <p class="rank-service__eyebrow">KeroSpace / Rank-up service</p>
     </header>
 
     <div class="rank-service__pitch">
@@ -15,9 +15,7 @@
 
     <div class="rank-service__showcase">
       <figure class="rank-service__banner">
-        <a href="/images/mlbb-rank-price-list-neon-esrgan-2x.webp" target="_blank" rel="noopener noreferrer" aria-label="View the Mobile Legends rank-up price banner at full size">
-          <AppImage src="/images/mlbb-rank-price-list-neon-esrgan-2x.webp" alt="Mobile Legends rank-up service banner with rank badges and prices" width="3344" height="1882" sizes="(max-width: 860px) 100vw, 740px" />
-        </a>
+        <AppImage src="/images/mlbb-rank-price-list-neon-esrgan-2x.webp" alt="Mobile Legends rank-up service banner with rank badges and prices" width="3344" height="1882" sizes="(max-width: 860px) 100vw, 740px" />
       </figure>
 
       <div class="rank-reasons" aria-labelledby="rank-reasons-title">
@@ -44,9 +42,7 @@
 .rank-service__description { max-width: 760px; margin: 0; color: var(--shop-muted); font-size: 16px; line-height: 1.85; }
 .rank-service__showcase { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: stretch; gap: 16px; margin-top: 30px; }
 .rank-service__banner { margin: 0; min-width: 0; aspect-ratio: 1672 / 941; background: #000; }
-.rank-service__banner a { display: block; width: 100%; height: 100%; }
 .rank-service__banner img { display: block; width: 100%; height: 100%; object-fit: contain; }
-.rank-service__banner a:focus-visible { outline: 2px solid var(--shop-pink); outline-offset: 4px; }
 .rank-reasons { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 20px; min-width: 0; min-height: 0; contain: size; padding: 24px; border: 2px solid #493350; background: #000; }
 .rank-reasons > h3 { margin: 0; color: #fff; font-family: var(--display); font-size: 20px; font-weight: 800; line-height: 1.5; }
 .rank-reasons ul { display: grid; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
