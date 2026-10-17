@@ -94,12 +94,12 @@ useHead(() => ({
     <SiteNav />
     <div class="story-promo">
       <img
-        src="/images/blog-banner-esrgan-2x-1920.webp"
-        srcset="/images/blog-banner-esrgan-2x-640.webp 640w, /images/blog-banner-esrgan-2x-1280.webp 1280w, /images/blog-banner-esrgan-2x-1920.webp 1920w, /images/blog-banner-esrgan-2x-2560.webp 2560w, /images/blog-banner-esrgan-2x-3762.webp 3762w"
+        src="/images/teal-chibi-banner-2172.webp"
+        srcset="/images/teal-chibi-banner-640.webp 640w, /images/teal-chibi-banner-1280.webp 1280w, /images/teal-chibi-banner-2172.webp 2172w"
         sizes="100vw"
-        width="3762"
-        height="1672"
-        alt="Keqing on a lavender and pink blog banner with Korean lettering"
+        width="2172"
+        height="724"
+        alt="Chibi character with dark teal-streaked hair on a teal and cream blog banner with Korean lettering"
         fetchpriority="high"
         decoding="async"
       >
@@ -139,7 +139,7 @@ useHead(() => ({
 .story-main { --story-radius: 10px; --story-edge: #302638; --story-gradient: linear-gradient(100deg, #c6a7ff, #e2b3f5 50%, #ffb4d7); --ink: #fff; --ink-2: #fff; --ink-3: #fff; color: #fff; width: calc(100% - 2 * clamp(16px, 4vw, 40px)); max-width: 1240px; margin-inline: auto; padding-top: clamp(44px, 6vw, 80px); padding-bottom: clamp(72px, 9vw, 120px); }
 .story-main ::selection { color: #000; background: #e5c4ff; }
 .story-promo { width: 100%; aspect-ratio: 3 / 1; overflow: hidden; margin-top: clamp(24px, 3vw, 40px); margin-bottom: clamp(28px, 3vw, 44px); }
-.story-promo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+.story-promo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .story-header { max-width: 1060px; margin: 0 0 64px; text-align: left; }
 .story-category, .chapter-label { font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; line-height: 1.6; }
 .story-category { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: #fff; }
