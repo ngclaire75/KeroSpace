@@ -249,7 +249,7 @@ onBeforeUnmount(() => {
   .nav__burger {
     display: block;
     /* optical nudge: sit level with the logo mark */
-    translate: 0 0.5px;
+    translate: 0 1px;
   }
   /* logo mark only on mobile — wordmark hidden, mark a touch bigger */
   .nav__word {
