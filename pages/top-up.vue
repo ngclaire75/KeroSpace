@@ -142,7 +142,7 @@ async function copyEnquiry() {
 
 <style scoped>
 .shop-page { --shop-pink: #ff54bb; --shop-purple: #b26bff; --shop-red: #ff3858; --shop-muted: #c8bdcf; background: #000; min-height: 100svh; }
-.shop-wrap { width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px)); margin-inline: auto; padding-bottom: clamp(64px, 8vw, 110px); }
+.shop-wrap { width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px)); margin-inline: auto; padding-bottom: clamp(88px, 10vw, 144px); }
 .shop-hero { padding-top: clamp(52px, 7vw, 96px); }
 .shop-hero__intro { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: end; margin-bottom: 38px; }
 .shop-eyebrow { margin: 0 0 18px; color: var(--shop-pink); font-size: 11px; line-height: 1.6; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
