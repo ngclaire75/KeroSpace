@@ -78,7 +78,6 @@ function portraitFailed(name: string) {
               <p class="event-summary">{{ event.summary }}</p>
               <p v-if="event.winner" class="winner"><span>Champion</span><strong>{{ event.winner }}</strong></p>
               <a v-if="event.video" class="youtube-link" :href="`https://www.youtube.com/watch?v=${event.video}`" target="_blank" rel="noopener noreferrer">Watch on YouTube <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg></a>
-              <a class="source-link" :href="event.source" target="_blank" rel="noopener noreferrer">{{ event.sourceLabel }} <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
             </div>
           </article>
         </div>
@@ -173,6 +172,8 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--es-pink); outli
 }
 @media (max-width: 600px) {
   .arena-header { padding-top: 36px; }
+  .schedule-links { gap: 0 24px; }
+  .schedule-links a { min-height: 34px; }
   .arena-lead { font-size: 15px; }
   .section-heading { align-items: start; flex-direction: column; gap: 12px; }
   .archive, .players-section { padding-top: 36px; }
