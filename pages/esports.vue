@@ -56,6 +56,8 @@ function portraitFailed(name: string) {
         </div>
       </header>
 
+      <img class="arena-banner" src="/images/kagura.webp" alt="" loading="eager" decoding="async" />
+
       <section id="tournament-archive" class="archive" aria-labelledby="archive-title">
         <header class="section-heading">
           <div><p class="eyebrow">{{ game.category }}</p><h2 id="archive-title">{{ game.name }}</h2></div>
@@ -109,11 +111,16 @@ function portraitFailed(name: string) {
 }
 .esports-wrap { width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px)); margin: auto; padding-bottom: 88px; }
 .eyebrow { margin: 0 0 14px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .16em; color: var(--es-pink); }
-.arena-header { padding: clamp(40px, 7vw, 84px) 0 48px; }
+.arena-header { padding: clamp(40px, 7vw, 84px) 0 20px; }
 .arena-copy { max-width: 760px; }
 h1 { font-family: var(--display); font-size: clamp(30px, 3.8vw, 52px); line-height: 1.3; letter-spacing: -.035em; margin: 0; }
 h1 em { font-style: normal; background: var(--es-grad); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .arena-lead { font-size: 17px; line-height: 1.75; color: var(--ink-2); margin: 22px 0 0; }
+.arena-banner { display: block; width: 100%; height: auto; border-radius: 10px; }
+.arena-banner-frame { padding: 2px; margin-bottom: 40px; background: linear-gradient(100deg, #ffc4e5, #d8baff, #ffc4e5, #d8baff); background-size: 300% 100%; animation: arena-banner-sweep 8s linear infinite; }
+.arena-banner { display: block; width: 100%; height: auto; }
+@keyframes arena-banner-sweep { to { background-position: -300% 0; } }
+@media (prefers-reduced-motion: reduce) { .arena-banner-frame { animation: none; } }
 .archive, .players-section { padding-top: 36px; scroll-margin-top: 24px; }
 .schedule-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin: 20px 0 28px; }
 .schedule-links a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: var(--es-pink); font-size: 13px; font-weight: 800; }
@@ -153,7 +160,7 @@ h2 { font-family: var(--display); font-size: clamp(21px, 2.5vw, 30px); margin: 0
 .player-empty p + p { margin-top: 6px; }
 .players-grid { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 24px; margin-top: 32px; }
 .player { text-align: center; min-width: 0; }
-.player-circle { position: relative; display: grid; place-items: center; width: min(100%, 140px); aspect-ratio: 1; border: 2px solid #d8baff; border-radius: 50%; background: radial-gradient(circle at 30% 20%, #614567, #211629 75%); margin: 0 auto 18px; overflow: hidden; }
+.player-circle { position: relative; display: grid; place-items: center; width: min(100%, 140px); aspect-ratio: 1; border: 2px solid #d8baff; border-radius: 50%; background: #000; margin: 0 auto 18px; overflow: hidden; }
 .player-circle > span { font-family: var(--display); font-size: 28px; color: #ffe0f1; }
 .player-circle img { width: 100%; height: 100%; object-fit: cover; }
 .player-circle img.player-photo--crop { position: absolute; object-fit: fill; }
