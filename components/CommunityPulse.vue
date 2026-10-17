@@ -51,7 +51,7 @@ function onKey(e: KeyboardEvent, i: number) {
     <!-- heading: same rhythm as "Your game. Their playground." -->
     <header class="pulse__head">
       <div>
-        <p class="pulse__eyebrow"><span aria-hidden="true" />Community pulse</p>
+        <p class="pulse__eyebrow">Community pulse</p>
         <h2 id="pulse-title">The talk of<br /><em>every server.</em></h2>
       </div>
       <p class="pulse__intro">Who players can't stop discussing, the gear everyone's chasing, and what they want fixed next.</p>
@@ -124,7 +124,6 @@ function onKey(e: KeyboardEvent, i: number) {
 /* ---------- heading (matches the Twitch section) ---------- */
 .pulse__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 28px; }
 .pulse__eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; color: #fff; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .16em; }
-.pulse__eyebrow span { width: 26px; height: 2px; border-radius: 2px; background: var(--blob); }
 .pulse h2 { margin: 0; font: 900 clamp(28px, 3.5vw, 46px)/1.16 var(--display); text-transform: uppercase; letter-spacing: -.025em; }
 .pulse h2 em { font-style: normal; background: linear-gradient(100deg, var(--pk), var(--rd) 50%, var(--pp)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .pulse__intro { max-width: 340px; margin: 0 0 3px; font-size: 16px; line-height: 1.75; color: #c1b9c9; }

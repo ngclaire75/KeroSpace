@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
     <div class="creator-wrap">
       <!-- ===== heading ===== -->
       <header class="creator-head" data-enter>
-        <p class="creator-eyebrow"><span aria-hidden="true" />From the community</p>
+        <p class="creator-eyebrow">From the community</p>
         <h2 id="creator-title">The games you love.<br /><em>A new perspective.</em></h2>
         <p class="creator-intro">
           There’s more to a game than its items. Discover the reactions, adventures and
@@ -296,13 +296,6 @@ onBeforeUnmount(() => {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #fff;
-}
-.creator-eyebrow span {
-  flex-shrink: 0;
-  width: 26px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--creator-grad);
 }
 .creator-head h2 {
   margin: 0;

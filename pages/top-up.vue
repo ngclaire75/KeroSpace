@@ -147,7 +147,6 @@ async function copyEnquiry() {
 .shop-hero__intro { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: end; margin-bottom: 38px; }
 .shop-eyebrow { margin: 0 0 18px; color: var(--shop-pink); font-size: 11px; line-height: 1.6; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
 .shop-eyebrow--line { display: flex; align-items: center; gap: 10px; color: #fff; }
-.shop-eyebrow--line::before { content: ''; flex: 0 0 26px; height: 2px; background: linear-gradient(90deg, var(--shop-red), var(--shop-pink), var(--shop-purple)); }
 h1, h2, h3, p, figure { margin-top: 0; }
 h1 { margin-bottom: 0; font: 900 clamp(38px, 5.2vw, 70px)/1.13 var(--display); letter-spacing: -.035em; text-transform: uppercase; }
 em { font-style: normal; background: linear-gradient(105deg, var(--shop-red), var(--shop-pink) 50%, var(--shop-purple)); background-clip: text; -webkit-background-clip: text; color: transparent; }

@@ -72,7 +72,7 @@ onBeforeUnmount(() => {
     <div class="together__wrap">
       <header class="together__head" data-together-reveal>
         <div>
-          <p class="together__eyebrow"><span aria-hidden="true" />Before you invite</p>
+          <p class="together__eyebrow">Before you invite</p>
           <h2 id="together-title">Can you play<br /><em>together?</em></h2>
         </div>
         <div class="together__intro">
@@ -116,7 +116,6 @@ onBeforeUnmount(() => {
 /* heading */
 .together__head { display: grid; grid-template-columns: 1.2fr 1fr; align-items: end; gap: 48px; }
 .together__eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
-.together__eyebrow > span { width: 26px; height: 2px; background: linear-gradient(90deg, var(--together-red), var(--together-pink), var(--together-purple)); }
 .together h2 { margin: 0; font: 800 clamp(28px, 3.4vw, 46px)/1.25 var(--display); letter-spacing: -.01em; text-transform: uppercase; }
 .together h2 em { font-style: normal; color: var(--together-pink); background: linear-gradient(100deg, var(--together-pink), var(--together-red) 50%, var(--together-purple)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .together__intro { max-width: 480px; }

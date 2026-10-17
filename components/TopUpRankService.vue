@@ -34,7 +34,6 @@
 .rank-service { padding-top: clamp(64px, 8vw, 100px); }
 .rank-service__header { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
 .rank-service__eyebrow { display: flex; align-items: center; gap: 10px; margin: 0; color: #fff; font-size: 11px; font-weight: 800; line-height: 1.6; letter-spacing: .15em; text-transform: uppercase; white-space: nowrap; }
-.rank-service__eyebrow::before { content: ''; flex: 0 0 26px; height: 2px; background: linear-gradient(90deg, var(--shop-red), var(--shop-pink), var(--shop-purple)); }
 .rank-service__pitch { max-width: 900px; }
 .rank-service h2 { margin: 0; color: #fff; font: 900 clamp(28px, 3.8vw, 50px)/1.2 var(--display); letter-spacing: -.03em; text-transform: uppercase; }
 .rank-service h2 em { font-style: normal; background: linear-gradient(100deg, var(--shop-red), var(--shop-pink) 50%, var(--shop-purple)); background-clip: text; -webkit-background-clip: text; color: transparent; }

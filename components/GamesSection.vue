@@ -105,7 +105,7 @@ onBeforeUnmount(() => {
     <div class="games__wrap">
       <!-- ===== heading ===== -->
       <header class="games__head" data-reveal>
-        <p class="eyebrow"><span aria-hidden="true" />Game introductions</p>
+        <p class="eyebrow">Game introductions</p>
         <h2 id="games-title" class="games__title">Get to know <em>every world</em></h2>
         <p class="games__lede">
           Find your next game or get familiar with one you already play. Explore each
@@ -140,7 +140,7 @@ onBeforeUnmount(() => {
         </div>
         <div class="feature__body">
           <div class="feature__summary">
-            <p class="feature__label"><span aria-hidden="true" />Explore with KeroSpace</p>
+            <p class="feature__label">Explore with KeroSpace</p>
             <h3 id="feature-title" class="feature__title">Your guide to <em>every game</em></h3>
             <p class="feature__text">Get to know the games you love with KeroSpace. Explore their worlds, understand how they play and learn about the items and equipment that shape your experience.</p>
           </div>
@@ -271,12 +271,6 @@ onBeforeUnmount(() => {
   text-transform: uppercase;
   color: var(--ink-2);
 }
-.eyebrow span {
-  width: 26px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--grad);
-}
 .games__title {
   margin: 0;
   font-family: var(--display);
@@ -405,13 +399,6 @@ onBeforeUnmount(() => {
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-}
-.feature__label span {
-  flex-shrink: 0;
-  width: 22px;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, #e8101c, #ff2f6e);
 }
 .feature__title {
   margin: 0;
@@ -860,19 +847,16 @@ onBeforeUnmount(() => {
     grid-template-columns: 1fr;
   }
   .cover {
-    display: grid;
-    grid-template-columns: 64px minmax(0, 1fr);
-    column-gap: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 18px;
   }
-  .cover__icon {
-    grid-row: span 2;
-  }
   .cover__title {
-    margin: 2px 0 0;
+    margin: 18px 0 0;
   }
   .cover__text {
-    margin-top: 4px;
+    margin-top: 8px;
   }
   .shelf__head {
     flex-direction: column;

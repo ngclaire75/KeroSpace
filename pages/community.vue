@@ -31,7 +31,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
       <section class="hero" aria-labelledby="cm-title">
         <div class="wrap hero__grid">
           <div class="hero__copy">
-            <p class="eyebrow"><span aria-hidden="true" />KeroSpace community</p>
+            <p class="eyebrow">KeroSpace community</p>
             <h1 id="cm-title">Find your <em>party</em>.<br />Play it <em>together</em>.</h1>
             <p class="lead">Creators worth watching and friends to team up with, for every game we cover.</p>
             <ul class="jump" aria-label="Community activities">
@@ -92,11 +92,6 @@ const pad = (n: number) => String(n).padStart(2, '0')
   font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-}
-.eyebrow > span {
-  width: 26px;
-  height: 2px;
-  background: var(--c-grad);
 }
 h1,
 h2,

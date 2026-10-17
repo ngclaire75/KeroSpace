@@ -124,7 +124,7 @@ useHead(() => ({
     </div>
     <main id="story-content" ref="storyRoot" class="story-main" :class="{ 'is-reveal-ready': revealReady }">
       <header class="story-header">
-        <div class="story-category" data-heading-reveal><span class="category-rule" aria-hidden="true" />The making of a game</div>
+        <div class="story-category" data-heading-reveal>The making of a game</div>
         <h1 data-heading-reveal style="--heading-delay: 80ms">{{ game.name }}</h1>
         <p class="story-deck" data-heading-reveal style="--heading-delay: 160ms">{{ story.headline }}</p>
         <p class="story-description">{{ story.summary }}</p>
@@ -173,7 +173,6 @@ useHead(() => ({
 .story-header { max-width: 1060px; margin: 0 0 64px; text-align: left; }
 .story-category, .chapter-label { font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; line-height: 1.6; }
 .story-category { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: #fff; }
-.category-rule { width: 32px; height: 3px; background: var(--story-gradient); }
 h1 { max-width: 1060px; font-family: var(--display); font-size: clamp(34px, 5.2vw, 70px); font-weight: 800; letter-spacing: -.045em; line-height: 1.2; margin: 0; text-wrap: balance; overflow-wrap: anywhere; }
 h1, .story-chapter h2 { color: #d7b7ff; }
 @supports (background-clip: text) or (-webkit-background-clip: text) {

@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
     <!-- ===== mobile menu (≤ 900px) ===== -->
     <div id="mobile-menu" class="menu" :aria-hidden="!open" :inert="!open">
       <div class="menu__inner">
-        <p class="menu__eyebrow"><span />Navigate</p>
+        <p class="menu__eyebrow">Navigate</p>
 
         <ol class="menu__list">
           <li
@@ -308,13 +308,6 @@ onBeforeUnmount(() => {
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--ink-3);
-  }
-  .menu__eyebrow span {
-    width: 22px;
-    height: 2px;
-    border-radius: 2px;
-    /* logo red → pink */
-    background: linear-gradient(90deg, #f5103f, #ff2f6e);
   }
 
   .menu__list {
