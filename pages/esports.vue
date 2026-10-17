@@ -1,0 +1,187 @@
+<script setup lang="ts">
+import { esportsGames, tournaments, type TournamentPlayer } from '~/data/esports'
+
+useHead({ title: 'Esports — Tournament archive | KeroSpace', meta: [{ name: 'description', content: 'Watch Mobile Legends: Bang Bang tournament replays, meet the players and follow official schedules.' }] })
+const playing = ref<string | null>(null)
+const game = esportsGames.find(item => item.id === 'mlbb')!
+const events = tournaments.filter(event => event.game === 'mlbb')
+  .sort((a, b) => (a.start ?? String(a.year)).localeCompare(b.start ?? String(b.year)))
+const scheduleLinks = [
+  { name: 'MPL Indonesia schedule', href: 'https://id-mpl.com/schedule' },
+  { name: 'MPL Philippines schedule', href: 'https://ph-mpl.com/schedule' },
+  { name: 'MLBB broadcasts', href: 'https://www.youtube.com/@MLBBeSports/streams' },
+]
+function dates(t: typeof tournaments[number]) {
+  if (t.dateLabel) return t.dateLabel
+  const format = (s: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${s}T00:00:00Z`))
+  if (!t.start) return String(t.year)
+  return t.end && t.end !== t.start ? `${format(t.start)} — ${format(t.end)}` : format(t.start)
+}
+const initials = (name: string) => name.slice(0, 2).toUpperCase()
+const failedPortraits = ref(new Set<string>())
+function portraitStyle(player: TournamentPlayer) {
+  if (player.photoCrop) {
+    const crop = player.photoCrop
+    const size = Math.max(crop.width, crop.height)
+    const x = crop.x + (crop.width - size) / 2
+    const y = crop.y + (crop.height - size) / 2
+    return {
+      width: `${crop.sourceWidth / size * 100}%`,
+      height: `${crop.sourceHeight / size * 100}%`,
+      maxWidth: 'none',
+      left: `${-x / size * 100}%`,
+      top: `${-y / size * 100}%`,
+    }
+  }
+  return {
+    objectPosition: player.photoPosition,
+    transform: player.photoScale ? `scale(${player.photoScale})` : undefined,
+    transformOrigin: player.photoOrigin,
+  }
+}
+function portraitFailed(name: string) {
+  failedPortraits.value = new Set([...failedPortraits.value, name])
+}
+</script>
+
+<template>
+  <div class="esports-page">
+    <SiteNav />
+    <main class="esports-wrap">
+      <header class="arena-header">
+        <div class="arena-copy">
+          <p class="eyebrow">KeroSpace esports</p>
+          <h1>Every stage.<br /><em>A story to replay.</em></h1>
+          <p class="arena-lead">Follow the tournaments. Revisit the finals.<br />Meet the players behind the moments.</p>
+        </div>
+      </header>
+
+      <section id="tournament-archive" class="archive" aria-labelledby="archive-title">
+        <header class="section-heading">
+          <div><p class="eyebrow">{{ game.category }}</p><h2 id="archive-title">{{ game.name }}</h2></div>
+        </header>
+        <p class="game-note">{{ game.note }}</p>
+        <nav class="schedule-links" aria-label="Official MLBB schedules and broadcasts">
+          <a v-for="link in scheduleLinks" :key="link.href" :href="link.href" target="_blank" rel="noopener noreferrer">{{ link.name }} <span aria-hidden="true">↗</span></a>
+        </nav>
+        <div v-if="events.length" class="tournament-grid" aria-live="polite">
+          <article v-for="event in events" :key="event.id" class="tournament-card" :class="{ 'tournament-card--video': event.video }">
+            <div v-if="event.video" class="event-video">
+              <iframe v-if="playing === event.id" :src="`https://www.youtube-nocookie.com/embed/${event.video}?autoplay=1&rel=0`" :title="`${event.name} official video`" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
+              <button v-else @click="playing = event.id" :aria-label="`Play ${event.name} official video`"><img :src="`/images/esports/youtube/${event.video}.jpg`" alt="" width="480" height="360" loading="lazy" /><span class="play-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24"><path d="m9 5 11 7-11 7z" fill="currentColor" /></svg></span></button>
+            </div>
+            <div v-else class="event-poster" aria-hidden="true"><img :src="`/images/games/${event.game}-logo.webp`" alt="" loading="lazy" /><span>{{ event.year }}</span></div>
+            <a v-if="event.externalVideo" class="external-video" :href="event.externalVideo" target="_blank" rel="noopener noreferrer">Watch official video ↗</a>
+            <div class="event-body">
+              <p class="event-series">{{ event.series }}</p><h3>{{ event.name }}</h3>
+              <p class="event-date">{{ dates(event) }}</p><p class="event-location">{{ event.location }}</p>
+              <p class="event-summary">{{ event.summary }}</p>
+              <p v-if="event.winner" class="winner"><span>Champion</span><strong>{{ event.winner }}</strong></p>
+              <a v-if="event.video" class="youtube-link" :href="`https://www.youtube.com/watch?v=${event.video}`" target="_blank" rel="noopener noreferrer">Watch on YouTube <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg></a>
+              <a class="source-link" :href="event.source" target="_blank" rel="noopener noreferrer">{{ event.sourceLabel }} <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+            </div>
+          </article>
+        </div>
+
+      </section>
+
+      <section class="players-section" aria-labelledby="players-title">
+        <header class="section-heading"><div><p class="eyebrow">The people behind the plays</p><h2 id="players-title">Players in the spotlight</h2></div></header>
+        <template v-if="game.players.length">
+          <p class="game-note">Six documented tournament competitors. This selection reflects verified appearances or achievements, rather than a measured popularity ranking.</p>
+          <div class="players-grid"><a v-for="player in game.players" :key="player.name" class="player" :href="player.source" target="_blank" rel="noopener noreferrer"><span class="player-circle"><img v-if="player.photo && !failedPortraits.has(player.name)" :class="{ 'player-photo--crop': player.photoCrop }" :src="player.photo" :alt="player.name" :style="portraitStyle(player)" @error="portraitFailed(player.name)" loading="lazy" decoding="async" width="240" height="240" /><span v-else aria-hidden="true">{{ initials(player.name) }}</span></span><h3>{{ player.name }}</h3><p>{{ player.detail }}</p><span class="player-source">View record ↗</span></a></div>
+        </template>
+        <div v-else class="player-empty"><p>A reliable six-player tournament selection has not been verified for this game yet.</p><p>Player profiles will appear when their participation or results can be sourced.</p></div>
+      </section>
+      <aside class="editorial-note"><h2>Follow the source.</h2><p>Dates refer to the stated event or stage, including qualifiers only when explicitly noted. Videos are organizer broadcasts or official event videos. Every record links to its source; gaps in the record stay visible.</p></aside>
+    </main>
+    <SiteFooter />
+  </div>
+</template>
+
+<style scoped>
+.esports-page {
+  --es-pink: #ffc4e5;
+  --es-purple: #d8baff;
+  --es-panel: #0b0b0e;
+  --es-grad: linear-gradient(100deg, #d8baff, #ffc4e5);
+  background: #000;
+  min-height: 100svh;
+}
+.esports-wrap { width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px)); margin: auto; padding-bottom: 88px; }
+.eyebrow { margin: 0 0 14px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .16em; color: var(--es-pink); }
+.arena-header { padding: clamp(40px, 7vw, 84px) 0 48px; }
+.arena-copy { max-width: 760px; }
+h1 { font-family: var(--display); font-size: clamp(30px, 3.8vw, 52px); line-height: 1.3; letter-spacing: -.035em; margin: 0; }
+h1 em { font-style: normal; background: var(--es-grad); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.arena-lead { font-size: 17px; line-height: 1.75; color: var(--ink-2); margin: 22px 0 0; }
+.archive, .players-section { padding-top: 36px; scroll-margin-top: 24px; }
+.schedule-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin: 20px 0 28px; }
+.schedule-links a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: var(--es-pink); font-size: 13px; font-weight: 800; }
+.section-heading { display: flex; justify-content: space-between; gap: 20px; align-items: end; }
+h2 { font-family: var(--display); font-size: clamp(21px, 2.5vw, 30px); margin: 0; line-height: 1.4; }
+.game-note { max-width: 820px; color: var(--ink-2); font-size: 15px; line-height: 1.75; margin: 18px 0 0; }
+.tournament-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+.tournament-card { display: flex; flex-direction: column; overflow: hidden; border: 2px solid #d8baff88; border-radius: 10px; background: var(--es-panel); min-width: 0; }
+.tournament-card--video { border-radius: 0; }
+.event-video, .event-poster { position: relative; aspect-ratio: 16/9; }
+.event-video { overflow: hidden; background: #100b13; }
+.event-video iframe { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; }
+.event-video button { position: absolute; inset: 0; display: block; width: 100%; height: 100%; padding: 0; border: 0; overflow: hidden; background: #100b13; cursor: pointer; }
+.event-video img { width: 100%; height: 100%; object-fit: cover; }
+.event-video button::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, #000a); pointer-events: none; }
+.play-symbol { position: absolute; z-index: 1; left: 50%; top: 50%; display: grid; place-items: center; width: 54px; height: 40px; margin: -20px 0 0 -27px; border: 0; border-radius: 10px; background: linear-gradient(120deg, #b26bff, #ff9bd9); color: #fff; }
+.event-poster { display: flex; align-items: center; justify-content: space-around; gap: 16px; padding: 24px; background: radial-gradient(ellipse at 15% 10%, #50375c, #141019 70%); }
+.event-poster img { width: 48%; max-height: 90px; object-fit: contain; }
+.event-poster > span { font-family: var(--display); color: #e6ccff; font-size: 28px; }
+.external-video { display: block; padding: 12px 22px; color: var(--es-pink); background: #d8baff0d; font-size: 12px; font-weight: 800; }
+.event-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
+.event-series { color: var(--es-purple); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; margin: 0 0 10px; }
+.event-body h3 { font-family: var(--display); font-size: 17px; line-height: 1.5; margin: 0 0 14px; }
+.event-date { font-weight: 800; font-size: 12px; margin: 0 0 6px; }
+.event-location { font-size: 12px; color: var(--ink-2); margin: 0; }
+.event-summary { font-size: 13px; color: var(--ink-2); line-height: 1.7; margin: 16px 0; flex: 1; }
+.winner { display: grid; gap: 5px; border-top: 1px solid var(--line); padding-top: 14px; margin: 0 0 18px; }
+.winner span { color: var(--es-pink); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; }
+.winner strong { font-size: 14px; }
+.source-link, .youtube-link { font-size: 11px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 36px; }
+.youtube-link { color: var(--es-pink); }
+.empty-state, .player-empty { padding: 28px; margin-top: 24px; border: 2px solid #ffffff26; border-radius: 10px; background: var(--es-panel); }
+.empty-state h3 { margin: 0 0 12px; font-size: 18px; }
+.empty-state p, .player-empty p { font-size: 14px; color: var(--ink-2); line-height: 1.7; }
+.empty-state a, .empty-state button { font: inherit; font-size: 13px; color: var(--es-pink); background: none; border: 0; padding: 0; cursor: pointer; }
+.player-empty p { margin: 0; }
+.player-empty p + p { margin-top: 6px; }
+.players-grid { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 24px; margin-top: 32px; }
+.player { text-align: center; min-width: 0; }
+.player-circle { position: relative; display: grid; place-items: center; width: min(100%, 120px); aspect-ratio: 1; border: 2px solid #d8baff; border-radius: 50%; background: radial-gradient(circle at 30% 20%, #614567, #211629 75%); margin: 0 auto 18px; overflow: hidden; }
+.player-circle > span { font-family: var(--display); font-size: 28px; color: #ffe0f1; }
+.player-circle img { width: 100%; height: 100%; object-fit: cover; }
+.player-circle img.player-photo--crop { position: absolute; object-fit: fill; }
+.player h3 { margin: 0; font-size: 16px; overflow-wrap: anywhere; }
+.player p { color: var(--ink-2); font-size: 12px; line-height: 1.6; margin: 8px 0; }
+.player-source { font-size: 10px; color: var(--es-pink); }
+.editorial-note { margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--line); }
+.editorial-note h2 { font-size: 17px; }
+.editorial-note p { max-width: 850px; font-size: 13px; line-height: 1.8; color: var(--ink-2); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--es-pink); outline-offset: 4px; }
+.event-video button:focus-visible { outline-offset: -3px; }
+@media (max-width: 980px) {
+  .tournament-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .players-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 30px 20px; }
+}
+@media (max-width: 600px) {
+  .arena-header { padding-top: 36px; }
+  .arena-lead { font-size: 15px; }
+  .section-heading { align-items: start; flex-direction: column; gap: 12px; }
+  .archive, .players-section { padding-top: 36px; }
+  .tournament-grid { grid-template-columns: minmax(0,1fr); }
+  .players-grid { gap: 28px 12px; }
+  .player-circle { max-width: 88px; }
+  .player-circle > span { font-size: 23px; }
+  .player h3 { font-size: 14px; }
+  .player p { font-size: 11px; }
+  .editorial-note { margin-top: 44px; }
+}
+</style>

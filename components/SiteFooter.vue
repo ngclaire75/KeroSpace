@@ -14,7 +14,7 @@ const columns = [
       { label: 'Community', href: '/community' },
       { label: 'Guides', href: '/#' },
       { label: 'Top Up', href: '/top-up' },
-      { label: 'E-Sports', href: '/#' },
+      { label: 'E-Sports', href: '/esports' },
     ],
   },
   {

@@ -8,7 +8,7 @@ const links = computed(() => [
   { label: 'Community', href: '/community', active: route.path === '/community' },
   { label: 'Guides' },
   { label: 'Top Up', href: '/top-up', active: route.path === '/top-up' },
-  { label: 'E-Sports' },
+  { label: 'E-Sports', href: '/esports', active: route.path === '/esports' },
 ])
 
 const open = ref(false)
