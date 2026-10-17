@@ -69,10 +69,28 @@ async function copyEnquiry() {
             <a href="#shop-games" class="text-link">Find your game</a>
           </div>
         </div>
-        <figure class="shop-banner">
-          <img src="/images/top-up-store-banner.webp" alt="Welcome to KeroSce Store banner" width="3072" height="2048" fetchpriority="high" />
-          <figcaption><span>Kerosce gaming services</span><a href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">@koqbisagtu <span aria-hidden="true">↗</span></a></figcaption>
-        </figure>
+        <div class="shop-showcase">
+          <figure class="shop-banner">
+            <img src="/images/top-up-store-banner.webp" alt="Welcome to KeroSce Store banner" width="3072" height="2048" fetchpriority="high" />
+            <figcaption><span>Kerosce gaming services</span><a href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">@koqbisagtu <span aria-hidden="true">↗</span></a></figcaption>
+          </figure>
+          <figure class="shop-pricelist">
+            <a class="shop-pricelist__link" href="/images/mlbb-price-list-v3.webp" target="_blank" rel="noopener noreferrer" aria-label="Open the Mobile Legends diamond price list at full size">
+              <img src="/images/mlbb-price-list-v3.webp" alt="Kerosce's Mobile Legends (MLBB) diamonds price list, from 275 diamonds at Rp 65.000 up to 7155 diamonds at Rp 1.350.000" width="1254" height="1254" />
+            </a>
+          </figure>
+        </div>
+
+        <section class="shop-promo" aria-labelledby="promo-title">
+          <div class="shop-promo__lead">
+            <p class="shop-eyebrow">Mobile Legends diamonds</p>
+            <h2 id="promo-title">Pick your pack.<br /><em>Send us a DM.</em></h2>
+          </div>
+          <ul class="shop-promo__points">
+            <li><strong>Mobile Legends</strong><span>Every diamond pack and its price is on the list. Choose yours and tell us the amount.</span></li>
+            <li><strong>Other games</strong><span>Prices are shared, discussed and negotiable through DM. Tell us what you need and we’ll find a package that fits.</span></li>
+          </ul>
+        </section>
       </header>
 
       <section id="shop-games" class="shop-catalog" aria-labelledby="catalog-title">
@@ -129,8 +147,18 @@ em { font-style: normal; background: linear-gradient(105deg, #ffb3df, #bd83ff 55
 .shop-hero__aside > p:first-child { color: #fff; font-weight: 800; font-size: 15px; margin-bottom: 12px; }
 .shop-hero__aside > p:nth-child(2) { color: var(--shop-muted); font-size: 15px; line-height: 1.75; margin-bottom: 18px; }
 .text-link { font-weight: 800; font-size: 15px; color: var(--shop-pink); }
-.shop-banner { margin: 0; }
-.shop-banner > img { width: 100%; height: auto; }
+/* banner (3:2) and price list (1:1) share a row: widths in the ratio 1.5 : 1 give both images exactly the same height */
+.shop-showcase { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.shop-banner, .shop-pricelist { margin: 0; min-width: 0; }
+.shop-banner > img, .shop-pricelist img { display: block; width: 100%; height: auto; }
+.shop-pricelist__link { display: block; }
+.shop-promo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 36px; align-items: center; margin-top: 18px; padding: 26px 30px; border: 1px solid #493350; background: #000; }
+.shop-promo .shop-eyebrow { margin-bottom: 12px; }
+.shop-promo h2 { font-size: clamp(20px, 2.3vw, 30px); }
+.shop-promo__points { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.shop-promo__points li { display: grid; gap: 4px; padding-left: 14px; border-left: 2px solid var(--shop-pink); }
+.shop-promo__points strong { color: #fff; font-size: 13px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.shop-promo__points span { color: var(--shop-muted); font-size: 14px; line-height: 1.65; }
 .shop-banner figcaption { display: flex; justify-content: space-between; gap: 16px; padding-block: 14px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--shop-muted); }
 .shop-banner figcaption a { color: var(--shop-pink); }
 .shop-catalog { padding-top: clamp(60px, 8vw, 100px); scroll-margin-top: 28px; }
@@ -185,8 +213,10 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .enquiry__status { margin: 14px 0 0; min-height: 3.3em; font-size: 11px; line-height: 1.65; color: var(--shop-muted); }
 .shop-page :is(a, button):focus-visible { outline: 2px solid var(--shop-pink); outline-offset: 4px; }
 @media (hover: hover) { .service-picker button:hover { border-color: var(--shop-purple); } }
+@media (max-width: 860px) { .shop-showcase { grid-template-columns: minmax(0, 1fr); gap: 8px; } }
 @media (max-width: 1100px) { .catalog-layout { grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; } .game-picker { grid-template-columns: repeat(2, minmax(0, 1fr)); } .shop-game__surface { min-height: 230px; } .enquiry__inner { padding: 20px; } .shop-hero__intro { gap: 32px; } }
 @media (max-width: 760px) {
+  .shop-promo { grid-template-columns: minmax(0, 1fr); gap: 22px; padding: 22px 18px; }
   .shop-hero__intro { grid-template-columns: 1fr; gap: 24px; margin-bottom: 26px; }
   .shop-hero__aside { justify-self: start; max-width: 540px; }
   .catalog-heading { display: block; }
