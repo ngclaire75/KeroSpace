@@ -45,8 +45,8 @@ onBeforeUnmount(() => {
 <template>
   <header class="nav" :class="{ 'is-open': open }">
     <NuxtLink to="/" class="nav__brand" aria-label="KeroSpace home">
-      <img class="nav__mark" src="/images/logo.webp" alt="" width="34" height="34" />
-      <img class="nav__word" src="/images/wordmark-neon.webp" alt="" width="840" height="206" />
+      <AppImage class="nav__mark" loading="eager" src="/images/logo.webp" alt="" width="34" height="34" />
+      <AppImage class="nav__word" loading="eager" sizes="180px" src="/images/wordmark-neon.webp" alt="" width="840" height="206" />
     </NuxtLink>
 
     <nav class="nav__links" aria-label="Primary">
@@ -117,7 +117,7 @@ onBeforeUnmount(() => {
         </ol>
 
         <div class="menu__foot" :style="{ '--d': `${0.12 + links.length * 0.05}s` }">
-          <img class="menu__mark" src="/images/wordmark-neon.webp" alt="KeroSpace" width="840" height="206" />
+          <AppImage class="menu__mark" src="/images/wordmark-neon.webp" alt="KeroSpace" width="840" height="206" />
           <p class="menu__credit">designed by claire.</p>
         </div>
       </div>

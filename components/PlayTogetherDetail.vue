@@ -23,9 +23,9 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
 <template>
   <div class="party-detail">
     <div class="party-detail__art">
-      <img :src="cardArt.src" :style="{ objectPosition: cardArt.pos }" alt="" loading="lazy" width="480" height="300" />
+      <AppImage :src="cardArt.src" sizes="(max-width: 760px) 100vw, 420px" :style="{ objectPosition: cardArt.pos }" alt="" loading="lazy" width="480" height="300" />
       <div class="party-detail__art-copy">
-        <img class="party-detail__logo" :src="`/images/games/${game.id}-logo.webp`" :alt="game.name" width="140" height="64" loading="lazy" />
+        <AppImage class="party-detail__logo" :src="`/images/games/${game.id}-logo.webp`" :alt="game.name" width="140" height="64" loading="lazy" />
       </div>
     </div>
 

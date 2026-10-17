@@ -62,7 +62,7 @@ async function copyEnquiry() {
     <main class="shop-wrap">
       <header class="shop-hero">
         <div class="shop-hero__intro">
-          <div><p class="shop-eyebrow">KeroSpace / Top Up</p><h1>Your next<br /><em>power-up.</em></h1></div>
+          <div><p class="shop-eyebrow shop-eyebrow--line">KeroSpace / Top Up</p><h1>Your next<br /><em>power-up.</em></h1></div>
           <div class="shop-hero__aside">
             <p>For the worlds you keep coming back to.</p>
             <p>Explore game top-ups and services with Kerosce. Choose your game, tell us what you need and ask for a package that fits.</p>
@@ -71,31 +71,32 @@ async function copyEnquiry() {
         </div>
         <div class="shop-showcase">
           <figure class="shop-banner">
-            <img src="/images/top-up-store-banner.webp" alt="Welcome to KeroSce Store banner" width="3072" height="2048" fetchpriority="high" />
-            <figcaption><span>Kerosce gaming services</span><a href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">@koqbisagtu <span aria-hidden="true">↗</span></a></figcaption>
+            <AppImage src="/images/top-up-store-banner.webp" sizes="(max-width: 860px) 100vw, 740px" alt="Welcome to KeroSce Store banner" width="3072" height="2048" fetchpriority="high" />
+            <figcaption class="shop-caption shop-caption--desktop"><span>Kerosce gaming services</span><a href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">@koqbisagtu <span aria-hidden="true">↗</span></a></figcaption>
           </figure>
           <figure class="shop-pricelist">
-            <a class="shop-pricelist__link" href="/images/mlbb-price-list-v4.webp" target="_blank" rel="noopener noreferrer" aria-label="Open the Mobile Legends diamond price list at full size">
-              <img src="/images/mlbb-price-list-v4.webp" alt="Kerosce's Mobile Legends (MLBB) diamonds price list, from 275 diamonds at Rp 65.000 up to 7155 diamonds at Rp 1.350.000" width="1254" height="1254" />
+            <a class="shop-pricelist__link" href="/images/mlbb-price-list-showcase-esrgan-2x.webp" target="_blank" rel="noopener noreferrer" aria-label="Open the Mobile Legends diamond price list at full size">
+              <AppImage src="/images/mlbb-price-list-showcase-esrgan-2x.webp" sizes="(max-width: 860px) 100vw, 490px" alt="Kerosce's Mobile Legends (MLBB) diamonds price list, from 275 diamonds at Rp 65.000 up to 7155 diamonds at Rp 1.350.000" width="2508" height="2508" />
             </a>
+            <figcaption class="shop-caption shop-caption--mobile"><span>Kerosce gaming services</span><a href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">@koqbisagtu <span aria-hidden="true">↗</span></a></figcaption>
           </figure>
         </div>
 
         <section class="shop-promo" aria-labelledby="promo-title">
           <div class="shop-promo__lead">
             <p class="shop-eyebrow">Mobile Legends diamonds</p>
-            <h2 id="promo-title">Pick your pack.<br /><em>Send us a DM.</em></h2>
+            <h2 id="promo-title">Your next skin.<br /><em>Starts here.</em></h2>
           </div>
           <ul class="shop-promo__points">
-            <li><strong>Mobile Legends</strong><span>Every diamond pack and its price is on the list. Choose yours and tell us the amount.</span></li>
-            <li><strong>Other games</strong><span>Prices are shared, discussed and negotiable through DM. Tell us what you need and we’ll find a package that fits.</span></li>
+            <li><strong>Mobile Legends</strong><span>Pick your diamonds. See your price upfront.<br />DM us your pack and make your next skin a reality.</span></li>
+            <li><strong>Other games</strong><span>Your game, your goals, your budget. DM us the package you have in mind and explore the options and negotiate a price that works for you.</span></li>
           </ul>
         </section>
       </header>
 
       <section id="shop-games" class="shop-catalog" aria-labelledby="catalog-title">
         <header class="catalog-heading">
-          <div><p class="shop-eyebrow">A little more for your next adventure</p><h2 id="catalog-title">Your game.<br /><em>Your next move.</em></h2></div>
+          <div><p class="shop-eyebrow shop-eyebrow--line">A little more for your next adventure</p><h2 id="catalog-title">Your game.<br /><em>Your next move.</em></h2></div>
           <p>Start with your game and the service you’re looking for. Packages, availability and prices are confirmed through Instagram.</p>
         </header>
         <div class="service-picker" role="group" aria-label="Choose a service">
@@ -105,7 +106,7 @@ async function copyEnquiry() {
           <div class="game-picker" role="group" aria-label="Choose your game">
             <button v-for="entry in games" :key="entry.id" type="button" class="shop-game" :class="{ 'is-selected': selectedGame === entry.id }" :aria-pressed="selectedGame === entry.id" @click="selectedGame = entry.id">
               <span class="shop-game__surface">
-                <span class="shop-game__logo" :class="`shop-game__logo--${entry.id}`"><img :src="`/images/games/${entry.id}-logo.webp`" alt="" width="200" height="100" loading="lazy" /></span>
+                <span class="shop-game__logo" :class="`shop-game__logo--${entry.id}`"><AppImage :src="`/images/games/${entry.id}-logo.webp`" alt="" width="200" height="100" loading="lazy" /></span>
                 <span class="shop-game__bottom"><span>{{ entry.name }}</span><span class="shop-game__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path d="m3 8 3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" /></svg></span></span>
               </span>
             </button>
@@ -114,13 +115,13 @@ async function copyEnquiry() {
             <div class="enquiry__inner">
               <div class="enquiry__heading"><p class="shop-eyebrow">Let’s talk in detail</p></div>
               <h3 id="enquiry-title">Your selection.<br /><em>Let’s talk.</em></h3>
-              <div class="enquiry__selection" aria-live="polite"><img :src="`/images/games/${game.id}-logo.webp`" alt="" width="84" height="52" /><div><span>{{ service.name }}</span><strong>{{ game.name }}</strong></div></div>
+              <div class="enquiry__selection" aria-live="polite"><AppImage :src="`/images/games/${game.id}-logo.webp`" alt="" width="84" height="52" /><div><span>{{ service.name }}</span><strong>{{ game.name }}</strong></div></div>
               <p class="enquiry__description">{{ service.description }}</p>
               <label class="shop-field">Server / region <span>Optional</span><input v-model="region" type="text" maxlength="80" placeholder="e.g. Asia" autocomplete="off" /></label>
               <label class="shop-field">What do you have in mind? <span>Optional</span><textarea v-model="details" rows="3" maxlength="500" placeholder="A package, amount or a few details…" /></label>
               <div class="enquiry__actions">
                 <button class="copy-button" type="button" @click="copyEnquiry">{{ copyState === 'copied' ? 'Enquiry copied ✓' : 'Copy your enquiry' }}<svg v-if="copyState !== 'copied'" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2" /><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" /></svg></button>
-                <a class="instagram-button" href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">Enquire on Instagram<span aria-hidden="true">↗</span></a>
+                <a class="instagram-button" href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">Enquire on Instagram<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="17" height="17" viewBox="0 0 48 48"><defs><mask id="top-up-enquiry-chat"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path fill="#555" d="M44 7H4v30h7v5l10-5h23z" /><path d="M31 16v1m-14-1v1m14 8s-2 4-7 4s-7-4-7-4" /></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#top-up-enquiry-chat)" /></svg></a>
               </div>
               <p class="enquiry__status" role="status">{{ copyState === 'copied' ? 'Ready to paste. Send your enquiry to @koqbisagtu on Instagram.' : copyState === 'manual' ? 'Select and copy the message below, then send it on Instagram.' : 'Copy your selection, then send it to @koqbisagtu for options and prices.' }}</p>
               <label v-if="copyState === 'manual'" class="shop-field">Your enquiry<textarea ref="enquiryField" :value="enquiry" readonly rows="7" /></label>
@@ -135,32 +136,35 @@ async function copyEnquiry() {
 </template>
 
 <style scoped>
-.shop-page { --shop-pink: #ffb3df; --shop-purple: #d8b4ff; --shop-muted: #c8bdcf; background: #000; min-height: 100svh; }
+.shop-page { --shop-pink: #ff54bb; --shop-purple: #b26bff; --shop-red: #ff3858; --shop-muted: #c8bdcf; background: #000; min-height: 100svh; }
 .shop-wrap { width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px)); margin-inline: auto; padding-bottom: clamp(64px, 8vw, 110px); }
 .shop-hero { padding-top: clamp(52px, 7vw, 96px); }
 .shop-hero__intro { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: end; margin-bottom: 38px; }
 .shop-eyebrow { margin: 0 0 18px; color: var(--shop-pink); font-size: 11px; line-height: 1.6; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.shop-eyebrow--line { display: flex; align-items: center; gap: 10px; color: #fff; }
+.shop-eyebrow--line::before { content: ''; flex: 0 0 26px; height: 2px; background: linear-gradient(90deg, var(--shop-red), var(--shop-pink), var(--shop-purple)); }
 h1, h2, h3, p, figure { margin-top: 0; }
 h1 { margin-bottom: 0; font: 900 clamp(38px, 5.2vw, 70px)/1.13 var(--display); letter-spacing: -.035em; text-transform: uppercase; }
-em { font-style: normal; background: linear-gradient(105deg, #ffb3df, #bd83ff 55%, #ff4e78); background-clip: text; -webkit-background-clip: text; color: transparent; }
+em { font-style: normal; background: linear-gradient(105deg, var(--shop-red), var(--shop-pink) 50%, var(--shop-purple)); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .shop-hero__aside { max-width: 450px; justify-self: end; }
 .shop-hero__aside > p:first-child { color: #fff; font-weight: 800; font-size: 15px; margin-bottom: 12px; }
 .shop-hero__aside > p:nth-child(2) { color: var(--shop-muted); font-size: 15px; line-height: 1.75; margin-bottom: 18px; }
-.text-link { font-weight: 800; font-size: 15px; color: var(--shop-pink); }
+.text-link { font-weight: 800; font-size: 17px; color: var(--shop-pink); }
 /* banner (3:2) and price list (1:1) share a row: widths in the ratio 1.5 : 1 give both images exactly the same height */
 .shop-showcase { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; align-items: start; }
 .shop-banner, .shop-pricelist { margin: 0; min-width: 0; }
 .shop-banner > img, .shop-pricelist img { display: block; width: 100%; height: auto; }
 .shop-pricelist__link { display: block; }
-.shop-promo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 36px; align-items: center; margin-top: 18px; padding: 26px 30px; border: 1px solid #493350; background: #000; }
+.shop-promo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: center; margin-top: 18px; padding: 26px 30px; border: 1px solid #493350; background: #000; }
 .shop-promo .shop-eyebrow { margin-bottom: 12px; }
 .shop-promo h2 { font-size: clamp(20px, 2.3vw, 30px); }
-.shop-promo__points { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.shop-promo__points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin: 0; padding: 0; list-style: none; }
 .shop-promo__points li { display: grid; gap: 4px; padding-left: 14px; border-left: 2px solid var(--shop-pink); }
 .shop-promo__points strong { color: #fff; font-size: 13px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
 .shop-promo__points span { color: var(--shop-muted); font-size: 14px; line-height: 1.65; }
-.shop-banner figcaption { display: flex; justify-content: space-between; gap: 16px; padding-block: 14px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--shop-muted); }
-.shop-banner figcaption a { color: var(--shop-pink); }
+.shop-caption { display: flex; justify-content: space-between; gap: 16px; padding-block: 14px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--shop-muted); }
+.shop-caption a { color: var(--shop-pink); }
+.shop-caption--mobile { display: none; }
 .shop-catalog { padding-top: clamp(60px, 8vw, 100px); scroll-margin-top: 28px; }
 .catalog-heading { display: flex; justify-content: space-between; align-items: end; gap: 36px; margin-bottom: 28px; }
 h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); letter-spacing: -.025em; text-transform: uppercase; }
@@ -172,11 +176,11 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 /* the button is a flex container, so the label lives in ONE wrapper (otherwise each text run,
    and the <br> would become separate flex items and scatter across the button) */
 .sel-label { display: block; font: inherit; }
-.service-picker button[aria-pressed='true'] { border-color: var(--shop-pink); background: linear-gradient(110deg, #4a2040, #312048); }
+.service-picker button[aria-pressed='true'] { border-color: var(--shop-pink); background: linear-gradient(110deg, #4b1322, #481333 50%, #30184d); }
 .catalog-layout { display: grid; grid-template-columns: minmax(0, 1fr) 355px; gap: 28px; align-items: stretch; }
 .game-picker { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.shop-game { position: relative; isolation: isolate; padding: 2px; border: 0; border-radius: 0; min-width: 0; background: conic-gradient(from var(--card-outline-angle), var(--shop-pink), #7b3eb4, #302735, var(--shop-pink)); animation: card-outline-turn 6s linear infinite; cursor: pointer; text-align: left; }
-.shop-game.is-selected { background: conic-gradient(from var(--card-outline-angle), var(--shop-pink), var(--shop-purple), var(--shop-pink)); }
+.shop-game { position: relative; isolation: isolate; padding: 2px; border: 0; border-radius: 0; min-width: 0; background: conic-gradient(from var(--card-outline-angle), var(--shop-red), var(--shop-pink), var(--shop-purple), var(--shop-red)); animation: card-outline-turn 6s linear infinite; cursor: pointer; text-align: left; }
+.shop-game.is-selected { background: conic-gradient(from var(--card-outline-angle), var(--shop-red), var(--shop-pink), var(--shop-purple), var(--shop-red)); }
 .shop-game__surface { display: flex; flex-direction: column; position: relative; min-height: 254px; height: 100%; overflow: hidden; border-radius: 0; background: #000; }
 /* fills the space above the name bar and centres the logo in it, both ways */
 .shop-game__logo { position: relative; display: flex; flex: 1; align-items: center; justify-content: center; min-height: 0; padding: 20px; }
@@ -188,7 +192,7 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .shop-game__bottom > span:first-child { font-size: 13px; font-weight: 800; line-height: 1.5; }
 .shop-game__check { display: grid; place-items: center; width: 22px; height: 22px; flex-shrink: 0; border: 1px solid #8f779c; border-radius: 50%; color: transparent; }
 .is-selected .shop-game__check { background: var(--shop-pink); border-color: var(--shop-pink); color: #241227; }
-.enquiry { padding: 2px; background: conic-gradient(from var(--card-outline-angle), var(--shop-pink), var(--shop-purple), #745295, var(--shop-pink)); animation: card-outline-turn 6s linear infinite; }
+.enquiry { padding: 2px; background: conic-gradient(from var(--card-outline-angle), var(--shop-red), var(--shop-pink), var(--shop-purple), var(--shop-red)); animation: card-outline-turn 6s linear infinite; }
 .enquiry__inner { padding: 24px; background: #09060d; }
 .enquiry__heading { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
 .enquiry h3 { margin-bottom: 24px; font: 800 23px/1.3 var(--display); text-transform: uppercase; }
@@ -208,15 +212,16 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .enquiry__actions { display: grid; gap: 10px; }
 .copy-button, .instagram-button { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px; font-size: 13px; font-weight: 800; cursor: pointer; }
 .copy-button { border: 1px solid #a87ac4; color: #f5e3ff; background: #23152e; }
-.instagram-button { background: linear-gradient(105deg, #ff9fd6, #c397ff); color: #211026; }
-.instagram-button > span { margin-left: auto; font-size: 20px; }
+.instagram-button { background: linear-gradient(105deg, #a238ff, #8045ff 50%, #5554ed); color: #fff; }
+.enquiry__actions svg { flex-shrink: 0; }
 .enquiry__status { margin: 14px 0 0; min-height: 3.3em; font-size: 11px; line-height: 1.65; color: var(--shop-muted); }
 .shop-page :is(a, button):focus-visible { outline: 2px solid var(--shop-pink); outline-offset: 4px; }
 @media (hover: hover) { .service-picker button:hover { border-color: var(--shop-purple); } }
-@media (max-width: 860px) { .shop-showcase { grid-template-columns: minmax(0, 1fr); gap: 8px; } }
+@media (max-width: 860px) { .shop-showcase { grid-template-columns: minmax(0, 1fr); gap: 8px; } .shop-caption--desktop { display: none; } .shop-caption--mobile { display: flex; } }
 @media (max-width: 1100px) { .catalog-layout { grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; } .game-picker { grid-template-columns: repeat(2, minmax(0, 1fr)); } .shop-game__surface { min-height: 230px; } .enquiry__inner { padding: 20px; } .shop-hero__intro { gap: 32px; } }
 @media (max-width: 760px) {
   .shop-promo { grid-template-columns: minmax(0, 1fr); gap: 22px; padding: 22px 18px; }
+  .shop-promo__points { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .shop-hero__intro { grid-template-columns: 1fr; gap: 24px; margin-bottom: 26px; }
   .shop-hero__aside { justify-self: start; max-width: 540px; }
   .catalog-heading { display: block; }
@@ -233,7 +238,7 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
   .shop-game__logo--nte img { height: 96px; max-height: 96px; }
   .enquiry__inner { padding: 24px; }
   .enquiry__description { min-height: 0; }
-  .shop-banner figcaption { font-size: 9px; letter-spacing: .03em; gap: 10px; }
+  .shop-caption { font-size: 9px; letter-spacing: .03em; gap: 10px; }
 }
 @media (max-width: 380px) { .game-picker { gap: 10px; } .shop-game__surface { min-height: 205px; } .shop-game__logo { padding: 10px; } .shop-game__logo img { max-height: 62px; } .shop-game__logo--hsr img { max-height: 84px; } .shop-game__logo--nte img { height: 84px; max-height: 84px; } .shop-game__bottom { padding: 10px; gap: 7px; } .shop-game__bottom > span:first-child { font-size: 11px; } .enquiry__inner { padding: 20px; } }
 @media (prefers-reduced-motion: reduce) { .shop-game, .enquiry { animation: none; } .service-picker button { transition: none; } }

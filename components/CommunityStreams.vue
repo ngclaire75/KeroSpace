@@ -36,7 +36,7 @@ function navigate(event: KeyboardEvent, index: number) {
   <section id="community-streams" class="streams" aria-labelledby="streams-title">
     <header class="streams__heading">
       <div>
-        <p class="streams__eyebrow"><img src="/images/streamers/twitch-glitch.svg" width="18" height="21" alt="Twitch" /> Find your next stream</p>
+        <p class="streams__eyebrow"><AppImage src="/images/streamers/twitch-glitch.svg" width="18" height="21" alt="Twitch" /> Find your next stream</p>
         <h2 id="streams-title">Your game.<br /><em>Their playground.</em></h2>
       </div>
       <p class="streams__intro">Big plays, new perspectives and a chat to call home. Find the channels bringing your favourite worlds to life.</p>
@@ -44,7 +44,7 @@ function navigate(event: KeyboardEvent, index: number) {
 
     <div class="streams__layout">
       <figure class="streams__poster">
-        <img src="/images/streamers/community-poster.png" width="1086" height="1448" alt="Crimson Neverness to Everness character artwork" loading="lazy" />
+        <AppImage src="/images/streamers/community-poster.png" width="1086" height="1448" sizes="(max-width: 900px) 420px, 500px" alt="Crimson Neverness to Everness character artwork" loading="lazy" />
       </figure>
 
       <div class="directory">
@@ -74,7 +74,7 @@ function navigate(event: KeyboardEvent, index: number) {
                   <th scope="row" class="channel-col">
                     <a class="channel" :href="`https://www.twitch.tv/${streamer.handle}`" target="_blank" rel="noopener noreferrer" :aria-label="`${streamer.name} on Twitch (opens in a new tab)`">
                       <span class="channel__avatar">
-                        <img v-if="streamer.avatar && !failedAvatars.includes(streamer.handle)" :src="streamer.avatar" alt="" width="40" height="40" loading="lazy" @error="failedAvatars.push(streamer.handle)" />
+                        <AppImage v-if="streamer.avatar && !failedAvatars.includes(streamer.handle)" :src="streamer.avatar" alt="" width="40" height="40" loading="lazy" @error="failedAvatars.push(streamer.handle)" />
                         <span v-else aria-hidden="true">{{ streamer.name.slice(0, 1) }}</span>
                       </span>
                       <span class="channel__name">{{ streamer.name }}<small>@{{ streamer.handle }}</small></span>
@@ -82,7 +82,7 @@ function navigate(event: KeyboardEvent, index: number) {
                   </th>
                   <td class="language"><abbr :title="languages[streamer.language] || streamer.language">{{ streamer.language }}</abbr></td>
                   <td class="hours"><span class="hours-value">{{ number.format(streamer.hours) }}</span></td>
-                  <td class="watch"><a :href="`https://www.twitch.tv/${streamer.handle}`" target="_blank" rel="noopener noreferrer" :aria-label="`Watch ${streamer.name} on Twitch (opens in a new tab)`"><img src="/images/streamers/twitch-glitch.svg" width="18" height="21" alt="" /><span aria-hidden="true">↗</span></a></td>
+                  <td class="watch"><a :href="`https://www.twitch.tv/${streamer.handle}`" target="_blank" rel="noopener noreferrer" :aria-label="`Watch ${streamer.name} on Twitch (opens in a new tab)`"><AppImage src="/images/streamers/twitch-glitch.svg" width="18" height="21" alt="" /><span aria-hidden="true">↗</span></a></td>
                 </tr>
               </tbody>
             </table>

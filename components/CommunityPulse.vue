@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { pulseGames, type PulseSentiment } from '~/data/communityPulse'
+import { prepareImage } from '~/utils/responsiveImages'
+const imageSection = ref<HTMLElement>()
+const pulseSizes = '(max-width: 760px) 100vw, 700px'
 
 const active = ref(0)
 const pick = ref(0) // which character the spotlight shows
@@ -15,22 +18,11 @@ const split = (s: PulseSentiment) => [
   { key: 'critical', label: 'Critical', value: s.critical },
 ]
 
-const imageReady = new Map<string, Promise<void>>()
 function preloadGame(i: number) {
   const sources = pulseGames[i]!.characters.flatMap(c => [c.art, c.spotArt]).filter((src): src is string => !!src)
-  return Promise.all(sources.map(src => {
-    if (!imageReady.has(src)) {
-      const image = new Image()
-      image.src = src
-      imageReady.set(src, image.decode().catch(() => {}))
-    }
-    return imageReady.get(src)!
-  }))
+  return Promise.all([...new Set(sources)].map(src => prepareImage(src, pulseSizes)))
 }
-
-onMounted(() => {
-  pulseGames.forEach((_, i) => { void preloadGame(i) })
-})
+useImageWarmup(imageSection, () => { void preloadGame(0); void preloadGame(1) })
 
 let selection = 0
 async function selectGame(i: number) {
@@ -55,7 +47,7 @@ function onKey(e: KeyboardEvent, i: number) {
 </script>
 
 <template>
-  <section id="community-pulse" class="pulse" aria-labelledby="pulse-title">
+  <section ref="imageSection" id="community-pulse" class="pulse" aria-labelledby="pulse-title">
     <!-- heading: same rhythm as "Your game. Their playground." -->
     <header class="pulse__head">
       <div>
@@ -68,14 +60,14 @@ function onKey(e: KeyboardEvent, i: number) {
     <div class="seg" role="tablist" aria-label="Choose a game">
       <button v-for="(g, i) in pulseGames" :id="`pulse-tab-${g.id}`" :key="g.id" ref="tabs" type="button" role="tab"
         :aria-selected="active === i" aria-controls="pulse-stage" :tabindex="active === i ? 0 : -1"
-        @click="selectGame(i)" @keydown="onKey($event, i)">{{ g.id === 'genshin' || g.id === 'nte' ? g.name : g.short }}</button>
+        @click="selectGame(i)" @keydown="onKey($event, i)" @pointerenter="preloadGame(i)" @focus="preloadGame(i)">{{ g.id === 'genshin' || g.id === 'nte' ? g.name : g.short }}</button>
     </div>
 
     <div id="pulse-stage" class="stage" role="tabpanel" :aria-labelledby="`pulse-tab-${game.id}`">
       <!-- ============ spotlight ============ -->
       <Transition name="fade" mode="out-in">
         <article :key="`${game.id}-${star.name}`" class="spot" :class="{ 'spot--noart': !(star.spotArt || star.art) }">
-          <img v-if="star.spotArt || star.art" class="spot__art" :src="star.spotArt || star.art" alt="" :style="{ '--spot-position': star.spotPosition || star.artPosition || 'center top', '--spot-mobile-position': star.spotMobilePosition || star.spotPosition || star.artPosition || 'center top' }" />
+          <AppImage v-if="star.spotArt || star.art" class="spot__art" :src="star.spotArt || star.art" :sizes="pulseSizes" alt="" :style="{ '--spot-position': star.spotPosition || star.artPosition || 'center top', '--spot-mobile-position': star.spotMobilePosition || star.spotPosition || star.artPosition || 'center top' }" />
           <!-- no official art yet: oversized initial on a soft colour field -->
           <span v-else class="spot__mono" aria-hidden="true">{{ star.name.slice(0, 1) }}</span>
 
@@ -103,7 +95,7 @@ function onKey(e: KeyboardEvent, i: number) {
         <button v-for="(c, i) in game.characters" :key="c.name" type="button" class="rtile" :class="[`rtile--${i + 1}`, { 'is-on': pick === i, 'has-art': c.art }]"
           :aria-pressed="pick === i" @click="pick = i">
           <span class="rtile__surface" aria-hidden="true">
-            <img v-if="c.art" class="rtile__art" :src="c.art" alt="" :style="{ objectPosition: c.artPosition || 'center 25%' }" />
+            <AppImage v-if="c.art" class="rtile__art" :src="c.art" :sizes="pulseSizes" alt="" :style="{ objectPosition: c.artPosition || 'center 25%' }" />
           </span>
           <span class="rtile__n" aria-hidden="true">{{ i + 1 }}</span>
           <span class="rtile__who"><b>{{ c.name }}</b><small>{{ c.tag }}</small></span>

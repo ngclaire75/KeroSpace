@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { imageSources } from '~/utils/responsiveImages'
 const year = new Date().getFullYear()
 
 // ticker words (Korean gaming vocabulary)
@@ -51,8 +52,8 @@ const columns = [
     <!-- Vexana artwork, fading into the black footer -->
     <figure class="footer__art">
       <picture>
-        <source media="(max-width: 700px)" srcset="/images/vexana-mobile-esrgan.webp" width="1080" height="608" />
-        <img src="/images/vexana-esrgan.webp" alt="Vexana character banner from Mobile Legends: Bang Bang" width="3200" height="1067" loading="lazy" decoding="async" />
+        <source media="(max-width: 700px)" :srcset="imageSources('/images/vexana-mobile-esrgan.webp').srcset" sizes="100vw" width="1080" height="608" />
+        <AppImage src="/images/vexana-esrgan.webp" alt="Vexana character banner from Mobile Legends: Bang Bang" width="3200" height="1067" loading="lazy" decoding="async" />
       </picture>
     </figure>
 
@@ -61,7 +62,7 @@ const columns = [
       <div class="grid">
         <div class="brand">
           <a href="/" class="brand__mark" aria-label="KeroSpace home">
-            <img src="/images/logo.webp" alt="" width="44" height="44" />
+            <AppImage src="/images/logo.webp" alt="" width="44" height="44" />
           </a>
         </div>
 

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { communityVideoGames } from '~/data/communityVideos'
+import { prepareImage } from '~/utils/responsiveImages'
+const imageSection = ref<HTMLElement>()
+const videoSizes = '(max-width: 760px) 100vw, 420px'
 
 const active = ref(0)
 const page = ref(0)
@@ -10,21 +13,12 @@ const visibleVideos = computed(() => game.value.videos.slice(page.value * 3, pag
 const tabs = ref<HTMLButtonElement[]>([])
 const categoryLabels = { guide: 'Character guide', gameplay: 'Gameplay', trailer: 'Character trailer' }
 const thumbnail = (id: string) => `/images/community/youtube/${id}.jpg`
-const readyImages = new Map<string, Promise<void>>()
 function prepare(index: number, slide = 0) {
-  return Promise.all(communityVideoGames[index]!.videos.slice(slide * 3, slide * 3 + 3).map(video => {
-    if (!readyImages.has(video.id)) {
-      const image = new Image()
-      image.src = thumbnail(video.id)
-      readyImages.set(video.id, image.decode().catch(() => { readyImages.delete(video.id) }))
-    }
-    return readyImages.get(video.id)!
-  }))
+  return Promise.all(communityVideoGames[index]!.videos.slice(slide * 3, slide * 3 + 3)
+    .map(video => prepareImage(thumbnail(video.id), videoSizes)))
 }
-onMounted(() => {
-  communityVideoGames.forEach((_, index) => { void prepare(index) })
-  void prepare(0, 1)
-})
+useImageWarmup(imageSection, () => { void prepare(0); void prepare(0, 1) })
+
 let selection = 0
 async function select(index: number) {
   const request = ++selection
@@ -59,7 +53,7 @@ function navigate(event: KeyboardEvent, index: number) {
 </script>
 
 <template>
-  <section id="community-youtube" class="video-library" aria-labelledby="videos-title">
+  <section ref="imageSection" id="community-youtube" class="video-library" aria-labelledby="videos-title">
     <header class="video-library__heading">
       <div>
         <p class="video-library__eyebrow"><svg viewBox="0 0 28 20" width="23" height="17" aria-hidden="true"><defs><linearGradient id="community-youtube-brand-gradient" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b26bff" /><stop offset="1" stop-color="#ff9bd9" /></linearGradient></defs><rect width="28" height="20" rx="5" fill="url(#community-youtube-brand-gradient)" /><path d="m11 5 9 5-9 5z" fill="#fff" /></svg> On YouTube</p>
@@ -71,7 +65,7 @@ function navigate(event: KeyboardEvent, index: number) {
     <div class="video-tabs" role="tablist" aria-label="Choose a game's YouTube videos">
       <button v-for="(entry, index) in communityVideoGames" :id="`video-tab-${entry.id}`" :key="entry.id" ref="tabs"
         type="button" role="tab" :aria-selected="active === index" :tabindex="active === index ? 0 : -1"
-        aria-controls="video-library-panel" @click="select(index)" @keydown="navigate($event, index)">{{ entry.name }}</button>
+        aria-controls="video-library-panel" @click="select(index)" @keydown="navigate($event, index)" @pointerenter="prepare(index)" @focus="prepare(index)">{{ entry.name }}</button>
     </div>
 
     <div id="video-library-panel" class="video-grid" role="tabpanel" :aria-labelledby="`video-tab-${game.id}`">
@@ -83,7 +77,7 @@ function navigate(event: KeyboardEvent, index: number) {
               :title="`${video.title} — ${video.creator}`" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
             <button v-else class="video-card__preview" type="button" :aria-label="`Play ${video.title} by ${video.creator}`" @click="playing = video.id">
-              <img :src="thumbnail(video.id)" alt="" width="1280" height="720" decoding="async" />
+              <AppImage :src="thumbnail(video.id)" :sizes="videoSizes" alt="" width="1280" height="720" decoding="async" />
               <span class="video-card__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24"><path d="m9 5 11 7-11 7z" fill="currentColor" /></svg></span>
               <span class="video-card__preview-label" aria-hidden="true">Play video</span>
             </button>

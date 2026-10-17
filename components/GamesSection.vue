@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { imageSources } from '~/utils/responsiveImages'
 type Game = {
   id: string
   name: string
@@ -193,8 +194,8 @@ onBeforeUnmount(() => {
             :class="{ 'is-active': activeBanner === index }"
             :aria-hidden="activeBanner !== index"
           >
-            <source v-if="banner.mobile" media="(max-width: 560px)" :srcset="banner.mobile" />
-            <img class="feature__art" :width="banner.width" :height="banner.height" :src="banner.src" :alt="banner.alt" loading="eager" />
+            <source v-if="banner.mobile" media="(max-width: 560px)" :srcset="imageSources(banner.mobile).srcset || banner.mobile" sizes="100vw" />
+            <AppImage class="feature__art" :width="banner.width" :height="banner.height" :src="banner.src" :alt="banner.alt" loading="lazy" sizes="(max-width: 1240px) 100vw, 1240px" />
           </picture>
           <div class="banner-indicators" role="group" aria-label="Choose a banner">
             <button
@@ -233,7 +234,7 @@ onBeforeUnmount(() => {
         <ol class="covers__list">
           <li v-for="c in covers" :key="c.t" class="cover neon-hover-outline">
             <span class="cover__icon" :class="{ 'cover__icon--first-steps': c.t === 'First steps' }" aria-hidden="true">
-              <img :src="c.image" alt="" width="64" height="64" loading="lazy" />
+              <AppImage :src="c.image" alt="" width="64" height="64" loading="lazy" />
             </span>
             <h4 class="cover__title">{{ c.t }}</h4>
             <p class="cover__text">{{ c.d }}</p>
@@ -251,10 +252,11 @@ onBeforeUnmount(() => {
           <li v-for="(g, k) in games" :key="g.id" class="gcard" :style="{ '--k': k }">
             <article class="gcard__link neon-hover-outline" :aria-label="g.name">
               <span class="gcard__poster-frame">
-                <img
+                <AppImage
                   class="gcard__poster"
                   :class="`gcard__poster--${g.id}`"
                   :src="posters[g.id].src"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 400px"
                   alt=""
                   :width="posters[g.id].width"
                   :height="posters[g.id].height"
@@ -267,7 +269,7 @@ onBeforeUnmount(() => {
                 </span>
 
                 <span class="gcard__logo" :class="`gcard__logo--${g.id}`">
-                  <img :src="`/images/games/${g.id}-logo.webp`" :alt="g.name" loading="lazy" />
+                  <AppImage :src="`/images/games/${g.id}-logo.webp`" :alt="g.name" loading="lazy" />
                 </span>
               </span>
 

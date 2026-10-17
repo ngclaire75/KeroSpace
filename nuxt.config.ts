@@ -6,6 +6,10 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  routeRules: {
+    '/images/optimized/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+  },
+
   app: {
     head: {
       title: 'KeroSpace — Explore Every Game Item',
@@ -29,8 +33,7 @@ export default defineNuxtConfig({
         { name: 'twitter:card', content: 'summary' },
       ],
       link: [
-        { rel: 'icon', href: '/favicon.webp' },
-        { rel: 'preload', as: 'image', href: '/images/egg-3.webp' },
+        { rel: 'icon', href: '/favicon-64.webp' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {

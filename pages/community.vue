@@ -41,9 +41,9 @@ const pad = (n: number) => String(n).padStart(2, '0')
 
           <div class="mosaic" aria-hidden="true">
             <div v-for="(c, i) in creators" :key="c.handle" class="mosaic__tile" :class="`mosaic__tile--${i + 1}`">
-              <img class="mosaic__bg" :src="c.tile" alt="" width="480" height="640" />
+              <AppImage class="mosaic__bg" loading="eager" sizes="(max-width: 700px) 45vw, 240px" :src="c.tile" alt="" width="480" height="640" />
               <span class="mosaic__who">
-                <span class="mosaic__ring"><img :src="c.photo" alt="" width="40" height="40" /></span>
+                <span class="mosaic__ring"><AppImage loading="eager" :src="c.photo" alt="" width="40" height="40" /></span>
                 <span class="mosaic__text"><b>{{ c.name }}</b>{{ c.gameName }}</span>
               </span>
             </div>

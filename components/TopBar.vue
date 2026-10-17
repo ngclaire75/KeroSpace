@@ -14,7 +14,7 @@ const nav = [
 <template>
   <header class="topbar">
     <div class="brand-wrap">
-      <span class="logo"><img src="/images/logo.webp" alt="KeroSpace" /></span>
+      <span class="logo"><AppImage src="/images/logo.webp" alt="KeroSpace" /></span>
       <span class="brand">
         <svg
           xmlns="http://www.w3.org/2000/svg"

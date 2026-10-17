@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { prepareImage } from '~/utils/responsiveImages'
 const section = ref<HTMLElement>()
 const armed = ref(false)
 let observer: IntersectionObserver | undefined
@@ -79,6 +80,22 @@ const creators: Creator[] = [
   },
 ]
 const activeIndex = ref(1)
+const loadedCreators = ref([1])
+const bannerSizes = '(max-width: 760px) 100vw, 760px'
+let creatorRequest = 0
+async function showCreator(index: number) {
+  const request = ++creatorRequest
+  await prepareImage(creators[index]!.banner, bannerSizes)
+  if (request !== creatorRequest) return
+  if (!loadedCreators.value.includes(index)) loadedCreators.value.push(index)
+  activeIndex.value = index
+  void prepareImage(creators[(index + 1) % creators.length]!.banner, bannerSizes)
+}
+useImageWarmup(section, () => {
+  void prepareImage(creators[1]!.banner, bannerSizes)
+  void prepareImage(creators[2]!.banner, bannerSizes)
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) startSlideTimer()
+})
 const creator = computed(() => creators[activeIndex.value])
 
 // auto-advances like the first banner; picking a bar restarts the timer
@@ -86,17 +103,16 @@ let slideTimer: ReturnType<typeof setInterval> | undefined
 function startSlideTimer() {
   if (slideTimer !== undefined) clearInterval(slideTimer)
   slideTimer = setInterval(() => {
-    if (!document.hidden) activeIndex.value = (activeIndex.value + 1) % creators.length
+    if (!document.hidden) void showCreator((activeIndex.value + 1) % creators.length)
   }, 5000)
 }
 function selectCreator(index: number) {
-  activeIndex.value = index
+  void showCreator(index)
   startSlideTimer()
 }
 
 onMounted(() => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-  startSlideTimer()
   if (!('IntersectionObserver' in window)) return
   observer = new IntersectionObserver(
     (entries) => {
@@ -146,18 +162,20 @@ onBeforeUnmount(() => {
             :class="{ 'is-active': activeIndex === index }"
             aria-hidden="true"
           >
-            <img
+            <AppImage
+              v-if="loadedCreators.includes(index)"
               class="creator-banner__art"
+              :sizes="bannerSizes"
               :src="entry.banner"
               alt=""
               width="1200"
               height="675"
-              loading="eager"
+              loading="lazy"
             />
           </div>
           <span class="creator-banner__shade" aria-hidden="true" />
           <span class="creator-banner__brand">
-            <img src="/images/streamers/twitch-wordmark.svg" alt="Twitch" width="64" height="22" />
+            <AppImage src="/images/streamers/twitch-wordmark.svg" alt="Twitch" width="64" height="22" />
           </span>
 
           <div class="creator-bars" role="group" aria-label="Choose a creator">
@@ -177,9 +195,9 @@ onBeforeUnmount(() => {
           <div class="creator-top">
             <div class="creator-avatar">
               <Transition name="creator-fade">
-                <img
+                <AppImage
                   :key="creator.photo"
-                  :src="creator.photo"
+                  :src="creator.photo" sizes="120px"
                   :alt="`${creator.name}, Twitch streamer`"
                   width="450"
                   height="450"
@@ -231,7 +249,7 @@ onBeforeUnmount(() => {
             <span class="creator-cta__content" aria-hidden="true">
               <Transition name="creator-cta-text">
                 <span :key="creator.handle" class="creator-cta__group">
-                  <img src="/images/streamers/twitch-glitch.svg" alt="" width="26" height="26" />
+                  <AppImage src="/images/streamers/twitch-glitch.svg" alt="" width="26" height="26" />
                   <span>Watch {{ creator.name }} on Twitch</span>
                   <svg viewBox="0 0 24 24" width="17" height="17">
                     <path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />

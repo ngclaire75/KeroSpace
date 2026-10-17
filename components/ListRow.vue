@@ -28,7 +28,7 @@ withDefaults(
       }"
       :style="iconSize ? { '--row-ico': iconSize + 'px' } : undefined"
     >
-      <img v-if="variant === 'img'" :src="img" :alt="title" />
+      <AppImage v-if="variant === 'img'" :src="img" :alt="title" />
       <AppIcon v-else-if="icon" :name="icon" :size="15" />
     </span>
 

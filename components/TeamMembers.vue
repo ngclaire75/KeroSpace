@@ -11,7 +11,7 @@ const members = [
   <PanelCard title="Active Team Members" action="see-more">
     <div v-for="m in members" :key="m.name" class="member">
       <span class="member__avatar">
-        <span class="member__pic"><img :src="m.img" :alt="m.name" /></span>
+        <span class="member__pic"><AppImage :src="m.img" :alt="m.name" /></span>
         <i class="member__dot" />
       </span>
 

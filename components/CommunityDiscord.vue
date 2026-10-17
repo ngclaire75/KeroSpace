@@ -6,7 +6,7 @@ import { communityDiscordServers } from '~/data/communityDiscord'
   <section id="community-discord" class="discord" aria-labelledby="discord-title">
     <header class="discord__heading">
       <div>
-        <p class="discord__eyebrow"><img src="/images/community/discord-symbol.svg" width="22" height="17" alt="" /> On Discord</p>
+        <p class="discord__eyebrow"><AppImage src="/images/community/discord-symbol.svg" width="22" height="17" alt="" /> On Discord</p>
         <h2 id="discord-title">Same game.<br /><em>New connections.</em></h2>
       </div>
       <p class="discord__intro">News, build talk and a place to meet other players. Join your game's official Discord community.</p>
@@ -23,8 +23,8 @@ import { communityDiscordServers } from '~/data/communityDiscord'
             <li v-for="server in communityDiscordServers" :key="server.id">
               <a class="server" :href="server.invite" target="_blank" rel="noopener noreferrer"
                 :aria-label="`Join ${server.server} on Discord (opens in a new tab)`">
-                <img class="server__background" :src="server.banner" :style="{ objectPosition: server.bannerPosition }" alt="" width="1024" height="576" loading="lazy" decoding="async" />
-                <span class="server__logo" :class="{ 'server__logo--nte': server.id === 'nte' }"><img :src="`/images/games/${server.id}-logo.webp`" :alt="server.name" width="78" height="48" loading="lazy" /></span>
+                <AppImage class="server__background" :src="server.banner" :style="{ objectPosition: server.bannerPosition }" alt="" width="1024" height="576" loading="lazy" decoding="async" />
+                <span class="server__logo" :class="{ 'server__logo--nte': server.id === 'nte' }"><AppImage :src="`/images/games/${server.id}-logo.webp`" :alt="server.name" width="78" height="48" loading="lazy" /></span>
                 <span class="server__copy"><b>{{ server.name }}</b><span>{{ server.description }}</span></span>
                 <span class="server__join" aria-hidden="true"><span>Join</span><svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 18 18 6M6 6h12v12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
               </a>
@@ -35,7 +35,7 @@ import { communityDiscordServers } from '~/data/communityDiscord'
       </div>
 
       <figure class="discord-art">
-        <img src="/images/Ganyu_%20Icy%20Petals%20of%20Liyue.png" width="1086" height="1448" alt="Ganyu community banner" loading="lazy" />
+        <AppImage src="/images/Ganyu_%20Icy%20Petals%20of%20Liyue.png" width="1086" height="1448" sizes="(max-width: 900px) 420px, 500px" alt="Ganyu community banner" loading="lazy" />
       </figure>
     </div>
   </section>

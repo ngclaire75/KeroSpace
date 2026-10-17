@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { imageSources } from '~/utils/responsiveImages'
+const heroImage = imageSources('/images/egg-3.webp')
+useHead({ link: [{ rel: 'preload', as: 'image', href: heroImage.src, imagesrcset: heroImage.srcset, imagesizes: '(max-width: 720px) 70vw, 360px', fetchpriority: 'high' }] })
 type Item = {
   img: string
   name: string
@@ -250,9 +253,11 @@ onBeforeUnmount(() => {
       >
         <div class="card__body">
           <div class="card__media">
-            <img
+            <AppImage
               class="card__img"
               :src="it.img"
+              sizes="(max-width: 720px) 70vw, 360px"
+              :fetchpriority="i === 2 ? 'high' : 'auto'"
               :alt="it.name"
               width="900"
               height="900"
@@ -265,7 +270,7 @@ onBeforeUnmount(() => {
 
           <div class="card__chip">
             <span class="card__avatar">
-              <img :src="it.img" alt="" width="34" height="34" />
+              <AppImage :src="it.img" alt="" width="34" height="34" />
             </span>
             <span>
               <small>Kero</small>
