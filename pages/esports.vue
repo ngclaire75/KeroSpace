@@ -56,7 +56,9 @@ function portraitFailed(name: string) {
         </div>
       </header>
 
-      <img class="arena-banner" src="/images/kagura.webp" alt="" loading="eager" decoding="async" />
+      <div class="arena-banner-frame">
+        <img class="arena-banner" src="/images/kagura.webp" alt="" loading="eager" decoding="async" />
+      </div>
 
       <section id="tournament-archive" class="archive" aria-labelledby="archive-title">
         <header class="section-heading">
@@ -94,7 +96,6 @@ function portraitFailed(name: string) {
         </template>
         <div v-else class="player-empty"><p>A reliable six-player tournament selection has not been verified for this game yet.</p><p>Player profiles will appear when their participation or results can be sourced.</p></div>
       </section>
-      <aside class="editorial-note"><h2>Follow the source.</h2><p>Dates refer to the stated event or stage, including qualifiers only when explicitly noted. Videos are organizer broadcasts or official event videos. Every record links to its source; gaps in the record stay visible.</p></aside>
     </main>
     <SiteFooter />
   </div>
@@ -116,8 +117,7 @@ function portraitFailed(name: string) {
 h1 { font-family: var(--display); font-size: clamp(30px, 3.8vw, 52px); line-height: 1.3; letter-spacing: -.035em; margin: 0; }
 h1 em { font-style: normal; background: var(--es-grad); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .arena-lead { font-size: 17px; line-height: 1.75; color: var(--ink-2); margin: 22px 0 0; }
-.arena-banner { display: block; width: 100%; height: auto; border-radius: 10px; }
-.arena-banner-frame { padding: 2px; margin-bottom: 40px; background: linear-gradient(100deg, #ffc4e5, #d8baff, #ffc4e5, #d8baff); background-size: 300% 100%; animation: arena-banner-sweep 8s linear infinite; }
+.arena-banner-frame { padding: 2px; margin-bottom: 72px; background: linear-gradient(100deg, #ffc4e5, #d8baff, #ffc4e5, #d8baff); background-size: 300% 100%; animation: arena-banner-sweep 8s linear infinite; }
 .arena-banner { display: block; width: 100%; height: auto; }
 @keyframes arena-banner-sweep { to { background-position: -300% 0; } }
 @media (prefers-reduced-motion: reduce) { .arena-banner-frame { animation: none; } }
@@ -167,9 +167,6 @@ h2 { font-family: var(--display); font-size: clamp(21px, 2.5vw, 30px); margin: 0
 .player h3 { margin: 0; font-size: 18px; overflow-wrap: anywhere; }
 .player p { color: var(--ink-2); font-size: 13.5px; line-height: 1.6; margin: 8px 0; }
 .player-source { font-size: 11px; color: var(--es-pink); }
-.editorial-note { margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--line); }
-.editorial-note h2 { font-size: 17px; }
-.editorial-note p { max-width: 850px; font-size: 13px; line-height: 1.8; color: var(--ink-2); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 button:focus-visible, a:focus-visible { outline: 2px solid var(--es-pink); outline-offset: 4px; }
 .event-video button:focus-visible { outline-offset: -3px; }
@@ -179,6 +176,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--es-pink); outli
 }
 @media (max-width: 600px) {
   .arena-header { padding-top: 36px; }
+  .arena-banner-frame { margin-bottom: 40px; }
   .schedule-links { gap: 0 24px; }
   .schedule-links a { min-height: 34px; }
   .arena-lead { font-size: 15px; }
@@ -190,6 +188,5 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--es-pink); outli
   .player-circle > span { font-size: 23px; }
   .player h3 { font-size: 15.5px; }
   .player p { font-size: 12px; }
-  .editorial-note { margin-top: 44px; }
 }
 </style>
