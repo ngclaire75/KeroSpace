@@ -45,18 +45,20 @@ function dates(t: typeof tournaments[number]) {
         </nav>
         <div v-if="events.length" class="tournament-grid" aria-live="polite">
           <article v-for="event in events" :key="event.id" class="tournament-card" :class="{ 'tournament-card--video': event.video }">
-            <div v-if="event.video" class="event-video">
-              <iframe v-if="playing === event.id" :src="`https://www.youtube-nocookie.com/embed/${event.video}?autoplay=1&rel=0`" :title="`${event.name} official video`" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
-              <button v-else @click="playing = event.id" :aria-label="`Play ${event.name} official video`"><img :src="`/images/esports/youtube/${event.video}.jpg`" alt="" width="480" height="360" loading="lazy" /><span class="play-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24"><path d="m9 5 11 7-11 7z" fill="currentColor" /></svg></span></button>
-            </div>
-            <div v-else class="event-poster" aria-hidden="true"><img :src="`/images/games/${event.game}-logo.webp`" alt="" loading="lazy" /><span>{{ event.year }}</span></div>
-            <a v-if="event.externalVideo" class="external-video" :href="event.externalVideo" target="_blank" rel="noopener noreferrer">Watch official video ↗</a>
-            <div class="event-body">
-              <p class="event-series">{{ event.series }}</p><h3>{{ event.name }}</h3>
-              <p class="event-date">{{ dates(event) }}</p><p class="event-location">{{ event.location }}</p>
-              <p class="event-summary">{{ event.summary }}</p>
-              <p v-if="event.winner" class="winner"><span>Champion</span><strong>{{ event.winner }}</strong></p>
-              <a v-if="event.video" class="youtube-link" :href="`https://www.youtube.com/watch?v=${event.video}`" target="_blank" rel="noopener noreferrer">Watch on YouTube <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg></a>
+            <div class="tournament-card__inner">
+              <div v-if="event.video" class="event-video">
+                <iframe v-if="playing === event.id" :src="`https://www.youtube-nocookie.com/embed/${event.video}?autoplay=1&rel=0`" :title="`${event.name} official video`" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
+                <button v-else @click="playing = event.id" :aria-label="`Play ${event.name} official video`"><img :src="`/images/esports/youtube/${event.video}.jpg`" alt="" width="480" height="360" loading="lazy" /><span class="play-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24"><path d="m9 5 11 7-11 7z" fill="currentColor" /></svg></span></button>
+              </div>
+              <div v-else class="event-poster" aria-hidden="true"><img :src="`/images/games/${event.game}-logo.webp`" alt="" loading="lazy" /><span>{{ event.year }}</span></div>
+              <a v-if="event.externalVideo" class="external-video" :href="event.externalVideo" target="_blank" rel="noopener noreferrer">Watch official video ↗</a>
+              <div class="event-body">
+                <p class="event-series">{{ event.series }}</p><h3>{{ event.name }}</h3>
+                <p class="event-date">{{ dates(event) }}</p><p class="event-location">{{ event.location }}</p>
+                <p class="event-summary">{{ event.summary }}</p>
+                <p v-if="event.winner" class="winner"><span>Champion</span><strong>{{ event.winner }}</strong></p>
+                <a v-if="event.video" class="youtube-link" :href="`https://www.youtube.com/watch?v=${event.video}`" target="_blank" rel="noopener noreferrer">Watch on YouTube <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg></a>
+              </div>
             </div>
           </article>
         </div>
@@ -95,8 +97,8 @@ h1 em { font-style: normal; background: var(--es-grad); background-clip: text; -
 h2 { font-family: var(--display); font-size: clamp(21px, 2.5vw, 30px); margin: 0; line-height: 1.4; }
 .game-note { max-width: 820px; color: var(--ink-2); font-size: 15px; line-height: 1.75; margin: 18px 0 0; }
 .tournament-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
-.tournament-card { display: flex; flex-direction: column; overflow: hidden; border: 2px solid #ff8fe0; border-radius: 10px; background: var(--es-panel); min-width: 0; }
-.tournament-card--video { border-radius: 0; }
+.tournament-card { min-width: 0; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ffb3df, #d8b4ff, #ffb3df); animation: card-outline-turn 3s linear infinite; }
+.tournament-card__inner { display: flex; flex-direction: column; height: 100%; min-width: 0; overflow: hidden; background: var(--es-panel); }
 .event-video, .event-poster { position: relative; aspect-ratio: 16/9; }
 .event-video { overflow: hidden; background: #100b13; }
 .event-video iframe { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; }
