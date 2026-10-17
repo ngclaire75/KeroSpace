@@ -40,7 +40,7 @@ def encode(src):
         tiny = logo or width <= 256 or '/avatars/' in src
         widths = [64, 128, 256, 480] if tiny else [320, 640, 960, 1440, 1920]
         if 'price-list' in src:
-            widths = [640, 960, 1280, 1600]
+            widths = [640, 960, 1280, 1600, 1920, 2560]
         cap = min(width, widths[-1])
         widths = sorted(set([w for w in widths if w < cap] + [cap]))
         variants = []
