@@ -89,7 +89,7 @@ function portraitFailed(name: string) {
         <header class="section-heading"><div><p class="eyebrow">The people behind the plays</p><h2 id="players-title">Players in the spotlight</h2></div></header>
         <template v-if="game.players.length">
           <p class="game-note">Six documented tournament competitors. This selection reflects verified appearances or achievements, rather than a measured popularity ranking.</p>
-          <div class="players-grid"><a v-for="player in game.players" :key="player.name" class="player" :href="player.source" target="_blank" rel="noopener noreferrer"><span class="player-circle"><img v-if="player.photo && !failedPortraits.has(player.name)" :class="{ 'player-photo--crop': player.photoCrop }" :src="player.photo" :alt="player.name" :style="portraitStyle(player)" @error="portraitFailed(player.name)" loading="lazy" decoding="async" width="240" height="240" /><span v-else aria-hidden="true">{{ initials(player.name) }}</span></span><h3>{{ player.name }}</h3><p>{{ player.detail }}</p><span class="player-source">View record ↗</span></a></div>
+          <div class="players-grid"><a v-for="player in game.players" :key="player.name" class="player" :href="player.source" target="_blank" rel="noopener noreferrer"><span class="player-circle"><img v-if="player.photo && !failedPortraits.has(player.name)" :class="{ 'player-photo--crop': player.photoCrop }" :src="player.photo" :alt="player.name" :style="portraitStyle(player)" @error="portraitFailed(player.name)" loading="lazy" decoding="async" width="240" height="240" /><span v-else aria-hidden="true">{{ initials(player.name) }}</span></span><h3>{{ player.name }}</h3><span class="player-source">View record ↗</span></a></div>
         </template>
         <div v-else class="player-empty"><p>A reliable six-player tournament selection has not been verified for this game yet.</p><p>Player profiles will appear when their participation or results can be sourced.</p></div>
       </section>
@@ -122,7 +122,7 @@ h1 em { font-style: normal; background: var(--es-grad); background-clip: text; -
 h2 { font-family: var(--display); font-size: clamp(21px, 2.5vw, 30px); margin: 0; line-height: 1.4; }
 .game-note { max-width: 820px; color: var(--ink-2); font-size: 15px; line-height: 1.75; margin: 18px 0 0; }
 .tournament-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
-.tournament-card { display: flex; flex-direction: column; overflow: hidden; border: 2px solid #d8baff88; border-radius: 10px; background: var(--es-panel); min-width: 0; }
+.tournament-card { display: flex; flex-direction: column; overflow: hidden; border: 2px solid #ff8fe0; border-radius: 10px; background: var(--es-panel); min-width: 0; box-shadow: 0 0 0 1px #c27bff66, 0 0 14px #ff8fe066, 0 0 30px #b26bff40; }
 .tournament-card--video { border-radius: 0; }
 .event-video, .event-poster { position: relative; aspect-ratio: 16/9; }
 .event-video { overflow: hidden; background: #100b13; }
