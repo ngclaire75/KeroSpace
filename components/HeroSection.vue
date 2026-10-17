@@ -102,9 +102,17 @@ function release(el: HTMLElement) {
   for (const p of ['--tx', '--ty', '--mx', '--my', '--lift']) el.style.removeProperty(p)
 }
 
-// Keep tilt on mouse input so touch gestures can scroll the page naturally.
+// Mouse and touch both drive the tilt. The card keeps `touch-action: pan-y`, so a
+// vertical drag is still handed to the browser to scroll the page (it then sends
+// pointercancel and the card lets go), while a press or horizontal drag keeps the
+// card following the finger. A touch only tilts when it starts on the carousel,
+// so scrolling past from the heading never makes the card twitch.
+let touchOnStage = false
 function track(e: PointerEvent) {
-  if (e.pointerType !== 'mouse') return
+  if (e.pointerType !== 'mouse') {
+    if (e.type === 'pointerdown') touchOnStage = !!(e.target as HTMLElement | null)?.closest('.stage')
+    if (!touchOnStage) return
+  }
   const el = cardEls[active.value]
   if (!el) return
   if (live !== el) {
@@ -125,9 +133,11 @@ function track(e: PointerEvent) {
   el.classList.toggle('is-over', over)
   run()
 }
-// a lifted finger has no hover — settle the card back to rest
+// a lifted (or scroll-claimed) finger has no hover — settle the card back to rest
 function endTouch(e: PointerEvent) {
-  if (e.pointerType !== 'mouse') untrack()
+  if (e.pointerType === 'mouse') return
+  touchOnStage = false
+  untrack()
 }
 function untrack() {
   Object.assign(target, { rx: 0, ry: 0, mx: 50, my: 50, lift: 0 })
