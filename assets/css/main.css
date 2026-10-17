@@ -36,6 +36,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Blog articles use the browser's native scroll without animated repositioning. */
+html[data-blog-scroll='native'] {
+  scroll-behavior: auto;
+}
+
 body {
   background: var(--bg);
   color: var(--ink);

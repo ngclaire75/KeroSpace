@@ -1,78 +1,6 @@
 <script setup lang="ts">
 import { imageSources } from '~/utils/responsiveImages'
-type Game = {
-  id: string
-  name: string
-  dev: string
-  year: number | string
-  genre: string
-  desc: string
-  items: string
-  platforms: string
-}
-
-const games: Game[] = [
-  {
-    id: 'hsr',
-    name: 'Honkai: Star Rail',
-    dev: 'HoYoverse',
-    year: 2023,
-    genre: 'Turn-based RPG',
-    desc: 'Ride the Astral Express across the stars in a story-rich, turn-based space fantasy.',
-    items: 'Light Cones · Relics',
-    platforms: 'PC · PS5 · Mobile',
-  },
-  {
-    id: 'genshin',
-    name: 'Genshin Impact',
-    dev: 'HoYoverse',
-    year: 2020,
-    genre: 'Open-world RPG',
-    desc: 'Explore Teyvat, master seven elements and team up four heroes in real-time combat.',
-    items: 'Weapons · Artifacts',
-    platforms: 'PC · PS5 · Xbox · Mobile',
-  },
-  {
-    id: 'hi3',
-    name: 'Honkai Impact 3rd',
-    dev: 'HoYoverse',
-    year: 2016,
-    genre: 'Action RPG',
-    desc: 'Fast, stylish 3D combat as Valkyries battle the Honkai to protect the world.',
-    items: 'Weapons · Stigmata',
-    platforms: 'PC · Mobile',
-  },
-  {
-    id: 'wuwa',
-    name: 'Wuthering Waves',
-    dev: 'Kuro Games',
-    year: 2024,
-    genre: 'Open-world RPG',
-    desc: 'Wake as the Rover in a post-apocalyptic world built on fluid, parry-driven combat.',
-    items: 'Weapons · Echoes',
-    platforms: 'PC · PS5 · Mobile',
-  },
-  {
-    id: 'nte',
-    name: 'Neverness to Everness',
-    dev: 'Hotta Studio',
-    year: 2026,
-    genre: 'Urban open-world RPG',
-    desc: 'Explore Hethereau as an Anomaly Hunter, uncover supernatural mysteries and shape your own life in the city.',
-    items: 'Arcs · Cartridges',
-    platforms: 'PC · Mac · PS5 · Mobile',
-  },
-  {
-    id: 'mlbb',
-    name: 'Mobile Legends: Bang Bang',
-    dev: 'MOONTON Games',
-    year: 2016,
-    genre: '5v5 MOBA',
-    desc: 'Choose your hero, team up in fast-paced 5v5 battles and turn smart builds into match-winning plays.',
-    items: 'Equipment · Emblems',
-    platforms: 'iOS · Android',
-  },
-]
+import { games } from '~/data/games'
 
 const posters: Record<string, { src: string; width: number; height: number }> = {
   hsr: { src: '/images/games/card-hsr.webp', width: 1600, height: 2134 },
@@ -293,11 +221,9 @@ onBeforeUnmount(() => {
 
                 <span class="gcard__foot">
                   <span class="gcard__cta">Read introduction</span>
-                  <span class="gcard__go" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="16" height="16">
-                      <path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                  </span>
+                  <NuxtLink :to="`/games/${g.id}`" class="gcard__go" :aria-label="`Read introduction to ${g.name}`">
+                    <span aria-hidden="true">↗</span>
+                  </NuxtLink>
                 </span>
               </span>
             </article>
@@ -868,6 +794,7 @@ onBeforeUnmount(() => {
   place-items: center;
   width: 30px;
   height: 30px;
+  font-size: 16px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.08);
   transition: background 0.35s;
