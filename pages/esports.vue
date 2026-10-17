@@ -4,7 +4,7 @@ import { esportsGames, tournaments, type TournamentPlayer } from '~/data/esports
 useHead({ title: 'Esports — Tournament archive | KeroSpace', meta: [{ name: 'description', content: 'Watch Mobile Legends: Bang Bang tournament replays, meet the players and follow official schedules.' }] })
 const playing = ref<string | null>(null)
 const game = esportsGames.find(item => item.id === 'mlbb')!
-const events = tournaments.filter(event => event.game === 'mlbb')
+const events = tournaments.filter(event => event.game === 'mlbb' && event.video)
   .sort((a, b) => (a.start ?? String(a.year)).localeCompare(b.start ?? String(b.year)))
 const scheduleLinks = [
   { name: 'MPL Indonesia schedule', href: 'https://id-mpl.com/schedule' },
@@ -154,13 +154,13 @@ h2 { font-family: var(--display); font-size: clamp(21px, 2.5vw, 30px); margin: 0
 .player-empty p + p { margin-top: 6px; }
 .players-grid { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 24px; margin-top: 32px; }
 .player { text-align: center; min-width: 0; }
-.player-circle { position: relative; display: grid; place-items: center; width: min(100%, 120px); aspect-ratio: 1; border: 2px solid #d8baff; border-radius: 50%; background: radial-gradient(circle at 30% 20%, #614567, #211629 75%); margin: 0 auto 18px; overflow: hidden; }
+.player-circle { position: relative; display: grid; place-items: center; width: min(100%, 140px); aspect-ratio: 1; border: 2px solid #d8baff; border-radius: 50%; background: radial-gradient(circle at 30% 20%, #614567, #211629 75%); margin: 0 auto 18px; overflow: hidden; }
 .player-circle > span { font-family: var(--display); font-size: 28px; color: #ffe0f1; }
 .player-circle img { width: 100%; height: 100%; object-fit: cover; }
 .player-circle img.player-photo--crop { position: absolute; object-fit: fill; }
-.player h3 { margin: 0; font-size: 16px; overflow-wrap: anywhere; }
-.player p { color: var(--ink-2); font-size: 12px; line-height: 1.6; margin: 8px 0; }
-.player-source { font-size: 10px; color: var(--es-pink); }
+.player h3 { margin: 0; font-size: 18px; overflow-wrap: anywhere; }
+.player p { color: var(--ink-2); font-size: 13.5px; line-height: 1.6; margin: 8px 0; }
+.player-source { font-size: 11px; color: var(--es-pink); }
 .editorial-note { margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--line); }
 .editorial-note h2 { font-size: 17px; }
 .editorial-note p { max-width: 850px; font-size: 13px; line-height: 1.8; color: var(--ink-2); }
@@ -178,10 +178,10 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--es-pink); outli
   .archive, .players-section { padding-top: 36px; }
   .tournament-grid { grid-template-columns: minmax(0,1fr); }
   .players-grid { gap: 28px 12px; }
-  .player-circle { max-width: 88px; }
+  .player-circle { max-width: 100px; }
   .player-circle > span { font-size: 23px; }
-  .player h3 { font-size: 14px; }
-  .player p { font-size: 11px; }
+  .player h3 { font-size: 15.5px; }
+  .player p { font-size: 12px; }
   .editorial-note { margin-top: 44px; }
 }
 </style>
