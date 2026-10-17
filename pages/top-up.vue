@@ -75,8 +75,8 @@ async function copyEnquiry() {
             <figcaption><span>Kerosce gaming services</span><a href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">@koqbisagtu <span aria-hidden="true">↗</span></a></figcaption>
           </figure>
           <figure class="shop-pricelist">
-            <a class="shop-pricelist__link" href="/images/mlbb-price-list-v3.webp" target="_blank" rel="noopener noreferrer" aria-label="Open the Mobile Legends diamond price list at full size">
-              <img src="/images/mlbb-price-list-v3.webp" alt="Kerosce's Mobile Legends (MLBB) diamonds price list, from 275 diamonds at Rp 65.000 up to 7155 diamonds at Rp 1.350.000" width="1254" height="1254" />
+            <a class="shop-pricelist__link" href="/images/mlbb-price-list-v4.webp" target="_blank" rel="noopener noreferrer" aria-label="Open the Mobile Legends diamond price list at full size">
+              <img src="/images/mlbb-price-list-v4.webp" alt="Kerosce's Mobile Legends (MLBB) diamonds price list, from 275 diamonds at Rp 65.000 up to 7155 diamonds at Rp 1.350.000" width="1254" height="1254" />
             </a>
           </figure>
         </div>
