@@ -5,7 +5,6 @@ const route = useRoute()
 const links = computed(() => [
   { label: 'Home', href: '/', active: route.path === '/' && !route.hash },
   { label: 'Games', href: '/#supported-games', active: route.path === '/' && route.hash === '#supported-games' },
-  { label: 'Items' },
   { label: 'Community', href: '/community', active: route.path === '/community' },
   { label: 'Guides' },
   { label: 'Top Up', href: '/top-up', active: route.path === '/top-up' },
@@ -248,8 +247,7 @@ onBeforeUnmount(() => {
   }
   .nav__burger {
     display: block;
-    /* optical nudge: sit level with the logo mark */
-    translate: 0 1px;
+    translate: 0 -1px;
   }
   /* logo mark only on mobile — wordmark hidden, mark a touch bigger */
   .nav__word {
@@ -411,7 +409,7 @@ onBeforeUnmount(() => {
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 0.04em;
-    background: linear-gradient(90deg, #ff304f, #ff75cc, #bd7aff, #ff75cc, #ff304f);
+    background: linear-gradient(90deg, #d8baff, #ffc4e5, #d8baff);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;

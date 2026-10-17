@@ -11,7 +11,6 @@ const columns = [
     links: [
       { label: 'Home', href: '/' },
       { label: 'Games', href: '/#supported-games' },
-      { label: 'Items', href: '/#' },
       { label: 'Community', href: '/community' },
       { label: 'Guides', href: '/#' },
       { label: 'Top Up', href: '/top-up' },
