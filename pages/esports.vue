@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { esportsGames, tournaments, type TournamentPlayer } from '~/data/esports'
+import { esportsGames, tournaments } from '~/data/esports'
 
 useHead({ title: 'Esports — Tournament archive | KeroSpace', meta: [{ name: 'description', content: 'Watch Mobile Legends: Bang Bang tournament replays, meet the players and follow official schedules.' }] })
 const playing = ref<string | null>(null)
@@ -16,31 +16,6 @@ function dates(t: typeof tournaments[number]) {
   const format = (s: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${s}T00:00:00Z`))
   if (!t.start) return String(t.year)
   return t.end && t.end !== t.start ? `${format(t.start)} — ${format(t.end)}` : format(t.start)
-}
-const initials = (name: string) => name.slice(0, 2).toUpperCase()
-const failedPortraits = ref(new Set<string>())
-function portraitStyle(player: TournamentPlayer) {
-  if (player.photoCrop) {
-    const crop = player.photoCrop
-    const size = Math.max(crop.width, crop.height)
-    const x = crop.x + (crop.width - size) / 2
-    const y = crop.y + (crop.height - size) / 2
-    return {
-      width: `${crop.sourceWidth / size * 100}%`,
-      height: `${crop.sourceHeight / size * 100}%`,
-      maxWidth: 'none',
-      left: `${-x / size * 100}%`,
-      top: `${-y / size * 100}%`,
-    }
-  }
-  return {
-    objectPosition: player.photoPosition,
-    transform: player.photoScale ? `scale(${player.photoScale})` : undefined,
-    transformOrigin: player.photoOrigin,
-  }
-}
-function portraitFailed(name: string) {
-  failedPortraits.value = new Set([...failedPortraits.value, name])
 }
 </script>
 
@@ -88,14 +63,6 @@ function portraitFailed(name: string) {
 
       </section>
 
-      <section class="players-section" aria-labelledby="players-title">
-        <header class="section-heading"><div><p class="eyebrow">The people behind the plays</p><h2 id="players-title">Players in the spotlight</h2></div></header>
-        <template v-if="game.players.length">
-          <p class="game-note">Six documented tournament competitors. This selection reflects verified appearances or achievements, rather than a measured popularity ranking.</p>
-          <div class="players-grid"><a v-for="player in game.players" :key="player.name" class="player" :href="player.source" target="_blank" rel="noopener noreferrer"><span class="player-circle"><img v-if="player.photo && !failedPortraits.has(player.name)" :class="{ 'player-photo--crop': player.photoCrop }" :src="player.photo" :alt="player.name" :style="portraitStyle(player)" @error="portraitFailed(player.name)" loading="lazy" decoding="async" width="240" height="240" /><span v-else aria-hidden="true">{{ initials(player.name) }}</span></span><h3>{{ player.name }}</h3><span class="player-source">View record ↗</span></a></div>
-        </template>
-        <div v-else class="player-empty"><p>A reliable six-player tournament selection has not been verified for this game yet.</p><p>Player profiles will appear when their participation or results can be sourced.</p></div>
-      </section>
     </main>
     <SiteFooter />
   </div>
@@ -121,7 +88,7 @@ h1 em { font-style: normal; background: var(--es-grad); background-clip: text; -
 .arena-banner { display: block; width: 100%; height: auto; }
 @keyframes arena-banner-sweep { to { background-position: -300% 0; } }
 @media (prefers-reduced-motion: reduce) { .arena-banner-frame { animation: none; } }
-.archive, .players-section { padding-top: 36px; scroll-margin-top: 24px; }
+.archive { padding-top: 36px; scroll-margin-top: 24px; }
 .schedule-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin: 20px 0 28px; }
 .schedule-links a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: var(--es-pink); font-size: 13px; font-weight: 800; }
 .section-heading { display: flex; justify-content: space-between; gap: 20px; align-items: end; }
@@ -152,27 +119,11 @@ h2 { font-family: var(--display); font-size: clamp(21px, 2.5vw, 30px); margin: 0
 .winner strong { font-size: 14px; }
 .source-link, .youtube-link { font-size: 11px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 36px; }
 .youtube-link { color: var(--es-pink); }
-.empty-state, .player-empty { padding: 28px; margin-top: 24px; border: 2px solid #ffffff26; border-radius: 10px; background: var(--es-panel); }
-.empty-state h3 { margin: 0 0 12px; font-size: 18px; }
-.empty-state p, .player-empty p { font-size: 14px; color: var(--ink-2); line-height: 1.7; }
-.empty-state a, .empty-state button { font: inherit; font-size: 13px; color: var(--es-pink); background: none; border: 0; padding: 0; cursor: pointer; }
-.player-empty p { margin: 0; }
-.player-empty p + p { margin-top: 6px; }
-.players-grid { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 24px; margin-top: 32px; }
-.player { text-align: center; min-width: 0; }
-.player-circle { position: relative; display: grid; place-items: center; width: min(100%, 140px); aspect-ratio: 1; border: 2px solid #d8baff; border-radius: 50%; background: #000; margin: 0 auto 18px; overflow: hidden; }
-.player-circle > span { font-family: var(--display); font-size: 28px; color: #ffe0f1; }
-.player-circle img { width: 100%; height: 100%; object-fit: cover; }
-.player-circle img.player-photo--crop { position: absolute; object-fit: fill; }
-.player h3 { margin: 0; font-size: 18px; overflow-wrap: anywhere; }
-.player p { color: var(--ink-2); font-size: 13.5px; line-height: 1.6; margin: 8px 0; }
-.player-source { font-size: 11px; color: var(--es-pink); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 button:focus-visible, a:focus-visible { outline: 2px solid var(--es-pink); outline-offset: 4px; }
 .event-video button:focus-visible { outline-offset: -3px; }
 @media (max-width: 980px) {
   .tournament-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .players-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 30px 20px; }
 }
 @media (max-width: 600px) {
   .arena-header { padding-top: 36px; }
@@ -181,12 +132,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--es-pink); outli
   .schedule-links a { min-height: 34px; }
   .arena-lead { font-size: 15px; }
   .section-heading { align-items: start; flex-direction: column; gap: 12px; }
-  .archive, .players-section { padding-top: 36px; }
+  .archive { padding-top: 36px; }
   .tournament-grid { grid-template-columns: minmax(0,1fr); }
-  .players-grid { gap: 28px 12px; }
-  .player-circle { max-width: 100px; }
-  .player-circle > span { font-size: 23px; }
-  .player h3 { font-size: 15.5px; }
-  .player p { font-size: 12px; }
 }
 </style>
