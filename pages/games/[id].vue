@@ -94,11 +94,11 @@ useHead(() => ({
     <SiteNav />
     <div class="story-promo">
       <img
-        src="/images/teal-chibi-banner-2172.webp"
-        srcset="/images/teal-chibi-banner-640.webp 640w, /images/teal-chibi-banner-1280.webp 1280w, /images/teal-chibi-banner-2172.webp 2172w"
+        src="/images/teal-chibi-banner-esrgan-2x-1920.webp"
+        srcset="/images/teal-chibi-banner-esrgan-2x-640.webp 640w, /images/teal-chibi-banner-esrgan-2x-960.webp 960w, /images/teal-chibi-banner-esrgan-2x-1280.webp 1280w, /images/teal-chibi-banner-esrgan-2x-1920.webp 1920w, /images/teal-chibi-banner-esrgan-2x-2560.webp 2560w, /images/teal-chibi-banner-esrgan-2x-3200.webp 3200w"
         sizes="100vw"
-        width="2172"
-        height="724"
+        width="3200"
+        height="1066"
         alt="Chibi character with dark teal-streaked hair on a teal and cream blog banner with Korean lettering"
         fetchpriority="high"
         decoding="async"
