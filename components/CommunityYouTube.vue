@@ -11,6 +11,10 @@ const game = computed(() => communityVideoGames[active.value]!)
 const pageCount = computed(() => Math.ceil(game.value.videos.length / 3))
 const visibleVideos = computed(() => game.value.videos.slice(page.value * 3, page.value * 3 + 3))
 const tabs = ref<HTMLButtonElement[]>([])
+const gameLabels: Record<string, string> = {
+  hsr: 'Star Rail', genshin: 'Genshin', hi3: 'Honkai Impact',
+  wuwa: 'Wuthering Waves', nte: 'NTE', mlbb: 'Mobile Legends',
+}
 const categoryLabels = { guide: 'Character guide', gameplay: 'Gameplay', trailer: 'Character trailer' }
 const thumbnail = (id: string) => `/images/community/youtube/${id}.jpg`
 function prepare(index: number, slide = 0) {
@@ -65,7 +69,9 @@ function navigate(event: KeyboardEvent, index: number) {
     <div class="video-tabs" role="tablist" aria-label="Choose a game's YouTube videos">
       <button v-for="(entry, index) in communityVideoGames" :id="`video-tab-${entry.id}`" :key="entry.id" ref="tabs"
         type="button" role="tab" :aria-selected="active === index" :tabindex="active === index ? 0 : -1"
-        aria-controls="video-library-panel" @click="select(index)" @keydown="navigate($event, index)" @pointerenter="prepare(index)" @focus="prepare(index)">{{ entry.name }}</button>
+        :aria-label="entry.name" aria-controls="video-library-panel" @click="select(index)" @keydown="navigate($event, index)" @pointerenter="prepare(index)" @focus="prepare(index)">
+        <span>{{ gameLabels[entry.id] || entry.name }}</span>
+      </button>
     </div>
 
     <div id="video-library-panel" class="video-grid" role="tabpanel" :aria-labelledby="`video-tab-${game.id}`">
@@ -110,9 +116,12 @@ function navigate(event: KeyboardEvent, index: number) {
 .video-library h2 { margin: 0; font: 900 clamp(28px, 3.5vw, 46px)/1.16 var(--display); text-transform: uppercase; letter-spacing: -.025em; }
 .video-library h2 em { font-style: normal; background: linear-gradient(100deg, #ff9bd9, #ff3859 50%, #bd91ff); background-clip: text; -webkit-text-fill-color: transparent; }
 .video-library__intro { max-width: 310px; margin: 0 0 3px; color: #c1b9c9; font-size: 16px; line-height: 1.75; }
-.video-tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 8px; margin-bottom: 24px; }
-.video-tabs button { min-width: 0; min-height: 58px; padding: 12px 10px; border: 0; border-bottom: 2px solid #674572; background: #000; color: #d6cadf; font: 800 11px/1.5 var(--display); text-transform: uppercase; cursor: pointer; transition: color .2s ease, background-color .2s ease, border-color .2s ease; }
-.video-tabs button[aria-selected="true"] { border-color: var(--video-pink); background: #211323; color: #fff; }
+.video-tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; margin-bottom: 20px; }
+.video-tabs button { position: relative; display: grid; place-items: center; min-width: 0; min-height: 44px; padding: 10px 5px; border: 0; border-bottom: 2px solid #79438e; background: #000; color: #fff; cursor: pointer; transition: background .2s ease; }
+.video-tabs button::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #ff183b, #ff54bb, #b26bff); opacity: 0; transition: opacity .2s ease; }
+.video-tabs button[aria-selected="true"] { background: #160e1a; }
+.video-tabs button[aria-selected="true"]::after { opacity: 1; }
+.video-tabs span { display: block; font: 900 12px/1.4 var(--display); text-transform: uppercase; white-space: normal; }
 .video-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .video-card { min-width: 0; padding: 2px; background: conic-gradient(from var(--card-outline-angle), var(--video-pink), var(--video-purple), var(--video-pink)); animation: card-outline-turn 3s linear infinite; }
 .video-card__inner { display: flex; flex-direction: column; height: 100%; min-width: 0; background: #000; }
@@ -139,7 +148,13 @@ function navigate(event: KeyboardEvent, index: number) {
 .video-library :is(a, button):focus-visible { outline: 2px solid var(--video-purple); outline-offset: 3px; }
 .video-card__preview:focus-visible { outline-offset: -3px; }
 @media (hover: hover) { .video-card__watch:hover, .video-card__creator:hover { color: #fff; } }
-@media (max-width: 1050px) { .video-library__heading { display: block; } .video-library__intro { max-width: 520px; margin-top: 20px; } .video-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); } .video-grid { gap: 14px; } .video-card__body { padding-inline: 14px; } .video-card h3 { font-size: 14px; } }
-@media (max-width: 760px) { .video-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; } .video-card__body { padding-inline: 18px; } .video-card h3 { font-size: 17px; } .video-library__intro { font-size: 15px; } .video-tabs button { padding: 10px 6px; font-size: 10px; } }
-@media (prefers-reduced-motion: reduce) { .video-card { animation: none; } .video-tabs button, .video-card__play { transition: none; } }
+@media (max-width: 1050px) { .video-library__heading { display: block; } .video-library__intro { max-width: 520px; margin-top: 20px; } .video-grid { gap: 14px; } .video-card__body { padding-inline: 14px; } .video-card h3 { font-size: 14px; } }
+@media (max-width: 760px) { .video-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; } .video-card__body { padding-inline: 18px; } .video-card h3 { font-size: 17px; } .video-library__intro { font-size: 15px; } }
+@media (hover: hover) { .video-tabs button:hover { background: #160e1a; } }
+@media (max-width: 600px) {
+  .video-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .video-tabs button { padding: 8px 6px; }
+  .video-tabs span { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { .video-card { animation: none; } .video-tabs button, .video-tabs button::after, .video-card__play { transition: none; } }
 </style>

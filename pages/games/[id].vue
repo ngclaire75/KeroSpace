@@ -94,15 +94,33 @@ useHead(() => ({
     <SiteNav />
     <div class="story-promo">
       <img
-        src="/images/teal-chibi-banner-esrgan-2x-1920.webp"
-        srcset="/images/teal-chibi-banner-esrgan-2x-640.webp 640w, /images/teal-chibi-banner-esrgan-2x-960.webp 960w, /images/teal-chibi-banner-esrgan-2x-1280.webp 1280w, /images/teal-chibi-banner-esrgan-2x-1920.webp 1920w, /images/teal-chibi-banner-esrgan-2x-2560.webp 2560w, /images/teal-chibi-banner-esrgan-2x-3200.webp 3200w"
+        src="/images/lavender-chibi-banner-esrgan-2x-1920.webp"
+        srcset="/images/lavender-chibi-banner-esrgan-2x-640.webp 640w, /images/lavender-chibi-banner-esrgan-2x-1280.webp 1280w, /images/lavender-chibi-banner-esrgan-2x-1920.webp 1920w, /images/lavender-chibi-banner-esrgan-2x-2560.webp 2560w, /images/lavender-chibi-banner-esrgan-2x-3200.webp 3200w, /images/lavender-chibi-banner-esrgan-2x-4344.webp 4344w"
         sizes="100vw"
-        width="3200"
-        height="1066"
-        alt="Chibi character with dark teal-streaked hair on a teal and cream blog banner with Korean lettering"
+        width="4344"
+        height="1448"
+        alt="Chibi Keqing framed by lavender and cream ribbons in a fantasy landscape"
         fetchpriority="high"
         decoding="async"
       >
+    </div>
+    <div class="blog-ticker" role="region" aria-label="저희 블로그에 오신 것을 환영합니다!">
+      <div class="blog-ticker__track" aria-hidden="true">
+        <div v-for="copy in 2" :key="copy" class="blog-ticker__group">
+          <div v-for="item in 8" :key="item" class="blog-ticker__item">
+            <span lang="ko">저희 블로그에 오신 것을 환영합니다!</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
+              <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5">
+                <path d="M19.9801 15C19.9801 18.9062 14.7132 20 12 20C9.28677 20 4.01994 18.9062 4.01994 15C4.01995 13.5815 3.78875 11.9744 4.90066 10.6602M18.384 10C18.6692 10.2094 18.9048 10.4303 19.0993 10.6602C19.7993 11.0634 19.9781 9.55469 19.9801 9.0625V7.18761C19.9801 5.56261 18.8629 5.00011 17.9053 5.00011C16.9477 5.00011 15.0324 6.5625 14.394 6.5625C13.6279 6.5625 13.4804 6.40636 12 6.40636C10.5197 6.40636 10.3721 6.5625 9.60601 6.5625C8.9676 6.5625 7.05236 5 6.09476 5C5.13715 5 4.01995 5.5625 4.01995 7.1875V9.0625C4.02188 9.55469 4.20072 11.0634 4.90066 10.6602M4.90066 10.6602C5.09519 10.4303 5.33082 10.2094 5.61599 10" />
+                <path d="M12.826 16C12.826 16.1726 12.465 16.3125 12.0196 16.3125C11.5742 16.3125 11.2131 16.1726 11.2131 16C11.2131 15.8274 11.5742 15.6875 12.0196 15.6875C12.465 15.6875 12.826 15.8274 12.826 16Z" />
+                <path d="M15.5 13.5938C15.5 14.0252 15.2834 14.375 15.0161 14.375C14.7489 14.375 14.5323 14.0252 14.5323 13.5938C14.5323 13.1623 14.7489 12.8125 15.0161 12.8125C15.2834 12.8125 15.5 13.1623 15.5 13.5938Z" />
+                <path d="M9.5 13.5938C9.5 14.0252 9.28336 14.375 9.01613 14.375C8.74889 14.375 8.53226 14.0252 8.53226 13.5938C8.53226 13.1623 8.74889 12.8125 9.01613 12.8125C9.28336 12.8125 9.5 13.1623 9.5 13.5938Z" />
+                <path d="M22.0004 15.4688C21.5165 15.1562 19.4197 14.375 18.6133 14.375M20.3871 17.9688C19.9033 17.6562 18.7742 16.875 17.9678 16.875M2 15.4688C2.48387 15.1562 4.58065 14.375 5.3871 14.375M3.61279 17.9688C4.09667 17.6562 5.2257 16.875 6.03215 16.875" />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
     </div>
     <main id="story-content" ref="storyRoot" class="story-main" :class="{ 'is-reveal-ready': revealReady }">
       <header class="story-header">
@@ -138,8 +156,20 @@ useHead(() => ({
 .game-story-page { min-height: 100svh; background: #000; }
 .story-main { --story-radius: 10px; --story-edge: #302638; --story-gradient: linear-gradient(100deg, #c6a7ff, #e2b3f5 50%, #ffb4d7); --ink: #fff; --ink-2: #fff; --ink-3: #fff; color: #fff; width: calc(100% - 2 * clamp(16px, 4vw, 40px)); max-width: 1240px; margin-inline: auto; padding-top: clamp(44px, 6vw, 80px); padding-bottom: clamp(72px, 9vw, 120px); }
 .story-main ::selection { color: #000; background: #e5c4ff; }
-.story-promo { width: 100%; aspect-ratio: 3 / 1; overflow: hidden; margin-top: clamp(24px, 3vw, 40px); margin-bottom: clamp(28px, 3vw, 44px); }
-.story-promo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.story-promo { width: 100%; aspect-ratio: 3.5 / 1; overflow: hidden; margin-top: clamp(24px, 3vw, 40px); }
+.story-promo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.blog-ticker { position: relative; width: 100%; overflow: hidden; padding: 6px 0; background: linear-gradient(100deg, #d8baff, #f9c3e5); color: #000; margin-bottom: clamp(28px, 3vw, 44px); box-shadow: 0 0 18px #cf9eff66, 0 0 40px #edb4e633, inset 0 1px 0 #ffffff59; }
+.blog-ticker__track { display: flex; width: max-content; will-change: transform; animation: blog-ticker-scroll 40s linear infinite; }
+.blog-ticker__group { display: flex; align-items: center; justify-content: space-around; flex-shrink: 0; min-width: 100vw; }
+.blog-ticker__item { display: flex; align-items: center; flex-shrink: 0; gap: clamp(14px, 1.8vw, 24px); padding-right: clamp(14px, 1.8vw, 24px); white-space: nowrap; }
+.blog-ticker__item span { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Noto Sans CJK KR', 'Malgun Gothic', var(--ui); font-size: clamp(12px, 1vw, 14px); font-weight: 800; line-height: 1.4; letter-spacing: .02em; color: #000; text-shadow: none; }
+.blog-ticker__item svg { display: block; flex-shrink: 0; width: clamp(16px, 1.2vw, 18px); height: auto; color: #000; filter: none; }
+@supports (text-box: trim-both cap alphabetic) {
+  .blog-ticker { padding: 9px 0; }
+  .blog-ticker__item span { text-box: trim-both cap alphabetic; }
+}
+.blog-ticker:hover .blog-ticker__track, .blog-ticker:focus-within .blog-ticker__track { animation-play-state: paused; }
+@keyframes blog-ticker-scroll { to { transform: translateX(-50%); } }
 .story-header { max-width: 1060px; margin: 0 0 64px; text-align: left; }
 .story-category, .chapter-label { font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; line-height: 1.6; }
 .story-category { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: #fff; }
@@ -185,6 +215,10 @@ h1, .story-chapter h2 { color: #d7b7ff; }
 [data-heading-reveal].is-revealed { transition: opacity 400ms ease-out; transition-delay: var(--heading-delay, 0ms); }
 .story-main.is-reveal-ready [data-heading-reveal]:not(.is-revealed) { opacity: 0; transition: none; }
 @media (prefers-reduced-motion: reduce) {
+  .blog-ticker__track { width: 100%; animation: none; }
+  .blog-ticker__group { min-width: 0; width: 100%; padding-inline: 16px; }
+  .blog-ticker__group + .blog-ticker__group, .blog-ticker__item + .blog-ticker__item { display: none; }
+  .blog-ticker__item { flex-shrink: 1; gap: 12px; white-space: normal; text-align: center; }
   .story-main [data-heading-reveal],
   .story-main.is-reveal-ready [data-heading-reveal]:not(.is-revealed) { opacity: 1; transition: none; }
 }
