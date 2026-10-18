@@ -158,14 +158,13 @@ useHead(() => ({
 .story-main ::selection { color: #000; background: #e5c4ff; }
 .story-promo { width: 100%; aspect-ratio: 3.5 / 1; overflow: hidden; margin-top: clamp(24px, 3vw, 40px); }
 .story-promo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-.blog-ticker { position: relative; width: 100%; overflow: hidden; padding: 6px 0; background: linear-gradient(100deg, #d8baff, #f9c3e5); color: #000; margin-bottom: clamp(28px, 3vw, 44px); box-shadow: 0 0 18px #cf9eff66, 0 0 40px #edb4e633, inset 0 1px 0 #ffffff59; }
+.blog-ticker { position: relative; display: flex; align-items: center; min-height: 28px; width: 100%; overflow: hidden; padding: 0; background: linear-gradient(100deg, #d8baff, #f9c3e5); color: #000; margin-bottom: clamp(28px, 3vw, 44px); box-shadow: 0 0 18px #cf9eff66, 0 0 40px #edb4e633, inset 0 1px 0 #ffffff59; }
 .blog-ticker__track { display: flex; width: max-content; will-change: transform; animation: blog-ticker-scroll 40s linear infinite; }
 .blog-ticker__group { display: flex; align-items: center; justify-content: space-around; flex-shrink: 0; min-width: 100vw; }
 .blog-ticker__item { display: flex; align-items: center; flex-shrink: 0; gap: clamp(14px, 1.8vw, 24px); padding-right: clamp(14px, 1.8vw, 24px); white-space: nowrap; }
 .blog-ticker__item span { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Noto Sans CJK KR', 'Malgun Gothic', var(--ui); font-size: clamp(12px, 1vw, 14px); font-weight: 800; line-height: 1.4; letter-spacing: .02em; color: #000; text-shadow: none; }
-.blog-ticker__item svg { display: block; flex-shrink: 0; width: clamp(16px, 1.2vw, 18px); height: auto; color: #000; filter: none; }
+.blog-ticker__item svg { display: block; flex-shrink: 0; width: clamp(18px, 1.4vw, 22px); height: auto; margin-block: -5px; color: #000; filter: none; }
 @supports (text-box: trim-both cap alphabetic) {
-  .blog-ticker { padding: 9px 0; }
   .blog-ticker__item span { text-box: trim-both cap alphabetic; }
 }
 .blog-ticker:hover .blog-ticker__track, .blog-ticker:focus-within .blog-ticker__track { animation-play-state: paused; }
@@ -196,6 +195,11 @@ h1, .story-chapter h2 { color: #d7b7ff; }
 .story-main :focus-visible { outline: 2px solid #e5c4ff; outline-offset: 5px; }
 .skip-link { position: fixed; top: -100px; left: 16px; z-index: 30; background: #e5c4ff; color: #000; border-radius: 8px; padding: 14px; }
 .skip-link:focus { top: 16px; }
+
+@media (min-width: 1024px) {
+  .story-promo { aspect-ratio: 4.5 / 1; }
+  .story-promo img { object-position: center; }
+}
 
 @media (max-width: 760px) {
   .story-main { padding-top: 36px; }

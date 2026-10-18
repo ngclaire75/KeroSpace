@@ -313,7 +313,7 @@ onBeforeUnmount(() => {
   grid-template-columns: minmax(0, 1fr);
   margin-top: 28px;
   padding: 2px;
-  border-radius: 10px;
+  border-radius: 0;
   overflow: hidden;
   background: conic-gradient(from var(--kero-banner-angle), #ff3859, #d9d9df, #ff3859);
   animation: banner-outline 6s linear infinite;
@@ -330,7 +330,7 @@ onBeforeUnmount(() => {
   min-width: 0;
   aspect-ratio: 1916 / 821;
   overflow: hidden;
-  border-radius: 8px 8px 0 0;
+  border-radius: 0;
   background: #08080a;
 }
 .feature__slide {
@@ -381,7 +381,7 @@ onBeforeUnmount(() => {
 .feature__body {
   position: relative;
   isolation: isolate;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0;
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   gap: clamp(24px, 4vw, 56px);
@@ -471,7 +471,7 @@ onBeforeUnmount(() => {
   position: relative;
   padding: 22px;
   border: 2px solid transparent;
-  border-radius: 8px;
+  border-radius: 0;
   background: var(--panel);
   transition: border-color 0.3s;
 }
@@ -551,8 +551,7 @@ onBeforeUnmount(() => {
   padding: 0;
   text-align: left;
   border: 2px solid transparent;
-  /* matches the feature panel above */
-  border-radius: 10px;
+  border-radius: 0;
   overflow: hidden;
   background:
     radial-gradient(120% 70% at 50% 0%, rgba(232, 16, 28, 0.1), transparent 62%),
@@ -566,11 +565,11 @@ onBeforeUnmount(() => {
   width: 100%;
   flex-shrink: 0;
   aspect-ratio: 4 / 3;
-  border-radius: 9px 9px 0 0;
+  border-radius: 0;
   overflow: hidden;
   /* the scaling poster is composited, so clip it here rather than relying on
      the card's overflow — keeps the card's own 1px outline unclipped */
-  clip-path: inset(0 round 9px 9px 0 0);
+  clip-path: inset(0);
 }
 .gcard__poster {
   width: 100%;
@@ -727,7 +726,7 @@ onBeforeUnmount(() => {
   min-width: 0;
   padding: 9px 12px;
   border: 1px solid transparent;
-  border-radius: 9px;
+  border-radius: 0;
   background:
     linear-gradient(100deg, rgba(255, 69, 101, .26), rgba(255, 114, 185, .24) 25%, rgba(189, 137, 255, .26) 50%, rgba(255, 114, 185, .24) 75%, rgba(255, 69, 101, .26)) padding-box,
     linear-gradient(100deg, #ff4565, #ff72b9 25%, #bd89ff 50%, #ff72b9 75%, #ff4565) border-box;
@@ -827,7 +826,7 @@ onBeforeUnmount(() => {
     font-size: 15px;
   }
   .feature {
-    border-radius: 10px;
+    border-radius: 0;
   }
   .feature__facts { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .feature__facts div {

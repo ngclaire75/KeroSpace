@@ -134,7 +134,7 @@ function navigate(event: KeyboardEvent, index: number) {
 .video-card__play { position: absolute; z-index: 1; left: 50%; top: 50%; display: grid; place-items: center; width: 54px; height: 40px; margin: -20px 0 0 -27px; border: 0; border-radius: 10px; background: linear-gradient(120deg, #b26bff, #ff9bd9); color: #fff; }
 .video-card__preview-label { position: absolute; z-index: 1; left: 18px; bottom: 12px; color: #fff; font-size: 11px; font-weight: 800; }
 .video-card__body { display: flex; flex: 1; flex-direction: column; min-width: 0; padding: 18px 18px 8px; }
-.video-card__context { margin: 0 0 10px; color: #c4a3dc; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+.video-card__context { margin: 0 0 10px; color: #d8baff; font-size: 10px; text-transform: uppercase; letter-spacing: .1em; }
 .video-card h3 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; min-height: 2.7em; overflow: hidden; margin: 0; color: #fff; font: 800 16px/1.35 var(--display); }
 .video-card__description { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; min-height: 3.4em; overflow: hidden; margin: 12px 0 18px; color: #cbbfd3; font-size: 13px; line-height: 1.7; }
 .video-card__footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; border-top: 1px solid #332337; }

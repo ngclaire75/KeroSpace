@@ -148,7 +148,7 @@ async function copyEnquiry() {
 .shop-eyebrow { margin: 0 0 18px; color: var(--shop-pink); font-size: 11px; line-height: 1.6; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
 .shop-eyebrow--line { display: flex; align-items: center; gap: 10px; color: #fff; }
 h1, h2, h3, p, figure { margin-top: 0; }
-h1 { margin-bottom: 0; font: 900 clamp(38px, 5.2vw, 70px)/1.13 var(--display); letter-spacing: -.035em; text-transform: uppercase; }
+h1 { margin-bottom: 0; font: 900 clamp(28px, 3.8vw, 50px)/1.2 var(--display); letter-spacing: -.03em; text-transform: uppercase; }
 em { font-style: normal; background: linear-gradient(105deg, var(--shop-red), var(--shop-pink) 50%, var(--shop-purple)); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .shop-hero__aside { max-width: 450px; justify-self: end; }
 .shop-hero__aside > p:first-child { color: #fff; font-weight: 800; font-size: 15px; margin-bottom: 12px; }

@@ -52,7 +52,7 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
 
 <style scoped>
 .party-detail { display: flex; flex: 1; flex-direction: column; min-width: 0; }
-.party-detail__art { position: relative; height: 210px; overflow: hidden; border-radius: 12px 12px 0 0; background: #000; }
+.party-detail__art { position: relative; height: 210px; overflow: hidden; border-radius: 0; background: #000; }
 .party-detail__art > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
 .party-detail__art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, .05) 0%, rgba(0, 0, 0, .3) 60%, #000 100%); }
 .party-detail__art-copy { position: absolute; z-index: 1; left: 22px; right: 22px; bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 16px; }

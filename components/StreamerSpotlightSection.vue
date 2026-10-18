@@ -332,7 +332,7 @@ onBeforeUnmount(() => {
 
 /* ---------- creator panel ---------- */
 .creator-card {
-  --creator-radius: 14px;
+  --creator-radius: 0px;
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
   margin-top: clamp(28px, 4vw, 44px);
@@ -351,7 +351,7 @@ onBeforeUnmount(() => {
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #08080c;
-  border-radius: calc(var(--creator-radius) - 2px) 0 0 calc(var(--creator-radius) - 2px);
+  border-radius: var(--creator-radius) 0 0 var(--creator-radius);
 }
 .creator-banner__slide {
   position: absolute;
@@ -455,7 +455,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   min-width: 0;
   padding: clamp(22px, 2.6vw, 34px);
-  border-radius: 0 calc(var(--creator-radius) - 2px) calc(var(--creator-radius) - 2px) 0;
+  border-radius: 0 var(--creator-radius) var(--creator-radius) 0;
 }
 .creator-top {
   display: flex;
@@ -645,8 +645,8 @@ onBeforeUnmount(() => {
   .creator-card {
     grid-template-columns: minmax(0, 1fr);
   }
-  .creator-banner { border-radius: calc(var(--creator-radius) - 2px) calc(var(--creator-radius) - 2px) 0 0; }
-  .creator-body { border-radius: 0 0 calc(var(--creator-radius) - 2px) calc(var(--creator-radius) - 2px); }
+  .creator-banner { border-radius: var(--creator-radius) var(--creator-radius) 0 0; }
+  .creator-body { border-radius: 0 0 var(--creator-radius) var(--creator-radius); }
   .creator-banner__shade {
     background:
       linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, transparent 30%),
@@ -665,7 +665,7 @@ onBeforeUnmount(() => {
     font-size: 15px;
   }
   .creator-card {
-    --creator-radius: 12px;
+    --creator-radius: 0px;
   }
   .creator-banner__brand {
     top: 10px;

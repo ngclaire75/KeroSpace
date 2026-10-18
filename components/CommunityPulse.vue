@@ -168,7 +168,7 @@ function onKey(e: KeyboardEvent, i: number) {
   min-height: 430px;
   padding: 16px;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 0;
   background: #000;
 }
 .spot__art { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--spot-position, center top); }
@@ -196,7 +196,7 @@ function onKey(e: KeyboardEvent, i: number) {
 .glass {
   width: min(400px, 100%);
   padding: 18px 20px;
-  border-radius: 8px;
+  border-radius: 0;
   background: rgba(0, 0, 0, .78);
   -webkit-backdrop-filter: blur(36px) saturate(110%);
   backdrop-filter: blur(36px) saturate(110%);
@@ -233,7 +233,7 @@ function onKey(e: KeyboardEvent, i: number) {
   padding: 0 18px 0 14px;
   overflow: hidden;
   border: 0;
-  border-radius: 10px;
+  border-radius: 0;
   color: #fff;
   font: inherit;
   text-align: left;
@@ -246,7 +246,7 @@ function onKey(e: KeyboardEvent, i: number) {
   inset: 2px;
   isolation: isolate;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 0;
   background: var(--tile-background, #121016);
   pointer-events: none;
 }
