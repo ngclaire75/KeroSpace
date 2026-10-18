@@ -32,7 +32,7 @@ function dates(t: typeof tournaments[number]) {
       </header>
 
       <div class="arena-banner-frame">
-        <img class="arena-banner" src="/images/kagura.webp" alt="" loading="eager" decoding="async" />
+        <img class="arena-banner" src="/images/옵시디아_ 최강자들의 전자스포츠 대회.png" alt="Obsidia esports tournament" width="1672" height="941" loading="eager" decoding="async" />
       </div>
 
       <section id="tournament-archive" class="archive" aria-labelledby="archive-title">
@@ -72,10 +72,11 @@ function dates(t: typeof tournaments[number]) {
 
 <style scoped>
 .esports-page {
-  --es-pink: #ffc4e5;
-  --es-purple: #d8baff;
+  --es-red: #ff244f;
+  --es-pink: #ff3caf;
+  --es-purple: #bd70ff;
   --es-panel: #0b0b0e;
-  --es-grad: linear-gradient(100deg, #d8baff, #ffc4e5);
+  --es-grad: linear-gradient(100deg, var(--es-red), var(--es-pink), var(--es-purple));
   background: #000;
   min-height: 100svh;
 }
@@ -86,10 +87,10 @@ function dates(t: typeof tournaments[number]) {
 h1 { font-family: var(--display); font-size: clamp(30px, 3.8vw, 52px); line-height: 1.3; letter-spacing: -.035em; margin: 0; }
 h1 em { font-style: normal; background: var(--es-grad); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .arena-lead { font-size: 17px; line-height: 1.75; color: var(--ink-2); margin: 22px 0 0; }
-.arena-banner-frame { padding: 2px; margin-bottom: 52px; background: linear-gradient(100deg, #ffc4e5, #d8baff, #ffc4e5, #d8baff); background-size: 300% 100%; animation: arena-banner-sweep 8s linear infinite; }
+.arena-banner-frame { padding: 2px; margin-bottom: 52px; background: linear-gradient(100deg, var(--es-red), var(--es-pink), var(--es-purple), var(--es-red)); background-size: 300% 100%; animation: arena-banner-sweep 8s linear infinite; }
 .arena-banner { display: block; width: 100%; height: auto; }
 @keyframes arena-banner-sweep { to { background-position: -300% 0; } }
-@media (prefers-reduced-motion: reduce) { .arena-banner-frame { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .arena-banner-frame, .tournament-card { animation: none; } }
 .archive { padding-top: 36px; scroll-margin-top: 24px; }
 .schedule-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin: 20px 0 28px; }
 .schedule-links a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: var(--es-pink); font-size: 13px; font-weight: 800; }
@@ -97,7 +98,7 @@ h1 em { font-style: normal; background: var(--es-grad); background-clip: text; -
 h2 { font-family: var(--display); font-size: clamp(21px, 2.5vw, 30px); margin: 0; line-height: 1.4; }
 .game-note { max-width: 820px; color: var(--ink-2); font-size: 15px; line-height: 1.75; margin: 18px 0 0; }
 .tournament-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
-.tournament-card { min-width: 0; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ffb3df, #d8b4ff, #ffb3df); animation: card-outline-turn 3s linear infinite; }
+.tournament-card { min-width: 0; padding: 2px; background: var(--es-pink); }
 .tournament-card__inner { display: flex; flex-direction: column; height: 100%; min-width: 0; overflow: hidden; background: var(--es-panel); }
 .event-video, .event-poster { position: relative; aspect-ratio: 16/9; }
 .event-video { overflow: hidden; background: #100b13; }
@@ -105,7 +106,7 @@ h2 { font-family: var(--display); font-size: clamp(21px, 2.5vw, 30px); margin: 0
 .event-video button { position: absolute; inset: 0; display: block; width: 100%; height: 100%; padding: 0; border: 0; overflow: hidden; background: #100b13; cursor: pointer; }
 .event-video img { width: 100%; height: 100%; object-fit: cover; }
 .event-video button::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, #000a); pointer-events: none; }
-.play-symbol { position: absolute; z-index: 1; left: 50%; top: 50%; display: grid; place-items: center; width: 54px; height: 40px; margin: -20px 0 0 -27px; border: 0; border-radius: 10px; background: linear-gradient(120deg, #b26bff, #ff9bd9); color: #fff; }
+.play-symbol { position: absolute; z-index: 1; left: 50%; top: 50%; display: grid; place-items: center; width: 54px; height: 40px; margin: -20px 0 0 -27px; border: 0; border-radius: 10px; background: var(--es-grad); color: #fff; }
 .event-poster { display: flex; align-items: center; justify-content: space-around; gap: 16px; padding: 24px; background: radial-gradient(ellipse at 15% 10%, #50375c, #141019 70%); }
 .event-poster img { width: 48%; max-height: 90px; object-fit: contain; }
 .event-poster > span { font-family: var(--display); color: #e6ccff; font-size: 28px; }
