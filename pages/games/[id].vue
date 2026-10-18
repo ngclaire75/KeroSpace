@@ -197,8 +197,8 @@ h1, .story-chapter h2 { color: #d7b7ff; }
 .skip-link:focus { top: 16px; }
 
 @media (min-width: 1024px) {
-  .story-promo { aspect-ratio: 4.5 / 1; }
-  .story-promo img { object-position: center; }
+  .story-promo { aspect-ratio: 4.8 / 1; margin-top: clamp(16px, 2vw, 28px); }
+  .story-promo img { height: auto; aspect-ratio: 4.5 / 1; object-position: center; }
 }
 
 @media (max-width: 760px) {
