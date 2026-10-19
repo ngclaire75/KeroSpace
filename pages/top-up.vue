@@ -23,7 +23,7 @@ const games = [
   { id: 'mlbb', name: 'Mobile Legends: Bang Bang' },
 ]
 const services = [
-  { id: 'top-up', name: 'Game top-up', short: 'Top ups', lines: ['Top ', 'ups'], description: 'Tell us the amount or package you have in mind. Ask about available options for your game and region.' },
+  { id: 'top-up', name: 'Game top-up', short: 'Top up services', lines: ['Top up ', 'services'], description: 'Tell us the amount or package you have in mind. Ask about available options for your game and region.' },
   { id: 'accounts', name: 'Account services', short: 'Account services', lines: ['Account ', 'services'], description: 'Describe the account service you are looking for. Ask which options are available for your game.' },
   { id: 'support', name: 'Game support', short: 'Game support', lines: ['Game ', 'support'], description: 'Tell us what you need a hand with and what you would like to achieve. Ask about available assistance for your game.' },
   { id: 'rank-up', name: 'Mobile Legends rank-up', short: 'Rank up', lines: ['Rank ', 'up'], description: 'Share your current rank, target rank and budget. Let’s discuss the scope, price and service details for your climb.' },

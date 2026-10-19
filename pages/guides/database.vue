@@ -160,7 +160,7 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
               <div v-for="(priority, index) in build.priorities" :key="`${priority.label}-${index}`" class="cb-priority">
                 <p class="cb-priority__label">{{ priority.label }}</p>
                 <ol class="cb-chain">
-                  <li v-for="(step, si) in steps(priority.value)" :key="si"><span>{{ si + 1 }}</span>{{ step }}</li>
+                  <li v-for="(step, si) in steps(priority.value)" :key="si"><span class="cb-chain__number">{{ si + 1 }}</span><span class="cb-chain__text">{{ step }}</span></li>
                 </ol>
               </div>
             </section>
@@ -306,7 +306,7 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
 /* ============ layout ============ */
 .cb-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
   gap: clamp(28px, 3.4vw, 48px);
 }
@@ -476,8 +476,8 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
 .cb-aside {
   display: grid;
   gap: 16px;
-  /* start level with the top edge of the first card, not its section heading */
-  margin-top: calc(var(--cb-head) + var(--cb-head-gap));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  min-width: 0;
 }
 .cb-panel {
   padding: 22px;
@@ -544,22 +544,30 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
 .cb-chain li {
   display: grid;
   grid-template-columns: 24px minmax(0, 1fr);
-  align-items: start;
+  align-items: center;
   gap: 10px;
   font-size: 13px;
   font-weight: 700;
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
-.cb-chain li span {
+.cb-chain__number {
   display: grid;
   place-items: center;
-  width: 22px;
-  height: 22px;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
   border: 1px solid var(--cb-edge);
   font: 800 10px / 1 var(--display);
 }
-.cb-chain li:first-child span {
+.cb-chain__text {
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+  min-width: 0;
+  line-height: 24px;
+}
+.cb-chain li:first-child .cb-chain__number {
   border-color: transparent;
   background: var(--cb-grad-soft);
 }
@@ -615,7 +623,7 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
     grid-template-columns: minmax(0, 1fr);
   }
   .cb-aside {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
     margin-top: 0;
   }
 }

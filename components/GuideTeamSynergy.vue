@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { teamSynergy } from '~/data/teamSynergy'
-import type { TeamSynergy } from '~/data/characterBuilds'
+import type { TeamSlot, TeamSynergy } from '~/data/characterBuilds'
 const props = defineProps<{ gameId: string; title: string; teams?: TeamSynergy[]; loading?: boolean; sourceUrl?: string }>()
 const guide = computed(() => teamSynergy[props.gameId])
 const memberNames = computed(() => [...new Set((props.teams || []).flatMap(team => team.slots.flatMap(slot => slot.options.map(member => member.name))))])
@@ -9,6 +9,10 @@ const { data: typeIcons } = await useFetch('/api/team-icons', {
   server: false,
   timeout: 90000,
 })
+function slotIcons(slot: TeamSlot) {
+  const icons = slot.options.slice(0, 1).flatMap(member => typeIcons.value?.[member.name] || [])
+  return [...new Map(icons.map(icon => [icon.label, icon])).values()]
+}
 const failedIcons = ref<Record<string, number>>({})
 function iconSource(image: string) {
   return failedIcons.value[image] === 1 ? `/api/game-artwork?src=${encodeURIComponent(image)}` : image
@@ -31,17 +35,16 @@ function retryIcon(image: string) { failedIcons.value[image] = (failedIcons.valu
         <h3>{{ team.name }}</h3>
         <ul class="team-synergy__slots">
           <li v-for="(slot, slotIndex) in team.slots" :key="slotIndex">
-            <template v-for="(member, memberIndex) in slot.options" :key="member.name">
-              <span v-if="memberIndex" class="team-synergy__or">or</span>
+            <template v-for="member in slot.options.slice(0, 1)" :key="member.name">
               <span class="team-synergy__member" :title="member.name">
                 <span class="team-synergy__name">{{ member.name }}</span>
-                <span v-if="typeIcons?.[member.name]?.length" class="team-synergy__icons">
-                  <template v-for="icon in typeIcons[member.name]" :key="icon.image">
-                    <img v-if="(failedIcons[icon.image] || 0) < 2" :src="iconSource(icon.image)" :alt="icon.label" :title="icon.label" width="24" height="24" loading="lazy" referrerpolicy="no-referrer" @error="retryIcon(icon.image)" />
-                  </template>
-                </span>
               </span>
             </template>
+            <span v-if="slotIcons(slot).length" class="team-synergy__icons">
+              <template v-for="icon in slotIcons(slot)" :key="icon.label">
+                <img v-if="(failedIcons[icon.image] || 0) < 2" :src="iconSource(icon.image)" :alt="icon.label" :title="icon.label" width="24" height="24" loading="lazy" referrerpolicy="no-referrer" @error="retryIcon(icon.image)" />
+              </template>
+            </span>
           </li>
         </ul>
       </article>
@@ -71,12 +74,11 @@ function retryIcon(image: string) { failedIcons.value[image] = (failedIcons.valu
 .team-synergy__team { padding: 22px 0; text-align: left; }
 .team-synergy__team > h3 { padding-left: 0; }
 .team-synergy__slots { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
-.team-synergy__slots > li { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 0; min-width: 0; }
-.team-synergy__member { display: flex; align-items: center; gap: 12px; box-sizing: border-box; width: 100%; min-width: 0; padding: 16px; border: 1px solid var(--cb-edge, #4a4a53); border-radius: 0; background: var(--cb-panel, #0a0a0d); text-align: left; font: 800 15px / 1.5 var(--ui); }
+.team-synergy__slots > li { display: flex; align-items: center; gap: 8px; overflow: hidden; box-sizing: border-box; padding: 16px; min-width: 0; border: 1px solid var(--cb-edge, #4a4a53); border-radius: 0; background: var(--cb-panel, #0a0a0d); }
+.team-synergy__member { display: flex; align-items: center; gap: 12px; box-sizing: border-box; flex: 0 1 auto; min-width: 0; overflow: hidden; padding: 0; text-align: left; font: 800 15px / 1.5 var(--ui); }
 .team-synergy__name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .team-synergy__icons { display: flex; align-items: center; gap: 5px; flex-shrink: 0; margin-left: auto; }
 .team-synergy__icons img { display: block; width: 24px; height: 24px; object-fit: contain; }
-.team-synergy__or { padding-left: 17px; color: #bfb4c7; font: 600 11px / 1.4 var(--ui); }
 .team-synergy__plan { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 30px; }
 .team-synergy__roles { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 0; padding: 0; list-style: none; color: #e8c4fa; font: 800 12px / 1.6 var(--ui); text-transform: uppercase; }
 .team-synergy__tips { margin: 0; padding-left: 18px; }

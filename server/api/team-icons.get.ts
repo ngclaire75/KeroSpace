@@ -8,7 +8,7 @@ const loadIcons = defineCachedFunction(async (game: string, title: string) => {
   })
   if (!response.parse?.text?.['*']) throw new Error('Character type unavailable')
   return parseTeamTypeIcons(game, response.parse.text['*'])
-}, { name: 'team-type-icons-v1', maxAge: 86400, swr: true, getKey: (game, title) => `${game}:${title}` })
+}, { name: 'team-type-icons-v2', maxAge: 86400, swr: true, getKey: (game, title) => `${game}:${title}` })
 
 export default defineEventHandler(async event => {
   const query = getQuery(event)
@@ -21,7 +21,8 @@ export default defineEventHandler(async event => {
   for (let start = 0; start < titles.length; start += 6) {
     await Promise.all(titles.slice(start, start + 6).map(async title => {
       // Constellation/eidolon recommendations are not part of wiki page names.
-      const page = title.replace(/^(?:[CE]\d+|S\d+)\s+/i, '').trim()
+      const name = title.replace(/^(?:[CE]\d+|S\d+)\s+/i, '').trim()
+      const page = game === 'nte' && /^daffodill?$/i.test(name) ? 'Daffodill' : name
       try { icons[title] = await loadIcons(game, page) }
       catch { icons[title] = [] }
     }))
