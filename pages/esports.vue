@@ -32,7 +32,7 @@ function dates(t: typeof tournaments[number]) {
       </header>
 
       <div class="arena-banner-frame">
-        <img class="arena-banner" src="/images/esports-obsidia-banner.webp" alt="Obsidia esports tournament" width="1672" height="941" loading="eager" decoding="async" />
+        <AppImage class="arena-banner" src="/images/esports-obsidia-banner-esrgan-2x.webp" sizes="(max-width: 1200px) 100vw, 1200px" alt="Obsidia esports tournament" width="3344" height="1882" fetchpriority="high" loading="eager" decoding="async" />
       </div>
 
       <section id="tournament-archive" class="archive" aria-labelledby="archive-title">

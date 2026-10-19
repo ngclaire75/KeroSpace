@@ -130,7 +130,7 @@ export const pulseGames: PulseGame[] = [
       { name: 'Daffodill', tag: 'Esper', art: '/images/characters/pulse/hd/nte-2-art.webp', artPosition: '50% 60%', spotPosition: '50% 60%', spotMobilePosition: '50% 35%', comments: 14300, sentiment: { loved: 60, mixed: 29, critical: 11 } },
       { name: 'Sakiri', tag: 'Esper', art: '/images/characters/pulse/hd/nte-3-art.webp', artPosition: '50% 50%', spotPosition: '50% 60%', spotMobilePosition: '50% 35%', comments: 11200, sentiment: { loved: 57, mixed: 30, critical: 13 } },
       { name: 'Mint', tag: 'Esper', art: '/images/characters/pulse/hd/nte-4-art.webp', artPosition: '50% 60%', spotPosition: '50% 55%', spotMobilePosition: '50% 35%', comments: 8800, sentiment: { loved: 63, mixed: 27, critical: 10 } },
-      { name: 'Hathor', tag: 'Esper', art: '/images/characters/pulse/hd/nte-5-art.webp', artPosition: '50% 40%', spotPosition: '50% 40%', spotMobilePosition: '50% 30%', comments: 6100, sentiment: { loved: 55, mixed: 31, critical: 14 } },
+      { name: 'Hathor', tag: 'Esper', art: '/images/characters/pulse/hd/nte-hathor-latest.webp', artPosition: '50% 38%', spotPosition: '50% 38%', spotMobilePosition: '50% 38%', comments: 6100, sentiment: { loved: 55, mixed: 31, critical: 14 } },
     ],
     items: [
       { name: 'Vehicles', type: 'Driving', comments: 7800 },
@@ -150,7 +150,7 @@ export const pulseGames: PulseGame[] = [
     characters: [
       { name: 'Ling', tag: 'Assassin', art: '/images/characters/pulse/hd/mlbb-ling-card-blue.webp', artPosition: '50% 35%', spotArt: '/images/characters/pulse/hd/mlbb-1-art.webp', spotPosition: '50% 30%', spotMobilePosition: '50% 25%', comments: 44100, sentiment: { loved: 52, mixed: 28, critical: 20 } },
       { name: 'Fanny', tag: 'Assassin', art: '/images/characters/pulse/hd/mlbb-fanny-latest.webp', artPosition: '50% 35%', spotPosition: '50% 35%', spotMobilePosition: '50% 30%', comments: 39800, sentiment: { loved: 50, mixed: 27, critical: 23 } },
-      { name: 'Gusion', tag: 'Assassin', art: '/images/characters/pulse/hd/mlbb-3-art.webp', artPosition: '55% 30%', spotPosition: '55% 25%', spotMobilePosition: '55% 25%', comments: 31500, sentiment: { loved: 56, mixed: 27, critical: 17 } },
+      { name: 'Gusion', tag: 'Assassin', art: '/images/characters/pulse/hd/mlbb-gusion-latest.webp', artPosition: '50% 32%', spotPosition: '50% 32%', spotMobilePosition: '50% 32%', comments: 31500, sentiment: { loved: 56, mixed: 27, critical: 17 } },
       { name: 'Vexana', tag: 'Mage', art: '/images/characters/pulse/hd/mlbb-4-art.webp', artPosition: '52% 32%', spotPosition: '52% 25%', spotMobilePosition: '52% 25%', comments: 22300, sentiment: { loved: 61, mixed: 26, critical: 13 } },
       { name: 'Lancelot', tag: 'Assassin', art: '/images/characters/pulse/hd/mlbb-5-art.webp', artPosition: '50% 25%', spotPosition: '50% 25%', spotMobilePosition: '50% 20%', comments: 20900, sentiment: { loved: 54, mixed: 29, critical: 17 } },
     ],
