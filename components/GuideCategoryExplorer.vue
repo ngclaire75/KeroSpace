@@ -156,13 +156,24 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   }
 }
 @media (max-width: 540px) {
+  .explorer__panel {
+    margin-inline: -8px;
+  }
+  .explorer__copy {
+    min-width: 0;
+    padding-inline: 24px;
+  }
   .explorer__features {
     display: flex;
     flex-wrap: nowrap;
     gap: 20px;
     max-width: 100%;
     overflow-x: auto;
+    scrollbar-width: none;
     padding-bottom: 4px;
+  }
+  .explorer__features::-webkit-scrollbar {
+    display: none;
   }
   .explorer__features li {
     flex: 0 0 auto;
