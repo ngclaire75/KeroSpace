@@ -12,9 +12,8 @@ const columns = [
       { label: 'Home', href: '/' },
       { label: 'Games', href: '/#supported-games' },
       { label: 'Community', href: '/community' },
-      { label: 'Guides', href: '/#' },
+      { label: 'Guides', href: '/guides' },
       { label: 'Top Up', href: '/top-up' },
-      { label: 'E-Sports', href: '/esports' },
     ],
   },
   {

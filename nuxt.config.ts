@@ -2,6 +2,8 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
   devtools: { enabled: false },
+  // Production checks must not overwrite a running dev server's generated files.
+  $production: { buildDir: '.nuxt-production' },
   ssr: true,
   runtimeConfig: { public: { siteUrl: '' } },
 

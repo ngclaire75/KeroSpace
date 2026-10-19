@@ -44,7 +44,7 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
         <p>{{ game.details[mode.id].description }}</p>
         <p class="party-mode__note"><span>Good to know</span>{{ game.details[mode.id].note }}</p>
         <a :href="game.details[mode.id].source" target="_blank" rel="noopener noreferrer"
-          :aria-label="`Official ${mode.name} information for ${game.name} (opens in a new tab)`">Official details <span aria-hidden="true">↗</span></a>
+          :aria-label="`Official ${mode.name} information for ${game.name} (opens in a new tab)`">Official details&nbsp;<span aria-hidden="true">↗</span></a>
       </li>
     </ol>
   </div>
@@ -76,8 +76,10 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
 .party-mode h4 { margin: 12px 0 6px; font-size: 19px; font-weight: 800; line-height: 1.3; letter-spacing: -.02em; }
 .party-mode p { margin: 0; color: #f3edf7; font-size: 14px; line-height: 1.65; }
 .party-mode .party-mode__note { display: grid; gap: 3px; margin-top: 10px; color: var(--together-muted, #c1b9c9); font-size: 13px; line-height: 1.6; }
-.party-mode a { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; margin-top: 4px; font-size: 12px; font-weight: 800; text-underline-offset: 4px; }
-.party-mode a:hover { text-decoration: underline; }
+/* one continuous underline drawn under the label and the arrow together */
+.party-mode a { display: inline-block; padding-block: 11px; margin-top: 4px; font-size: 12px; font-weight: 800; line-height: 18px; background: linear-gradient(currentColor, currentColor) 0 calc(100% - 8px) / 0 1px no-repeat; transition: background-size .25s ease; }
+.party-mode a > span { margin-left: 2px; }
+.party-mode a:hover { background-size: 100% 1px; }
 .party-mode a > span { color: #ff83cf; font-size: 16px; }
 
 @media (max-width: 860px) {

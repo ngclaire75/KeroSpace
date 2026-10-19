@@ -6,9 +6,8 @@ const links = computed(() => [
   { label: 'Home', href: '/', active: route.path === '/' && !route.hash },
   { label: 'Games', href: '/#supported-games', active: route.path === '/' && route.hash === '#supported-games' },
   { label: 'Community', href: '/community', active: route.path === '/community' },
-  { label: 'Guides' },
+  { label: 'Guides', href: '/guides', active: route.path.startsWith('/guides') },
   { label: 'Top Up', href: '/top-up', active: route.path === '/top-up' },
-  { label: 'E-Sports', href: '/esports', active: route.path === '/esports' },
 ])
 
 const open = ref(false)

@@ -1,0 +1,856 @@
+{
+  "1": {
+    "name": "Miya",
+    "image": "/images/mlbb-cutouts/hero-1.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_f6d3f7f102e1f0fb9dc92b971d1128ec.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "2": {
+    "name": "Balmond",
+    "image": "/images/mlbb-cutouts/hero-2.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_80be8a6ffd65666746a218bdae1648a0.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "3": {
+    "name": "Saber",
+    "image": "/images/mlbb-cutouts/hero-3.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_e3171fbce7f67586df05233bfa1635c5.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "4": {
+    "name": "Alice",
+    "image": "/images/mlbb-cutouts/hero-4.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_34013ffb449baa842122de6126e43259.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "5": {
+    "name": "Nana",
+    "image": "/images/mlbb-cutouts/hero-5.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_ff9412a3d36170f98801085bb32f7bad.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "6": {
+    "name": "Tigreal",
+    "image": "/images/mlbb-cutouts/hero-6.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_2f346943d85318a466b5eba513682d7c.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "7": {
+    "name": "Alucard",
+    "image": "/images/mlbb-cutouts/hero-7.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_3c0135f79624621b63ff686f540b2a78.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "8": {
+    "name": "Karina",
+    "image": "/images/mlbb-cutouts/hero-8.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_44a9d295baa79bf949fe562ba1b15f2e.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "9": {
+    "name": "Akai",
+    "image": "/images/mlbb-cutouts/hero-9.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_7ed2c59361619204e6e2134e2452bd8e.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "10": {
+    "name": "Franco",
+    "image": "/images/mlbb-cutouts/hero-10.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_e6e87e9b82ab7863cbcb678e544200e4.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "11": {
+    "name": "Bane",
+    "image": "/images/mlbb-cutouts/hero-11.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_384c3e16350f91e191de2351d73a9980.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "12": {
+    "name": "Bruno",
+    "image": "/images/mlbb-cutouts/hero-12.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_890739c136c183bc1a128867baf2a357.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "13": {
+    "name": "Clint",
+    "image": "/images/mlbb-cutouts/hero-13.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_3f5ffe36b6e07ded46dac0ce665d971b.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "14": {
+    "name": "Rafaela",
+    "image": "/images/mlbb-cutouts/hero-14.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_c4d4ab4a6353c0dd1481a59d57d09cdf.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "15": {
+    "name": "Eudora",
+    "image": "/images/mlbb-cutouts/hero-15.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_86c82f8ea9c76bfb38f5fa83320928e6.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "16": {
+    "name": "Zilong",
+    "image": "/images/mlbb-cutouts/hero-16.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_d218e81f1b2383e3def3d6a14796d74e.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "17": {
+    "name": "Fanny",
+    "image": "/images/mlbb-cutouts/hero-17.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_eec0194a974ed18ceb71bf5d86457d4e.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "18": {
+    "name": "Layla",
+    "image": "/images/mlbb-cutouts/hero-18.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_5a532838b7358fed58458c612da3d59b.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "19": {
+    "name": "Minotaur",
+    "image": "/images/mlbb-cutouts/hero-19.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_1d1c6132b7cb0a2031972d45029967db.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "20": {
+    "name": "Lolita",
+    "image": "/images/mlbb-cutouts/hero-20.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_c58952634f940136c125ba17aad8376e.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "21": {
+    "name": "Hayabusa",
+    "image": "/images/mlbb-cutouts/hero-21.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_261209d8154dbe2bf6d4292076b0437f.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "22": {
+    "name": "Freya",
+    "image": "/images/mlbb-cutouts/hero-22.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_703d1d626507f05ff72c799f53b123b9.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "23": {
+    "name": "Gord",
+    "image": "/images/mlbb-cutouts/hero-23.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_818d00fbb946feca543a95ff7b035ec5.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "24": {
+    "name": "Natalia",
+    "image": "/images/mlbb-cutouts/hero-24.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_8ca11ea3470a120eb3b011225e40bf08.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "25": {
+    "name": "Kagura",
+    "image": "/images/mlbb-cutouts/hero-25.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_81334e359e0b00a4797ce3c80a49ca73.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "26": {
+    "name": "Chou",
+    "image": "/images/mlbb-cutouts/hero-26.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_57d7c6285b0aeb615f8b4e8865e6dc7b.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "27": {
+    "name": "Sun",
+    "image": "/images/mlbb-cutouts/hero-27.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_da4cfb603eab2b975aa8f7630881e3a9.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "28": {
+    "name": "Alpha",
+    "image": "/images/mlbb-cutouts/hero-28.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_e7ace719171987280795da2c885daf03.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "29": {
+    "name": "Ruby",
+    "image": "/images/mlbb-cutouts/hero-29.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_87a6b382c3e5b864cdcd8f7752151a96.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "30": {
+    "name": "Yi Sun-shin",
+    "image": "/images/mlbb-cutouts/hero-30.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_e7ec78a2d7f84ef57deac87ec2b40dbf.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "31": {
+    "name": "Moskov",
+    "image": "/images/mlbb-cutouts/hero-31.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_67e50f5bc90601cd0596bd41d0572baa.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "32": {
+    "name": "Johnson",
+    "image": "/images/mlbb-cutouts/hero-32.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_2ad944e166e69a31623ccdb1f4b38f91.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "33": {
+    "name": "Cyclops",
+    "image": "/images/mlbb-cutouts/hero-33.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_70d3453531870386192d20dd91aa882c.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "34": {
+    "name": "Estes",
+    "image": "/images/mlbb-cutouts/hero-34.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_c10f7328de015adbc999254a72c912d8.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "35": {
+    "name": "Hilda",
+    "image": "/images/mlbb-cutouts/hero-35.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_e71f7aa2d75cd340da108318b3d5a3f1.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "42": {
+    "name": "Harley",
+    "image": "/images/mlbb-cutouts/hero-42.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_3197492c35e6a2918d9196e4989cfda9.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "43": {
+    "name": "Irithel",
+    "image": "/images/mlbb-cutouts/hero-43.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_a1faeef3e2187f0938c2eeff4a7bf962.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "44": {
+    "name": "Grock",
+    "image": "/images/mlbb-cutouts/hero-44.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_b6bfa6adbe8c282a0b83f3f3a5bd85c7.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "45": {
+    "name": "Argus",
+    "image": "/images/mlbb-cutouts/hero-45.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_e6c706529acaf3f6c703405673af945b.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "46": {
+    "name": "Odette",
+    "image": "/images/mlbb-cutouts/hero-46.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_8ecd04f6d20c82508e69b839ca49131b.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "47": {
+    "name": "Lancelot",
+    "image": "/images/mlbb-cutouts/hero-47.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_9d7d32fc7cd9da8b47003178a279c046.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "53": {
+    "name": "Lesley",
+    "image": "/images/mlbb-cutouts/hero-53.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_fe343ddb9097b53f2d1e27d1c342add7.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "54": {
+    "name": "Jawhead",
+    "image": "/images/mlbb-cutouts/hero-54.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_6761b204394f78d20d60c8bd707a28b2.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "55": {
+    "name": "Angela",
+    "image": "/images/mlbb-cutouts/hero-55.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_07643d046530288eb0ff56f13b5e31dd.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "56": {
+    "name": "Gusion",
+    "image": "/images/mlbb-cutouts/hero-56.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_b0de2d71aeb40a289c44288b1861b641.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "57": {
+    "name": "Valir",
+    "image": "/images/mlbb-cutouts/hero-57.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_88b057a88cdb623936e6d9d49e081aa7.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "58": {
+    "name": "Martis",
+    "image": "/images/mlbb-cutouts/hero-58.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_2fe6e9c466dbcf83d81b6f37e311bfcd.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "59": {
+    "name": "Uranus",
+    "image": "/images/mlbb-cutouts/hero-59.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_8d6008a84213058d99ce54a7d445f9d3.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "60": {
+    "name": "Hanabi",
+    "image": "/images/mlbb-cutouts/hero-60.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_aa86eb7d1c6db212d6cfd3921a8dfab2.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "61": {
+    "name": "Chang'e",
+    "image": "/images/mlbb-cutouts/hero-61.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_91e96418810894dfb8b74a3c1a58cc8d.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "62": {
+    "name": "Kaja",
+    "image": "/images/mlbb-cutouts/hero-62.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_92b841a4898314b3a4f1996492bb0b24.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "63": {
+    "name": "Selena",
+    "image": "/images/mlbb-cutouts/hero-63.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_0e2fbc7a5f2e4ba45f7a740daf1910f6.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "64": {
+    "name": "Aldous",
+    "image": "/images/mlbb-cutouts/hero-64.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_4222a9efc85e75188d3048bd7d042d32.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "65": {
+    "name": "Claude",
+    "image": "/images/mlbb-cutouts/hero-65.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_526c87ad0a41e34499fedefdc90357c6.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "66": {
+    "name": "Vale",
+    "image": "/images/mlbb-cutouts/hero-66.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_6045061856a83522959d160c3a9e70b7.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "67": {
+    "name": "Leomord",
+    "image": "/images/mlbb-cutouts/hero-67.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_a7527695da7a9a4ef62739861205b57b.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "68": {
+    "name": "Lunox",
+    "image": "/images/mlbb-cutouts/hero-68.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_86a0c8cc7b2fc883b59a6dd63c766aef.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "69": {
+    "name": "Hanzo",
+    "image": "/images/mlbb-cutouts/hero-69.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_eabfca6f5eec4128626dba78d6aecc81.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "70": {
+    "name": "Belerick",
+    "image": "/images/mlbb-cutouts/hero-70.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_29fa60e268304ff61fce131a158e0ad2.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "71": {
+    "name": "Kimmy",
+    "image": "/images/mlbb-cutouts/hero-71.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_53a544034aaaf52b773be2d2450d16d4.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "72": {
+    "name": "Thamuz",
+    "image": "/images/mlbb-cutouts/hero-72.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_2fc38a2e465b275a72c3308152cab77d.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "73": {
+    "name": "Harith",
+    "image": "/images/mlbb-cutouts/hero-73.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_1b798782cb64820af74f9365dbbf4689.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "74": {
+    "name": "Minsitthar",
+    "image": "/images/mlbb-cutouts/hero-74.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_1c74ac9a30e2fc665c118dce09a721d5.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "75": {
+    "name": "Kadita",
+    "image": "/images/mlbb-cutouts/hero-75.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_812f998f0d153ace42c9c55a10dd2533.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "76": {
+    "name": "Faramis",
+    "image": "/images/mlbb-cutouts/hero-76.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_e6b0467527533e7882bcb7967db96063.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "77": {
+    "name": "Badang",
+    "image": "/images/mlbb-cutouts/hero-77.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_ae19689ee111addb7f2c0e6f8f30a4ec.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "78": {
+    "name": "Khufra",
+    "image": "/images/mlbb-cutouts/hero-78.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_6541be939404a7e45c28a30bd2f2aa16.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "79": {
+    "name": "Granger",
+    "image": "/images/mlbb-cutouts/hero-79.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_f44e2457fb0f3539937c6a181e5dcbc4.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "80": {
+    "name": "Guinevere",
+    "image": "/images/mlbb-cutouts/hero-80.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_c6ee596036c7b8e25760559ab67ff698.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "81": {
+    "name": "Esmeralda",
+    "image": "/images/mlbb-cutouts/hero-81.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_08a84eb0f690c4c4f3865d924c704b25.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "82": {
+    "name": "Terizla",
+    "image": "/images/mlbb-cutouts/hero-82.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_7fe813b1c6b84e6fb234d0428c0c7cd7.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "83": {
+    "name": "X.Borg",
+    "image": "/images/mlbb-cutouts/hero-83.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_3f372795b38be1e2b2037229928bfe57.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "84": {
+    "name": "Ling",
+    "image": "/images/mlbb-cutouts/hero-84.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_563f09baf8ad4675dace2f94af6436de.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "85": {
+    "name": "Dyrroth",
+    "image": "/images/mlbb-cutouts/hero-85.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_ce1031d6d4e49f33719bd3d833a9b45b.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "86": {
+    "name": "Lylia",
+    "image": "/images/mlbb-cutouts/hero-86.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_84a089c2608b908b87c01ce7af5c3162.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "87": {
+    "name": "Baxia",
+    "image": "/images/mlbb-cutouts/hero-87.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_c2ef0eba78b5b1c21c50cb9b696ac71b.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "88": {
+    "name": "Masha",
+    "image": "/images/mlbb-cutouts/hero-88.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_087f15d931d74f75b577f5aff372ce25.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "89": {
+    "name": "Wanwan",
+    "image": "/images/mlbb-cutouts/hero-89.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_d52dd5ccf7d25cb590dc57e48c1df8d2.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "90": {
+    "name": "Silvanna",
+    "image": "/images/mlbb-cutouts/hero-90.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_1582f0613b6c03e1f4f147a3da23d70a.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "91": {
+    "name": "Cecilion",
+    "image": "/images/mlbb-cutouts/hero-91.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_c0bb649180f1f1bfd0ba81b78ee35844.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "92": {
+    "name": "Carmilla",
+    "image": "/images/mlbb-cutouts/hero-92.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_429bbf3c9f1b16aa45bdfdeac80761e5.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "93": {
+    "name": "Atlas",
+    "image": "/images/mlbb-cutouts/hero-93.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_f7b43ccce0423507f62bbe555e9f2395.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "94": {
+    "name": "Popol and Kupa",
+    "image": "/images/mlbb-cutouts/hero-94.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_08f8fb30b35d029e172e0ed9be3be09d.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "95": {
+    "name": "Yu Zhong",
+    "image": "/images/mlbb-cutouts/hero-95.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_dfed2cf32adddc8c9a87fd679321a977.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "96": {
+    "name": "Luo Yi",
+    "image": "/images/mlbb-cutouts/hero-96.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_e8f1e6dd0d7864b66bda10ef65242dd6.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "97": {
+    "name": "Benedetta",
+    "image": "/images/mlbb-cutouts/hero-97.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_11bf645722b931631c3a63d5be7da068.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "98": {
+    "name": "Khaleed",
+    "image": "/images/mlbb-cutouts/hero-98.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_9f6754dc95d5afbacfae441ae43b6051.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "99": {
+    "name": "Barats",
+    "image": "/images/mlbb-cutouts/hero-99.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_dd47c9cac5a4848e8d4d0246a6739fec.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "100": {
+    "name": "Brody",
+    "image": "/images/mlbb-cutouts/hero-100.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_0dd42d343fcd6298ca65eec2a65a6b77.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "101": {
+    "name": "Yve",
+    "image": "/images/mlbb-cutouts/hero-101.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_b98852e20d4e492a55c25565ed1a101e.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "102": {
+    "name": "Mathilda",
+    "image": "/images/mlbb-cutouts/hero-102.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_d7c6f7896c10c7938994ba4c5a28c9c1.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "103": {
+    "name": "Paquito",
+    "image": "/images/mlbb-cutouts/hero-103.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_e57019805d928c886bd0ae01b8947c30.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "104": {
+    "name": "Gloo",
+    "image": "/images/mlbb-cutouts/hero-104.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_088134981d9d9753f9d77648c0361fa3.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "105": {
+    "name": "Beatrix",
+    "image": "/images/mlbb-cutouts/hero-105.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_564a14b35d0f172bdd7b3d04b33a1d68.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "106": {
+    "name": "Phoveus",
+    "image": "/images/mlbb-cutouts/hero-106.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_9abf963fae03d641bac528f6fab2b8c2.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "107": {
+    "name": "Natan",
+    "image": "/images/mlbb-cutouts/hero-107.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_4431d3412e6cff8fccc5cdf67454a08b.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "108": {
+    "name": "Aulus",
+    "image": "/images/mlbb-cutouts/hero-108.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_b18a4e09124187587ef09826dee69ec3.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "109": {
+    "name": "Aamon",
+    "image": "/images/mlbb-cutouts/hero-109.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_e38297f23f285b88272894aa3c797c09.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "110": {
+    "name": "Valentina",
+    "image": "/images/mlbb-cutouts/hero-110.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_646f22a778efda450ce3470683bd01c2.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "111": {
+    "name": "Edith",
+    "image": "/images/mlbb-cutouts/hero-111.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_098891b01e7093a49228688bbad0cde8.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "112": {
+    "name": "Floryn",
+    "image": "/images/mlbb-cutouts/hero-112.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_fd49844ff3811155b149ea6bf67be24e.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "113": {
+    "name": "Yin",
+    "image": "/images/mlbb-cutouts/hero-113.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_c0452c120fee6e5b762d7a2dd1c24cb8.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "114": {
+    "name": "Melissa",
+    "image": "/images/mlbb-cutouts/hero-114.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_a19559a08211b32279c27d584478a4b2.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "115": {
+    "name": "Xavier",
+    "image": "/images/mlbb-cutouts/hero-115.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_24165af02711d3154a80b97d22042bef.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "116": {
+    "name": "Julian",
+    "image": "/images/mlbb-cutouts/hero-116.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_af290850533bcaeaf7630d573969a74c.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "117": {
+    "name": "Fredrinn",
+    "image": "/images/mlbb-cutouts/hero-117.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/test/homepage_2_2_16_1232_1/100_3834313607fefe7bf2c895f042d60f10.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "118": {
+    "name": "Joy",
+    "image": "/images/mlbb-cutouts/hero-118.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/mlbb/homepage/100_1ecb59cb5508be26cd90ac70d2177b76.png",
+    "method": "background-removal",
+    "originalPixels": true
+  },
+  "119": {
+    "name": "Novaria",
+    "image": "/images/mlbb-cutouts/hero-119.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/mlbb/homepage/100_9e662ec509bca27d4eeaac6c05d670d1.png",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "120": {
+    "name": "Arlott",
+    "image": "/images/mlbb-cutouts/hero-120.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/mlbb/homepage/100_177c32c19a2ad87c028fd9a6fcf08cb1.png",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "121": {
+    "name": "Ixia",
+    "image": "/images/mlbb-cutouts/hero-121.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/mlbb/homepage/100_ad36ae3824bc4853dcc2f48fef767be1.png",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "122": {
+    "name": "Nolan",
+    "image": "/images/mlbb-cutouts/hero-122.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/mlbb/homepage/100_cf1a85704a0636d70f49113b2dd119bd.png",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "123": {
+    "name": "Cici",
+    "image": "/images/mlbb-cutouts/hero-123.webp",
+    "source": "https://akmweb.youngjoygame.com/web/svnres/img/mlbb/homepage/100_83e246a50d2a27fe0d18f991dcb1bccb.png",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "124": {
+    "name": "Chip",
+    "image": "/images/mlbb-cutouts/hero-124.webp",
+    "source": "https://akmweb.youngjoygame.com/web/gms/image/d57e13a90045a712484d0b2087e506c6.webp",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "125": {
+    "name": "Zhuxin",
+    "image": "/images/mlbb-cutouts/hero-125.webp",
+    "source": "https://akmweb.youngjoygame.com/web/gms/image/adaf737c13d48204dc39f4b48de91ac8.webp",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "126": {
+    "name": "Suyou",
+    "image": "/images/mlbb-cutouts/hero-126.webp",
+    "source": "https://akmweb.youngjoygame.com/web/gms/image/cf569e7a8746535e207d1957ec2d8db9.webp",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "127": {
+    "name": "Lukas",
+    "image": "/images/mlbb-cutouts/hero-127.webp",
+    "source": "https://akmweb.youngjoygame.com/web/gms/image/1bea09e43f6b02845de97af863c53da5.webp",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "128": {
+    "name": "Kalea",
+    "image": "/images/mlbb-cutouts/hero-128.webp",
+    "source": "https://akmweb.youngjoygame.com/web/gms/image/3a7693b9a565b4e1d67d57ae73eb5297.webp",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "129": {
+    "name": "Zetian",
+    "image": "/images/mlbb-cutouts/hero-129.webp",
+    "source": "https://akmweb.youngjoygame.com/web/gms/image/10cf23ade94859fd7f6a877c828c0131.webp",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "130": {
+    "name": "Obsidia",
+    "image": "/images/mlbb-cutouts/hero-130.webp",
+    "source": "https://akmweb.youngjoygame.com/web/gms/image/9ea138369ca4a37b4806ac64998df054.webp",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "131": {
+    "name": "Sora",
+    "image": "/images/mlbb-cutouts/hero-131.webp",
+    "source": "https://akmweb.youngjoygame.com/web/gms/image/bc8375c54a43cc02fedcc304033c23bb.webp",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "132": {
+    "name": "Marcel",
+    "image": "/images/mlbb-cutouts/hero-132.webp",
+    "source": "https://akmweb.youngjoygame.com/web/gms/image/24c43180662d27aa5b62106b596fa4f7.webp",
+    "method": "official-alpha",
+    "originalPixels": true
+  },
+  "133": {
+    "name": "Hirara",
+    "image": "/images/mlbb-cutouts/hero-133.webp",
+    "source": "https://akmweb.youngjoygame.com/web/gms/image/e2c9c365b95a4de69fa98b2ce9712588.webp",
+    "method": "official-alpha",
+    "originalPixels": true
+  }
+}

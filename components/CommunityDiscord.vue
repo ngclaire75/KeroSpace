@@ -48,7 +48,7 @@ import { communityDiscordServers } from '~/data/communityDiscord'
 .discord__eyebrow img { object-fit: contain; }
 .discord h2 { margin: 0; font: 900 clamp(28px, 3.5vw, 46px)/1.16 var(--display); text-transform: uppercase; letter-spacing: -.025em; }
 .discord h2 em { font-style: normal; background: linear-gradient(100deg, var(--discord-pink), var(--discord-red) 50%, var(--discord-purple)); background-clip: text; -webkit-text-fill-color: transparent; }
-.discord__intro { max-width: 330px; margin: 0 0 3px; color: #c1b9c9; font-size: 16px; line-height: 1.75; }
+.discord__intro { max-width: 330px; margin: 0 0 3px; color: #fff; font-size: 16px; line-height: 1.75; }
 .discord__layout { display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(0, .78fr); align-items: start; gap: clamp(24px, 3.2vw, 44px); }
 .server-directory { min-width: 0; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ffb3df, #d8b4ff, #ffb3df); animation: card-outline-turn 3s linear infinite; }
 .server-directory__inner { background: #000; }

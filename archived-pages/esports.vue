@@ -82,7 +82,7 @@ function dates(t: typeof tournaments[number]) {
 }
 .esports-wrap { width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px)); margin: auto; padding-bottom: clamp(88px, 10vw, 144px); }
 .eyebrow { margin: 0 0 14px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .16em; color: var(--es-pink); }
-.arena-header { padding: clamp(40px, 7vw, 84px) 0 20px; }
+.arena-header { padding: clamp(40px, 6vw, 88px) 0 20px; }
 .arena-copy { max-width: 760px; }
 h1 { font-family: var(--display); font-size: clamp(30px, 3.8vw, 52px); line-height: 1.3; letter-spacing: -.035em; margin: 0; }
 h1 em { font-style: normal; background: var(--es-grad); background-clip: text; -webkit-background-clip: text; color: transparent; }
@@ -129,7 +129,6 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--es-pink); outli
   .tournament-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 @media (max-width: 600px) {
-  .arena-header { padding-top: 36px; }
   .arena-banner-frame { margin-bottom: 40px; }
   .schedule-links { gap: 0 24px; }
   .schedule-links a { min-height: 34px; }

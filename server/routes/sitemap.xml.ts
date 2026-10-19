@@ -6,7 +6,9 @@ const xml = (value: string) => value.replace(/[<>&"']/g, char => ({ '<': '&lt;',
 export default defineEventHandler(event => {
   const origin = new URL(useRuntimeConfig(event).public.siteUrl || getRequestURL(event).origin).origin
   const routes = [
-    { path: '/' }, { path: '/community' }, { path: '/top-up' }, { path: '/esports' },
+    { path: '/' }, { path: '/community' }, { path: '/top-up' }, { path: '/guides' },
+    ...games.map(game => ({ path: `/guides/${game.id}/characters`, updated: '2026-10-19' })),
+    ...games.map(game => ({ path: `/guides/${game.id}`, updated: '2026-10-19' })),
     ...games.map(game => ({ path: `/games/${game.id}`, updated: gameStories[game.id].updated })),
   ]
   setHeader(event, 'content-type', 'application/xml; charset=utf-8')

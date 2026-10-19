@@ -30,6 +30,17 @@ function navigate(event: KeyboardEvent, index: number) {
   select(next)
   tabs.value[next]?.focus()
 }
+
+// Split a game name into two natural halves for the two-line mobile title:
+// at the colon when there is one ("Honkai: / Star Rail"), otherwise near the middle word.
+function titleLines(name: string): [string, string] {
+  const colon = name.indexOf(': ')
+  if (colon > 0) return [name.slice(0, colon + 1), name.slice(colon + 2)]
+  const words = name.split(' ')
+  if (words.length < 2) return [name, '']
+  const cut = Math.max(1, Math.floor(words.length / 2))
+  return [words.slice(0, cut).join(' '), words.slice(cut).join(' ')]
+}
 </script>
 
 <template>
@@ -60,7 +71,7 @@ function navigate(event: KeyboardEvent, index: number) {
           <header class="directory__heading">
             <div>
               <p><span>Most watched</span></p>
-              <h3><span v-for="entry in games" :key="entry.id" :class="{ 'is-active': entry.id === game.id }" :aria-hidden="entry.id !== game.id">{{ entry.name }}</span></h3>
+              <h3><span v-for="entry in games" :key="entry.id" :class="{ 'is-active': entry.id === game.id }" :aria-hidden="entry.id !== game.id"><span class="title-line">{{ titleLines(entry.name)[0] }}</span> <span class="title-line">{{ titleLines(entry.name)[1] }}</span></span></h3>
             </div>
           </header>
           <div id="stream-channel-list" class="directory__table-wrap">
@@ -190,6 +201,8 @@ tbody :is(.channel, .rank > span, .language abbr, .hours-value, .watch a) { anim
   .directory__pagination { padding-inline: 8px; }
   .directory__heading { justify-content: center; min-height: 0; padding: 20px 18px 18px; text-align: center; }
   .directory__heading h3 { font-size: 22px; }
+  /* phones: the game name always sits on two lines */
+  .directory__heading h3 .title-line { display: block; }
   .directory__heading p { justify-content: center; font-size: 11px; gap: 6px 8px; margin-bottom: 6px; }
   .rank { width: calc(27px + var(--table-inset)); font-size: 10px; }
   .language { width: 39px; }

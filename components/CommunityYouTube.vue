@@ -115,7 +115,7 @@ function navigate(event: KeyboardEvent, index: number) {
 .video-library__eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
 .video-library h2 { margin: 0; font: 900 clamp(28px, 3.5vw, 46px)/1.16 var(--display); text-transform: uppercase; letter-spacing: -.025em; }
 .video-library h2 em { font-style: normal; background: linear-gradient(100deg, #ff9bd9, #ff3859 50%, #bd91ff); background-clip: text; -webkit-text-fill-color: transparent; }
-.video-library__intro { max-width: 310px; margin: 0 0 3px; color: #c1b9c9; font-size: 16px; line-height: 1.75; }
+.video-library__intro { max-width: 310px; margin: 0 0 3px; color: #fff; font-size: 16px; line-height: 1.75; }
 .video-tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; margin-bottom: 20px; }
 .video-tabs button { position: relative; display: grid; place-items: center; min-width: 0; min-height: 44px; padding: 10px 5px; border: 0; border-bottom: 2px solid #79438e; background: #000; color: #fff; cursor: pointer; transition: background .2s ease; }
 .video-tabs button::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #ff183b, #ff54bb, #b26bff); opacity: 0; transition: opacity .2s ease; }
