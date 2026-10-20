@@ -15,4 +15,6 @@ export type CharacterBuildResponse = {
   checkedAt: string | null
   /** Served from a fallback source after the preferred one failed; cache only briefly. */
   provisional?: boolean
+  /** Why a freshly parsed build was refused (see server/utils/buildQuality.ts). */
+  rejected?: string
 }

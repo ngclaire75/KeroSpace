@@ -1,5 +1,10 @@
 import { gameCatalogs } from '~/data/gameCatalogs'
 import { parseTeamTypeIcons, type TeamTypeIcon } from '../utils/teamIcons'
+import savedIcons from '~/data/guideTeamIcons.json'
+
+// Icons are read live from the wiki; saved icons (scripts/sync-guide-builds.py) stand in when
+// the wiki fails or its page no longer yields any.
+const saved = savedIcons as Record<string, Record<string, TeamTypeIcon[]>>
 
 const loadIcons = defineCachedFunction(async (game: string, title: string) => {
   const response = await $fetch<{ parse?: { text?: { '*': string } } }>(`https://${gameCatalogs[game].host}/api.php`, {
@@ -24,8 +29,15 @@ export default defineEventHandler(async event => {
       // Constellation/eidolon recommendations are not part of wiki page names.
       const name = title.replace(/^(?:[CE]\d+|S\d+)\s+/i, '').trim()
       const page = game === 'nte' && /^daffodill?$/i.test(name) ? 'Daffodill' : name
-      try { icons[title] = await loadIcons(game, page) }
-      catch { icons[title] = []; failed = true }
+      const known = query.fresh !== '1' ? saved[game]?.[title] : undefined
+      try {
+        const live = await loadIcons(game, page)
+        icons[title] = live.length || !known ? live : known
+      }
+      catch {
+        icons[title] = known || []
+        if (!known) failed = true
+      }
     }))
   }
   // Only share complete answers through the CDN; a lookup that failed should be retried.

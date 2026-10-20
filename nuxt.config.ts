@@ -34,6 +34,10 @@ export default defineNuxtConfig({
             'KeroSpace — browse a library of games, identify any in-game item and learn what it does and how it works.',
         },
         { name: 'theme-color', content: '#000000' },
+        // Fandom and KeqingMains refuse images requested with another site's referrer. The <img>
+        // tags already say no-referrer, but Safari still sends one on some requests, which fails
+        // the first load of those images; a page-wide policy covers every browser.
+        { name: 'referrer', content: 'no-referrer' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'KeroSpace' },
         { property: 'og:title', content: 'KeroSpace — Explore Every Game Item' },

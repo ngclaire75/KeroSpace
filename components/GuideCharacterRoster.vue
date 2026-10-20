@@ -31,8 +31,13 @@ const traversalLimited = ref(false)
 const loadingMore = ref(false)
 const moreError = ref(false)
 const imageAttempts = ref<Record<string, number>>({})
+const savedRoster = computed(() => (rosterSnapshots as Record<string, CatalogResponse>)[gameId.value])
+// Saved portraits are found by character name too, so a renamed image on the wiki still shows
+// KeroSpace's own copy.
+const savedImages = computed(() => new Map((savedRoster.value?.items || []).map(item => [item.title, item.image || ''])))
 function entryImage(entry: CatalogEntry) {
-  const local = (guideArtwork as Record<string, string>)[entry.image || '']
+  const artwork = guideArtwork as Record<string, string>
+  const local = artwork[entry.image || ''] || artwork[savedImages.value.get(entry.title) || '']
   const candidates = entry.image?.startsWith('/images/') ? [entry.image] : [...(local ? [local] : []), ...catalogImageCandidates(entry.image)]
   const attempt = imageAttempts.value[entry.image || ''] || 0
   // Keep direct CDN delivery fast, then use server delivery if the browser cannot load it.
@@ -64,6 +69,14 @@ const buffered = ref<CatalogEntry[]>([])
 let prefetchRun = 0
 watch(data, value => {
   if ((!value || value.status !== 'available') && !search.value && entries.value.length) return
+  // A live list missing saved characters means the wiki changed, not the game: keep ours.
+  if (value && value !== savedRoster.value && !search.value && savedRoster.value) {
+    const live = new Set(value.items.map(item => item.title))
+    if (savedRoster.value.items.filter(item => !live.has(item.title)).length > 2) {
+      if (entries.value.length) return
+      value = savedRoster.value
+    }
+  }
   entries.value = value?.items || []
   cursor.value = value?.next || null
   traversalLimited.value = value?.traversalLimited || false
