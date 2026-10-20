@@ -40,6 +40,8 @@ const copyState = ref<'idle' | 'copied' | 'manual'>('idle')
 const enquiryField = ref<HTMLTextAreaElement>()
 const copiedDialog = ref<HTMLDialogElement>()
 const instagramAction = ref<HTMLAnchorElement>()
+let copyResetTimer: ReturnType<typeof setTimeout> | undefined
+onBeforeUnmount(() => clearTimeout(copyResetTimer))
 
 function closeCopiedDialog() {
   copiedDialog.value?.close()
@@ -63,9 +65,13 @@ const enquiry = computed(() => [
 ].filter(Boolean).join('\n'))
 watch([selectedGame, selectedService, details, region], () => { copyState.value = 'idle' })
 async function copyEnquiry() {
+  clearTimeout(copyResetTimer)
   try {
     await navigator.clipboard.writeText(enquiry.value)
     copyState.value = 'copied'
+    copyResetTimer = setTimeout(() => {
+      if (copyState.value === 'copied') copyState.value = 'idle'
+    }, 2500)
     copiedDialog.value?.showModal()
     instagramAction.value?.focus()
   } catch {
