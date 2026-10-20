@@ -116,6 +116,8 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
           </div>
         </div>
 
+        <p v-if="build.note" class="cb-note">{{ build.note }}</p>
+
         <div class="cb-layout" :class="{ 'cb-layout--solo': !build.stats.length && !build.priorities.length }">
           <div class="cb-groups">
             <section v-for="group in build.groups" :key="group.label" class="cb-group" :aria-label="group.label">
@@ -279,6 +281,12 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
   justify-content: space-between;
   gap: 20px;
   margin: clamp(40px, 5vw, 64px) 0 clamp(24px, 3vw, 36px);
+}
+.cb-note {
+  max-width: 760px;
+  margin: calc(clamp(24px, 3vw, 36px) * -0.5) 0 clamp(24px, 3vw, 36px);
+  color: #c9c2ce;
+  font: 600 13px / 1.6 var(--ui);
 }
 .cb-h2 {
   margin: 0;

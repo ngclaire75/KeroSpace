@@ -3,6 +3,7 @@ import { hasUnreleasedMarker, isReleasedCatalogEntry } from '~/utils/catalogRele
 import type { CharacterBuildResponse } from '~/data/characterBuilds'
 import buildSnapshots from '~/data/guideBuildSnapshots.json'
 import { liveProblem } from '../utils/buildQuality'
+import { withCurrentMlbbItems } from '../utils/mlbbItems'
 import { honkaiBuild, kqmBuild, mlbbBuild, prydwenBuild } from '../utils/buildSources'
 
 const loadBuild = defineCachedFunction(async (game: string, title: string) => {
@@ -31,15 +32,23 @@ const loadBuild = defineCachedFunction(async (game: string, title: string) => {
 // the visitor gets the last verified build instead of junk or an error.
 const snapshots = buildSnapshots as Record<string, Record<string, CharacterBuildResponse>>
 const LIVE_WAIT = 2500
+const DAILY_REFRESHED = new Set(['hsr', 'wuwa', 'nte'])
 
 export default defineEventHandler(async event => {
   const query = getQuery(event)
   const game = String(query.game || ''), title = String(query.title || '').trim()
   if (!Object.hasOwn(gameCatalogs, game) || !title || title.length > 120 || /[<>|\x00-\x1f]/.test(title) || /^(?:Special|File|Category|User|Template|Talk):/i.test(title) || hasUnreleasedMarker(title)) throw createError({ statusCode: 400, statusMessage: 'Invalid character' })
   const saved = snapshots[game]?.[title]
+  // Prydwen (HSR, WuWa, NTE) blocks servers, so a live read here only reaches an outdated mirror.
+  // Those builds are refreshed daily in a real browser (scripts/sync-prydwen-builds.ts), which
+  // makes the saved build the current one.
+  if (saved && DAILY_REFRESHED.has(game) && query.fresh !== '1') {
+    setHeader(event, 'cache-control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400')
+    return saved
+  }
   const fallback = () => {
     setHeader(event, 'cache-control', 'public, max-age=0, s-maxage=60')
-    return { ...saved!, provisional: true }
+    return withCurrentMlbbItems({ ...saved!, provisional: true })
   }
   const live = loadBuild(game, title)
   try {
@@ -60,7 +69,7 @@ export default defineEventHandler(async event => {
     if (result.status === 'available' && !result.provisional) setHeader(event, 'cache-control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=604800')
     else if (result.status === 'available') setHeader(event, 'cache-control', 'public, max-age=0, s-maxage=60')
     else setHeader(event, 'cache-control', 'no-store')
-    return result
+    return await withCurrentMlbbItems(result)
   }
   catch (error) {
     console.error('[character-build] Upstream request failed', { game, title, message: error instanceof Error ? error.message : String(error) })

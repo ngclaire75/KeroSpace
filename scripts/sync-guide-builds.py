@@ -18,6 +18,9 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[1]
 BASE = (sys.argv[1] if len(sys.argv) > 1 else 'http://localhost:3000').rstrip('/')
 GAMES = ['hsr', 'genshin', 'hi3', 'wuwa', 'nte', 'mlbb']
+# Refreshed from prydwen.gg in a real browser by scripts/sync-prydwen-builds.ts; the server can
+# only reach an outdated Prydwen mirror, so this script leaves those builds alone.
+BROWSER_REFRESHED = {'hsr', 'wuwa', 'nte'}
 BUILDS = ROOT / 'data/guideBuildSnapshots.json'
 ICONS = ROOT / 'data/guideTeamIcons.json'
 # A build that keeps less than this share of its previous items is treated as a broken parse.
@@ -93,6 +96,9 @@ def main():
                 return title, None
 
         builds[game] = {}
+        if game in BROWSER_REFRESHED:
+            builds[game] = dict(old_game)
+            titles = []
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
             for title, new in pool.map(load, titles):
                 saved, reason = accept(new, old_game.get(title))

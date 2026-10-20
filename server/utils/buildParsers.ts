@@ -14,7 +14,9 @@ function imageOf(node: AnyNode, base: string) {
   const image = findOne(el => el.name === 'img' && !!(el.attribs['data-src'] || el.attribs.src) && !/^(?:data:|about:)/.test(el.attribs['data-src'] || el.attribs.src), [node])
   if (!image) return undefined
   try {
-    const url = new URL(image.attribs['data-src'] || image.attribs.src, base)
+    let url = new URL(image.attribs['data-src'] || image.attribs.src, base)
+    // Prydwen's image resizer (/_next/image?url=…) sits behind its bot check; use the CDN file.
+    if (url.pathname === '/_next/image' && url.searchParams.get('url')) url = new URL(url.searchParams.get('url')!, base)
     return url.protocol === 'https:' ? url.href : undefined
   } catch { return undefined }
 }
@@ -30,7 +32,9 @@ function rankedItems(node: AnyNode, rowClass: string, nameClass: string, base: s
     // "Static Mist (R1)": the refinement is a detail, not part of the weapon's name
     const name = names.join(' + ')
     const refinement = name.match(/\s*\((R[1-5])\)$/)
-    return { name: refinement ? name.slice(0, refinement.index) : name, detail: text(first(row, 'cone-super')) || refinement?.[1] || undefined, image: imageOf(row, base) }
+    // "(S1)", "(M5)": the superimposition/refinement, shown without brackets like WuWa's "R1"
+    const superimposition = text(first(row, 'cone-super')).replace(/^\((.*)\)$/, '$1')
+    return { name: refinement ? name.slice(0, refinement.index) : name, detail: superimposition || refinement?.[1] || undefined, image: imageOf(row, base) }
   }))
 }
 function statBoxes(node: AnyNode): BuildStat[] {
@@ -66,6 +70,25 @@ export function parsePrydwenBuild(game: string, html: string, base: string): Cha
     if (!root) return { name: 'Recommended build', groups, stats, priorities }
     const cones = first(root, 'build-cones')
     if (cones) groups.push({ label: 'Light cones', items: rankedItems(cones, 'single-cone', 'hsr-set-name', base) })
+    else {
+      // Current layout: one "single-cone" row per pick under "Best Light Cones" and "Best Relic
+      // Sets", with the planar ornaments after a "Best Planetary Sets" sub-heading.
+      const rows: Record<string, Element[]> = {}
+      let section = ''
+      for (const el of findAll(() => true, [root])) {
+        if (cls(el, 'content-header')) section = /light cone/i.test(text(el)) ? 'Light cones' : /relic/i.test(text(el)) ? 'Relic sets' : ''
+        else if (/^h[3-6]$/.test(el.name) && /planetary|planar/i.test(text(el))) section = 'Planar ornaments'
+        else if (section && cls(el, 'single-cone')) (rows[section] ||= []).push(el)
+      }
+      for (const label of ['Light cones', 'Relic sets', 'Planar ornaments']) {
+        const items = uniqueItems((rows[label] || []).map(row => {
+          const names = [...new Set(all(row, 'hsr-set-name').map(text))]
+          if (first(row, 'flex-placeholder')) names.push('Flex') // "2-PC + any 2-PC set"
+          return { name: names.join(' + '), detail: text(first(row, 'cone-super')).replace(/^\((.*)\)$/, '$1') || undefined, image: imageOf(row, base) }
+        }))
+        if (items.length) groups.push({ label, items })
+      }
+    }
     const relics = first(root, 'build-relics')
     if (relics) {
       for (const heading of findAll(el => el.name === 'h6', [relics])) {
@@ -85,7 +108,9 @@ export function parsePrydwenBuild(game: string, html: string, base: string): Cha
     if (weapons) groups.push({ label: 'Weapons', items: rankedItems(weapons, 'single-item', 'ww-weapon-name', base) })
     const echoes = tips.find(node => first(node, 'ww-set-accordion'))
     if (echoes) {
-      groups.push({ label: 'Echo sets', items: uniqueItems(all(echoes, 'ww-set-accordion').map(row => ({ name: text(first(row, 'accordion-header')), image: imageOf(row, base) }))) })
+      // Older pages: "ww-set-accordion" rows; current pages: "single-item" rows picturing the set.
+      const setRows = all(echoes, 'ww-set-accordion').length ? all(echoes, 'ww-set-accordion') : all(echoes, 'single-item').filter(row => first(row, 'ww-set-image'))
+      groups.push({ label: 'Echo sets', items: uniqueItems(setRows.map(row => ({ name: text(first(row, 'accordion-header')) || text(first(row, 'pw-accordion-button')), image: imageOf(first(row, 'ww-set-image') || row, base) }))) })
       // Echo names only; the provider's narrative explanations are not republished.
       groups.push({ label: 'Main Echo options', items: uniqueItems(all(echoes, 'ww-echo-list').flatMap(list => findAll(el => el.name === 'li', [list]).map(li => ({ name: text(li).split(/\s[–-]\s/)[0], image: imageOf(li, base) })))) })
     }
@@ -96,7 +121,7 @@ export function parsePrydwenBuild(game: string, html: string, base: string): Cha
     }
   } else if (game === 'nte') {
     const arcs = all(document, 'nte-weapon-accordion')
-    groups.push({ label: 'Arcs', items: uniqueItems(arcs.map(row => ({ name: text(first(row, 'nte-weapon-name')), detail: text(first(row, 'cone-super')) || undefined, image: imageOf(row, base) }))) })
+    groups.push({ label: 'Arcs', items: uniqueItems(arcs.map(row => ({ name: text(first(row, 'nte-weapon-name')), detail: text(first(row, 'cone-super')).replace(/^\((.*)\)$/, '$1') || undefined, image: imageOf(row, base) }))) })
     groups.push({ label: 'Cartridge sets', items: uniqueItems(all(document, 'nte-set-accordion').map(row => ({ name: text(first(row, 'nte-set-name')), image: imageOf(row, base) }))) })
     const root = first(document, 'main-stats')
     if (root) {

@@ -1,7 +1,8 @@
 export type BuildItem = { name: string; detail?: string; image?: string }
 export type BuildGroup = { label: string; items: BuildItem[] }
 export type BuildStat = { label: string; value: string }
-export type CharacterBuild = { name: string; groups: BuildGroup[]; stats: BuildStat[]; priorities: BuildStat[] }
+/** `note`: a caveat shown with the build (e.g. that a source may trail the current season). */
+export type CharacterBuild = { name: string; groups: BuildGroup[]; stats: BuildStat[]; priorities: BuildStat[]; note?: string }
 export type TeamSlot = { options: BuildItem[] }
 export type TeamSynergy = { name: string; slots: TeamSlot[]; kind: 'team' | 'partner' | 'observed' }
 export type CharacterBuildResponse = {
