@@ -16,13 +16,16 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
         <p class="explorer__eyebrow">Explore {{ game.short }}</p>
         <h2 id="gx-db-title" class="explorer__title">The details behind<br /><em class="gd-em">every build.</em></h2>
         <p class="explorer__intro">Every released character and hero, with the equipment, stats and upgrade order that make their build work.</p>
-        <ul class="explorer__features">
-          <li v-for="feature in features" :key="feature">{{ feature }}</li>
-        </ul>
-        <NuxtLink :to="rosterLink" class="explorer__cta">
-          Browse all characters
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg>
-        </NuxtLink>
+        <!-- the feature boxes share the width of the button below them -->
+        <div class="explorer__actions">
+          <ul class="explorer__features">
+            <li v-for="feature in features" :key="feature">{{ feature }}</li>
+          </ul>
+          <NuxtLink :to="rosterLink" class="explorer__cta">
+            Browse all characters
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg>
+          </NuxtLink>
+        </div>
       </div>
 
       <!-- ===== artwork: fills the right side at exactly the height of the text ===== -->
@@ -83,9 +86,14 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   color: #fff;
   font: 600 15px / 1.75 var(--ui);
 }
+/* one column as wide as its widest item (the button); the feature boxes stretch to match */
+.explorer__actions {
+  display: grid;
+  width: fit-content;
+}
 .explorer__features {
   display: grid;
-  gap: 14px;
+  gap: 10px;
   max-width: 420px;
   margin: 28px 0 0;
   padding: 0;
@@ -95,7 +103,13 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 0;
+  /* each feature in its own dark grey box with a neon purple → pink edge */
+  padding: 10px 16px;
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(#141218, #141218) padding-box,
+    linear-gradient(110deg, #b26bff, #ff54bb) border-box;
+  box-shadow: 0 0 14px rgba(178, 107, 255, 0.16);
   color: #fff;
   font: 800 14px / 1.4 var(--ui);
   text-transform: uppercase;
@@ -163,14 +177,18 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
     min-width: 0;
     padding-inline: 24px;
   }
+  /* phones: the list and button lay out on their own, as before */
+  .explorer__actions {
+    display: contents;
+  }
   .explorer__features {
     display: flex;
     flex-wrap: nowrap;
-    gap: 20px;
     max-width: 100%;
     overflow-x: auto;
     scrollbar-width: none;
-    padding-bottom: 4px;
+    gap: 10px;
+    padding: 0 0 4px;
   }
   .explorer__features::-webkit-scrollbar {
     display: none;
