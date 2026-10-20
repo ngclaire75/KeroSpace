@@ -24,24 +24,15 @@ useHead(() => ({
   link: [{ rel: 'preload', as: 'image', href: bannerSources.value.src, imagesrcset: bannerSources.value.srcset, imagesizes: '100vw', fetchpriority: 'high', key: 'guide-hub-banner' }],
 }))
 
-// The marquee under the banner continues the banner's own colours: stops sampled left to right
-// from the banner's bottom edge (deepened where needed so the white words stay readable), with
-// stars in the banner's brightest tint.
-const marqueeTones: Record<string, { stops: string[]; star: string }> = {
-  hsr: { stops: ['#3c3857', '#37355a', '#38355a', '#4c4346', '#533c4e', '#423c53', '#413b54'], star: '#b0adeb' },
-  genshin: { stops: ['#394656', '#334b5c', '#2b4359', '#4f2635', '#542b38', '#5c2028', '#29283b'], star: '#ebadb6' },
-  hi3: { stops: ['#63302b', '#682730', '#683c27', '#5f3056', '#5e3059', '#5f304a', '#5a3554'], star: '#f4a4b0' },
-  wuwa: { stops: ['#223150', '#232b46', '#30375a', '#222b50', '#202b50', '#32455d', '#2a4e65'], star: '#adbbeb' },
-  nte: { stops: ['#38612e', '#27684e', '#2c625a', '#543e3b', '#574337', '#685c27', '#345b37'], star: '#ede1ab' },
-  mlbb: { stops: ['#1a1423', '#422c3c', '#592e3b', '#612e39', '#66282e', '#682739', '#60213a'], star: '#ebadb3' },
+// Korean marquee under the banner, matching the footer's ticker: the game's Korean title, then
+// what its guide covers. Repeated so one copy is wider than any screen.
+const koreanTitles: Record<string, string> = {
+  hsr: '붕괴: 스타레일', genshin: '원신', hi3: '붕괴3rd', wuwa: '명조: 워더링 웨이브', nte: '이환', mlbb: '모바일 레전드: 뱅뱅',
 }
-const marqueeStyle = computed(() => {
-  const tone = marqueeTones[props.gameId]
-  if (!tone) return {}
-  return { background: `linear-gradient(90deg, ${tone.stops.join(', ')})`, '--gx-star': tone.star }
+const marqueeWords = computed(() => {
+  const words = [`${koreanTitles[props.gameId] || game.value.short} 공략`, '캐릭터 가이드', '추천 빌드', '장비 추천', '스탯 우선순위', '육성 순서', '팀 조합']
+  return [...words, ...words, ...words]
 })
-
-
 
 /* ---------- motion: progressive; without JS or with reduced motion the page is complete ---------- */
 const root = ref<HTMLElement>()
@@ -64,8 +55,7 @@ onBeforeUnmount(() => observer?.disconnect())
 </script>
 
 <template>
-  <div ref="root" class="gd-page gd-page--wall gx" :class="{ 'gx-anim': animate }" :style="{ '--gx-accent': accent }">
-    <GuideWall />
+  <div ref="root" class="gd-page gx" :class="{ 'gx-anim': animate }" :style="{ '--gx-accent': accent }">
     <SiteNav />
 
     <main>
@@ -86,10 +76,10 @@ onBeforeUnmount(() => observer?.disconnect())
       </header>
 
       <!-- ===== marquee ===== -->
-      <div class="gx-marquee" :style="marqueeStyle" aria-hidden="true">
+      <div class="gx-marquee" aria-hidden="true">
         <div class="gx-marquee__track">
           <template v-for="n in 2" :key="n">
-            <span>{{ game.short }}</span><i>✦</i><span>Best builds</span><i>✦</i><span>Characters</span><i>✦</i><span>Equipment &amp; stats</span><i>✦</i>
+            <template v-for="(word, index) in marqueeWords" :key="`${n}-${index}`"><span>{{ word }}</span><i>✦</i></template>
           </template>
         </div>
       </div>
@@ -189,36 +179,51 @@ onBeforeUnmount(() => observer?.disconnect())
 
 @media (min-width: 1024px) {
   .gx-hero {
+    /* a shorter banner on desktop, so the content below starts sooner */
+    min-height: clamp(400px, 54svh, 580px);
     margin-top: clamp(16px, 2vw, 28px);
+  }
+  /* the shorter frame shows the upper part of the artwork, where the faces are */
+  .gx-hero__bg {
+    object-position: center 25%;
   }
 }
 
 /* ============ marquee ============ */
 .gx-marquee {
-  /* sits flush under the hero without divider lines */
+  /* slim like the footer ticker; the site's neon red → pink → purple, flush under the hero */
   overflow: hidden;
-  /* solid band (overridden per game by marqueeStyle); the poster wall doesn't show through */
-  background: #000;
-  padding: clamp(14px, 1.8vw, 22px) 0;
+  background: var(--gd-grad);
+  padding: 6px 0;
 }
 .gx-marquee__track {
   display: flex;
   width: max-content;
   align-items: center;
-  gap: clamp(16px, 2vw, 28px);
-  animation: gx-marquee 40s linear infinite;
+  gap: clamp(14px, 1.8vw, 24px);
+  animation: gx-marquee 60s linear infinite;
 }
 .gx-marquee span {
-  font: 900 clamp(22px, 3.4vw, 48px) / 1 var(--display);
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
+  font: 800 clamp(12px, 1vw, 14px) / 1.4 'Apple SD Gothic Neo', 'Noto Sans KR', 'Noto Sans CJK KR', 'Malgun Gothic', var(--ui);
+  letter-spacing: 0.02em;
   white-space: nowrap;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 18px rgba(255, 210, 235, 0.55);
+}
+/* as in the footer: trim the text box to the glyphs so the Korean sits centred in the band */
+@supports (text-box: trim-both cap alphabetic) {
+  .gx-marquee {
+    padding: 9px 0;
+  }
+  .gx-marquee span {
+    text-box: trim-both cap alphabetic;
+  }
 }
 .gx-marquee i {
-  color: var(--gx-star, var(--gd-pink));
-  font-size: clamp(20px, 2.6vw, 34px);
+  color: #fff;
+  font-size: clamp(10px, 0.9vw, 12px);
   font-style: normal;
   line-height: 1;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
 }
 
 /* ============ section scaffolding ============ */

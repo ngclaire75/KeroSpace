@@ -236,6 +236,11 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
   background: var(--cb-panel);
   transition: border-color 0.2s;
 }
+/* a pick without art drops the art column but keeps the height of one with art (64px art,
+   12px padding top and bottom, 1px borders) */
+.cb-pick {
+  min-height: 90px;
+}
 .cb-pick:not(:has(.cb-pick__art)) {
   grid-template-columns: minmax(0, 1fr);
 }
@@ -374,6 +379,10 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
   border: 1px solid var(--cb-edge);
   background: var(--cb-panel);
   transition: border-color 0.2s;
+}
+/* likewise for ranked rows: 52px art, 10px padding top and bottom, 1px borders */
+.cb-alt {
+  min-height: 74px;
 }
 .cb-alt:not(:has(.cb-alt__art)) {
   grid-template-columns: 34px minmax(0, 1fr);

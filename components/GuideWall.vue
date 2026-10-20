@@ -102,8 +102,8 @@ const rows = Array.from({ length: ROWS }, (_, r) =>
   z-index: 1;
   transform: translateZ(0);
   background:
-    radial-gradient(120% 90% at 50% 40%, rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.88) 70%, #000),
-    rgba(0, 0, 0, 0.2);
+    radial-gradient(120% 90% at 50% 40%, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.94) 70%, #000),
+    rgba(0, 0, 0, 0.32);
 }
 
 @keyframes gw-drift {

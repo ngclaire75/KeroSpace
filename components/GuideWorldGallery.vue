@@ -9,7 +9,8 @@ const worldArtwork: Record<string, { src: string; width: number; height: number 
   hsr: { src: '/images/anotherworld/starrailanother-esrgan-2x.webp', width: 2400, height: 4266 },
   wuwa: { src: '/images/anotherworld/wuwaanother-esrgan-2x.webp', width: 1372, height: 2048 },
 }
-const otherGames = computed(() => guideGames)
+// The game whose page this is is already on screen, so only the other five are offered.
+const otherGames = computed(() => guideGames.filter(game => game.id !== props.gameId))
 const gallery = ref<HTMLElement>()
 const activeIndex = ref(0)
 const cardsPerSlide = ref(3)
