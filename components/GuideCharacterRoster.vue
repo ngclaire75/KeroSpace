@@ -11,6 +11,17 @@ const game = computed(() => guideGames.find(item => item.id === gameId.value)!)
 const kind = { id: 'characters', label: 'Characters & heroes' }
 
 const query = ref('')
+const mobileSearch = ref(false)
+let searchViewport: MediaQueryList | undefined
+function updateSearchViewport() {
+  mobileSearch.value = searchViewport?.matches ?? false
+}
+onMounted(() => {
+  searchViewport = window.matchMedia('(max-width: 640px)')
+  updateSearchViewport()
+  searchViewport.addEventListener('change', updateSearchViewport)
+})
+onBeforeUnmount(() => searchViewport?.removeEventListener('change', updateSearchViewport))
 const search = ref('')
 const entries = ref<CatalogEntry[]>([])
 const cursor = ref<string | null>(null)
@@ -97,7 +108,7 @@ const isLoading = computed(() => status.value === 'pending' || status.value === 
             <label for="gk-search-input">Search {{ game.short }} characters</label>
             <div class="gk-search__row">
               <svg class="gk-search__icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m21 21-4.34-4.34" /><circle cx="11" cy="11" r="8" /></svg>
-              <input id="gk-search-input" v-model="query" type="search" placeholder="Search a character or hero…" maxlength="120" />
+              <input id="gk-search-input" v-model="query" type="search" :placeholder="mobileSearch ? 'Search a character' : 'Search a character or hero…'" maxlength="120" />
               <button type="submit">Search</button>
             </div>
           </form>
