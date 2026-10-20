@@ -33,3 +33,7 @@ export const gameCatalogs: Record<string, CatalogSource> = {
   mlbb: { host: 'mobile-legends.fandom.com', name: 'Mobile Legends Wiki', categories: { characters: ['Heroes'], skins: ['Hero skin', 'Skins', 'Skin series'], weapons: ['Equipment'], bosses: ['Common Creeps', 'Elite Creeps', 'Legend Creeps'], events: ['Events'], banners: ['Events'], 'skin-events': ['Events'], story: ['Lore Characters'], items: ['Equipment'] } },
 }
 export type CatalogEntry = { id: number; title: string; url: string; image?: string; imageLabel?: string }
+export type CatalogResponse = {
+  game: string; kind: string; items: CatalogEntry[]; next: string | null; search: boolean
+  source: { name: string; url: string }; checkedAt: string | null; status: string; traversalLimited: boolean
+}

@@ -5,11 +5,13 @@ export default defineNuxtConfig({
   // Production checks must not overwrite a running dev server's generated files.
   $production: { buildDir: '.nuxt-production' },
   ssr: true,
+  nitro: { vercel: { functions: { maxDuration: 60 } } },
   runtimeConfig: { public: { siteUrl: '' } },
 
   css: ['~/assets/css/main.css'],
 
   routeRules: {
+    '/images/guide-roster/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
     '/images/optimized/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
   },
 

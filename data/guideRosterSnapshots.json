@@ -1,0 +1,1382 @@
+{
+  "hsr": {
+    "game": "hsr",
+    "kind": "characters",
+    "items": [
+      {
+        "id": 21850,
+        "title": "Acheron",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Acheron",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/7/78/Character_Acheron_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20240327021325"
+      },
+      {
+        "id": 76587,
+        "title": "Aglaea",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Aglaea",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/8/81/Character_Aglaea_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20250117063425"
+      },
+      {
+        "id": 76660,
+        "title": "Anaxa",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Anaxa",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/7/73/Character_Anaxa_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20250409035048"
+      },
+      {
+        "id": 61429,
+        "title": "Archer",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Archer",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/2/25/Character_Archer_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20250620172923"
+      },
+      {
+        "id": 18863,
+        "title": "Argenti",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Argenti",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/9/90/Character_Argenti_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20231206232011"
+      },
+      {
+        "id": 672,
+        "title": "Arlan",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Arlan",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/5/5b/Character_Arlan_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20230216231038"
+      },
+      {
+        "id": 135179,
+        "title": "Ashveil",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Ashveil",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/d/d4/Character_Ashveil_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20260313174406"
+      },
+      {
+        "id": 239,
+        "title": "Asta",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Asta",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/b/bd/Character_Asta_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20230216231122"
+      },
+      {
+        "id": 19459,
+        "title": "Aventurine",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Aventurine",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/a/a9/Character_Aventurine_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20240327104723"
+      },
+      {
+        "id": 161538,
+        "title": "Aventurine • Waveflair",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Aventurine_%E2%80%A2_Waveflair",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/2/2b/Character_Aventurine_%E2%80%A2_Waveflair_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20260912040648"
+      },
+      {
+        "id": 1584,
+        "title": "Bailu",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Bailu",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/e/e9/Character_Bailu_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20230210120736"
+      },
+      {
+        "id": 9396,
+        "title": "Black Swan",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Black_Swan",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/f/fd/Character_Black_Swan_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20240220023547"
+      },
+      {
+        "id": 1062,
+        "title": "Blade",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Blade",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/1/16/Character_Blade_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20230501004859"
+      },
+      {
+        "id": 31370,
+        "title": "Boothill",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Boothill",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/b/bb/Character_Boothill_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20240624231026"
+      },
+      {
+        "id": 590,
+        "title": "Bronya",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Bronya",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/7/7c/Character_Bronya_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20240121130128"
+      },
+      {
+        "id": 76665,
+        "title": "Castorice",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Castorice",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/9/94/Character_Castorice_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20250409035111"
+      },
+      {
+        "id": 88759,
+        "title": "Cerydra",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Cerydra",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/b/ba/Character_Cerydra_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20250725220412"
+      },
+      {
+        "id": 76669,
+        "title": "Cipher",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Cipher",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/0/0d/Character_Cipher_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20250725220236"
+      },
+      {
+        "id": 232,
+        "title": "Clara",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Clara",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/c/c2/Character_Clara_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20230216231958"
+      },
+      {
+        "id": 76668,
+        "title": "Cyrene",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Cyrene",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/8/8b/Character_Cyrene_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20251105032126"
+      },
+      {
+        "id": 231,
+        "title": "Dan Heng",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Dan_Heng",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/e/e5/Character_Dan_Heng_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20230525090149"
+      },
+      {
+        "id": 13929,
+        "title": "Dan Heng • Imbibitor Lunae",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Dan_Heng_%E2%80%A2_Imbibitor_Lunae",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/2/2c/Character_Dan_Heng_%E2%80%A2_Imbibitor_Lunae_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20230818234313"
+      },
+      {
+        "id": 116431,
+        "title": "Dan Heng • Permansor Terrae",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Dan_Heng_%E2%80%A2_Permansor_Terrae",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/1/1f/Character_Dan_Heng_%E2%80%A2_Permansor_Terrae_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20250912143415"
+      },
+      {
+        "id": 19878,
+        "title": "Dr. Ratio",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Dr._Ratio",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/5/56/Character_Dr._Ratio_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20231227132629"
+      },
+      {
+        "id": 135177,
+        "title": "Evanescia",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Evanescia",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/2/2f/Character_Evanescia_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20260506070712"
+      },
+      {
+        "id": 116363,
+        "title": "Evernight",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Evernight",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/6/68/Character_Evernight_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20250912143541"
+      },
+      {
+        "id": 6520,
+        "title": "Feixiao",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Feixiao",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/6/61/Character_Feixiao_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20241007220552"
+      },
+      {
+        "id": 22307,
+        "title": "Firefly",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Firefly",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/3/38/Character_Firefly_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20241007220547"
+      },
+      {
+        "id": 1728,
+        "title": "Fu Xuan",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Fu_Xuan",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/3/3e/Character_Fu_Xuan_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20230928224921"
+      },
+      {
+        "id": 68835,
+        "title": "Fugue",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Fugue",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/4/4c/Character_Fugue_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20241122125941"
+      },
+      {
+        "id": 22308,
+        "title": "Gallagher",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Gallagher",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/2/2d/Character_Gallagher_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20240327022011"
+      },
+      {
+        "id": 238,
+        "title": "Gepard",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Gepard",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/9/96/Character_Gepard_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20230216232354"
+      },
+      {
+        "id": 157906,
+        "title": "Gilgamesh",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Gilgamesh",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/4/4f/Character_Gilgamesh_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20260724102153"
+      },
+      {
+        "id": 14986,
+        "title": "Guinaifen",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Guinaifen",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/3/33/Character_Guinaifen_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20231030040741"
+      },
+      {
+        "id": 18871,
+        "title": "Hanya",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Hanya",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/e/e8/Character_Hanya_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20231206232120"
+      },
+      {
+        "id": 675,
+        "title": "Herta",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Herta",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/8/8c/Character_Herta_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20230216231220"
+      },
+      {
+        "id": 230,
+        "title": "Himeko",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Himeko",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/8/8e/Character_Himeko_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20230525090036"
+      },
+      {
+        "id": 157867,
+        "title": "Himeko • Nova",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Himeko_%E2%80%A2_Nova",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/b/b9/Character_Himeko_%E2%80%A2_Nova_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20260715025512"
+      },
+      {
+        "id": 486,
+        "title": "Hook",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Hook",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/e/ec/Character_Hook_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20230525090126"
+      },
+      {
+        "id": 18850,
+        "title": "Huohuo",
+        "url": "https://honkai-star-rail.fandom.com/wiki/Huohuo",
+        "image": "https://static.wikia.nocookie.net/houkai-star-rail/images/8/82/Character_Huohuo_Splash_Art.png/revision/latest/scale-to-width-down/640?cb=20250604025217"
+      }
+    ],
+    "next": "eyJxdWV1ZSI6WyJDYXRlZ29yeTpQbGF5YWJsZSBDaGFyYWN0ZXJzIl0sInNlZW4iOltdLCJjb250aW51YXRpb24iOnsiZ2NtY29udGludWUiOiJwYWdlfDQ4NTk0MTQzNDk0ZTQ1fDc2NjYzIiwiY29udGludWUiOiJnY21jb250aW51ZXx8In19",
+    "search": false,
+    "source": {
+      "name": "Honkai: Star Rail Wiki",
+      "url": "https://honkai-star-rail.fandom.com/wiki/Category:Playable_Characters"
+    },
+    "checkedAt": "2026-10-20T03:00:58.074Z",
+    "status": "available",
+    "traversalLimited": false
+  },
+  "genshin": {
+    "game": "genshin",
+    "kind": "characters",
+    "items": [
+      {
+        "id": 383745,
+        "title": "Aino",
+        "url": "https://genshin-impact.fandom.com/wiki/Aino",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/c/c8/Character_Aino_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20250910053020"
+      },
+      {
+        "id": 15003,
+        "title": "Albedo",
+        "url": "https://genshin-impact.fandom.com/wiki/Albedo",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/5/51/Character_Albedo_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20220507161942"
+      },
+      {
+        "id": 151669,
+        "title": "Alhaitham",
+        "url": "https://genshin-impact.fandom.com/wiki/Alhaitham",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/e/e4/Character_Alhaitham_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20230118030435"
+      },
+      {
+        "id": 67688,
+        "title": "Aloy",
+        "url": "https://genshin-impact.fandom.com/wiki/Aloy",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/2/2c/Character_Aloy_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20220507130247"
+      },
+      {
+        "id": 467681,
+        "title": "Alyosha",
+        "url": "https://genshin-impact.fandom.com/wiki/Alyosha",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/2/26/Character_Alyosha_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20260812023450"
+      },
+      {
+        "id": 132,
+        "title": "Amber",
+        "url": "https://genshin-impact.fandom.com/wiki/Amber",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/1/1c/Character_Amber_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20230330114407"
+      },
+      {
+        "id": 68837,
+        "title": "Arataki Itto",
+        "url": "https://genshin-impact.fandom.com/wiki/Arataki_Itto",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/c/c3/Character_Arataki_Itto_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20220507160209"
+      },
+      {
+        "id": 117187,
+        "title": "Arlecchino",
+        "url": "https://genshin-impact.fandom.com/wiki/Arlecchino",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/f/f8/Character_Arlecchino_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20240424142733"
+      },
+      {
+        "id": 1810,
+        "title": "Baizhu",
+        "url": "https://genshin-impact.fandom.com/wiki/Baizhu",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/2/2e/Character_Baizhu_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20230504174055"
+      },
+      {
+        "id": 155,
+        "title": "Barbara",
+        "url": "https://genshin-impact.fandom.com/wiki/Barbara",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/7/76/Character_Barbara_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20220507160248"
+      },
+      {
+        "id": 239,
+        "title": "Beidou",
+        "url": "https://genshin-impact.fandom.com/wiki/Beidou",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/f/ff/Character_Beidou_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20221015114224"
+      },
+      {
+        "id": 280,
+        "title": "Bennett",
+        "url": "https://genshin-impact.fandom.com/wiki/Bennett",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/2/27/Character_Bennett_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20220507132108"
+      },
+      {
+        "id": 155051,
+        "title": "Candace",
+        "url": "https://genshin-impact.fandom.com/wiki/Candace",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/7/79/Character_Candace_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20221007135324"
+      },
+      {
+        "id": 228387,
+        "title": "Charlotte",
+        "url": "https://genshin-impact.fandom.com/wiki/Charlotte",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/a/a0/Character_Charlotte_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20250618071301"
+      },
+      {
+        "id": 316435,
+        "title": "Chasca",
+        "url": "https://genshin-impact.fandom.com/wiki/Chasca",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/8/8c/Character_Chasca_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20241127071129"
+      },
+      {
+        "id": 246332,
+        "title": "Chevreuse",
+        "url": "https://genshin-impact.fandom.com/wiki/Chevreuse",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/e/ef/Character_Chevreuse_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20250618072041"
+      },
+      {
+        "id": 229042,
+        "title": "Chiori",
+        "url": "https://genshin-impact.fandom.com/wiki/Chiori",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/a/a0/Character_Chiori_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20240313033020"
+      },
+      {
+        "id": 512,
+        "title": "Chongyun",
+        "url": "https://genshin-impact.fandom.com/wiki/Chongyun",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/9/95/Character_Chongyun_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20250618073927"
+      },
+      {
+        "id": 316439,
+        "title": "Citlali",
+        "url": "https://genshin-impact.fandom.com/wiki/Citlali",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/9/91/Character_Citlali_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20250101151400"
+      },
+      {
+        "id": 236145,
+        "title": "Clorinde",
+        "url": "https://genshin-impact.fandom.com/wiki/Clorinde",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/8/87/Character_Clorinde_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20250618071956"
+      },
+      {
+        "id": 444,
+        "title": "Collei",
+        "url": "https://genshin-impact.fandom.com/wiki/Collei",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/2/2a/Character_Collei_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20220824043515"
+      },
+      {
+        "id": 144376,
+        "title": "Columbina",
+        "url": "https://genshin-impact.fandom.com/wiki/Columbina",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/f/f0/Character_Columbina_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20260114032707"
+      },
+      {
+        "id": 3311,
+        "title": "Cyno",
+        "url": "https://genshin-impact.fandom.com/wiki/Cyno",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/5/55/Character_Cyno_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20221007135437"
+      },
+      {
+        "id": 263806,
+        "title": "Dahlia",
+        "url": "https://genshin-impact.fandom.com/wiki/Dahlia",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/e/eb/Character_Dahlia_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20250618072914"
+      },
+      {
+        "id": 151676,
+        "title": "Dehya",
+        "url": "https://genshin-impact.fandom.com/wiki/Dehya",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/3/35/Character_Dehya_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20230301062353"
+      },
+      {
+        "id": 151,
+        "title": "Diluc",
+        "url": "https://genshin-impact.fandom.com/wiki/Diluc",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/9/91/Character_Diluc_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20220507161658"
+      },
+      {
+        "id": 7121,
+        "title": "Diona",
+        "url": "https://genshin-impact.fandom.com/wiki/Diona",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/4/4e/Character_Diona_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20261004061453"
+      },
+      {
+        "id": 144336,
+        "title": "Dori",
+        "url": "https://genshin-impact.fandom.com/wiki/Dori",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/4/48/Character_Dori_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20220909114351"
+      },
+      {
+        "id": 413614,
+        "title": "Durin",
+        "url": "https://genshin-impact.fandom.com/wiki/Durin",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/2/23/Character_Durin_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20251203075652"
+      },
+      {
+        "id": 244769,
+        "title": "Emilie",
+        "url": "https://genshin-impact.fandom.com/wiki/Emilie",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/c/c8/Character_Emilie_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20240808025602"
+      },
+      {
+        "id": 366780,
+        "title": "Escoffier",
+        "url": "https://genshin-impact.fandom.com/wiki/Escoffier",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/1/1d/Character_Escoffier_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20250618065804"
+      },
+      {
+        "id": 45761,
+        "title": "Eula",
+        "url": "https://genshin-impact.fandom.com/wiki/Eula",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/6/6d/Character_Eula_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20240525000817"
+      },
+      {
+        "id": 175366,
+        "title": "Faruzan",
+        "url": "https://genshin-impact.fandom.com/wiki/Faruzan",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/a/a3/Character_Faruzan_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20221207033630"
+      },
+      {
+        "id": 230,
+        "title": "Fischl",
+        "url": "https://genshin-impact.fandom.com/wiki/Fischl",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/c/c3/Character_Fischl_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20220507161249"
+      },
+      {
+        "id": 384166,
+        "title": "Flins",
+        "url": "https://genshin-impact.fandom.com/wiki/Flins",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/a/a2/Character_Flins_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20251001053654"
+      },
+      {
+        "id": 236174,
+        "title": "Freminet",
+        "url": "https://genshin-impact.fandom.com/wiki/Freminet",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/3/3d/Character_Freminet_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20230908020238"
+      },
+      {
+        "id": 236143,
+        "title": "Furina",
+        "url": "https://genshin-impact.fandom.com/wiki/Furina",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/9/94/Character_Furina_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20231108064320"
+      },
+      {
+        "id": 276281,
+        "title": "Gaming",
+        "url": "https://genshin-impact.fandom.com/wiki/Gaming",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/c/c7/Character_Gaming_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20250618073717"
+      },
+      {
+        "id": 1791,
+        "title": "Ganyu",
+        "url": "https://genshin-impact.fandom.com/wiki/Ganyu",
+        "image": "https://static.wikia.nocookie.net/gensin-impact/images/0/0e/Character_Ganyu_Full_Wish.png/revision/latest/scale-to-width-down/640?cb=20220713045854"
+      }
+    ],
+    "next": "eyJxdWV1ZSI6WyJDYXRlZ29yeTpQbGF5YWJsZSBDaGFyYWN0ZXJzIl0sInNlZW4iOltdLCJjb250aW51YXRpb24iOnsiZ2NtY29udGludWUiOiJwYWdlfDQ3NGY1MjRmNTV8NjE5ODIiLCJjb250aW51ZSI6ImdjbWNvbnRpbnVlfHwifX0",
+    "search": false,
+    "source": {
+      "name": "Genshin Impact Wiki",
+      "url": "https://genshin-impact.fandom.com/wiki/Category:Playable_Characters"
+    },
+    "checkedAt": "2026-10-20T03:00:58.080Z",
+    "status": "available",
+    "traversalLimited": false
+  },
+  "hi3": {
+    "game": "hi3",
+    "kind": "characters",
+    "items": [
+      {
+        "id": 9141,
+        "title": "Argent Knight: Artemis",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Argent_Knight%3A_Artemis",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/e/e1/Argent_Knight_-_Artemis_%28Thumbnail%29.png/revision/latest?cb=20240211093421"
+      },
+      {
+        "id": 12508,
+        "title": "Azure Empyrea",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Azure_Empyrea",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/9/92/Azure_Empyrea_%28Thumbnail%29.png/revision/latest?cb=20240211094923"
+      },
+      {
+        "id": 47093,
+        "title": "Ba-Dum! Fiery Wishing Star",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Ba-Dum!_Fiery_Wishing_Star",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/c/c3/Ba-Dum%21_Fiery_Wishing_Star_%28Thumbnail%29.png/revision/latest?cb=20250214103824"
+      },
+      {
+        "id": 2443,
+        "title": "Battle Storm",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Battle_Storm",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/c/c5/Battle_Storm_%28Thumbnail%29.png/revision/latest?cb=20240211111140"
+      },
+      {
+        "id": 48731,
+        "title": "Behold! Fate-Defying Dragon",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Behold!_Fate-Defying_Dragon",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/b/be/Behold%21_Fate-Defying_Dragon_%28Thumbnail%29.png/revision/latest?cb=20250819215311"
+      },
+      {
+        "id": 3911,
+        "title": "Black Nucleus",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Black_Nucleus",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/7/74/Black_Nucleus_%28Thumbnail%29.png/revision/latest?cb=20240211111936"
+      },
+      {
+        "id": 14166,
+        "title": "Blazing Hope",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Blazing_Hope",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/5/5c/Blazing_Hope_%28Thumbnail%29.png/revision/latest?cb=20240211092022"
+      },
+      {
+        "id": 715,
+        "title": "Blood Rose",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Blood_Rose",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/1/18/Blood_Rose_%28Thumbnail%29.png/revision/latest?cb=20240211111210"
+      },
+      {
+        "id": 9972,
+        "title": "Blueberry Blitz",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Blueberry_Blitz",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/b/b1/Blueberry_Blitz_%28Thumbnail%29.png/revision/latest?cb=20240211100325"
+      },
+      {
+        "id": 13197,
+        "title": "Bright Knight: Excelsis",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Bright_Knight%3A_Excelsis",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/f/f2/Bright_Knight_-_Excelsis_%28Thumbnail%29.png/revision/latest?cb=20240211092807"
+      },
+      {
+        "id": 5196,
+        "title": "Celestial Hymn",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Celestial_Hymn",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/3/3e/Celestial_Hymn_%28Thumbnail%29.png/revision/latest?cb=20240211095812"
+      },
+      {
+        "id": 27385,
+        "title": "Chrono Navi",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Chrono_Navi",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/5/5a/Chrono_Navi_%28Thumbnail%29.png/revision/latest?cb=20240211090448"
+      },
+      {
+        "id": 37816,
+        "title": "Cosmic Expression",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Cosmic_Expression",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/1/15/Cosmic_Expression_%28Thumbnail%29.png/revision/latest?cb=20240211115454"
+      },
+      {
+        "id": 2428,
+        "title": "Crimson Impulse",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Crimson_Impulse",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/6/68/Crimson_Impulse_%28Thumbnail%29.png/revision/latest?cb=20240211113145"
+      },
+      {
+        "id": 14252,
+        "title": "Danzai Spectramancer",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Danzai_Spectramancer",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/7/72/Danzai_Spectramancer_%28Thumbnail%29.png/revision/latest?cb=20240211113218"
+      },
+      {
+        "id": 12429,
+        "title": "Darkbolt Jonin",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Darkbolt_Jonin",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/5/57/Darkbolt_Jonin_%28Thumbnail%29.png/revision/latest?cb=20240211112645"
+      },
+      {
+        "id": 14094,
+        "title": "Dea Anchora",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Dea_Anchora",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/3/3f/Dea_Anchora_%28Thumbnail%29.png/revision/latest?cb=20240211092004"
+      },
+      {
+        "id": 39640,
+        "title": "Deepspace Anchor: First Light",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Deepspace_Anchor%3A_First_Light",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/f/f8/Deepspace_Anchor_-_First_Light_%28Thumbnail%29.png/revision/latest?cb=20240222232231"
+      },
+      {
+        "id": 2787,
+        "title": "Dimension Breaker",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Dimension_Breaker",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/6/65/Dimension_Breaker_%28Thumbnail%29.png/revision/latest?cb=20240211111952"
+      },
+      {
+        "id": 21811,
+        "title": "Disciplinary Perdition",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Disciplinary_Perdition",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/6/60/Disciplinary_Perdition_%28Thumbnail%29.png/revision/latest?cb=20240211091339"
+      },
+      {
+        "id": 2611,
+        "title": "Divine Prayer",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Divine_Prayer",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/d/d6/Divine_Prayer_%28Thumbnail%29.png/revision/latest?cb=20240211114809"
+      },
+      {
+        "id": 33682,
+        "title": "Dreamweaver",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Dreamweaver",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/6/6e/Dreamweaver_%28Thumbnail%29.png/revision/latest?cb=20240211085913"
+      },
+      {
+        "id": 9795,
+        "title": "Drive Kometa",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Drive_Kometa",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/a/ac/Drive_Kometa_%28Thumbnail%29.png/revision/latest?cb=20240211112009"
+      },
+      {
+        "id": 14144,
+        "title": "Fallen Rosemary",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Fallen_Rosemary",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/0/04/Fallen_Rosemary_%28Thumbnail%29.png/revision/latest?cb=20240211093432"
+      },
+      {
+        "id": 38633,
+        "title": "Fenghuang of Vicissitude",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Fenghuang_of_Vicissitude",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/7/71/Fenghuang_of_Vicissitude_%28Thumbnail%29.png/revision/latest?cb=20240211115513"
+      },
+      {
+        "id": 14175,
+        "title": "Fervent Tempo Δ",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Fervent_Tempo_%CE%94",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/b/b0/Fervent_Tempo_%CE%94_%28Thumbnail%29.png/revision/latest?cb=20240211100344"
+      },
+      {
+        "id": 5199,
+        "title": "Flame Sakitama",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Flame_Sakitama",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/f/f8/Flame_Sakitama_%28Thumbnail%29.png/revision/latest?cb=20240211112540"
+      },
+      {
+        "id": 22002,
+        "title": "Golden Diva",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Golden_Diva",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/2/2c/Golden_Diva_%28Thumbnail%29.png/revision/latest?cb=20240211091358"
+      },
+      {
+        "id": 2094,
+        "title": "Goushinnso Memento",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Goushinnso_Memento",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/e/e3/Goushinnso_Memento_%28Thumbnail%29.png/revision/latest?cb=20240211112559"
+      },
+      {
+        "id": 3026,
+        "title": "Gyakushinn Miko",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Gyakushinn_Miko",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/e/ef/Gyakushinn_Miko_%28Thumbnail%29.png/revision/latest?cb=20240211112623"
+      },
+      {
+        "id": 12057,
+        "title": "Hawk of the Fog",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Hawk_of_the_Fog",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/6/60/Hawk_of_the_Fog_%28Thumbnail%29.png/revision/latest?cb=20240211095027"
+      },
+      {
+        "id": 14561,
+        "title": "Haxxor Bunny",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Haxxor_Bunny",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/5/5c/Haxxor_Bunny_%28Thumbnail%29.png/revision/latest?cb=20240211112047"
+      },
+      {
+        "id": 24152,
+        "title": "Helical Contraption",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Helical_Contraption",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/b/ba/Helical_Contraption_%28Thumbnail%29.png/revision/latest?cb=20240211090500"
+      },
+      {
+        "id": 29013,
+        "title": "Herrscher of Finality",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Herrscher_of_Finality",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/f/f3/Herrscher_of_Finality_%28Thumbnail%29.png/revision/latest?cb=20240211114906"
+      },
+      {
+        "id": 14788,
+        "title": "Herrscher of Flamescion",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Herrscher_of_Flamescion",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/1/19/Herrscher_of_Flamescion_%28Thumbnail%29.png/revision/latest?cb=20240211114843"
+      },
+      {
+        "id": 25012,
+        "title": "Herrscher of Human: Ego",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Herrscher_of_Human%3A_Ego",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/f/ff/Herrscher_of_Human_-_Ego_%28Thumbnail%29.png/revision/latest?cb=20240211091417"
+      },
+      {
+        "id": 29024,
+        "title": "Herrscher of Origin",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Herrscher_of_Origin",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/7/7f/Herrscher_of_Origin_%28Thumbnail%29.png/revision/latest?cb=20240211113243"
+      },
+      {
+        "id": 10990,
+        "title": "Herrscher of Reason",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Herrscher_of_Reason",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/f/fc/Herrscher_of_Reason_%28Thumbnail%29.png/revision/latest?cb=20240211112026"
+      },
+      {
+        "id": 35874,
+        "title": "Herrscher of Rebirth",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Herrscher_of_Rebirth",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/b/b8/Herrscher_of_Rebirth_%28Thumbnail%29.png/revision/latest?cb=20240211092823"
+      },
+      {
+        "id": 14307,
+        "title": "Herrscher of Sentience",
+        "url": "https://honkaiimpact3.fandom.com/wiki/Herrscher_of_Sentience",
+        "image": "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/0/0d/Herrscher_of_Sentience_%28Thumbnail%29.png/revision/latest?cb=20240211095043"
+      }
+    ],
+    "next": "eyJxdWV1ZSI6WyJDYXRlZ29yeTpCYXR0bGVzdWl0cyJdLCJzZWVuIjpbXSwiY29udGludWF0aW9uIjp7ImdjbWNvbnRpbnVlIjoicGFnZXw0ODQ1NTI1MjUzNDM0ODQ1NTIyMDRmNDYyMDU0NDg0NTIwNTY0ZjQ5NDR8NzUwMyIsImNvbnRpbnVlIjoiZ2NtY29udGludWV8fCJ9fQ",
+    "search": false,
+    "source": {
+      "name": "Honkai Impact 3 Wiki",
+      "url": "https://honkaiimpact3.fandom.com/wiki/Category:Battlesuits"
+    },
+    "checkedAt": "2026-10-20T03:00:58.055Z",
+    "status": "available",
+    "traversalLimited": false
+  },
+  "wuwa": {
+    "game": "wuwa",
+    "kind": "characters",
+    "items": [
+      {
+        "id": 585,
+        "title": "Aalto",
+        "url": "https://wutheringwaves.fandom.com/wiki/Aalto",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/6/65/Aalto_Card.jpg/revision/latest/scale-to-width-down/640?cb=20231221174300"
+      },
+      {
+        "id": 38537,
+        "title": "Aemeath",
+        "url": "https://wutheringwaves.fandom.com/wiki/Aemeath",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/f/fc/Aemeath_Card.jpg/revision/latest/scale-to-width-down/640?cb=20260103095631"
+      },
+      {
+        "id": 31310,
+        "title": "Augusta",
+        "url": "https://wutheringwaves.fandom.com/wiki/Augusta",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/3/39/Augusta_Card.png/revision/latest?cb=20250730151033"
+      },
+      {
+        "id": 624,
+        "title": "Baizhi",
+        "url": "https://wutheringwaves.fandom.com/wiki/Baizhi",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/e/ed/Baizhi_Card.png/revision/latest/scale-to-width-down/640?cb=20240608100732"
+      },
+      {
+        "id": 24786,
+        "title": "Brant",
+        "url": "https://wutheringwaves.fandom.com/wiki/Brant",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/2/2d/Brant_Card.png/revision/latest/scale-to-width-down/640?cb=20251015115249"
+      },
+      {
+        "id": 31556,
+        "title": "Buling",
+        "url": "https://wutheringwaves.fandom.com/wiki/Buling",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/5/58/Buling_Card.jpg/revision/latest/scale-to-width-down/640?cb=20251017122754"
+      },
+      {
+        "id": 632,
+        "title": "Calcharo",
+        "url": "https://wutheringwaves.fandom.com/wiki/Calcharo",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/e/e5/Calcharo_Card.png/revision/latest/scale-to-width-down/640?cb=20240717222251"
+      },
+      {
+        "id": 599,
+        "title": "Camellya",
+        "url": "https://wutheringwaves.fandom.com/wiki/Camellya",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/8/8f/Camellya_Card.png/revision/latest/scale-to-width-down/640?cb=20240912101744"
+      },
+      {
+        "id": 27951,
+        "title": "Cantarella",
+        "url": "https://wutheringwaves.fandom.com/wiki/Cantarella",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/0/01/Cantarella_Card.png/revision/latest/scale-to-width-down/640?cb=20250221143534"
+      },
+      {
+        "id": 24790,
+        "title": "Carlotta",
+        "url": "https://wutheringwaves.fandom.com/wiki/Carlotta",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/8/8a/Carlotta_Card.png/revision/latest/scale-to-width-down/640?cb=20241122070709"
+      },
+      {
+        "id": 26196,
+        "title": "Cartethyia",
+        "url": "https://wutheringwaves.fandom.com/wiki/Cartethyia",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/d/d5/Cartethyia_Card.png/revision/latest?cb=20250509103319"
+      },
+      {
+        "id": 1126,
+        "title": "Changli",
+        "url": "https://wutheringwaves.fandom.com/wiki/Changli",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/e/e9/Changli_Card.png/revision/latest/scale-to-width-down/640?cb=20240719033449"
+      },
+      {
+        "id": 31283,
+        "title": "Chisa",
+        "url": "https://wutheringwaves.fandom.com/wiki/Chisa",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/c/ca/Chisa_Card.jpg/revision/latest/scale-to-width-down/640?cb=20251017123133"
+      },
+      {
+        "id": 510,
+        "title": "Chixia",
+        "url": "https://wutheringwaves.fandom.com/wiki/Chixia",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/d/da/Chixia_Card.png/revision/latest/scale-to-width-down/640?cb=20240703175137"
+      },
+      {
+        "id": 28670,
+        "title": "Ciaccona",
+        "url": "https://wutheringwaves.fandom.com/wiki/Ciaccona",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/6/68/Ciaccona_Card.png/revision/latest/scale-to-width-down/640?cb=20250403171349"
+      },
+      {
+        "id": 530,
+        "title": "Danjin",
+        "url": "https://wutheringwaves.fandom.com/wiki/Danjin",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/3/3e/Danjin_Card.png/revision/latest/scale-to-width-down/640?cb=20240607110406"
+      },
+      {
+        "id": 39187,
+        "title": "Denia",
+        "url": "https://wutheringwaves.fandom.com/wiki/Denia",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/b/b2/Denia_Card.jpg/revision/latest/scale-to-width-down/640?cb=20260327233110"
+      },
+      {
+        "id": 522,
+        "title": "Encore",
+        "url": "https://wutheringwaves.fandom.com/wiki/Encore",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/6/6c/Encore_Card.png/revision/latest/scale-to-width-down/640?cb=20240819195310"
+      },
+      {
+        "id": 31295,
+        "title": "Galbrena",
+        "url": "https://wutheringwaves.fandom.com/wiki/Galbrena",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/9/9d/Galbrena_Card.jpg/revision/latest/scale-to-width-down/640?cb=20251012132119"
+      },
+      {
+        "id": 40075,
+        "title": "Hiyuki",
+        "url": "https://wutheringwaves.fandom.com/wiki/Hiyuki",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/d/dc/Hiyuki_Card.jpg/revision/latest/scale-to-width-down/640?cb=20260327233031"
+      },
+      {
+        "id": 10962,
+        "title": "Hsin",
+        "url": "https://wutheringwaves.fandom.com/wiki/Hsin",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/d/d6/Hsin_Card.jpg/revision/latest/scale-to-width-down/640?cb=20260615033703"
+      },
+      {
+        "id": 31296,
+        "title": "Iuno",
+        "url": "https://wutheringwaves.fandom.com/wiki/Iuno",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/1/1f/Iuno_Card.png/revision/latest?cb=20250730151112"
+      },
+      {
+        "id": 633,
+        "title": "Jianxin",
+        "url": "https://wutheringwaves.fandom.com/wiki/Jianxin",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/8/8a/Jianxin_Card.jpg/revision/latest/scale-to-width-down/640?cb=20240206132017"
+      },
+      {
+        "id": 41349,
+        "title": "Jingran",
+        "url": "https://wutheringwaves.fandom.com/wiki/Jingran",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/4/44/Jingran_Card.jpg/revision/latest/scale-to-width-down/640?cb=20260822065224"
+      },
+      {
+        "id": 936,
+        "title": "Jinhsi",
+        "url": "https://wutheringwaves.fandom.com/wiki/Jinhsi",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/a/a9/Jinhsi_Card.png/revision/latest/scale-to-width-down/640?cb=20240517072857"
+      },
+      {
+        "id": 525,
+        "title": "Jiyan",
+        "url": "https://wutheringwaves.fandom.com/wiki/Jiyan",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/0/0d/Jiyan_Card.png/revision/latest/scale-to-width-down/640?cb=20240509102627"
+      },
+      {
+        "id": 631,
+        "title": "Lingyang",
+        "url": "https://wutheringwaves.fandom.com/wiki/Lingyang",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/9/98/Lingyang_Card.png/revision/latest/scale-to-width-down/640?cb=20240503051937"
+      },
+      {
+        "id": 37545,
+        "title": "Lucilla",
+        "url": "https://wutheringwaves.fandom.com/wiki/Lucilla",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/5/51/Lucilla_Card.jpg/revision/latest/scale-to-width-down/640?cb=20260602122727"
+      },
+      {
+        "id": 40855,
+        "title": "Lucy",
+        "url": "https://wutheringwaves.fandom.com/wiki/Lucy",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/3/32/Lucy_Card.jpg/revision/latest/scale-to-width-down/640?cb=20260603133404"
+      },
+      {
+        "id": 20501,
+        "title": "Lumi",
+        "url": "https://wutheringwaves.fandom.com/wiki/Lumi",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/e/ee/Lumi_Card.jpg/revision/latest/scale-to-width-down/640?cb=20251017214618"
+      },
+      {
+        "id": 30940,
+        "title": "Lupa",
+        "url": "https://wutheringwaves.fandom.com/wiki/Lupa",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/e/e4/Lupa_Card.png/revision/latest/scale-to-width-down/640?cb=20250509103359"
+      },
+      {
+        "id": 37544,
+        "title": "Luuk Herssen",
+        "url": "https://wutheringwaves.fandom.com/wiki/Luuk_Herssen",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/f/fe/Luuk_Herssen_Card.jpg/revision/latest/scale-to-width-down/640?cb=20260103095841"
+      },
+      {
+        "id": 37543,
+        "title": "Lynae",
+        "url": "https://wutheringwaves.fandom.com/wiki/Lynae",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/7/71/Lynae_Card.jpg/revision/latest/scale-to-width-down/640?cb=20251216211412"
+      },
+      {
+        "id": 37540,
+        "title": "Mornye",
+        "url": "https://wutheringwaves.fandom.com/wiki/Mornye",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/e/eb/Mornye_Card.jpg/revision/latest/scale-to-width-down/640?cb=20251216212240"
+      },
+      {
+        "id": 594,
+        "title": "Mortefi",
+        "url": "https://wutheringwaves.fandom.com/wiki/Mortefi",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/8/8e/Mortefi_Card.jpg/revision/latest/scale-to-width-down/640?cb=20231221180030"
+      },
+      {
+        "id": 24784,
+        "title": "Phoebe",
+        "url": "https://wutheringwaves.fandom.com/wiki/Phoebe",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/5/54/Phoebe_Card.png/revision/latest/scale-to-width-down/640?cb=20251015114458"
+      },
+      {
+        "id": 1074,
+        "title": "Phrolova",
+        "url": "https://wutheringwaves.fandom.com/wiki/Phrolova",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/0/0b/Phrolova_Card.png/revision/latest?cb=20250621131505"
+      },
+      {
+        "id": 41351,
+        "title": "Qingxiao",
+        "url": "https://wutheringwaves.fandom.com/wiki/Qingxiao",
+        "image": "https://static.wikia.nocookie.net/wutheringwaves/images/1/1b/Qingxiao_Card.jpg/revision/latest/scale-to-width-down/640?cb=20260822065324"
+      }
+    ],
+    "next": "eyJxdWV1ZSI6WyJDYXRlZ29yeTpSZXNvbmF0b3JzIl0sInNlZW4iOltdLCJjb250aW51YXRpb24iOnsiZ2NtY29udGludWUiOiJwYWdlfDUxNDk1NTU5NTU0MTRlfDMxMjg2IiwiY29udGludWUiOiJnY21jb250aW51ZXx8In19",
+    "search": false,
+    "source": {
+      "name": "Wuthering Waves Wiki",
+      "url": "https://wutheringwaves.fandom.com/wiki/Category:Resonators"
+    },
+    "checkedAt": "2026-10-20T03:00:59.272Z",
+    "status": "available",
+    "traversalLimited": false
+  },
+  "nte": {
+    "game": "nte",
+    "kind": "characters",
+    "items": [
+      {
+        "id": 440,
+        "title": "Adler",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Adler",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/0/0c/Adler_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260629173120"
+      },
+      {
+        "id": 1005,
+        "title": "Aurelia",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Aurelia",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/2/22/Aurelia_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260629174756"
+      },
+      {
+        "id": 437,
+        "title": "Baicang",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Baicang",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/8/83/Baicang_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260629173726"
+      },
+      {
+        "id": 560,
+        "title": "Blackbird",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Blackbird",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/8/8d/Blackbird_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260824151448"
+      },
+      {
+        "id": 551,
+        "title": "Chaos",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Chaos",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/8/87/Chaos_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260629173809"
+      },
+      {
+        "id": 438,
+        "title": "Chiz",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Chiz",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/4/42/Chiz_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260629173843"
+      },
+      {
+        "id": 436,
+        "title": "Daffodill",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Daffodill",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/f/f0/Daffodill_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260629173935"
+      },
+      {
+        "id": 388,
+        "title": "Edgar",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Edgar",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/b/b4/Edgar_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260701201907"
+      },
+      {
+        "id": 290,
+        "title": "Esper Zero",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Esper_Zero",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/5/5f/Esper_Zero_Male_Portrait.png/revision/latest/scale-to-width-down/540?cb=20260629174043"
+      },
+      {
+        "id": 261,
+        "title": "Fadia",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Fadia",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/7/7d/Fadia_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260629174721"
+      },
+      {
+        "id": 377,
+        "title": "Haniel",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Haniel",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/a/a5/Haniel_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260701202324"
+      },
+      {
+        "id": 379,
+        "title": "Hathor",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Hathor",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/9/9b/Hathor_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260629174220"
+      },
+      {
+        "id": 263,
+        "title": "Hotori",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Hotori",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/b/b6/Hotori_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260629174306"
+      },
+      {
+        "id": 369,
+        "title": "Iroi",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Iroi",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/8/85/Iroi_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260723021205"
+      },
+      {
+        "id": 439,
+        "title": "Jiuyuan",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Jiuyuan",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/b/b3/Jiuyuan_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260629174536"
+      },
+      {
+        "id": 262,
+        "title": "Lacrimosa",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Lacrimosa",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/c/c1/Lacrimosa_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260701202053"
+      },
+      {
+        "id": 1704,
+        "title": "Linko",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Linko",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/e/ef/Linko_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260817144327"
+      },
+      {
+        "id": 196,
+        "title": "Mint",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Mint",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/4/41/Mint_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260629174611"
+      },
+      {
+        "id": 197,
+        "title": "Nanally",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Nanally",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/8/8b/Nanally_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260629174651"
+      },
+      {
+        "id": 198,
+        "title": "Sakiri",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Sakiri",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/6/61/Sakiri_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260701202236"
+      },
+      {
+        "id": 367,
+        "title": "Shinku",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Shinku",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/a/a8/Shinku_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260708083848"
+      },
+      {
+        "id": 441,
+        "title": "Skia",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Skia",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/0/0d/Skia_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260629174906"
+      },
+      {
+        "id": 1257,
+        "title": "Zankou",
+        "url": "https://neverness-to-everness.fandom.com/wiki/Zankou",
+        "image": "https://static.wikia.nocookie.net/neverness-to-everness/images/0/00/Zankou_Portrait.png/revision/latest/scale-to-width-down/640?cb=20260817142354"
+      }
+    ],
+    "next": null,
+    "search": false,
+    "source": {
+      "name": "Neverness to Everness Wiki",
+      "url": "https://neverness-to-everness.fandom.com/wiki/Category:Playable_Characters"
+    },
+    "checkedAt": "2026-10-20T03:00:58.070Z",
+    "status": "available",
+    "traversalLimited": false
+  },
+  "mlbb": {
+    "game": "mlbb",
+    "kind": "characters",
+    "items": [
+      {
+        "id": 23157,
+        "title": "Aamon",
+        "url": "https://mobile-legends.fandom.com/wiki/Aamon",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/c/c8/Hero1091-portrait.png/revision/latest?cb=20251225192214"
+      },
+      {
+        "id": 155,
+        "title": "Akai",
+        "url": "https://mobile-legends.fandom.com/wiki/Akai",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/9/9d/Hero091-portrait.png/revision/latest?cb=20241021140401"
+      },
+      {
+        "id": 4008,
+        "title": "Aldous",
+        "url": "https://mobile-legends.fandom.com/wiki/Aldous",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/6/61/Hero641-portrait.png/revision/latest?cb=20241021142204"
+      },
+      {
+        "id": 114,
+        "title": "Alice",
+        "url": "https://mobile-legends.fandom.com/wiki/Alice",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/8/88/Hero041-portrait.png/revision/latest?cb=20250917074230"
+      },
+      {
+        "id": 1473,
+        "title": "Alpha",
+        "url": "https://mobile-legends.fandom.com/wiki/Alpha",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/b/b0/Hero281-portrait.png/revision/latest?cb=20250802155020"
+      },
+      {
+        "id": 117,
+        "title": "Alucard",
+        "url": "https://mobile-legends.fandom.com/wiki/Alucard",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/0/01/Hero071-portrait.png/revision/latest?cb=20241021140353"
+      },
+      {
+        "id": 2487,
+        "title": "Angela",
+        "url": "https://mobile-legends.fandom.com/wiki/Angela",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/6/6b/Hero551-portrait.png/revision/latest?cb=20250406000910"
+      },
+      {
+        "id": 1602,
+        "title": "Argus",
+        "url": "https://mobile-legends.fandom.com/wiki/Argus",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/a/ac/Hero451-portrait.png/revision/latest?cb=20250407160733"
+      },
+      {
+        "id": 41286,
+        "title": "Arlott",
+        "url": "https://mobile-legends.fandom.com/wiki/Arlott",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/4/49/Hero1201-portrait.png/revision/latest?cb=20241021140737"
+      },
+      {
+        "id": 12338,
+        "title": "Atlas",
+        "url": "https://mobile-legends.fandom.com/wiki/Atlas",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/7/7c/Hero931-portrait.png/revision/latest?cb=20241021142917"
+      },
+      {
+        "id": 22037,
+        "title": "Aulus",
+        "url": "https://mobile-legends.fandom.com/wiki/Aulus",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/1/1d/Hero1081-portrait.png/revision/latest?cb=20260423100521"
+      },
+      {
+        "id": 1488,
+        "title": "Aurora",
+        "url": "https://mobile-legends.fandom.com/wiki/Aurora",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/3/30/Hero361-portrait.png/revision/latest?cb=20241021141501"
+      },
+      {
+        "id": 7897,
+        "title": "Badang",
+        "url": "https://mobile-legends.fandom.com/wiki/Badang",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/d/d8/Hero771-portrait.png/revision/latest?cb=20260919020718"
+      },
+      {
+        "id": 100,
+        "title": "Balmond",
+        "url": "https://mobile-legends.fandom.com/wiki/Balmond",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/c/c4/Hero021-portrait.png/revision/latest?cb=20251110110543"
+      },
+      {
+        "id": 311,
+        "title": "Bane",
+        "url": "https://mobile-legends.fandom.com/wiki/Bane",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/8/8d/Hero111-portrait.png/revision/latest?cb=20241021140922"
+      },
+      {
+        "id": 15204,
+        "title": "Barats",
+        "url": "https://mobile-legends.fandom.com/wiki/Barats",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/0/0f/Hero991-portrait.png/revision/latest?cb=20241021143047"
+      },
+      {
+        "id": 10844,
+        "title": "Baxia",
+        "url": "https://mobile-legends.fandom.com/wiki/Baxia",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/d/d0/Hero871-portrait.png/revision/latest?cb=20241021142746"
+      },
+      {
+        "id": 20593,
+        "title": "Beatrix",
+        "url": "https://mobile-legends.fandom.com/wiki/Beatrix",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/d/de/Hero1051-portrait.png/revision/latest?cb=20241021143216"
+      },
+      {
+        "id": 5908,
+        "title": "Belerick",
+        "url": "https://mobile-legends.fandom.com/wiki/Belerick",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/8/8d/Hero701-portrait.png/revision/latest?cb=20241021142334"
+      },
+      {
+        "id": 13986,
+        "title": "Benedetta",
+        "url": "https://mobile-legends.fandom.com/wiki/Benedetta",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/1/1d/Hero971-portrait.png/revision/latest?cb=20241021143017"
+      },
+      {
+        "id": 16115,
+        "title": "Brody",
+        "url": "https://mobile-legends.fandom.com/wiki/Brody",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/2/2c/Hero1001-portrait.png/revision/latest?cb=20260916131931"
+      },
+      {
+        "id": 171,
+        "title": "Bruno",
+        "url": "https://mobile-legends.fandom.com/wiki/Bruno",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/4/44/Hero121-portrait.png/revision/latest?cb=20260916132624"
+      },
+      {
+        "id": 11808,
+        "title": "Carmilla",
+        "url": "https://mobile-legends.fandom.com/wiki/Carmilla",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/3/30/Hero921-portrait.png/revision/latest?cb=20241021142902"
+      },
+      {
+        "id": 12056,
+        "title": "Cecilion",
+        "url": "https://mobile-legends.fandom.com/wiki/Cecilion",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/7/7f/Hero911-portrait.png/revision/latest?cb=20241021142846"
+      },
+      {
+        "id": 3531,
+        "title": "Chang'e",
+        "url": "https://mobile-legends.fandom.com/wiki/Chang'e",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/6/63/Hero611-portrait.png/revision/latest?cb=20241021142120"
+      },
+      {
+        "id": 45814,
+        "title": "Chip",
+        "url": "https://mobile-legends.fandom.com/wiki/Chip",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/7/73/Hero1241-portrait.png/revision/latest?cb=20241021140835"
+      },
+      {
+        "id": 908,
+        "title": "Chou",
+        "url": "https://mobile-legends.fandom.com/wiki/Chou",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/e/ed/Hero261-portrait.png/revision/latest?cb=20241021141231"
+      },
+      {
+        "id": 43720,
+        "title": "Cici",
+        "url": "https://mobile-legends.fandom.com/wiki/Cici",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/4/4f/Hero1231-portrait.png/revision/latest?cb=20241021140820"
+      },
+      {
+        "id": 4960,
+        "title": "Claude",
+        "url": "https://mobile-legends.fandom.com/wiki/Claude",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/6/61/Hero651-portrait.png/revision/latest?cb=20241021142219"
+      },
+      {
+        "id": 172,
+        "title": "Clint",
+        "url": "https://mobile-legends.fandom.com/wiki/Clint",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/d/d9/Hero131-portrait.png/revision/latest?cb=20260918135520"
+      },
+      {
+        "id": 1393,
+        "title": "Cyclops",
+        "url": "https://mobile-legends.fandom.com/wiki/Cyclops",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/0/09/Hero331-portrait.png/revision/latest?cb=20241021141415"
+      },
+      {
+        "id": 2167,
+        "title": "Diggie",
+        "url": "https://mobile-legends.fandom.com/wiki/Diggie",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/1/17/Hero481-portrait.png/revision/latest?cb=20241021141804"
+      },
+      {
+        "id": 9588,
+        "title": "Dyrroth",
+        "url": "https://mobile-legends.fandom.com/wiki/Dyrroth",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/2/2c/Hero851-portrait.png/revision/latest?cb=20250917081250"
+      },
+      {
+        "id": 25341,
+        "title": "Edith",
+        "url": "https://mobile-legends.fandom.com/wiki/Edith",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/4/47/Hero1111-portrait.png/revision/latest?cb=20241021143348"
+      },
+      {
+        "id": 8255,
+        "title": "Esmeralda",
+        "url": "https://mobile-legends.fandom.com/wiki/Esmeralda",
+        "image": "https://static.wikia.nocookie.net/mobile-legends/images/4/42/Hero811-portrait.png/revision/latest?cb=20241021142615"
+      }
+    ],
+    "next": "eyJxdWV1ZSI6WyJDYXRlZ29yeTpIZXJvZXMiXSwic2VlbiI6W10sImNvbnRpbnVhdGlvbiI6eyJnY21jb250aW51ZSI6InBhZ2V8NDU1MzU0NDU1M3wxMjYyIiwiY29udGludWUiOiJnY21jb250aW51ZXx8In19",
+    "search": false,
+    "source": {
+      "name": "Mobile Legends Wiki",
+      "url": "https://mobile-legends.fandom.com/wiki/Category:Heroes"
+    },
+    "checkedAt": "2026-10-20T03:00:58.079Z",
+    "status": "available",
+    "traversalLimited": false
+  }
+}

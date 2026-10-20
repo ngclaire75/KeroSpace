@@ -228,6 +228,7 @@ export default defineEventHandler(async event => {
   const items: CatalogEntry[] = []
   let next: string | null = null
   try {
+    setHeader(event, 'cache-control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=3600')
     if (search) {
       const offset = Number(query.offset || 0)
       if (!Number.isSafeInteger(offset) || offset < 0 || offset > 10000) throw createError({ statusCode: 400, statusMessage: 'Invalid search offset' })
@@ -280,6 +281,7 @@ export default defineEventHandler(async event => {
     return { game, kind, items: visible, next, search: false, source: { name: config.name, url: sourceUrl }, checkedAt: new Date().toISOString(), status: 'available', traversalLimited }
   } catch (error) {
     if ((error as { statusCode?: number }).statusCode === 400) throw error
+    console.error('[game-catalog] Upstream request failed', { game, kind, message: error instanceof Error ? error.message : String(error) })
     setHeader(event, 'cache-control', 'no-store')
     return { game, kind, items: [], next: null, search: !!search, source: { name: config.name, url: sourceUrl }, checkedAt: null, status: 'unavailable', traversalLimited: false }
   }

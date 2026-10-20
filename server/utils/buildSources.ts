@@ -11,7 +11,12 @@ const anchors: Record<string, string> = { hsr: 'acheron', wuwa: 'jiyan', nte: 'n
 type ProviderRecord = Record<string, any>
 
 async function prydwenFetch<T>(path: string, html = false): Promise<T> {
-  try { return await $fetch<T>(PRYDWEN + path, { headers, timeout: 12000, retry: 0, ...(html ? { responseType: 'text' as const } : {}) }) }
+  try {
+    const result = await $fetch<T>(PRYDWEN + path, { headers, timeout: 8000, retry: 0, ...(html ? { responseType: 'text' as const } : {}) })
+    // Bot challenges can return HTTP 200. They are not character pages.
+    if (html && typeof result === 'string' && /<title>\s*Just a moment|\/cdn-cgi\/challenge-platform|id=["']challenge-form/i.test(result)) throw new Error('Build provider returned a challenge')
+    return result
+  }
   catch { return await $fetch<T>(PRYDWEN_CDN + path, { headers, timeout: 15000, retry: 0, ...(html ? { responseType: 'text' as const } : {}) }) }
 }
 const prydwenRoster = defineCachedFunction(async (game: string) => {
@@ -44,7 +49,12 @@ export async function prydwenBuild(game: string, title: string): Promise<Charact
   const record = page.result?.data?.currentUnit?.nodes?.[0]
   if (!record || normalizedName(record.name) !== normalizedName(character.name)) throw new Error('Character build mismatch')
   if (record.isReleased === false || record.upcoming === true || record.isUpcoming === true || (record.releaseDate && Date.parse(record.releaseDate) > Date.now())) return { game, title, builds: [], status: 'missing', source, checkedAt: new Date().toISOString() }
-  const build = parsePrydwenBuild(game, html, PRYDWEN_CDN)
+  let build = parsePrydwenBuild(game, html, PRYDWEN_CDN)
+  if (!build.groups.some(group => group.items.length)) {
+    const fallback = await $fetch<string>(PRYDWEN_CDN + path + '/', { headers, timeout: 15000, retry: 0, responseType: 'text' })
+    build = parsePrydwenBuild(game, fallback, PRYDWEN_CDN)
+  }
+  if (!build.groups.some(group => group.items.length)) throw new Error('Build equipment unavailable from provider')
   const targets = richStatLines(record.endgameStats?.raw)
   build.stats.push(...targets.map(stat => ({ label: `Target ${stat.label}`, value: stat.value })))
   return {

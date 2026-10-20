@@ -18,14 +18,20 @@ const loadBuild = defineCachedFunction(async (game: string, title: string) => {
   const image = page.thumbnail?.source || page.original?.source
   if (typeof image === 'string' && image.startsWith('https://static.wikia.nocookie.net/')) result.image = image
   return result
-}, { name: 'character-best-build-v9', maxAge: 3600, swr: true, getKey: (game, title) => `${game}:${title}` })
+}, { name: 'character-best-build-v10', maxAge: 3600, swr: true, getKey: (game, title) => `${game}:${title}` })
 
 export default defineEventHandler(async event => {
   const query = getQuery(event)
   const game = String(query.game || ''), title = String(query.title || '').trim()
   if (!Object.hasOwn(gameCatalogs, game) || !title || title.length > 120 || /[<>|\x00-\x1f]/.test(title) || /^(?:Special|File|Category|User|Template|Talk):/i.test(title) || hasUnreleasedMarker(title)) throw createError({ statusCode: 400, statusMessage: 'Invalid character' })
-  try { return await loadBuild(game, title) }
-  catch {
+  try {
+    const result = await loadBuild(game, title)
+    if (result.status === 'available') setHeader(event, 'cache-control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=3600')
+    else setHeader(event, 'cache-control', 'no-store')
+    return result
+  }
+  catch (error) {
+    console.error('[character-build] Upstream request failed', { game, title, message: error instanceof Error ? error.message : String(error) })
     setHeader(event, 'cache-control', 'no-store')
     return { game, title, builds: [], status: 'unavailable', source: { name: '', url: '' }, checkedAt: null } satisfies CharacterBuildResponse
   }

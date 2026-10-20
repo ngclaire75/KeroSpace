@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { guideGames } from '~/data/guides'
 import { catalogImageCandidates, hasCatalogArtwork } from '~/utils/catalogImages'
-import type { CatalogEntry } from '~/data/gameCatalogs'
+import type { CatalogEntry, CatalogResponse } from '~/data/gameCatalogs'
+import rosterSnapshots from '~/data/guideRosterSnapshots.json'
+import guideArtwork from '~/data/guideArtwork.json'
 
 // One released character roster for each game's guide page.
 const props = withDefaults(defineProps<{ gameId: string; headingLevel?: 'h1' | 'h2' }>(), { headingLevel: 'h2' })
@@ -30,7 +32,8 @@ const loadingMore = ref(false)
 const moreError = ref(false)
 const imageAttempts = ref<Record<string, number>>({})
 function entryImage(entry: CatalogEntry) {
-  const candidates = entry.image?.startsWith('/images/') ? [entry.image] : catalogImageCandidates(entry.image)
+  const local = (guideArtwork as Record<string, string>)[entry.image || '']
+  const candidates = entry.image?.startsWith('/images/') ? [entry.image] : [...(local ? [local] : []), ...catalogImageCandidates(entry.image)]
   const attempt = imageAttempts.value[entry.image || ''] || 0
   // Keep direct CDN delivery fast, then use server delivery if the browser cannot load it.
   if (attempt < candidates.length) return candidates[attempt]
@@ -42,17 +45,20 @@ function retryImage(entry: CatalogEntry) {
   imageAttempts.value[key] = (imageAttempts.value[key] || 0) + 1
 }
 
-// Client-only: the source wiki can be slow, so the page shell never waits for it.
-const { data, status, error, refresh } = await useFetch('/api/game-catalog', {
+// Render the last verified first page in SSR. Refresh from the live catalogue after
+// hydration, without making initial content depend on third-party availability.
+const { data, status, error, refresh } = await useFetch<CatalogResponse>('/api/game-catalog', {
   query: computed(() => ({ game: gameId.value, kind: kindId.value, search: search.value })),
   server: false,
   timeout: 45000,
+  default: () => search.value ? undefined : (rosterSnapshots as Record<string, CatalogResponse>)[gameId.value],
 })
 // Characters fetched ahead of time. "Load more" only appears once this holds at least one
 // character that isn't on screen yet, so the button can never add nothing.
 const buffered = ref<CatalogEntry[]>([])
 let prefetchRun = 0
 watch(data, value => {
+  if ((!value || value.status !== 'available') && !search.value && entries.value.length) return
   entries.value = value?.items || []
   cursor.value = value?.next || null
   traversalLimited.value = value?.traversalLimited || false
@@ -93,7 +99,7 @@ async function loadMore() {
 }
 
 const visibleEntries = computed(() => entries.value.filter(entry => hasCatalogArtwork(entry) && entryImage(entry)))
-const isLoading = computed(() => status.value === 'pending' || status.value === 'idle')
+const isLoading = computed(() => !visibleEntries.value.length && (status.value === 'pending' || status.value === 'idle'))
 </script>
 
 <template>
@@ -130,7 +136,7 @@ const isLoading = computed(() => status.value === 'pending' || status.value === 
       </ul>
 
       <!-- source unavailable -->
-      <div v-else-if="error || data?.status === 'unavailable'" class="gk-message" role="status">
+      <div v-else-if="!visibleEntries.length && (error || data?.status === 'unavailable')" class="gk-message" role="status">
         <h2>Characters couldn’t be loaded.</h2>
         <p>The character database didn’t respond. Try again in a moment.</p>
         <button type="button" class="gd-btn" @click="refresh()">Try again</button>
@@ -138,11 +144,11 @@ const isLoading = computed(() => status.value === 'pending' || status.value === 
 
       <template v-else>
         <ul v-if="visibleEntries.length" class="gk-grid">
-          <li v-for="entry in visibleEntries" :key="entry.id">
+          <li v-for="(entry, index) in visibleEntries" :key="entry.id">
             <NuxtLink :to="{ path: '/guides/database', query: { game: game.id, title: entry.title } }" class="gk-card neon-hover-outline" :title="entry.title">
               <!-- MLBB posters fill the frame; other games retain uncropped artwork. -->
               <span class="gk-card__art">
-                <img :key="entryImage(entry)" :src="entryImage(entry)" :alt="entry.title" loading="lazy" decoding="async" referrerpolicy="no-referrer" @error="retryImage(entry)" />
+                <img :key="entryImage(entry)" :src="entryImage(entry)" :alt="entry.title" :loading="index < 6 ? 'eager' : 'lazy'" decoding="async" referrerpolicy="no-referrer" @error="retryImage(entry)" />
               </span>
               <span class="gk-card__body">
                 <span class="gk-card__title">{{ entry.title }}</span>
@@ -160,6 +166,7 @@ const isLoading = computed(() => status.value === 'pending' || status.value === 
         <div v-if="buffered.length || moreError" class="gk-more">
           <button v-if="buffered.length" type="button" class="gd-btn" :disabled="loadingMore" @click="loadMore()">{{ loadingMore ? 'LOADING…' : 'LOAD MORE ENTRIES' }}</button>
           <p v-if="moreError" role="status">Couldn’t load the next page. Your entries are kept; try again.</p>
+          <button v-if="moreError && !buffered.length" type="button" class="gd-btn" @click="moreError = false; prefetch()">Retry loading more</button>
         </div>
         <p v-if="traversalLimited" class="gk-fine">This section is larger than the browsing limit. Search by name to find more entries.</p>
       </template>
