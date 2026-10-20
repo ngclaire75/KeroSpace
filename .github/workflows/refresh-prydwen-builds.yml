@@ -1,0 +1,47 @@
+# Keeps the Honkai: Star Rail, Wuthering Waves and Neverness to Everness builds current.
+# prydwen.gg blocks servers, so a real browser reads it once a day and the refreshed builds are
+# committed; Vercel deploys the commit. See scripts/sync-prydwen-builds.ts.
+name: Refresh Prydwen builds
+
+on:
+  schedule:
+    - cron: '30 20 * * *' # 04:30 in Singapore, after Prydwen's evening updates
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-prydwen-builds
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx playwright install --with-deps chromium
+
+      - name: Refresh builds from Prydwen
+        run: npx jiti scripts/sync-prydwen-builds.ts https://kerospace.vercel.app
+
+      - name: Commit refreshed builds
+        run: |
+          if git diff --quiet -- data/guideBuildSnapshots.json; then
+            echo "No build changed."
+            exit 0
+          fi
+          git config user.name "kerospace-builds-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/guideBuildSnapshots.json
+          git commit -m "Refresh HSR, WuWa and NTE builds from Prydwen"
+          git push
