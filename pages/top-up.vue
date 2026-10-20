@@ -38,6 +38,19 @@ const details = ref('')
 const region = ref('')
 const copyState = ref<'idle' | 'copied' | 'manual'>('idle')
 const enquiryField = ref<HTMLTextAreaElement>()
+const copiedDialog = ref<HTMLDialogElement>()
+const instagramAction = ref<HTMLAnchorElement>()
+
+function closeCopiedDialog() {
+  copiedDialog.value?.close()
+}
+
+function onDialogBackdrop(event: MouseEvent) {
+  const dialog = copiedDialog.value
+  if (!dialog || event.target !== dialog) return
+  const bounds = dialog.getBoundingClientRect()
+  if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) closeCopiedDialog()
+}
 
 const game = computed(() => games.find(g => g.id === selectedGame.value)!)
 const service = computed(() => services.find(s => s.id === selectedService.value)!)
@@ -53,6 +66,8 @@ async function copyEnquiry() {
   try {
     await navigator.clipboard.writeText(enquiry.value)
     copyState.value = 'copied'
+    copiedDialog.value?.showModal()
+    instagramAction.value?.focus()
   } catch {
     copyState.value = 'manual'
     await nextTick()
@@ -125,7 +140,7 @@ async function copyEnquiry() {
                 <button class="copy-button" type="button" @click="copyEnquiry">{{ copyState === 'copied' ? 'Enquiry copied ✓' : 'Copy your enquiry' }}<svg v-if="copyState !== 'copied'" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2" /><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" /></svg></button>
                 <a class="instagram-button" href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">Enquire on Instagram<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="17" height="17" viewBox="0 0 48 48"><defs><mask id="top-up-enquiry-chat"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path fill="#555" d="M44 7H4v30h7v5l10-5h23z" /><path d="M31 16v1m-14-1v1m14 8s-2 4-7 4s-7-4-7-4" /></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#top-up-enquiry-chat)" /></svg></a>
               </div>
-              <p v-if="copyState === 'copied' || copyState === 'manual'" class="enquiry__status" role="status">{{ copyState === 'copied' ? 'Ready to paste. Send your enquiry to @koqbisagtu on Instagram.' : 'Select and copy the message below, then send it on Instagram.' }}</p>
+              <p v-if="copyState === 'manual'" class="enquiry__status" role="status">Select and copy the message below, then send it on Instagram.</p>
               <label v-if="copyState === 'manual'" class="shop-field">Your enquiry<textarea ref="enquiryField" :value="enquiry" readonly rows="7" /></label>
             </div>
           </aside>
@@ -134,6 +149,22 @@ async function copyEnquiry() {
 
     </main>
     <SiteFooter />
+    <dialog ref="copiedDialog" class="copied-dialog" aria-labelledby="copied-title" aria-describedby="copied-description" @click="onDialogBackdrop">
+      <div class="copied-banner">
+        <div class="copied-banner__art" aria-hidden="true">
+          <img src="/images/enquiry-character-cutout.png" alt="" width="1024" height="1536" />
+        </div>
+        <div class="copied-banner__content">
+          <button class="copied-banner__close" type="button" aria-label="Close notification" @click="closeCopiedDialog">×</button>
+          <p class="copied-banner__status"><span aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6" /></svg></span> Enquiry copied</p>
+          <h2 id="copied-title">One last step.<br /><em>Send us a DM.</em></h2>
+          <p id="copied-description">Your enquiry is on your clipboard. Paste it into an Instagram message to <strong>@koqbisagtu</strong> and hit send.</p>
+          <div class="copied-banner__selection"><span>{{ game.name }}</span><span>{{ service.name }}</span></div>
+          <a ref="instagramAction" class="instagram-button" href="https://www.instagram.com/koqbisagtu/" target="_blank" rel="noopener noreferrer">Open Instagram <span aria-hidden="true">↗</span></a>
+          <p class="copied-banner__note">Your enquiry hasn’t been sent yet. We’ll confirm options and prices in your DM.</p>
+        </div>
+      </div>
+    </dialog>
   </div>
 </template>
 
@@ -213,7 +244,54 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .instagram-button { background: linear-gradient(105deg, #a238ff, #8045ff 50%, #5554ed); color: #fff; }
 .enquiry__actions svg { flex-shrink: 0; }
 .enquiry__status { margin: 14px 0 0; min-height: 3.3em; font-size: 11px; line-height: 1.65; color: var(--shop-muted); }
+.copied-dialog { width: min(820px, calc(100vw - 64px)); max-width: none; max-height: calc(100dvh - 120px); padding: 0; border: 0; overflow: visible; background: transparent; color: #fff; }
+.copied-dialog::backdrop { background: rgb(0 0 0 / .8); backdrop-filter: blur(7px); }
+.copied-banner { position: relative; isolation: isolate; display: grid; grid-template-columns: 42% 58%; border: 1px solid #ff2446; background: #000; box-shadow: 0 0 12px #ff173d55, 0 0 32px #ff173d22, 0 24px 100px #0009; }
+.copied-banner::before { content: ''; position: absolute; inset: -2px; padding: 2px; pointer-events: none; background: linear-gradient(115deg, #720015, #ff173d, #ff9a9f, #ff2446, #720015, #ff173d); background-size: 300% 300%; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; }
+.copied-banner__art { position: relative; min-height: 420px; }
+.copied-banner__art img { position: absolute; bottom: 0; left: -10%; width: 156%; height: 148%; object-fit: contain; object-position: bottom; filter: drop-shadow(0 8px 18px #0007); pointer-events: none; }
+.copied-banner__content { position: relative; padding: 42px 36px 32px 20px; }
+.copied-banner__close { position: absolute; top: 8px; right: 10px; width: 36px; height: 36px; border: 0; background: transparent; color: #ff7585; font: 300 28px/1 var(--ui); cursor: pointer; }
+.copied-banner__status { display: flex; align-items: center; gap: 8px; margin: 0 0 20px; color: #fff; font: 800 11px/1.5 var(--ui); letter-spacing: .1em; text-transform: uppercase; }
+.copied-banner__status > span { display: grid; place-items: center; width: 22px; height: 22px; flex-shrink: 0; line-height: 0; letter-spacing: 0; border: 1px solid #ff2446; border-radius: 50%; color: #ff3654; }
+.copied-banner__status svg { display: block; }
+.copied-banner h2 { font-size: clamp(24px, 3vw, 32px); line-height: 1.25; margin-bottom: 18px; color: #ff3654; text-shadow: 0 0 18px #ff173d40; }
+.copied-banner h2 em { background: linear-gradient(105deg, #ff173d, #ff6b78, #ff2446); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.copied-banner__content > p:not([class]) { margin-bottom: 18px; color: #fff; font-size: 14px; line-height: 1.75; }
+.copied-banner__content strong { color: #fff; }
+.copied-banner__selection { display: flex; flex-wrap: wrap; gap: 6px 12px; padding: 12px 0; margin-bottom: 20px; border-block: 1px solid #7d1527; color: #fff; font-size: 11px; line-height: 1.6; }
+.copied-banner__selection span + span { color: #fff; }
+.copied-banner .instagram-button { text-decoration: none; justify-content: space-between; padding-inline: 18px; background: linear-gradient(105deg, #d9082b, #ff173d 55%, #b90025); color: #fff; border: 0; box-shadow: 0 0 18px #ff173d35; }
+.copied-banner :is(a, button):focus-visible { outline-color: #ff3654; }
+.copied-banner__note { margin: 12px 0 0; color: #fff; font-size: 11px; line-height: 1.65; }
+@media (max-width: 600px) {
+  .copied-dialog { width: min(440px, calc(100vw - 40px)); max-height: calc(100dvh - 100px); margin: auto; }
+  .copied-banner { grid-template-columns: 1fr; }
+  .copied-banner__art { min-height: 140px; margin-bottom: 24px; }
+  .copied-banner__art img { left: 4px; bottom: 0; width: 220px; height: 210px; object-fit: cover; object-position: center top; mask-image: linear-gradient(#000 70%, transparent); }
+  .copied-banner__content { position: static; padding: 0 22px 22px; max-height: calc(100dvh - 268px); overflow-y: auto; }
+  .copied-banner__close { position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; }
+  .copied-banner__status { font-size: 10px; letter-spacing: .06em; margin-bottom: 12px; }
+  .copied-banner h2 { font-size: clamp(22px, 6vw, 28px); margin-bottom: 14px; }
+  .copied-banner__content > p:not([class]) { font-size: 13px; line-height: 1.65; margin-bottom: 14px; }
+  .copied-banner__selection { flex-direction: column; gap: 4px; margin-bottom: 16px; }
+  .copied-banner .instagram-button { min-height: 48px; font-size: 12px; letter-spacing: .02em; padding-inline: 16px; }
+}
+@media (max-width: 600px) and (max-height: 600px) {
+  .copied-dialog { max-height: calc(100dvh - 40px); }
+  .copied-banner__art { min-height: 70px; }
+  .copied-banner__art img { height: 110px; width: 150px; }
+  .copied-banner__content { max-height: calc(100dvh - 138px); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .copied-dialog[open] .copied-banner { animation: copied-arrive .24s ease-out both; }
+  .copied-dialog[open] .copied-banner::before { animation: copied-outline 4s ease-in-out infinite; }
+  @keyframes copied-arrive { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes copied-outline { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+}
 .shop-page :is(a, button):focus-visible { outline: 2px solid var(--shop-pink); outline-offset: 4px; }
+.shop-page .copied-banner .instagram-button:focus { outline: none; }
+.shop-page .copied-banner .instagram-button:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
 @media (hover: hover) { .service-picker button:hover { border-color: var(--shop-purple); } }
 @media (max-width: 860px) { .shop-showcase { grid-template-columns: minmax(0, 1fr); gap: 8px; } }
 @media (max-width: 1100px) { .catalog-layout { grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; } .game-picker { grid-template-columns: repeat(2, minmax(0, 1fr)); } .shop-game__surface { min-height: 230px; } .enquiry__inner { padding: 20px; } .shop-hero__intro { gap: 32px; } }
