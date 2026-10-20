@@ -26,7 +26,7 @@ export default defineEventHandler(async event => {
   if (!Object.hasOwn(gameCatalogs, game) || !title || title.length > 120 || /[<>|\x00-\x1f]/.test(title) || /^(?:Special|File|Category|User|Template|Talk):/i.test(title) || hasUnreleasedMarker(title)) throw createError({ statusCode: 400, statusMessage: 'Invalid character' })
   try {
     const result = await loadBuild(game, title)
-    if (result.status === 'available') setHeader(event, 'cache-control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=3600')
+    if (result.status === 'available') setHeader(event, 'cache-control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=604800')
     else setHeader(event, 'cache-control', 'no-store')
     return result
   }

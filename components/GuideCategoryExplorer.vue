@@ -27,7 +27,7 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
 
       <!-- ===== artwork: fills the right side at exactly the height of the text ===== -->
       <div class="explorer__art">
-        <img :src="`/images/guide-details/${game.id}.webp`" :alt="`${game.name} artwork`" loading="lazy" decoding="async" />
+        <AppImage :src="`/images/guide-details/${game.id}.webp`" :alt="`${game.name} artwork`" sizes="(max-width: 1000px) 100vw, 680px" loading="lazy" />
       </div>
     </div>
   </section>

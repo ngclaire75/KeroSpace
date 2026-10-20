@@ -228,7 +228,7 @@ export default defineEventHandler(async event => {
   const items: CatalogEntry[] = []
   let next: string | null = null
   try {
-    setHeader(event, 'cache-control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=3600')
+    setHeader(event, 'cache-control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=604800')
     if (search) {
       const offset = Number(query.offset || 0)
       if (!Number.isSafeInteger(offset) || offset < 0 || offset > 10000) throw createError({ statusCode: 400, statusMessage: 'Invalid search offset' })

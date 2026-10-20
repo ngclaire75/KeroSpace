@@ -6,12 +6,16 @@ This is an explicit maintenance command, never a dependency of production builds
 """
 import concurrent.futures
 import hashlib
+import io
 import json
 from pathlib import Path
 import sys
 from urllib.request import Request, urlopen
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
+# Phone-sized copy saved beside each portrait as <name>-360.webp (the roster's srcset uses it).
+SMALL = 360
 BASE = (sys.argv[1] if len(sys.argv) > 1 else 'http://localhost:3000').rstrip('/')
 GAMES = ['hsr', 'genshin', 'hi3', 'wuwa', 'nte', 'mlbb']
 
@@ -38,6 +42,17 @@ def artwork(source):
     return source, name, payload
 
 
+def small_copy(path):
+    """Write the phone-sized WebP next to a roster portrait."""
+    with Image.open(path) as image:
+        image = image.convert('RGBA' if 'A' in image.getbands() else 'RGB')
+        if image.width > SMALL:
+            image = image.resize((SMALL, round(image.height * SMALL / image.width)), Image.Resampling.LANCZOS)
+        buffer = io.BytesIO()
+        image.save(buffer, 'WEBP', quality=82, method=6)
+    path.with_name(f'{path.stem}-{SMALL}.webp').write_bytes(buffer.getvalue())
+
+
 def main():
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
         rosters = dict(pool.map(catalogue, GAMES))
@@ -54,6 +69,7 @@ def main():
     manifest = {}
     for source, name, payload in images:
         (destination / name).write_bytes(payload)
+        small_copy(destination / name)
         manifest[source] = f'/images/guide-roster/{name}'
     (ROOT / 'data/guideRosterSnapshots.json').write_text(json.dumps(rosters, ensure_ascii=False, indent=2) + '\n')
     (ROOT / 'data/guideArtwork.json').write_text(json.dumps(manifest, indent=2) + '\n')

@@ -3,11 +3,16 @@ import { teamSynergy } from '~/data/teamSynergy'
 import type { TeamSlot, TeamSynergy } from '~/data/characterBuilds'
 const props = defineProps<{ gameId: string; title: string; teams?: TeamSynergy[]; loading?: boolean; sourceUrl?: string }>()
 const guide = computed(() => teamSynergy[props.gameId])
-const memberNames = computed(() => [...new Set((props.teams || []).flatMap(team => team.slots.flatMap(slot => slot.options.map(member => member.name))))])
+// MLBB heroes mix and match freely, so its page shows only the general team plan, not lineups.
+const showLineups = computed(() => props.gameId !== 'mlbb')
+const lineups = computed(() => showLineups.value ? props.teams || [] : [])
+const memberNames = computed(() => [...new Set(lineups.value.flatMap(team => team.slots.flatMap(slot => slot.options.map(member => member.name))))])
 const { data: typeIcons } = await useFetch('/api/team-icons', {
   query: computed(() => ({ game: props.gameId, titles: memberNames.value.slice(0, 40).join('|') })),
   server: false,
   timeout: 90000,
+  // Wait for the teams to arrive; the query watcher fetches as soon as names exist.
+  immediate: memberNames.value.length > 0,
 })
 function slotIcons(slot: TeamSlot) {
   const icons = slot.options.slice(0, 1).flatMap(member => typeIcons.value?.[member.name] || [])
@@ -29,9 +34,10 @@ function retryIcon(image: string) { failedIcons.value[image] = (failedIcons.valu
       </div>
       <span class="team-synergy__size">{{ guide.size }}</span>
     </header>
-    <p v-if="loading" class="team-synergy__status" role="status">Loading teammates for {{ title }}…</p>
-    <div v-else-if="teams?.length" class="team-synergy__teams">
-      <article v-for="(team, index) in teams" :key="index" class="team-synergy__team">
+    <p v-if="!showLineups" class="team-synergy__caption">Teammate alternatives can depend on equipment and unlocks. <a v-if="sourceUrl" :href="sourceUrl" target="_blank" rel="noopener noreferrer">Check team requirements ↗</a></p>
+    <p v-else-if="loading" class="team-synergy__status" role="status">Loading teammates for {{ title }}…</p>
+    <div v-else-if="lineups.length" class="team-synergy__teams">
+      <article v-for="(team, index) in lineups" :key="index" class="team-synergy__team">
         <h3>{{ team.name }}</h3>
         <ul class="team-synergy__slots">
           <li v-for="(slot, slotIndex) in team.slots" :key="slotIndex">

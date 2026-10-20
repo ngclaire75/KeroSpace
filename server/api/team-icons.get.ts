@@ -18,14 +18,17 @@ export default defineEventHandler(async event => {
     throw createError({ statusCode: 400, statusMessage: 'Invalid team characters' })
   }
   const icons: Record<string, TeamTypeIcon[]> = {}
+  let failed = false
   for (let start = 0; start < titles.length; start += 6) {
     await Promise.all(titles.slice(start, start + 6).map(async title => {
       // Constellation/eidolon recommendations are not part of wiki page names.
       const name = title.replace(/^(?:[CE]\d+|S\d+)\s+/i, '').trim()
       const page = game === 'nte' && /^daffodill?$/i.test(name) ? 'Daffodill' : name
       try { icons[title] = await loadIcons(game, page) }
-      catch { icons[title] = [] }
+      catch { icons[title] = []; failed = true }
     }))
   }
+  // Only share complete answers through the CDN; a lookup that failed should be retried.
+  setHeader(event, 'cache-control', !failed ? 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800' : 'no-store')
   return icons
 })

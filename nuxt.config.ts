@@ -5,12 +5,18 @@ export default defineNuxtConfig({
   // Production checks must not overwrite a running dev server's generated files.
   $production: { buildDir: '.nuxt-production' },
   ssr: true,
-  nitro: { vercel: { functions: { maxDuration: 60 } } },
+  // Run server rendering and the guide APIs in Singapore, next to most visitors, instead of
+  // Vercel's default Washington DC region (every request otherwise crosses the Pacific).
+  nitro: { vercel: { functions: { maxDuration: 60, regions: ['sin1'] } } },
   runtimeConfig: { public: { siteUrl: '' } },
 
   css: ['~/assets/css/main.css'],
 
   routeRules: {
+    // Guide pages render the same HTML for everyone: let Vercel's CDN serve them. A new
+    // deployment clears this cache, so visitors never get HTML pointing at old scripts.
+    '/guides': { headers: { 'cache-control': 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400' } },
+    '/guides/**': { headers: { 'cache-control': 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400' } },
     '/images/guide-roster/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
     '/images/optimized/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
   },

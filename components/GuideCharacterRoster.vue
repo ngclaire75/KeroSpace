@@ -40,6 +40,11 @@ function entryImage(entry: CatalogEntry) {
   if (entry.image?.startsWith('https:') && attempt === candidates.length) return `/api/game-artwork?src=${encodeURIComponent(entry.image)}`
   return undefined
 }
+// Bundled portraits have a phone-sized copy beside them (scripts/sync-guide-rosters.py).
+function entrySrcset(entry: CatalogEntry) {
+  const source = entryImage(entry)
+  return source?.startsWith('/images/guide-roster/') ? `${source.replace(/\.\w+$/, '-360.webp')} 360w, ${source} 640w` : undefined
+}
 function retryImage(entry: CatalogEntry) {
   const key = entry.image || ''
   imageAttempts.value[key] = (imageAttempts.value[key] || 0) + 1
@@ -148,7 +153,7 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
             <NuxtLink :to="{ path: '/guides/database', query: { game: game.id, title: entry.title } }" class="gk-card neon-hover-outline" :title="entry.title">
               <!-- MLBB posters fill the frame; other games retain uncropped artwork. -->
               <span class="gk-card__art">
-                <img :key="entryImage(entry)" :src="entryImage(entry)" :alt="entry.title" :loading="index < 6 ? 'eager' : 'lazy'" decoding="async" referrerpolicy="no-referrer" @error="retryImage(entry)" />
+                <img :key="entryImage(entry)" :src="entryImage(entry)" :srcset="entrySrcset(entry)" :sizes="entrySrcset(entry) ? '(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 300px' : undefined" :alt="entry.title" :loading="index < 6 ? 'eager' : 'lazy'" decoding="async" referrerpolicy="no-referrer" @error="retryImage(entry)" />
               </span>
               <span class="gk-card__body">
                 <span class="gk-card__title">{{ entry.title }}</span>

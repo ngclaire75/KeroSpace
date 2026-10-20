@@ -21,7 +21,7 @@ for folder in ['components', 'pages', 'data', 'assets']:
             continue
         sources.update(unquote(s) for s in re.findall(r'/images/[^\n\'"`<>]*?\.(?:webp|png|jpe?g)', path.read_text(), re.I) if '${' not in s)
 # These filenames are assembled dynamically in the Vue templates.
-for pattern in ['images/games/*-logo.webp', 'images/community/youtube/*.jpg', 'images/guide-hubs/*.webp']:
+for pattern in ['images/games/*-logo.webp', 'images/community/youtube/*.jpg', 'images/guide-hubs/*.webp', 'images/guides-wall/*.webp', 'images/guide-details/*.webp']:
     sources.update('/' + str(p.relative_to(PUBLIC)) for p in PUBLIC.glob(pattern))
 
 

@@ -47,7 +47,7 @@ export default defineEventHandler(async event => {
   }
   const image = await loadArtwork(source)
   setHeader(event, 'content-type', image.type)
-  setHeader(event, 'cache-control', 'public, max-age=86400')
+  setHeader(event, 'cache-control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=604800')
   setHeader(event, 'x-content-type-options', 'nosniff')
   return Buffer.from(image.data, 'base64')
 })

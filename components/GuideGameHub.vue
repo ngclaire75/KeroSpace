@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { guideGames } from '~/data/guides'
+import { imageSources } from '~/utils/responsiveImages'
 
 const props = defineProps<{ gameId: string }>()
 const game = computed(() => guideGames.find(item => item.id === props.gameId)!)
@@ -15,6 +16,13 @@ const accents: Record<string, string> = {
   wuwa: '95, 224, 200', nte: '255, 159, 90', mlbb: '255, 207, 90',
 }
 const accent = computed(() => accents[props.gameId] || '255, 84, 187')
+
+// The banner is the largest thing on screen: start downloading the right size before the CSS
+// and scripts are parsed.
+const bannerSources = computed(() => imageSources(game.value.banner))
+useHead(() => ({
+  link: [{ rel: 'preload', as: 'image', href: bannerSources.value.src, imagesrcset: bannerSources.value.srcset, imagesizes: '100vw', fetchpriority: 'high', key: 'guide-hub-banner' }],
+}))
 
 // The marquee under the banner continues the banner's own colours: stops sampled left to right
 // from the banner's bottom edge (deepened where needed so the white words stay readable), with
@@ -63,7 +71,7 @@ onBeforeUnmount(() => observer?.disconnect())
     <main>
       <!-- ===== hero: the game's banner at full strength, text on a solid panel ===== -->
       <header class="gx-hero">
-        <img class="gx-hero__bg" :src="game.banner" :alt="`${game.name} artwork`" width="2400" height="1350" fetchpriority="high" decoding="async" />
+        <AppImage class="gx-hero__bg" :src="game.banner" :alt="`${game.name} artwork`" width="2400" height="1350" sizes="100vw" fetchpriority="high" loading="eager" />
         <div class="gx-shell gx-hero__inner">
           <!-- the page title stays for screen readers and search engines; the banner shows art only -->
           <h1 class="sr-only">{{ game.name }}</h1>

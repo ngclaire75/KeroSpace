@@ -23,7 +23,9 @@ const rows = Array.from({ length: ROWS }, (_, r) =>
         <!-- the set is drawn twice so the loop is seamless -->
         <div class="gw__track">
           <template v-for="copy in 2" :key="copy">
-            <img v-for="(src, i) in row" :key="`${copy}-${i}`" class="gw__tile" :src="src" alt="" width="1200" height="675" decoding="async" :loading="r < 4 ? 'eager' : 'lazy'" />
+            <!-- tiles are at most ~410px wide, so a small optimised copy is enough; low priority
+                 keeps this decorative wall from delaying the page's own artwork -->
+            <AppImage v-for="(src, i) in row" :key="`${copy}-${i}`" class="gw__tile" :src="src" alt="" width="1200" height="675" sizes="(max-width: 800px) 214px, (max-width: 1530px) 27vw, 410px" fetchpriority="low" :loading="r < 4 ? 'eager' : 'lazy'" />
           </template>
         </div>
       </div>
