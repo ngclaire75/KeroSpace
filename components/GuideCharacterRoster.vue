@@ -140,7 +140,7 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
       </header>
 
       <div class="gk-status">
-        <p v-if="search">Results for “{{ search }}” in {{ game.short }} characters · <button type="button" class="gk-link" @click="clearSearch">Back to {{ kind.label }}</button></p>
+        <p v-if="search">Results for “{{ search }}” in {{ game.short }} characters <button type="button" class="gk-link" @click="clearSearch">Back to {{ kind.label }}</button></p>
         <p v-else>{{ kind.label }} in {{ game.name }}</p>
         <p v-if="!isLoading && !error" class="gk-status__count" aria-live="polite">{{ visibleEntries.length }} {{ visibleEntries.length === 1 ? 'entry' : 'entries' }}</p>
       </div>
@@ -164,7 +164,7 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
         <ul v-if="visibleEntries.length" class="gk-grid">
           <li v-for="(entry, index) in visibleEntries" :key="entry.id">
             <NuxtLink :to="{ path: '/guides/database', query: { game: game.id, title: entry.title } }" class="gk-card neon-hover-outline" :title="entry.title">
-              <!-- MLBB posters fill the frame; other games retain uncropped artwork. -->
+              <!-- every game's artwork is shown whole, fitted inside the frame -->
               <span class="gk-card__art">
                 <img :key="entryImage(entry)" :src="entryImage(entry)" :srcset="entrySrcset(entry)" :sizes="entrySrcset(entry) ? '(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 300px' : undefined" :alt="entry.title" :loading="index < 6 ? 'eager' : 'lazy'" decoding="async" referrerpolicy="no-referrer" @error="retryImage(entry)" />
               </span>
@@ -177,8 +177,8 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
         </ul>
         <div v-else class="gk-message">
           <h2>{{ search ? 'No illustrated results for that search.' : cursor ? 'No artwork in this batch.' : 'No illustrated entries yet.' }}</h2>
-          <p>{{ cursor ? 'Load more entries to continue browsing.' : 'Try searching for another name. Only entries with artwork are shown.' }}</p>
-          <button v-if="search" type="button" class="gd-btn gd-btn--ghost" @click="clearSearch">Clear search</button>
+          <p>{{ cursor && !search ? 'Load more entries to continue browsing.' : 'Try searching for another name. Only entries with artwork are shown.' }}</p>
+          <button v-if="search" type="button" class="gd-btn gd-btn--ghost" @click="clearSearch">CLEAR SEARCH</button>
         </div>
 
         <div v-if="buffered.length || moreError" class="gk-more">
@@ -294,6 +294,11 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
+.gk-status .gk-link {
+  /* "Back to …" sits on its own line under the results line */
+  display: block;
+  margin-top: 6px;
+}
 .gk-link {
   padding: 0;
   border: 0;
@@ -343,9 +348,6 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
   max-width: 100%;
   object-fit: contain;
   object-position: center;
-}
-.character-roster--mlbb .gk-card__art img {
-  object-fit: cover;
 }
 .gk-card__body {
   display: flex;
@@ -457,7 +459,7 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
   .gk-status {
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
+    gap: 12px;
   }
 }
 

@@ -32,7 +32,6 @@ function retryIcon(image: string) { failedIcons.value[image] = (failedIcons.valu
         <p class="gd-eyebrow">Teammates &amp; combinations</p>
         <h2 id="team-synergy-title">Team <em class="gd-em">synergy.</em></h2>
       </div>
-      <span class="team-synergy__size">{{ guide.size }}</span>
     </header>
     <p v-if="!showLineups" class="team-synergy__caption">Teammate alternatives can depend on equipment and unlocks. <a v-if="sourceUrl" :href="sourceUrl" target="_blank" rel="noopener noreferrer">Check team requirements ↗</a></p>
     <p v-else-if="loading" class="team-synergy__status" role="status">Loading teammates for {{ title }}…</p>
@@ -75,7 +74,6 @@ function retryIcon(image: string) { failedIcons.value[image] = (failedIcons.valu
 .team-synergy__head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 26px; }
 .team-synergy h2 { margin: 0; font: 900 clamp(28px, 4vw, 44px) / 1.1 var(--display); text-transform: uppercase; }
 .team-synergy h3 { margin: 0 0 16px; font: 800 13px / 1.4 var(--ui); letter-spacing: .06em; text-transform: uppercase; }
-.team-synergy__size { color: #d8baff; font: 800 12px / 1.4 var(--ui); text-transform: uppercase; white-space: nowrap; }
 .team-synergy__teams { display: grid; gap: 16px; }
 .team-synergy__team { padding: 22px 0; text-align: left; }
 .team-synergy__team > h3 { padding-left: 0; }
@@ -90,7 +88,7 @@ function retryIcon(image: string) { failedIcons.value[image] = (failedIcons.valu
 .team-synergy__tips { margin: 0; padding-left: 18px; }
 .team-synergy__tips li + li { margin-top: 10px; }
 .team-synergy__tips, .team-synergy__status, .team-synergy__caption { color: #c9c2ce; font: 600 14px / 1.7 var(--ui); }
-.team-synergy__caption { font-size: 12px; }
+.team-synergy__caption { font-size: 13px; line-height: 1.6; } /* same as the build note (.cb-note) */
 .team-synergy__caption a { color: #e8c4fa; text-underline-offset: 3px; }
 .team-synergy a:focus-visible { outline: 2px solid #e8c4fa; outline-offset: 4px; }
 @media (max-width: 640px) {

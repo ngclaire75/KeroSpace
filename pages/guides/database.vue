@@ -45,7 +45,10 @@ const topPicks = computed(() => (build.value?.groups || [])
 const sequence = computed(() => build.value?.groups.find(isSequence))
 
 // "SPD > CRIT RATE = CRIT DMG > ATK%" becomes ordered steps; plain text stays one step.
-const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => step.trim()).filter(Boolean)
+// "CRIT Rate=CRIT DMG", "ATK%>Speed": sources often omit the spaces around comparisons.
+const spaced = (value: string) => value.replace(/\s*(>=|<=|≥|≤|->|→|>|<|=)\s*/g, ' $1 ').replace(/\s{2,}/g, ' ').trim()
+// A ">" (but not ">=") or arrow starts the next step; a ">=" stays inside its step.
+const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step => spaced(step)).filter(Boolean)
 </script>
 
 <template>
@@ -63,7 +66,6 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
         <div class="cb-hero__copy">
           <p class="gd-eyebrow">{{ game!.name }} · Character build</p>
           <h1 class="cb-title">{{ title }}</h1>
-          <p class="cb-lede">Recommended equipment, the stats to aim for, and what to upgrade first.</p>
         </div>
 
         <!-- each slot's best pick, using the item's own artwork -->
@@ -156,7 +158,7 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
               <dl class="cb-stats">
                 <div v-for="(stat, index) in build.stats" :key="`${stat.label}-${index}`">
                   <dt>{{ stat.label }}</dt>
-                  <dd>{{ stat.value }}</dd>
+                  <dd>{{ spaced(stat.value) }}</dd>
                 </div>
               </dl>
             </section>
@@ -200,7 +202,7 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: clamp(28px, 3.4vw, 40px);
-  padding: clamp(24px, 3vw, 40px) 0 clamp(40px, 5vw, 64px);
+  padding: clamp(24px, 3vw, 40px) 0 clamp(16px, 2vw, 28px);
 }
 .cb-title {
   margin: 0;
@@ -208,14 +210,6 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
   letter-spacing: -0.045em;
   text-transform: uppercase;
   overflow-wrap: anywhere;
-}
-.cb-lede {
-  max-width: 460px;
-  margin: 22px 0 0;
-  color: #fff;
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.6;
 }
 /* top picks sit below the title, one per slot in a row */
 .cb-picks {
@@ -285,7 +279,7 @@ const steps = (value: string) => value.split(/\s*(?:>|→|->)\s*/).map(step => s
   align-items: end;
   justify-content: space-between;
   gap: 20px;
-  margin: clamp(40px, 5vw, 64px) 0 clamp(24px, 3vw, 36px);
+  margin: clamp(28px, 3.5vw, 48px) 0 clamp(24px, 3vw, 36px);
 }
 .cb-note {
   max-width: 760px;
