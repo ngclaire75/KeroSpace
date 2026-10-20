@@ -13,4 +13,6 @@ export type CharacterBuildResponse = {
   status: 'available' | 'missing' | 'unavailable'
   source: { name: string; url: string; updated?: string }
   checkedAt: string | null
+  /** Served from a fallback source after the preferred one failed; cache only briefly. */
+  provisional?: boolean
 }

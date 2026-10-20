@@ -27,7 +27,10 @@ function rankedItems(node: AnyNode, rowClass: string, nameClass: string, base: s
   return uniqueItems(all(node, rowClass).map(row => {
     const names = [...new Set(all(row, nameClass).map(text))]
     if (!names.length) names.push(...all(row, 'accordion-header').map(text))
-    return { name: names.join(' + '), detail: text(first(row, 'cone-super')) || undefined, image: imageOf(row, base) }
+    // "Static Mist (R1)": the refinement is a detail, not part of the weapon's name
+    const name = names.join(' + ')
+    const refinement = name.match(/\s*\((R[1-5])\)$/)
+    return { name: refinement ? name.slice(0, refinement.index) : name, detail: text(first(row, 'cone-super')) || refinement?.[1] || undefined, image: imageOf(row, base) }
   }))
 }
 function statBoxes(node: AnyNode): BuildStat[] {
@@ -140,17 +143,58 @@ export function parseKqmBuild(html: string, base: string): CharacterBuild {
   const stats: BuildStat[] = []
   const priorities: BuildStat[] = []
   const elements = findAll(() => true, document.children)
-  const markers = elements.map((el, index) => ({ id: el.attribs.id || '', index })).filter(marker => marker.id && /^(?:Weapons|Weapon_Options|Artifact_Sets|Artifacts|Artifact_Stats|ER_Requirements|Teams|Team_Compositions|Teambuilding|Credits)$/.test(marker.id))
+  // A heading ends the section above it only at the same or a higher level: full guides follow
+  // Weapons with Combos and Teams (whose tables are not equipment), while quick guides nest
+  // their weapon tables under sub-headings inside Weapons.
+  const levelOf = (el?: AnyNode | null) => Number(/^h([1-6])$/.exec((el as Element | undefined)?.name || '')?.[1] || 0)
+  const headings = elements.map((el, index) => ({ id: el.attribs.id || '', index, level: levelOf(el) || levelOf(el.parent) })).filter(heading => heading.id && heading.level)
+  // Section ids can carry a build role and a repeat number: "Support_Artifact_Sets",
+  // "Pyro_DPS_Weapons", "Weapons-2" (the same section for the guide's second build).
+  const SECTION = /^(.*?_)?(Weapons|Weapon_Options|Artifact_Sets|Artifacts|Artifact_Stats|ER_Requirements|Teams|Team_Compositions|Teambuilding|Credits)(-\d+)?$/
+  const known = SECTION
+  const sectionAt = (index: number) => {
+    // the headings enclosing this point, outermost first
+    const open: typeof headings = []
+    for (const heading of headings) {
+      if (heading.index > index) break
+      while (open.length && open.at(-1)!.level >= heading.level) open.pop()
+      open.push(heading)
+    }
+    return [...open].reverse().find(heading => known.test(heading.id))?.id || ''
+  }
+  let role: string | undefined // only the guide's first build, so builds are never mixed
   for (const table of findAll(el => el.name === 'table', document.children)) {
-    const index = elements.indexOf(table)
-    const section = markers.filter(marker => marker.index < index).at(-1)?.id || ''
-    if (!/^(?:Weapons|Weapon_Options|Artifact_Sets|Artifacts)$/.test(section)) continue
+    const match = SECTION.exec(sectionAt(elements.indexOf(table)))
+    if (!match || !/^(?:Weapons|Weapon_Options|Artifact_Sets|Artifacts|Artifact_Stats)$/.test(match[2])) continue
+    const tableRole = (match[1] || '') + (match[3] || '')
+    if (role !== undefined && tableRole !== role) continue
+    const section = match[2]
+    // Some guides list the sets inside their stats section; only "4pc …" rows count there.
+    const statsSection = section === 'Artifact_Stats'
+    const rows = findAll(el => el.name === 'tr', [table])
+    const cells = (row: Element) => row.children.filter(node => ['td', 'th'].includes((node as Element).name || '')) as Element[]
+    // Damage comparison tables ("4Husk | 100%") list abbreviations, not equipment; real set and
+    // weapon tables picture their items, even when they also carry % columns.
+    const comparison = rows.some(row => cells(row)[0]?.name === 'th' && cells(row).slice(1).some(cell => /%/.test(text(cell))))
+    if (comparison && !rows.some(row => cells(row)[0] && imageOf(cells(row)[0], base))) continue
     const weapon = /Weapon/.test(section)
-    const items = findAll(el => el.name === 'tr', [table]).flatMap(row => {
-      const cell = row.children.find(node => ['td', 'th'].includes((node as Element).name || ''))
-      const name = text(cell).replace(/^(?:[345]★|[345]\*)\s*/, '')
-      return name && name.length < 140 && !/^(?:Sands|Goblet|Circlet|Solo Pyro|Double Pyro|Triple Pyro)$/.test(name) ? [{ name, image: cell ? imageOf(cell, base) : undefined }] : []
+    const items = rows.flatMap(row => {
+      const cell = cells(row)[0]
+      // column headings ("Set", "Weapon", "Notes"), whether written as <th> or as a plain row
+      if (!cell || cell.name === 'th' || /^(?:Sets?|Artifacts?(?: Sets?)?|Weapons?)$/i.test(text(cell))) return []
+      let name = text(cell).replace(/^(?:[345]★|[345]\*)\s*/, '')
+      let detail: string | undefined
+      if (weapon) {
+        // "Redhorn Stonethresher (5*) (R1: 136.50% | 136.35%)" and "R5 Festering Desire":
+        // keep the weapon's name; a stated refinement becomes the detail, damage figures go.
+        const refinement = name.match(/^R([1-5])\s+/)
+        if (refinement) { detail = `R${refinement[1]}`; name = name.slice(refinement[0].length) }
+        name = name.replace(/\s*\((?:[345]\s*[*★]|R[1-5][^)]*|[^)]*%[^)]*)\).*$/, '').trim()
+      }
+      if (statsSection && !/^\d\s*pc\b/i.test(name)) return []
+      return name && name.length < 140 && !/^(?:Sands|Goblet|Circlet|Solo Pyro|Double Pyro|Triple Pyro)$/.test(name) ? [{ name, detail, image: imageOf(cell, base) }] : []
     })
+    if (items.length && role === undefined) role = tableRole
     const label = weapon ? 'Weapons' : 'Artifact sets'
     const group = groups.find(group => group.label === label)
     if (group) group.items = uniqueItems([...group.items, ...items])

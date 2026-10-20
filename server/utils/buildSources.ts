@@ -75,7 +75,9 @@ const KQM_ALIASES: Record<string, string> = {
 function keepRealArtifactSets(build: CharacterBuildResponse['builds'][number]) {
   const group = build.groups.find(item => item.label === 'Artifact sets')
   if (!group) return
-  const sets = group.items.filter(item => /^\d+\s*pc\b/i.test(item.name))
+  // One cell can hold two alternatives run together: "4pc Tenacity (TotM)4pc Scroll of …"
+  const split = group.items.flatMap(item => item.name.split(/(?<=\S)(?=\d\s*pc\b)/i).map((name, index) => ({ ...item, name: name.trim(), image: index ? undefined : item.image })))
+  const sets = split.filter(item => /^\d+\s*pc\b/i.test(item.name))
   if (sets.length) group.items = sets
 }
 
@@ -125,18 +127,28 @@ export async function kqmBuild(title: string): Promise<CharacterBuildResponse> {
   const slug = KQM_ALIASES[normalizedName(title)] || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
   const source = { name: 'KeqingMains', url: `https://keqingmains.com/q/${slug}-quickguide/` }
   let unavailable = false
-  for (const url of [source.url, `https://keqingmains.com/${slug}/`]) {
-    try {
-      const html = await $fetch<string>(url, { responseType: 'text', headers, timeout: 15000, retry: 0 })
-      const build = parseKqmBuild(html, 'https://keqingmains.com')
-      if (!build.groups.some(group => group.label === 'Weapons') || !build.groups.some(group => group.label === 'Artifact sets')) continue
-      await useWikiWeaponIcons(build)
-      keepRealArtifactSets(build)
-      // Source item names and stat choices only; no copied reviews, rotations or guide prose.
-      return { game: 'genshin', title, teams: parseKqmTeams(html, title), builds: [build], status: 'available', source: { ...source, url, updated: html.match(/article:modified_time[\"']\s+content=[\"']([^\"']+)/i)?.[1] }, checkedAt: new Date().toISOString() }
-    } catch (error) {
-      const status = (error as { statusCode?: number; status?: number }).statusCode || (error as { status?: number }).status
-      if (status !== 404 && status !== 410) unavailable = true
+  // The quick guide is the clean source. A timeout there is retried rather than silently
+  // replaced by the full guide, whose tables also hold comparisons and rotation notes.
+  for (const [url, attempts] of [[source.url, 2], [`https://keqingmains.com/${slug}/`, 1]] as const) {
+    for (let attempt = 0; attempt < attempts; attempt++) {
+      try {
+        const html = await $fetch<string>(url, { responseType: 'text', headers, timeout: 20000, retry: 0 })
+        const build = parseKqmBuild(html, 'https://keqingmains.com')
+        if (!build.groups.some(group => group.label === 'Weapons') || !build.groups.some(group => group.label === 'Artifact sets')) break
+        await useWikiWeaponIcons(build)
+        keepRealArtifactSets(build)
+        // Source item names and stat choices only; no copied reviews, rotations or guide prose.
+        return {
+          game: 'genshin', title, teams: parseKqmTeams(html, title, [slug]), builds: [build], status: 'available',
+          source: { ...source, url, updated: html.match(/article:modified_time[\"']\s+content=[\"']([^\"']+)/i)?.[1] }, checkedAt: new Date().toISOString(),
+          // Full guide used only because the quick guide failed to load: don't keep it for long.
+          ...(unavailable ? { provisional: true } : {}),
+        }
+      } catch (error) {
+        const status = (error as { statusCode?: number; status?: number }).statusCode || (error as { status?: number }).status
+        if (status === 404 || status === 410) break
+        unavailable = true
+      }
     }
   }
   if (unavailable) throw new Error('Character guide source unavailable')

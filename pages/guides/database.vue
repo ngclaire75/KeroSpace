@@ -7,8 +7,11 @@ const route = useRoute()
 const game = computed(() => guideGames.find(game => game.id === route.query.game))
 const title = computed(() => String(route.query.title || ''))
 if (!game.value || !title.value) throw createError({ statusCode: 404, statusMessage: 'Character not found', fatal: true })
+// Rendered on the server, so the build arrives with the page (the API answers from a saved
+// copy within ~1.5s when the guide site is slow). A failed source is retried automatically.
 const { data: profile, status, refresh } = await useFetch('/api/character-build', {
-  query: computed(() => ({ game: game.value!.id, title: title.value })), server: false, lazy: true, timeout: 60000,
+  query: computed(() => ({ game: game.value!.id, title: title.value })), lazy: true, timeout: 60000,
+  retry: 2, retryDelay: 1500, retryStatusCodes: [408, 429, 500, 502, 503, 504],
 })
 useSeoMeta({
   title: () => `${title.value} best build — ${game.value?.name} | KeroSpace`,

@@ -41,13 +41,18 @@ export function parsePrydwenTeams(html: string, title: string): TeamSynergy[] {
   }
   return teams.filter((team, index) => teams.findIndex(other => JSON.stringify(other.slots) === JSON.stringify(team.slots)) === index).slice(0, 8)
 }
-export function parseKqmTeams(html: string, title: string): TeamSynergy[] {
+// KQM writes characters by their short names ("Itto — Xilonen — …" for Arataki Itto), so the
+// guide's own slug counts as the character too.
+export function parseKqmTeams(html: string, title: string, aliases: string[] = []): TeamSynergy[] {
   const doc = documentFor(html)
+  const squash = (value: string) => value.normalize('NFKD').toLowerCase().replace(/[^a-z0-9]/g, '')
+  const selfNames = [title, ...aliases].map(squash).filter(Boolean)
+  const isSelf = (name: string) => selfNames.some(self => squash(name).includes(self))
   const nodes = findAll(el => /^h[23]$/.test(el.name) || el.name === 'figcaption', doc.children)
   const teams: TeamSynergy[] = []
   let composition = ''
   const genericHeading = /example|sample|teambuilding|team compositions?|notable|teammates|limited roster/i
-  const roleOnly = (name: string) => /^(?:flex|pyro|hydro|cryo|electro|anemo|geo|dendro|hexerei)$/i.test(name.trim()) || /(?:dps|support|buffer|debuffer|sustain|healer|shielder|on[ -]?field|off[ -]?field)/i.test(name)
+  const roleOnly = (name: string) => /^(?:flex|pyro|hydro|cryo|electro|anemo|geo|dendro|hexerei)$/i.test(name.trim()) || /(?:dps|support|buffer|debuffer|sustain|healer|shielder|on[ -]?field|off[ -]?field|\bphec\b|\bflex\b)/i.test(name)
   for (const node of nodes) {
     const value = text(node)
     if (node.type === 'tag' && node.name !== 'figcaption') {
@@ -56,10 +61,16 @@ export function parseKqmTeams(html: string, title: string): TeamSynergy[] {
       continue
     }
     const names = value.split(/\s*[—–]\s*/)
-    if (names.length !== 4 || !names.some(name => name.toLowerCase().includes(title.toLowerCase()))) continue
-    const slots = names.map(name => ({ options: name.split(/\s*\/\s*/).map(name => ({ name: name.trim() })).filter(member => member.name) }))
+    // "Freeze: Chongyun — …" names the team in its first slot
+    const label = names[0]?.match(/^([^:]{2,40}):\s*(.+)$/)
+    if (label) names[0] = label[2]
+    // Footnotes run into names: "Kazuha (“RaiFish”)*See Raiden guide…", "ZhongliIn this team, …"
+    for (let i = 0; i < names.length; i++) names[i] = names[i].split('*')[0].replace(/\s*\([“"][^)]*[”"]\)/g, '').replace(/(?<=[a-z])(?:In|See|Note|This|The)\b.*$/, '').trim()
+    if (names.length !== 4 || !names.some(isSelf)) continue
+    const slots = names.map(name => ({ options: name.split(/\s*\/\s*/).map(name => ({ name: squash(name) && selfNames.includes(squash(name)) ? title : name.trim() })).filter(member => member.name) }))
     if (slots.some(slot => slot.options.some(member => roleOnly(member.name)))) continue
-    const name = composition ? `${title} · ${composition}` : slots.map(slot => slot.options[0].name).join(' / ')
+    const heading = label?.[1] || composition
+    const name = heading ? `${title} · ${heading}` : slots.map(slot => slot.options[0].name).join(' / ')
     teams.push({ name, slots, kind: 'team' })
   }
   return teams.filter((team, index) => teams.findIndex(other => JSON.stringify(other.slots) === JSON.stringify(team.slots)) === index).slice(0, 8)
