@@ -265,7 +265,7 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .copied-banner h2 em { background: linear-gradient(105deg, #ff173d, #ff6b78, #ff2446); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .copied-banner__content > p:not([class]) { margin-bottom: 18px; color: #fff; font-size: 14px; line-height: 1.75; }
 .copied-banner__content strong { color: #fff; }
-.copied-banner__selection { display: flex; flex-wrap: wrap; gap: 6px 12px; padding: 12px 0; margin-bottom: 20px; border-block: 1px solid #7d1527; color: #fff; font-size: 11px; line-height: 1.6; }
+.copied-banner__selection { display: flex; flex-wrap: wrap; gap: 6px 12px; padding: 12px 0; margin-bottom: 20px; border-block: 1px solid #7d1527; color: #fff; font-size: 14px; line-height: 1.75; }
 .copied-banner__selection span + span { color: #fff; }
 .copied-banner .instagram-button { text-decoration: none; justify-content: center; padding-inline: 18px; background: linear-gradient(105deg, #d9082b, #ff173d 55%, #b90025); color: #fff; border: 0; box-shadow: 0 0 18px #ff173d35; }
 .copied-banner :is(a, button):focus-visible { outline-color: #ff3654; }
@@ -273,14 +273,14 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 @media (max-width: 600px) {
   .copied-dialog { width: min(440px, calc(100vw - 40px)); max-height: calc(100dvh - 100px); margin: auto; }
   .copied-banner { grid-template-columns: 1fr; }
-  .copied-banner__art { min-height: 140px; margin-bottom: 24px; }
+  .copied-banner__art { min-height: 140px; margin-bottom: 6px; }
   .copied-banner__art img { left: 4px; bottom: 0; width: 220px; height: 210px; object-fit: cover; object-position: center top; mask-image: linear-gradient(#000 70%, transparent); }
   .copied-banner__content { position: static; padding: 0 22px 22px; max-height: calc(100dvh - 268px); overflow-y: auto; }
   .copied-banner__close { position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; }
   .copied-banner__status { font-size: 10px; letter-spacing: .06em; margin-bottom: 12px; }
   .copied-banner h2 { font-size: clamp(22px, 6vw, 28px); margin-bottom: 14px; }
   .copied-banner__content > p:not([class]) { font-size: 13px; line-height: 1.65; margin-bottom: 14px; }
-  .copied-banner__selection { flex-direction: column; gap: 4px; margin-bottom: 16px; }
+  .copied-banner__selection { flex-direction: column; gap: 4px; margin-bottom: 16px; font-size: 13px; line-height: 1.65; }
   .copied-banner .instagram-button { min-height: 48px; font-size: 12px; letter-spacing: .02em; padding-inline: 16px; }
 }
 @media (max-width: 600px) and (max-height: 600px) {

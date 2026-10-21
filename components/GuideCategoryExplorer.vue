@@ -156,6 +156,19 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
     filter: brightness(1.1);
   }
 }
+/* desktop: the boxes and button span the same width as the intro paragraph */
+@media (min-width: 1001px) {
+  .explorer__actions {
+    width: 100%;
+    max-width: 440px;
+  }
+  .explorer__features {
+    max-width: none;
+  }
+  .explorer__cta {
+    justify-content: center;
+  }
+}
 @media (max-width: 1000px) {
   .explorer__panel {
     grid-template-columns: minmax(0, 1fr);

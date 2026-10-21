@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { imageSources } from '~/utils/responsiveImages'
-const heroImage = imageSources('/images/egg-3.webp')
+const heroImage = imageSources('/images/IMG_5726.JPG')
 useHead({ link: [{ rel: 'preload', as: 'image', href: heroImage.src, imagesrcset: heroImage.srcset, imagesizes: '(max-width: 720px) 70vw, 360px', fetchpriority: 'high' }] })
 type Item = {
   img: string
@@ -11,11 +11,11 @@ type Item = {
 }
 
 const items: Item[] = [
-  { img: '/images/egg-1.webp', name: 'Lazy Yolk', tag: 'Spot rare loot', type: 'Food', rarity: 'Common' },
-  { img: '/images/egg-2.webp', name: 'Side Eye Yolk', tag: 'Know every stat', type: 'Food', rarity: 'Rare' },
-  { img: '/images/egg-3.webp', name: 'Sunny Side', tag: 'Master your gear', type: 'Food', rarity: 'Legendary' },
-  { img: '/images/egg-4.webp', name: 'Nap Yolk', tag: 'Track drop rates', type: 'Food', rarity: 'Epic' },
-  { img: '/images/egg-5.webp', name: 'Lounge Yolk', tag: 'Tips from players', type: 'Food', rarity: 'Uncommon' },
+  { img: '/images/IMG_5724.jpg', name: 'Lazy Yolk', tag: 'Spot rare loot', type: 'Food', rarity: 'Common' },
+  { img: '/images/IMG_5696.JPG', name: 'Side Eye Yolk', tag: 'Know every stat', type: 'Food', rarity: 'Rare' },
+  { img: '/images/IMG_5726.JPG', name: 'Sunny Side', tag: 'Master your gear', type: 'Food', rarity: 'Legendary' },
+  { img: '/images/IMG_5727.jpg', name: 'Nap Yolk', tag: 'Track drop rates', type: 'Food', rarity: 'Epic' },
+  { img: '/images/IMG_5728.JPG', name: 'Lounge Yolk', tag: 'Tips from players', type: 'Food', rarity: 'Uncommon' },
 ]
 
 const n = items.length
