@@ -241,7 +241,8 @@ onBeforeUnmount(() => {
   --edge: rgba(255, 255, 255, 0.08);
   position: relative;
   padding: clamp(32px, 4.5vw, 56px) 0 clamp(80px, 10vw, 136px);
-  background: #000;
+  /* transparent so the homepage poster wall (GuideWall) shows through */
+  background: transparent;
 }
 .games__wrap {
   width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px));

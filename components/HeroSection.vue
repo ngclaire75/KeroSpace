@@ -40,23 +40,6 @@ async function go(i: number) {
 const next = () => go(active.value + 1)
 const prev = () => go(active.value - 1)
 
-/* ---------- starfield (seeded so SSR + client agree) ---------- */
-function rng(seed: number) {
-  return () => {
-    seed = (seed * 16807) % 2147483647
-    return (seed - 1) / 2147483646
-  }
-}
-const r = rng(7)
-const stars = Array.from({ length: 80 }, () => ({
-  left: `${(r() * 100).toFixed(2)}%`,
-  top: `${(r() * 70).toFixed(2)}%`,
-  size: `${(r() * 1.6 + 0.6).toFixed(2)}px`,
-  delay: `${(r() * 6).toFixed(2)}s`,
-  dur: `${(r() * 4 + 3).toFixed(2)}s`,
-  o: (r() * 0.5 + 0.2).toFixed(2),
-}))
-
 /* ---------- pointer tracking on the centre card ----------
    The whole hero is tracked, not just the card: the card leans gently toward
    the cursor from anywhere, then tilts fully and lifts while hovered. tanh keeps
@@ -206,22 +189,6 @@ onBeforeUnmount(() => {
     @pointercancel="endTouch"
     @pointerleave="untrack"
   >
-    <div class="hero__stars" aria-hidden="true">
-      <i
-        v-for="(s, k) in stars"
-        :key="k"
-        :style="{
-          left: s.left,
-          top: s.top,
-          width: s.size,
-          height: s.size,
-          opacity: s.o,
-          animationDelay: s.delay,
-          animationDuration: s.dur,
-        }"
-      />
-    </div>
-
     <SiteNav />
 
     <div class="hero__copy">
@@ -319,26 +286,8 @@ onBeforeUnmount(() => {
   height: 100svh;
   min-height: 600px;
   overflow: hidden;
-  background: #000;
-}
-
-/* ============ stars ============ */
-.hero__stars {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-}
-.hero__stars i {
-  position: absolute;
-  border-radius: 50%;
-  background: #fff;
-  animation: twinkle ease-in-out infinite;
-}
-@keyframes twinkle {
-  50% {
-    opacity: 0.05;
-  }
+  /* transparent so the homepage poster wall (GuideWall) shows through */
+  background: transparent;
 }
 
 /* ============ copy ============ */
@@ -749,7 +698,6 @@ onBeforeUnmount(() => {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__stars i,
   .hero__title em,
   .card__avatar::before {
     animation: none;

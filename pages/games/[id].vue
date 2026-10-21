@@ -91,6 +91,8 @@ useHead(() => ({
 <template>
   <div v-if="game && story" class="game-story-page">
     <a class="skip-link" href="#story-content">Skip to article</a>
+    <!-- same animated poster wall as the homepage and guides pages -->
+    <GuideWall />
     <SiteNav />
     <div class="story-promo">
       <img
@@ -153,7 +155,7 @@ useHead(() => ({
 </template>
 
 <style scoped>
-.game-story-page { min-height: 100svh; background: #000; }
+.game-story-page { position: relative; isolation: isolate; min-height: 100svh; background: transparent; }
 .story-main { --story-radius: 10px; --story-edge: #302638; --story-gradient: linear-gradient(100deg, #c6a7ff, #e2b3f5 50%, #ffb4d7); --ink: #fff; --ink-2: #fff; --ink-3: #fff; color: #fff; width: calc(100% - 2 * clamp(16px, 4vw, 40px)); max-width: 1240px; margin-inline: auto; padding-top: clamp(44px, 6vw, 80px); padding-bottom: clamp(72px, 9vw, 120px); }
 .story-main ::selection { color: #000; background: #e5c4ff; }
 .story-promo { width: 100%; aspect-ratio: 3.5 / 1; overflow: hidden; margin-top: clamp(24px, 3vw, 40px); }

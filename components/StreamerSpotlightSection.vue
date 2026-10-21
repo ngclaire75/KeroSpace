@@ -275,7 +275,7 @@ onBeforeUnmount(() => {
   position: relative;
   /* no top padding: the games section above already leaves room */
   padding: 0 0 clamp(80px, 10vw, 136px);
-  background: #000;
+  background: transparent;
 }
 .creator-wrap {
   width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px));
