@@ -131,7 +131,7 @@ onBeforeUnmount(() => {
 .party-indicators { display: none; }
 
 /* footer */
-.together__foot { display: flex; align-items: baseline; gap: 30px; margin-top: 30px; padding: 22px 0 0; border-top: 1px solid var(--together-line); }
+.together__foot { display: flex; align-items: baseline; gap: 30px; margin-top: 30px; padding: 0; }
 .together__foot-label { flex-shrink: 0; color: var(--together-pink); font: 700 14px/1.8 var(--display); text-transform: uppercase; }
 .together__foot p { margin: 0; color: var(--together-muted); font-size: 14px; line-height: 1.8; }
 
