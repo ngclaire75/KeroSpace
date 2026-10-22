@@ -23,7 +23,6 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
           </ul>
           <NuxtLink :to="rosterLink" class="explorer__cta">
             Browse all characters
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg>
           </NuxtLink>
         </div>
       </div>
