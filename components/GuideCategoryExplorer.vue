@@ -182,9 +182,6 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   }
 }
 @media (max-width: 540px) {
-  .explorer__panel {
-    margin-inline: -8px;
-  }
   .explorer__copy {
     min-width: 0;
     padding-inline: 24px;
