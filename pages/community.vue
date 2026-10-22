@@ -24,6 +24,8 @@ const pad = (n: number) => String(n).padStart(2, '0')
 
 <template>
   <div class="cm">
+    <!-- same animated poster wall as the homepage -->
+    <GuideWall />
     <SiteNav />
 
     <main>
@@ -72,7 +74,9 @@ const pad = (n: number) => String(n).padStart(2, '0')
   --c-grad: linear-gradient(100deg, var(--c-pink), var(--c-red) 50%, var(--c-purple));
   min-height: 100vh;
   min-height: 100svh;
-  background: #000;
+  position: relative;
+  isolation: isolate;
+  background: transparent;
 }
 .wrap {
   width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px));

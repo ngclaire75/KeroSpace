@@ -52,7 +52,9 @@ const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step
 </script>
 
 <template>
-  <div class="gd-page cb" :class="{ 'cb--mlbb': game!.id === 'mlbb' }">
+  <div class="gd-page gd-page--wall cb" :class="{ 'cb--mlbb': game!.id === 'mlbb' }">
+    <!-- same animated poster wall as the homepage -->
+    <GuideWall />
     <SiteNav />
     <main class="gd-wrap">
       <nav class="gd-crumbs" aria-label="Breadcrumb">
@@ -193,7 +195,7 @@ const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step
   /* small number badges: the full red → purple sweep bands harshly over ~22px, so use a
      shorter, diagonal blend between neighbouring hues */
   --cb-grad-soft: linear-gradient(135deg, #ff4f9a 0%, #e266d6 50%, #b97cff 100%);
-  background: #000;
+  background: transparent;
   color: #fff;
 }
 

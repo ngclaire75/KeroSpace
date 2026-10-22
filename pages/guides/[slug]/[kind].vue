@@ -15,7 +15,9 @@ useSeoMeta({
 </script>
 
 <template>
-  <div v-if="game && route.params.kind === 'characters'" class="gd-page character-roster-page">
+  <div v-if="game && route.params.kind === 'characters'" class="gd-page gd-page--wall character-roster-page">
+    <!-- same animated poster wall as the homepage -->
+    <GuideWall />
     <SiteNav />
     <main class="gd-wrap">
       <nav class="gd-crumbs" aria-label="Breadcrumb">
@@ -28,7 +30,3 @@ useSeoMeta({
     <SiteFooter />
   </div>
 </template>
-
-<style scoped>
-.character-roster-page { background: #000; }
-</style>

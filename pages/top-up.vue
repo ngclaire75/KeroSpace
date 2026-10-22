@@ -85,6 +85,8 @@ async function copyEnquiry() {
 
 <template>
   <div class="shop-page">
+    <!-- same animated poster wall as the homepage -->
+    <GuideWall />
     <SiteNav />
     <main class="shop-wrap">
       <header class="shop-hero">
@@ -175,7 +177,7 @@ async function copyEnquiry() {
 </template>
 
 <style scoped>
-.shop-page { --shop-pink: #ff54bb; --shop-purple: #b26bff; --shop-red: #ff3858; --shop-muted: #c8bdcf; background: #000; min-height: 100svh; }
+.shop-page { --shop-pink: #ff54bb; --shop-purple: #b26bff; --shop-red: #ff3858; --shop-muted: #c8bdcf; position: relative; isolation: isolate; background: transparent; min-height: 100svh; }
 .shop-wrap { width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px)); margin-inline: auto; padding-bottom: clamp(88px, 10vw, 144px); }
 .shop-hero { padding-top: clamp(40px, 6vw, 88px); }
 .shop-hero__intro { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: last baseline; margin-bottom: 38px; }

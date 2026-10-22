@@ -70,7 +70,9 @@ onBeforeUnmount(() => observer?.disconnect())
 </script>
 
 <template>
-  <div ref="root" class="gd-page gx" :class="{ 'gx-anim': animate }" :style="{ '--gx-accent': accent }">
+  <div ref="root" class="gd-page gd-page--wall gx" :class="{ 'gx-anim': animate }" :style="{ '--gx-accent': accent }">
+    <!-- same animated poster wall as the homepage -->
+    <GuideWall />
     <SiteNav />
 
     <main>
