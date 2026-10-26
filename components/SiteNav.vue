@@ -17,6 +17,24 @@ const pressed = ref<string | null>(null)
 function close() {
   open.value = false
 }
+
+// once the page scrolls, the nav pins to the top as a solid black bar
+const bar = ref<HTMLElement | null>(null)
+const stuck = ref(false)
+const shellHeight = ref(0)
+// back at the top, the bar fades into its resting place instead of snapping
+const settling = ref(false)
+function onScroll() {
+  const y = window.scrollY
+  if (!stuck.value && y > 8) {
+    shellHeight.value = bar.value?.offsetHeight ?? 0
+    settling.value = false
+    stuck.value = true
+  } else if (stuck.value && y <= 8) {
+    stuck.value = false
+    settling.value = true
+  }
+}
 function onKey(e: KeyboardEvent) {
   if (e.key === 'Escape') close()
 }
@@ -30,97 +48,106 @@ watch(open, (v) => {
 })
 onMounted(() => {
   window.addEventListener('keydown', onKey)
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onScroll()
   mq = window.matchMedia('(min-width: 901px)')
   mq.addEventListener('change', onMq)
 })
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', onKey)
+  window.removeEventListener('scroll', onScroll)
   mq?.removeEventListener('change', onMq)
   document.documentElement.classList.remove('menu-lock')
 })
 </script>
 
 <template>
-  <header class="nav" :class="{ 'is-open': open }">
-    <NuxtLink to="/" class="nav__brand" aria-label="KeroSpace home">
-      <AppImage class="nav__mark" loading="eager" src="/images/logo.webp" alt="" width="34" height="34" />
-      <AppImage class="nav__word" loading="eager" sizes="180px" src="/images/wordmark-neon.webp" alt="" width="840" height="206" />
-    </NuxtLink>
+  <!-- holds the nav's space once it pins to the top, so the page doesn't jump -->
+  <div class="nav-shell" :style="stuck ? { height: `${shellHeight}px` } : undefined">
+    <!-- pinned, the bar moves to <body> so no page wrapper's stacking context
+         (hero / page isolation) can paint over it -->
+    <Teleport to="body" :disabled="!stuck">
+      <header ref="bar" class="nav" :class="{ 'is-open': open, 'is-stuck': stuck, 'is-settling': settling }" @animationend="settling = false">
+        <NuxtLink to="/" class="nav__brand" aria-label="KeroSpace home">
+          <AppImage class="nav__mark" loading="eager" src="/images/logo.webp" alt="" width="34" height="34" />
+          <AppImage class="nav__word" loading="eager" sizes="180px" src="/images/wordmark-neon.webp" alt="" width="840" height="206" />
+        </NuxtLink>
 
-    <nav class="nav__links" aria-label="Primary">
-      <component
-        v-for="l in links"
-        :key="l.label"
-        :is="l.href ? NuxtLink : 'span'"
-        :to="l.href"
-        :role="!l.href ? 'link' : undefined"
-        :aria-disabled="!l.href ? true : undefined"
-        :class="{ 'is-active': l.active }"
-        :aria-current="l.active ? 'page' : undefined"
-      >
-        {{ l.label }}
-      </component>
-    </nav>
-
-    <div class="nav__actions">
-      <button
-        type="button"
-        class="nav__burger"
-        :aria-expanded="open"
-        aria-controls="mobile-menu"
-        :aria-label="open ? 'Close menu' : 'Open menu'"
-        @click="open = !open"
-      >
-        <span /><span /><span />
-      </button>
-    </div>
-
-    <!-- ===== mobile menu (≤ 900px) ===== -->
-    <div id="mobile-menu" class="menu" :aria-hidden="!open" :inert="!open">
-      <div class="menu__inner">
-        <p class="menu__eyebrow">Navigate</p>
-
-        <ol class="menu__list">
-          <li
-            v-for="(l, k) in links"
+        <nav class="nav__links" aria-label="Primary">
+          <component
+            v-for="l in links"
             :key="l.label"
-            class="menu__item"
-            :class="{ 'is-active': l.active, 'is-pressed': pressed === l.label }"
-            :style="{ '--d': `${0.12 + k * 0.05}s` }"
+            :is="l.href ? NuxtLink : 'span'"
+            :to="l.href"
+            :role="!l.href ? 'link' : undefined"
+            :aria-disabled="!l.href ? true : undefined"
+            :class="{ 'is-active': l.active }"
+            :aria-current="l.active ? 'page' : undefined"
           >
-            <component
-              :is="l.href ? NuxtLink : 'span'"
-              :to="l.href"
-              class="menu__link"
-              :role="!l.href ? 'link' : undefined"
-              :aria-disabled="!l.href ? true : undefined"
-              :aria-current="l.active ? 'page' : undefined"
-              @pointerdown="l.href && (pressed = l.label)"
-              @click="l.href && close()"
-            >
-              <span class="menu__num">{{ String(k + 1).padStart(2, '0') }}</span>
-              <span class="menu__label">{{ l.label }}</span>
-              <svg class="menu__arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                <path
-                  d="M7 17 17 7M8 7h9v9"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </component>
-          </li>
-        </ol>
+            {{ l.label }}
+          </component>
+        </nav>
 
-        <div class="menu__foot" :style="{ '--d': `${0.12 + links.length * 0.05}s` }">
-          <AppImage class="menu__mark" src="/images/wordmark-neon.webp" alt="KeroSpace" width="840" height="206" />
-          <p class="menu__credit">designed by claire.</p>
+        <div class="nav__actions">
+          <button
+            type="button"
+            class="nav__burger"
+            :aria-expanded="open"
+            aria-controls="mobile-menu"
+            :aria-label="open ? 'Close menu' : 'Open menu'"
+            @click="open = !open"
+          >
+            <span /><span /><span />
+          </button>
         </div>
-      </div>
-    </div>
-  </header>
+
+        <!-- ===== mobile menu (≤ 900px) ===== -->
+        <div id="mobile-menu" class="menu" :aria-hidden="!open" :inert="!open">
+          <div class="menu__inner">
+            <p class="menu__eyebrow">Navigate</p>
+
+            <ol class="menu__list">
+              <li
+                v-for="(l, k) in links"
+                :key="l.label"
+                class="menu__item"
+                :class="{ 'is-active': l.active, 'is-pressed': pressed === l.label }"
+                :style="{ '--d': `${0.12 + k * 0.05}s` }"
+              >
+                <component
+                  :is="l.href ? NuxtLink : 'span'"
+                  :to="l.href"
+                  class="menu__link"
+                  :role="!l.href ? 'link' : undefined"
+                  :aria-disabled="!l.href ? true : undefined"
+                  :aria-current="l.active ? 'page' : undefined"
+                  @pointerdown="l.href && (pressed = l.label)"
+                  @click="l.href && close()"
+                >
+                  <span class="menu__label">{{ l.label }}</span>
+                  <svg class="menu__arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                    <path
+                      d="M7 17 17 7M8 7h9v9"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </component>
+              </li>
+            </ol>
+
+            <div class="menu__foot" :style="{ '--d': `${0.12 + links.length * 0.05}s` }">
+              <AppImage class="menu__mark" src="/images/wordmark-neon.webp" alt="KeroSpace" width="840" height="206" />
+              <p class="menu__credit">designed by claire.</p>
+            </div>
+          </div>
+        </div>
+      </header>
+    </Teleport>
+  </div>
 </template>
 
 <style scoped>
@@ -131,6 +158,35 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 24px;
   padding: 30px clamp(18px, 3vw, 36px) 0;
+}
+/* pinned: a full-width black bar with square corners (no backdrop-filter — it
+   would trap the fixed mobile menu inside the bar) */
+.nav.is-stuck {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding-top: 30px;
+  padding-bottom: 22px;
+  border-radius: 0;
+  background: #000;
+  animation: nav-pin 0.4s var(--ease) both;
+}
+.nav.is-settling {
+  animation: nav-settle 0.35s var(--ease) both;
+}
+@keyframes nav-pin {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+@keyframes nav-settle {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 
 .nav__brand {
@@ -241,6 +297,10 @@ onBeforeUnmount(() => {
     padding-top: 22px;
     gap: 12px;
   }
+  .nav.is-stuck {
+    padding-top: 22px;
+    padding-bottom: 16px;
+  }
   .nav__links {
     display: none;
   }
@@ -341,14 +401,6 @@ onBeforeUnmount(() => {
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  .menu__num {
-    width: 22px;
-    font-family: var(--display);
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--ink-3);
-    transition: color 0.3s;
-  }
   .menu__label {
     flex: 1;
     font-family: var(--display);
@@ -379,7 +431,6 @@ onBeforeUnmount(() => {
     color: transparent;
     animation: menu-neon 1.2s linear infinite;
   }
-  .menu__item.is-active .menu__num,
   .menu__item.is-active .menu__arrow {
     color: #fff;
   }
@@ -431,6 +482,8 @@ onBeforeUnmount(() => {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .nav.is-stuck,
+  .nav.is-settling,
   .menu__credit,
   .menu__label {
     animation: none !important;

@@ -437,8 +437,7 @@ onBeforeUnmount(() => {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 30px 18px;
   margin: 0;
-  padding: 0 0 0 28px;
-  border-left: 1px solid var(--edge);
+  padding: 0;
 }
 .feature__facts div { min-width: 0; }
 .feature__facts dt {
@@ -803,11 +802,6 @@ onBeforeUnmount(() => {
 @media (max-width: 980px) {
   .feature { grid-template-columns: minmax(0, 1fr); }
   .feature__body { grid-template-columns: minmax(0, 1fr); }
-  .feature__facts {
-    padding: 22px 0 0;
-    border-left: 0;
-    border-top: 1px solid var(--edge);
-  }
   .covers__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

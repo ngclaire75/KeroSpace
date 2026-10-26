@@ -156,7 +156,7 @@ useHead(() => ({
 
 <style scoped>
 .game-story-page { position: relative; isolation: isolate; min-height: 100svh; background: transparent; }
-.story-main { --story-radius: 10px; --story-edge: #302638; --story-gradient: linear-gradient(100deg, #c6a7ff, #e2b3f5 50%, #ffb4d7); --ink: #fff; --ink-2: #fff; --ink-3: #fff; color: #fff; width: calc(100% - 2 * clamp(16px, 4vw, 40px)); max-width: 1240px; margin-inline: auto; padding-top: clamp(44px, 6vw, 80px); padding-bottom: clamp(72px, 9vw, 120px); }
+.story-main { --story-radius: 10px; --story-edge: #302638; --story-gradient: linear-gradient(100deg, #c6a7ff, #e2b3f5 50%, #ffb4d7); --ink: #fff; --ink-2: #fff; --ink-3: #fff; color: #fff; width: calc(100% - 2 * clamp(16px, 4vw, 40px)); max-width: 1240px; margin-inline: auto; padding-top: clamp(26px, 3.6vw, 48px); padding-bottom: clamp(72px, 9vw, 120px); }
 .story-main ::selection { color: #000; background: #e5c4ff; }
 .story-promo { width: 100%; aspect-ratio: 3.5 / 1; overflow: hidden; margin-top: clamp(24px, 3vw, 40px); }
 .story-promo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
@@ -204,7 +204,7 @@ h1, .story-chapter h2 { color: #d7b7ff; }
 }
 
 @media (max-width: 760px) {
-  .story-main { padding-top: 36px; }
+  .story-main { padding-top: 22px; }
   .story-header { margin-bottom: 40px; }
   .story-category { font-size: 12px; margin-bottom: 22px; }
   .story-deck { margin-top: 20px; }
