@@ -477,9 +477,8 @@ onBeforeUnmount(() => {
 }
 .cover::after {
   opacity: 1;
-  /* static red → dark red outline */
-  background: linear-gradient(135deg, #ff183b, #6e0614);
-  animation: none;
+  background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b);
+  animation: card-outline-turn 3s linear infinite;
 }
 .cover__icon {
   display: grid;
@@ -559,7 +558,7 @@ onBeforeUnmount(() => {
     var(--panel);
   transition: border-color 0.4s var(--ease);
 }
-.gcard__link::after { opacity: 1; background: linear-gradient(135deg, #ff183b, #6e0614); animation: none; }
+.gcard__link::after { opacity: 1; animation: card-outline-turn 3s linear infinite; }
 .gcard__poster-frame {
   position: relative;
   display: block;
@@ -728,15 +727,10 @@ onBeforeUnmount(() => {
   padding: 9px 12px;
   border: 1px solid transparent;
   border-radius: 0;
+  /* static red → dark red, no animation */
   background:
-    linear-gradient(100deg, rgba(255, 24, 59, .26), rgba(220, 220, 224, .2) 50%, rgba(255, 24, 59, .26)) padding-box,
-    linear-gradient(100deg, #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b) border-box;
-  background-size: 300% 100%;
-  animation: stat-gradient-flow 10s ease-in-out infinite alternate;
-}
-@keyframes stat-gradient-flow {
-  from { background-position: 0% 50%; }
-  to { background-position: 100% 50%; }
+    linear-gradient(100deg, rgba(255, 24, 59, .3), rgba(110, 6, 20, .3)) padding-box,
+    linear-gradient(100deg, #ff183b, #6e0614) border-box;
 }
 .gcard__stat-k {
   flex-shrink: 0;
@@ -867,7 +861,6 @@ onBeforeUnmount(() => {
     will-change: auto;
   }
   .cover::after, .gcard__link::after { animation: none; }
-  .gcard__stat { animation: none; }
   .feature { animation: none; }
   .feature__slide,
   .feature__art,
