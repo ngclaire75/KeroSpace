@@ -101,20 +101,18 @@ async function copyEnquiry() {
           <figure class="shop-banner">
             <AppImage src="/images/top-up-store-banner.webp" sizes="(max-width: 860px) 100vw, 740px" alt="Welcome to KeroSce Store banner" width="3072" height="2048" fetchpriority="high" />
           </figure>
-          <figure class="shop-pricelist">
-            <AppImage src="/images/mlbb-price-list-showcase-esrgan-2x.webp" sizes="(max-width: 860px) 100vw, 490px" alt="Kerosce's Mobile Legends (MLBB) diamonds price list, from 275 diamonds at Rp 65.000 up to 7155 diamonds at Rp 1.350.000" width="2508" height="2508" />
-          </figure>
+          <section class="shop-promo" aria-labelledby="promo-title">
+            <div class="shop-promo__lead">
+              <h2 id="promo-title">Your next skin.<br /><em>Starts here.</em></h2>
+              <p class="shop-promo__intro">Top up without the guesswork. Tell us what you need, get a clear price and get back to playing.</p>
+            </div>
+            <ul class="shop-promo__points">
+              <li><strong>Mobile Legends</strong><span>From a quick top-up to a big diamond bundle. Ask for the latest prices and get a clear quote upfront.</span></li>
+              <li><strong>Other games</strong><span>Genshin, Star Rail, Wuthering Waves and more. Share your package and budget and agree on a price together.</span></li>
+              <li><strong>One direct conversation</strong><span>Every order starts with one message to @koqbisagtu. Ask anything and confirm the details before you pay.</span></li>
+            </ul>
+          </section>
         </div>
-
-        <section class="shop-promo" aria-labelledby="promo-title">
-          <div class="shop-promo__lead">
-            <h2 id="promo-title">Your next skin.<br /><em>Starts here.</em></h2>
-          </div>
-          <ul class="shop-promo__points">
-            <li><strong>Mobile Legends</strong><span>Pick your diamonds. See your price upfront.<br />DM us your pack and make your next skin a reality.</span></li>
-            <li><strong>Other games</strong><span>Your game, your goals, your budget. DM us the package you have in mind and explore the options and negotiate a price that works for you.</span></li>
-          </ul>
-        </section>
       </header>
 
       <TopUpRankService />
@@ -189,17 +187,19 @@ em { font-style: normal; background: linear-gradient(105deg, #ff183b, #ff183b 55
 .shop-hero__aside { max-width: 450px; justify-self: end; }
 .shop-hero__aside > p:first-child { color: #fff; font-weight: 800; font-size: 15px; margin-bottom: 12px; }
 .shop-hero__aside > p:nth-child(2) { color: var(--shop-muted); font-size: 15px; line-height: 1.75; margin-bottom: 0; }
-/* banner (3:2) and price list (1:1) share a row: widths in the ratio 1.5 : 1 give both images exactly the same height */
-.shop-showcase { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; align-items: start; }
-.shop-banner, .shop-pricelist { margin: 0; min-width: 0; }
-.shop-banner > img, .shop-pricelist img { display: block; width: 100%; height: auto; }
-.shop-promo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: center; margin-top: 26px; padding: 24px; border: 2px solid transparent; background: linear-gradient(#000, #000) padding-box, var(--shop-outline) border-box; }
+/* banner (3:2) with the promo box beside it, stretched to the banner's height */
+.shop-showcase { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
+.shop-banner { margin: 0; min-width: 0; }
+.shop-banner > img { display: block; width: 100%; height: auto; }
+.shop-promo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-content: center; min-width: 0; padding: 24px; border: 2px solid transparent; background: linear-gradient(#000, #000) padding-box, var(--shop-outline) border-box; }
 .shop-promo .shop-eyebrow { margin-bottom: 12px; }
-.shop-promo h2 { font-size: 20px; font-weight: 800; line-height: 1.5; letter-spacing: normal; }
-.shop-promo__points { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; margin: 0; padding: 0; list-style: none; }
+/* type scale matches the rank-up "Why KeroSpace" box */
+.shop-promo h2 { font: 900 clamp(22px, 2.4vw, 30px)/1.25 var(--display); letter-spacing: -.02em; text-wrap: balance; }
+.shop-promo__intro { margin: 16px 0 0; color: var(--shop-muted); font-size: 15px; line-height: 1.75; }
+.shop-promo__points { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; margin: 0; padding: 0; list-style: none; }
 .shop-promo__points li { display: grid; gap: 6px; }
-.shop-promo__points strong { color: var(--shop-pink); font: 800 14px/1.6 var(--display); }
-.shop-promo__points span { color: #fff; font-size: 14px; line-height: 1.65; }
+.shop-promo__points strong { color: var(--shop-pink); font: 800 15px/1.5 var(--display); }
+.shop-promo__points span { color: #fff; font-size: 14px; line-height: 1.7; }
 .shop-catalog { padding-top: clamp(60px, 8vw, 100px); scroll-margin-top: 28px; }
 .catalog-heading { display: flex; justify-content: space-between; align-items: end; gap: 36px; margin-bottom: 28px; }
 h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); letter-spacing: -.025em; text-transform: uppercase; }
@@ -301,7 +301,8 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .shop-page .copied-banner .instagram-button:focus { outline: none; }
 .shop-page .copied-banner .instagram-button:focus-visible { text-decoration: none; box-shadow: none; outline: none; }
 @media (hover: hover) { .service-picker button:hover { box-shadow: 0 0 12px rgba(255, 24, 59, .25); } }
-@media (max-width: 860px) { .shop-showcase { grid-template-columns: minmax(0, 1fr); gap: 8px; } }
+/* narrower than full width the promo column would outgrow the banner beside it, so stack */
+@media (max-width: 1300px) { .shop-showcase { grid-template-columns: minmax(0, 1fr); gap: 16px; } }
 @media (max-width: 1100px) { .catalog-layout { grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; } .game-picker { grid-template-columns: repeat(2, minmax(0, 1fr)); } .shop-game__surface { min-height: 230px; } .enquiry__inner { padding: 20px; } .shop-hero__intro { gap: 32px; } }
 @media (max-width: 760px) {
   .shop-hero__intro { grid-template-columns: 1fr; gap: 24px; margin-bottom: 26px; }

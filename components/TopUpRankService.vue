@@ -14,16 +14,16 @@
     </div>
 
     <div class="rank-service__showcase">
-      <figure class="rank-service__banner">
-        <AppImage src="/images/mlbb-rank-price-list-neon-esrgan-2x.webp" alt="Mobile Legends rank-up service banner with rank badges and prices" width="3344" height="1882" sizes="(max-width: 860px) 100vw, 740px" />
-      </figure>
-
       <div class="rank-reasons" aria-labelledby="rank-reasons-title">
-        <h3 id="rank-reasons-title">Why make your next move with KeroSpace?</h3>
-        <ul>
-          <li><h4>Your goal sets the plan.</h4><p>A few tiers or a bigger climb: start with your current rank and target, then discuss the service that fits.</p></li>
+        <div class="rank-reasons__intro">
+          <p class="rank-reasons__eyebrow">Why KeroSpace</p>
+          <h3 id="rank-reasons-title">Why make your next move with KeroSpace?</h3>
+          <p class="rank-reasons__lede">Three things that keep your climb simple, from the first message to your new rank.</p>
+        </div>
+        <ul class="rank-reasons__list">
+          <li><h4>Your goal sets the plan.</h4><p>A few tiers or a bigger climb. Share your current rank and target, and we shape the service around it.</p></li>
           <li><h4>A quote you can discuss.</h4><p>Bring your budget into the conversation. Agree on the price and service details before you order.</p></li>
-          <li><h4>One direct conversation.</h4><p>Message @koqbisagtu with your goals and questions. Talk through the details directly, without the guesswork.</p></li>
+          <li><h4>One direct conversation.</h4><p>Message @koqbisagtu with your goals and questions. Straight answers, without the guesswork.</p></li>
         </ul>
       </div>
     </div>
@@ -39,31 +39,26 @@
 .rank-service h2 em { font-style: normal; background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .rank-service__lead { margin: 24px 0 14px; color: #fff; font-size: 18px; font-weight: 800; line-height: 1.65; }
 .rank-service__description { max-width: 760px; margin: 0; color: var(--shop-muted); font-size: 16px; line-height: 1.85; }
-.rank-service__showcase { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: stretch; gap: 16px; margin-top: 30px; }
-.rank-service__banner { margin: 0; min-width: 0; aspect-ratio: 1672 / 941; background: #000; }
-.rank-service__banner img { display: block; width: 100%; height: 100%; object-fit: contain; }
-.rank-reasons { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 20px; min-width: 0; min-height: 0; contain: size; padding: 24px; border: 2px solid transparent; background: linear-gradient(#000, #000) padding-box, var(--shop-outline) border-box; }
-.rank-reasons > h3 { margin: 0; color: #fff; font-family: var(--display); font-size: 20px; font-weight: 800; line-height: 1.5; }
-.rank-reasons ul { display: grid; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
-.rank-reasons li { min-height: 0; }
-.rank-reasons h4 { margin: 0 0 6px; color: var(--shop-pink); font: 800 14px/1.6 var(--display); }
-.rank-reasons li p { margin: 0; color: #fff; font-size: 14px; line-height: 1.65; }
-@media (min-width: 1101px) and (max-width: 1280px) {
-  .rank-reasons { padding: 16px; gap: 8px; }
-  .rank-reasons > h3 { font-size: 17px; line-height: 1.4; }
-  .rank-reasons ul { gap: 6px; }
-  .rank-reasons h4 { font-size: 12px; line-height: 1.4; margin-bottom: 4px; }
-  .rank-reasons li p { font-size: 13px; line-height: 1.5; }
-}
-@media (max-width: 1100px) {
-  .rank-service__showcase { grid-template-columns: minmax(0, 1fr); }
-  .rank-reasons { contain: none; grid-template-rows: auto auto; padding: 24px; }
-  .rank-reasons ul { grid-template-rows: none; gap: 24px; }
+.rank-service__showcase { margin-top: 30px; }
+/* heading on the left, reasons on the right */
+.rank-reasons { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(28px, 5vw, 72px); align-items: start; min-width: 0; padding: clamp(24px, 3.5vw, 44px); border: 2px solid transparent; background: linear-gradient(#000, #000) padding-box, var(--shop-outline) border-box; }
+.rank-reasons__eyebrow { margin: 0 0 14px; color: var(--shop-pink); font-size: 11px; font-weight: 800; line-height: 1.6; letter-spacing: .15em; text-transform: uppercase; }
+.rank-reasons__intro h3 { margin: 0; color: #fff; font: 900 clamp(22px, 2.4vw, 30px)/1.25 var(--display); letter-spacing: -.02em; text-transform: uppercase; text-wrap: balance; }
+.rank-reasons__lede { margin: 16px 0 0; color: var(--shop-muted); font-size: 15px; line-height: 1.75; }
+.rank-reasons__list { margin: 0; padding: 0; list-style: none; }
+.rank-reasons__list li { padding: 22px 0; border-top: 1px solid #2a2a2e; }
+.rank-reasons__list li:first-child { padding-top: 0; border-top: 0; }
+.rank-reasons__list li:last-child { padding-bottom: 0; }
+.rank-reasons h4 { margin: 0 0 6px; color: #fff; font: 800 15px/1.5 var(--display); }
+.rank-reasons__list p { margin: 0; color: var(--shop-muted); font-size: 14px; line-height: 1.7; }
+@media (max-width: 900px) {
+  .rank-reasons { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 760px) {
   .rank-service__header { gap: 16px; }
   .rank-service__eyebrow { font-size: 10px; letter-spacing: .1em; }
   .rank-service__lead { margin-top: 20px; font-size: 17px; }
   .rank-service__description { font-size: 15px; }
-}
+  .rank-reasons__list li { grid-template-columns: 44px minmax(0, 1fr); gap: 12px; }
+  }
 </style>

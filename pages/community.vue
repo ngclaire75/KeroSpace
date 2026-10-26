@@ -238,7 +238,6 @@ h2 em {
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  filter: var(--bw-art);
   /* thin dark gap between the photo and the neon ring */
   box-shadow: 0 0 0 1.5px #0b0a0f;
 }
