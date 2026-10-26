@@ -477,8 +477,9 @@ onBeforeUnmount(() => {
 }
 .cover::after {
   opacity: 1;
-  background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b);
-  animation: card-outline-turn 3s linear infinite;
+  /* static red → dark red outline */
+  background: linear-gradient(135deg, #ff183b, #6e0614);
+  animation: none;
 }
 .cover__icon {
   display: grid;
@@ -558,7 +559,7 @@ onBeforeUnmount(() => {
     var(--panel);
   transition: border-color 0.4s var(--ease);
 }
-.gcard__link::after { opacity: 1; animation: card-outline-turn 3s linear infinite; }
+.gcard__link::after { opacity: 1; background: linear-gradient(135deg, #ff183b, #6e0614); animation: none; }
 .gcard__poster-frame {
   position: relative;
   display: block;
@@ -629,7 +630,7 @@ onBeforeUnmount(() => {
 .gcard__genre {
   min-width: 0;
   overflow: hidden;
-  color: #ff8aaa;
+  color: #fff;
   text-overflow: ellipsis;
 }
 
