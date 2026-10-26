@@ -6,7 +6,7 @@ import { communityDiscordServers } from '~/data/communityDiscord'
   <section id="community-discord" class="discord" aria-labelledby="discord-title">
     <header class="discord__heading">
       <div>
-        <p class="discord__eyebrow"><AppImage src="/images/community/discord-symbol.svg" width="22" height="17" alt="" /> On Discord</p>
+        <p class="discord__eyebrow"><span class="discord__logo" aria-hidden="true" /> On Discord</p>
         <h2 id="discord-title">Same game.<br /><em>New connections.</em></h2>
       </div>
       <p class="discord__intro">News, build talk and a place to meet other players. Join your game's official Discord community.</p>
@@ -55,7 +55,9 @@ import { communityDiscordServers } from '~/data/communityDiscord'
 .server-directory__heading { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 24px; }
 .server-directory__heading p { margin: 0 0 7px; color: var(--discord-pink); font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .server-directory__heading h3 { margin: 0; font: 800 clamp(15px, 1.6vw, 20px)/1.3 var(--display); text-transform: uppercase; }
-.server-directory__brand { display: block; flex-shrink: 0; width: 36px; height: 28px; background: linear-gradient(120deg, #ff183b, #ff183b 55%, #dcdce0); -webkit-mask: url('/images/community/discord-symbol.svg') center / contain no-repeat; mask: url('/images/community/discord-symbol.svg') center / contain no-repeat; }
+.server-directory__brand { display: block; flex-shrink: 0; width: 36px; height: 28px; background: var(--logo-red); -webkit-mask: url('/images/community/discord-symbol.svg') center / contain no-repeat; mask: url('/images/community/discord-symbol.svg') center / contain no-repeat; }
+/* Discord mark painted in red → dark red through the logo's shape */
+.discord__logo { display: block; flex-shrink: 0; width: 22px; height: 17px; background: var(--logo-red); -webkit-mask: url('/images/community/discord-symbol.svg') center / contain no-repeat; mask: url('/images/community/discord-symbol.svg') center / contain no-repeat; }
 .server-list { margin: 0; padding: 0; list-style: none; }
 .server-list li { border-top: 1px solid #2a2a2e; }
 .server { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: 78px minmax(0, 1fr) auto; align-items: center; gap: 18px; min-height: 88px; padding: 14px 22px; }
@@ -72,8 +74,9 @@ import { communityDiscordServers } from '~/data/communityDiscord'
 .server__copy, .server__join { transform: translateZ(0); backface-visibility: hidden; -webkit-font-smoothing: antialiased; }
 .server:focus-visible { outline: 2px solid var(--discord-purple); outline-offset: 5px; }
 .server-directory__foot { padding: 19px 24px 23px; color: #b8b8bb; font-size: 12px; line-height: 1.6; }
-.discord-art { width: 100%; aspect-ratio: 3 / 4; margin: 0; border: 0; border-radius: 0; overflow: hidden; }
-.discord-art > img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.discord-art { position: relative; width: 100%; aspect-ratio: 3 / 4; margin: 0; border: 0; border-radius: 0; overflow: hidden; }
+.discord-art > img { display: block; width: 100%; height: 100%; object-fit: contain; filter: var(--bw-art); }
+.discord-art::after { content: ''; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; background: var(--red-holo); animation: red-holo-sweep 7s ease-in-out infinite alternate; }
 @media (min-width: 901px) {
   .discord__layout { align-items: stretch; }
   .server-directory { contain: size; min-height: 0; }
@@ -110,5 +113,5 @@ import { communityDiscordServers } from '~/data/communityDiscord'
   .server__join > span { display: none; }
   .server-directory__foot { padding: 18px; }
 }
-@media (prefers-reduced-motion: reduce) { .server-directory { animation: none; } .server::after { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .server-directory, .discord-art::after { animation: none; } .server::after { transition: none; } }
 </style>

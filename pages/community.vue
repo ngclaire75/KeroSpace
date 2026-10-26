@@ -193,7 +193,26 @@ h2 em {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* black and white, a little more contrast, slightly dimmed */
+  filter: var(--bw-art);
 }
+/* red holographic sheen sweeping across the tile,
+   above the bottom fade and below the creator label */
+.mosaic__tile::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: var(--red-holo);
+  animation: red-holo-sweep 7s ease-in-out infinite alternate;
+}
+/* each tile's sheen runs at a different point so they don't move in lockstep */
+.mosaic__tile:nth-child(2)::before { animation-delay: -1.4s; }
+.mosaic__tile:nth-child(3)::before { animation-delay: -2.8s; }
+.mosaic__tile:nth-child(4)::before { animation-delay: -4.2s; }
+.mosaic__tile:nth-child(5)::before { animation-delay: -5.6s; }
 .mosaic__tile::after {
   content: '';
   position: absolute;
@@ -219,10 +238,11 @@ h2 em {
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
+  filter: var(--bw-art);
   /* thin dark gap between the photo and the neon ring */
   box-shadow: 0 0 0 1.5px #0b0a0f;
 }
-/* neon pink → purple ring that spins around each profile photo
+/* neon red → light grey ring that spins around each profile photo
    (reuses the global --card-outline-angle / card-outline-turn from main.css) */
 .mosaic__ring {
   flex-shrink: 0;
@@ -245,7 +265,8 @@ h2 em {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mosaic__ring {
+  .mosaic__ring,
+  .mosaic__tile::before {
     animation: none;
   }
 }

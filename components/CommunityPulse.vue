@@ -171,7 +171,9 @@ function onKey(e: KeyboardEvent, i: number) {
   border-radius: 0;
   background: #000;
 }
-.spot__art { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--spot-position, center top); }
+.spot__art { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--spot-position, center top); filter: var(--bw-art); }
+/* red holographic sheen: over the art, under the glass panel */
+.spot:not(.spot--noart)::after { z-index: -1; content: ''; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; background: var(--red-holo); animation: red-holo-sweep 7s ease-in-out infinite alternate; }
 .spot--noart {
   background:
     radial-gradient(70% 90% at 85% 15%, rgba(255, 77, 94, .55), transparent 65%),
@@ -256,7 +258,9 @@ function onKey(e: KeyboardEvent, i: number) {
 .rtile--3 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 45, 85, .45), transparent 70%), radial-gradient(50% 120% at 70% 100%, rgba(255, 77, 94, .3), transparent 70%), #000000; }
 .rtile--4 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 77, 94, .3), transparent 70%), #000000; }
 .rtile--5 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 77, 94, .3), transparent 70%), #000000; }
-.rtile__art { position: absolute; z-index: -1; top: 0; right: 0; width: 62%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(90deg, transparent, #000 60%); mask-image: linear-gradient(90deg, transparent, #000 60%); opacity: .85; transition: opacity .25s ease; }
+.rtile__art { position: absolute; z-index: -1; top: 0; right: 0; width: 62%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(90deg, transparent, #000 60%); mask-image: linear-gradient(90deg, transparent, #000 60%); opacity: .85; transition: opacity .25s ease; filter: var(--bw-art); }
+/* sheen limited to the art's own area and fade */
+.rtile.has-art .rtile__surface::before { content: ''; position: absolute; top: 0; right: 0; width: 62%; height: 100%; pointer-events: none; mix-blend-mode: screen; background: var(--red-holo); animation: red-holo-sweep 7s ease-in-out infinite alternate; -webkit-mask-image: linear-gradient(90deg, transparent, #000 60%); mask-image: linear-gradient(90deg, transparent, #000 60%); }
 .rtile.has-art .rtile__surface::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .55)); transition: opacity .25s ease; }
 .rtile.is-on .rtile__art { opacity: 1; }
 .rtile.is-on .rtile__surface::after { opacity: 0; }
@@ -289,5 +293,6 @@ function onKey(e: KeyboardEvent, i: number) {
 }
 @media (prefers-reduced-motion: reduce) {
   .fade-enter-active, .fade-leave-active, .rtile, .rtile__art, .rtile.has-art .rtile__surface::after { transition: none; }
+  .spot::after, .rtile__surface::before { animation: none; }
 }
 </style>

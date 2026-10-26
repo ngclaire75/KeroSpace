@@ -729,8 +729,8 @@ onBeforeUnmount(() => {
   border-radius: 0;
   /* static red → dark red, no animation */
   background:
-    linear-gradient(100deg, rgba(255, 24, 59, .3), rgba(110, 6, 20, .3)) padding-box,
-    linear-gradient(100deg, #ff183b, #6e0614) border-box;
+    linear-gradient(100deg, rgba(255, 24, 59, .28), rgba(196, 16, 43, .28) 50%, rgba(138, 10, 28, .28)) padding-box,
+    linear-gradient(100deg, #ff183b, #c4102b 50%, #8a0a1c) border-box;
 }
 .gcard__stat-k {
   flex-shrink: 0;
@@ -788,8 +788,9 @@ onBeforeUnmount(() => {
   .gcard__link:hover .gcard__cta {
     color: #fff;
   }
+  /* same smooth red → dark red as the stat boxes */
   .gcard__link:hover .gcard__go {
-    background: var(--grad);
+    background: linear-gradient(135deg, #ff183b, #c4102b 50%, #8a0a1c);
   }
 }
 

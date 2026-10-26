@@ -18,6 +18,10 @@
   /* scrolling text bands (footer ticker, game hub marquee) */
   --marquee-grad: linear-gradient(90deg, #ff183b 0%, #c4102b 50%, #6e0614 100%);
   --marquee-ink: #fff;
+  /* black-and-white art with a red holographic sheen (community, discord, pulse, creators) */
+  --bw-art: grayscale(1) contrast(1.15) brightness(0.8);
+  --red-holo: linear-gradient(115deg, transparent 22%, rgba(255, 24, 59, 0.32) 38%, rgba(255, 110, 122, 0.28) 46%, rgba(255, 24, 59, 0.32) 54%, transparent 70%) 0 0 / 260% 260%;
+  --logo-red: linear-gradient(135deg, #ff183b, #6e0614);
   --display: 'Orbitron', 'Nunito', system-ui, sans-serif;
   --ui: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
@@ -87,6 +91,12 @@ svg {
   syntax: '<angle>';
   inherits: false;
   initial-value: 0deg;
+}
+
+/* the --red-holo sheen drifts diagonally across and back */
+@keyframes red-holo-sweep {
+  from { background-position: 100% 100%; }
+  to { background-position: 0% 0%; }
 }
 
 @keyframes card-outline-turn {
