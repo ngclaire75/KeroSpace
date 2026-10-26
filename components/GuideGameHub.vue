@@ -132,7 +132,7 @@ onBeforeUnmount(() => observer?.disconnect())
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
-/* full-strength art: no fades, overlays or blur */
+/* black-and-white art with the red holographic sheen */
 .gx-hero__bg {
   position: absolute;
   inset: 0;
@@ -140,6 +140,18 @@ onBeforeUnmount(() => observer?.disconnect())
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: var(--bw-art);
+}
+/* sheen sits over the art, under the scroll badge */
+.gx-hero::after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: var(--red-holo);
+  animation: red-holo-sweep 7s ease-in-out infinite alternate;
 }
 .gx-hero__inner {
   display: flex;
@@ -308,6 +320,9 @@ onBeforeUnmount(() => observer?.disconnect())
 
 
 @media (prefers-reduced-motion: reduce) {
+  .gx-hero::after {
+    animation: none;
+  }
   .gx-badge,
   .gx-badge svg,
   .gx-marquee__track {

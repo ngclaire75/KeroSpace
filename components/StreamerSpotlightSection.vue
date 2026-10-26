@@ -381,16 +381,6 @@ onBeforeUnmount(() => {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, transparent 28%);
   pointer-events: none;
 }
-/* red holographic sheen over the black-and-white banner */
-.creator-banner__shade::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  background: var(--red-holo);
-  animation: red-holo-sweep 7s ease-in-out infinite alternate;
-}
 .creator-banner__brand {
   position: absolute;
   top: 14px;
@@ -745,8 +735,5 @@ onBeforeUnmount(() => {
     opacity: 1;
     translate: none;
   }
-}
-@media (prefers-reduced-motion: reduce) {
-  .creator-banner__shade::after { animation: none; }
 }
 </style>
