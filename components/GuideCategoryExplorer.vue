@@ -49,7 +49,7 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   position: absolute;
   inset: -2px;
   padding: 2px;
-  background: conic-gradient(from var(--card-outline-angle), #ff69c8, #b26bff, #ff3158, #ff69c8);
+  background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -106,9 +106,9 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   padding: 10px 16px;
   border: 1.5px solid transparent;
   background:
-    linear-gradient(#141218, #141218) padding-box,
-    linear-gradient(110deg, #b26bff, #ff54bb) border-box;
-  box-shadow: 0 0 14px rgba(178, 107, 255, 0.16);
+    linear-gradient(#000000, #000000) padding-box,
+    linear-gradient(110deg, #ff183b, #ff183b 55%, #dcdce0) border-box;
+  box-shadow: 0 0 14px rgba(255, 77, 94, 0.16);
   color: #fff;
   font: 800 14px / 1.4 var(--ui);
   text-transform: uppercase;
@@ -121,7 +121,7 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   gap: 12px;
   margin-top: 32px;
   padding: 15px 22px;
-  background: linear-gradient(100deg, #ff2a3d, #ff54bb 50%, #b26bff);
+  background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0);
   color: #fff;
   font: 800 14px / 1 var(--ui);
   letter-spacing: 0.06em;
@@ -146,7 +146,7 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   object-position: center 30%;
 }
 .explorer__cta:focus-visible {
-  outline: 2px solid #f2b6ff;
+  outline: 2px solid #ff4d5e;
   outline-offset: 4px;
 }
 

@@ -423,7 +423,7 @@ onBeforeUnmount(() => {
   /* tap: the label lights up in an animated neon pink → purple gradient */
   .menu__link:not([aria-disabled="true"]):active .menu__label,
   .menu__item.is-pressed .menu__label {
-    background: linear-gradient(90deg, #ff54bb, #b26bff, #ff54bb, #b26bff);
+    background: linear-gradient(90deg, #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b 85%, #dcdce0);
     background-size: 300% 100%;
     background-position: 0% 50%;
     -webkit-background-clip: text;
@@ -459,7 +459,7 @@ onBeforeUnmount(() => {
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 0.04em;
-    background: linear-gradient(90deg, #d8baff, #ffc4e5, #d8baff);
+    background: linear-gradient(90deg, #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;

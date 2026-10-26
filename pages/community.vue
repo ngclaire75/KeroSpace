@@ -66,12 +66,12 @@ const pad = (n: number) => String(n).padStart(2, '0')
 <style scoped>
 .cm {
   --c-red: #ff183b;
-  --c-pink: #ff54bb;
-  --c-purple: #b26bff;
+  --c-pink: #ff4d5e;
+  --c-purple: #ff4d5e;
   --c-muted: rgba(255, 255, 255, 0.66);
   --c-line: rgba(255, 255, 255, 0.1);
   --c-card: #0b0a0f;
-  --c-grad: linear-gradient(100deg, var(--c-pink), var(--c-red) 50%, var(--c-purple));
+  --c-grad: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0);
   min-height: 100vh;
   min-height: 100svh;
   position: relative;
@@ -178,7 +178,7 @@ h2 em {
   overflow: hidden;
   aspect-ratio: 3 / 4;
   border-radius: 18px;
-  background: #120d18;
+  background: #000000;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 .mosaic__tile:nth-child(3n + 2) {
@@ -229,7 +229,7 @@ h2 em {
   display: block;
   padding: 2px;
   border-radius: 50%;
-  background: conic-gradient(from var(--card-outline-angle), #ff54bb, #b26bff, #ff54bb);
+  background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b);
   animation: card-outline-turn 3s linear infinite;
 }
 .mosaic__who b {

@@ -89,11 +89,11 @@ const columns = [
 <style scoped>
 .footer {
   --f-red: #ff183b;
-  --f-pink: #ff54bb;
-  --f-purple: #b26bff;
+  --f-pink: #ff4d5e;
+  --f-purple: #ff4d5e;
   --f-panel: #0b0b0e;
   --f-line: rgba(255, 255, 255, 0.28);
-  --f-grad: linear-gradient(100deg, var(--f-purple), var(--f-red) 52%, var(--f-pink));
+  --f-grad: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0);
   position: relative;
   isolation: isolate;
   padding: 0 0 28px;
@@ -106,10 +106,10 @@ const columns = [
   z-index: 2;
   overflow: hidden;
   padding: 6px 0;
-  background: linear-gradient(90deg, #5b1dff 0%, #8a3dff 25%, #b26bff 50%, #8a3dff 75%, #5b1dff 100%);
+  background: var(--marquee-grad);
   box-shadow:
-    0 0 18px rgba(160, 90, 255, 0.6),
-    0 0 40px rgba(120, 50, 255, 0.3),
+    0 0 18px rgba(255, 24, 59, 0.45),
+    0 0 40px rgba(255, 24, 59, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 .ticker__track {
@@ -138,8 +138,7 @@ const columns = [
   font-weight: 800;
   line-height: 1.4;
   letter-spacing: 0.02em;
-  color: #fff;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 18px rgba(230, 190, 255, 0.55);
+  color: var(--marquee-ink);
 }
 /* trim the text box to the glyphs (cap height → baseline) so the Korean
    letters sit dead-centre in the band and level with the stars, instead of
@@ -158,8 +157,7 @@ const columns = [
   width: clamp(10px, 0.9vw, 12px);
   height: auto;
   display: block;
-  color: #fff;
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+  color: var(--marquee-ink);
 }
 @keyframes footer-ticker {
   to { transform: translateX(-50%); }
@@ -195,14 +193,8 @@ const columns = [
 .footer__art img {
   object-fit: cover;
   object-position: center 35%;
-}
-/* push the art toward the neon red → purple palette */
-.footer__art::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(255, 24, 59, 0.32) 0%, rgba(255, 24, 59, 0.18) 20%, rgba(255, 84, 187, 0.06) 45%, rgba(178, 107, 255, 0.08) 60%, rgba(178, 107, 255, 0.22) 80%, rgba(178, 107, 255, 0.36) 100%);
-  mix-blend-mode: color;
+  /* black and white, a little more contrast, dimmed */
+  filter: grayscale(1) contrast(1.15) brightness(0.8);
 }
 .footer__wrap {
   width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px));
@@ -292,7 +284,7 @@ const columns = [
 @media (hover: hover) {
   .col a:hover {
     color: #fff;
-    text-shadow: 0 0 12px rgba(178, 107, 255, 0.9);
+    text-shadow: 0 0 12px rgba(255, 77, 94, 0.9);
   }
 }
 

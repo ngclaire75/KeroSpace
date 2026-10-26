@@ -42,36 +42,36 @@ import { communityDiscordServers } from '~/data/communityDiscord'
 </template>
 
 <style scoped>
-.discord { --discord-pink: #ff9bd9; --discord-purple: #bd91ff; --discord-red: #ff3859; width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px)); margin: 0 auto; padding-bottom: clamp(88px, 10vw, 144px); scroll-margin-top: 32px; }
+.discord { --discord-pink: #ff4d5e; --discord-purple: #ff4d5e; --discord-red: #ff3859; width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px)); margin: 0 auto; padding-bottom: clamp(88px, 10vw, 144px); scroll-margin-top: 32px; }
 .discord__heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 32px; }
 .discord__eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
 .discord__eyebrow img { object-fit: contain; }
 .discord h2 { margin: 0; font: 900 clamp(28px, 3.5vw, 46px)/1.16 var(--display); text-transform: uppercase; letter-spacing: -.025em; }
-.discord h2 em { font-style: normal; background: linear-gradient(100deg, var(--discord-pink), var(--discord-red) 50%, var(--discord-purple)); background-clip: text; -webkit-text-fill-color: transparent; }
+.discord h2 em { font-style: normal; background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); background-clip: text; -webkit-text-fill-color: transparent; }
 .discord__intro { max-width: 330px; margin: 0 0 3px; color: #fff; font-size: 16px; line-height: 1.75; }
 .discord__layout { display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(0, .78fr); align-items: start; gap: clamp(24px, 3.2vw, 44px); }
-.server-directory { min-width: 0; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ffb3df, #d8b4ff, #ffb3df); animation: card-outline-turn 3s linear infinite; }
+.server-directory { min-width: 0; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b); animation: card-outline-turn 3s linear infinite; }
 .server-directory__inner { background: #000; }
 .server-directory__heading { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 24px; }
 .server-directory__heading p { margin: 0 0 7px; color: var(--discord-pink); font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .server-directory__heading h3 { margin: 0; font: 800 clamp(15px, 1.6vw, 20px)/1.3 var(--display); text-transform: uppercase; }
-.server-directory__brand { display: block; flex-shrink: 0; width: 36px; height: 28px; background: linear-gradient(120deg, #ff9bd9, #b26bff 50%, #ff3859); -webkit-mask: url('/images/community/discord-symbol.svg') center / contain no-repeat; mask: url('/images/community/discord-symbol.svg') center / contain no-repeat; }
+.server-directory__brand { display: block; flex-shrink: 0; width: 36px; height: 28px; background: linear-gradient(120deg, #ff183b, #ff183b 55%, #dcdce0); -webkit-mask: url('/images/community/discord-symbol.svg') center / contain no-repeat; mask: url('/images/community/discord-symbol.svg') center / contain no-repeat; }
 .server-list { margin: 0; padding: 0; list-style: none; }
-.server-list li { border-top: 1px solid #49344f; }
+.server-list li { border-top: 1px solid #2a2a2e; }
 .server { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: 78px minmax(0, 1fr) auto; align-items: center; gap: 18px; min-height: 88px; padding: 14px 22px; }
 .server__background { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-.server::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, .9), rgba(0, 0, 0, .8) 48%, rgba(0, 0, 0, .55)); transform: translateZ(0); transition: opacity .28s ease; pointer-events: none; }
+.server::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, .9), rgba(0, 0, 0, .8) 48%, rgba(0, 0, 0, .55)); box-shadow: inset 0 0 0 100vmax rgba(110, 6, 20, 0); transform: translateZ(0); transition: box-shadow .28s ease; pointer-events: none; }
 .server__logo { position: relative; display: block; min-width: 0; height: 48px; overflow: hidden; }
 .server__logo img { position: absolute; inset: 0; width: 100%; height: 100%; min-width: 0; min-height: 0; object-fit: contain; }
 .server__logo--nte img { inset: 2px; width: calc(100% - 4px); height: calc(100% - 4px); }
 .server__copy { display: grid; gap: 6px; min-width: 0; }
 .server__copy b { color: #fff; font: 800 13px/1.45 var(--display); }
-.server__copy > span { max-width: 380px; color: #cbbfd3; font-size: 12px; line-height: 1.6; }
+.server__copy > span { max-width: 380px; color: #c8c8cc; font-size: 12px; line-height: 1.6; }
 .server__join { display: flex; align-items: center; gap: 9px; color: var(--discord-pink); font: 800 14px/1.3 var(--display); text-transform: uppercase; }
 .server__join svg { flex-shrink: 0; }
-.server__copy, .server__join { transform: translateZ(0); }
+.server__copy, .server__join { transform: translateZ(0); backface-visibility: hidden; -webkit-font-smoothing: antialiased; }
 .server:focus-visible { outline: 2px solid var(--discord-purple); outline-offset: 5px; }
-.server-directory__foot { padding: 19px 24px 23px; color: #bca8c8; font-size: 12px; line-height: 1.6; }
+.server-directory__foot { padding: 19px 24px 23px; color: #b8b8bb; font-size: 12px; line-height: 1.6; }
 .discord-art { width: 100%; aspect-ratio: 3 / 4; margin: 0; border: 0; border-radius: 0; overflow: hidden; }
 .discord-art > img { display: block; width: 100%; height: 100%; object-fit: contain; }
 @media (min-width: 901px) {
@@ -85,7 +85,8 @@ import { communityDiscordServers } from '~/data/communityDiscord'
   .server__copy > span { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
   .server-directory__foot { padding: 12px 22px 14px; }
 }
-@media (hover: hover) { .server:hover::after { opacity: .25; } }
+/* hover keeps the dark overlay and only adds a red tint: no opacity fade, so the text layers above never re-rasterise (that made Join and its arrow jitter) */
+@media (hover: hover) { .server:hover::after { box-shadow: inset 0 0 0 100vmax rgba(110, 6, 20, .35); } }
 @media (min-width: 1101px) and (max-width: 1279px) { .server__copy > span { -webkit-line-clamp: 1; line-clamp: 1; } }
 @media (max-width: 1100px) and (min-width: 901px) {
   .discord__layout { grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr); }

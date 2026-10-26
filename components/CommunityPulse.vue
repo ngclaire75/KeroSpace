@@ -108,14 +108,14 @@ function onKey(e: KeyboardEvent, i: number) {
 
 <style scoped>
 .pulse {
-  --pk: #ff54bb;
-  --pp: #b26bff;
+  --pk: #ff4d5e;
+  --pp: #ff4d5e;
   --rd: #ff183b;
   --surface: #0b0a0f;
   --hair: rgba(255, 255, 255, .08);
   --muted: rgba(255, 255, 255, .6);
   /* smooth "blob" fill: overlapping colour pools rather than hard stops */
-  --blob: radial-gradient(70% 160% at 0% 50%, #ff2d55 0%, transparent 70%), radial-gradient(60% 160% at 50% 50%, #ff5fb4 0%, transparent 75%), radial-gradient(70% 160% at 100% 50%, #a05cff 0%, transparent 70%), #ff4f9a;
+  --blob: radial-gradient(70% 160% at 0% 50%, #ff2d55 0%, transparent 70%), radial-gradient(60% 160% at 50% 50%, #ee7a88 0%, transparent 75%), radial-gradient(70% 160% at 100% 50%, #dcdce0 0%, transparent 70%), #ff6b78;
   width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px));
   margin: 0 auto;
   padding: 0 0 clamp(88px, 10vw, 144px);
@@ -125,7 +125,7 @@ function onKey(e: KeyboardEvent, i: number) {
 .pulse__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 28px; }
 .pulse__eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; color: #fff; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .16em; }
 .pulse h2 { margin: 0; font: 900 clamp(28px, 3.5vw, 46px)/1.16 var(--display); text-transform: uppercase; letter-spacing: -.025em; }
-.pulse h2 em { font-style: normal; background: linear-gradient(100deg, var(--pk), var(--rd) 50%, var(--pp)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.pulse h2 em { font-style: normal; background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .pulse__intro { max-width: 340px; margin: 0 0 3px; font-size: 16px; line-height: 1.75; color: #fff; }
 
 /* ---------- game selector ---------- */
@@ -137,7 +137,7 @@ function onKey(e: KeyboardEvent, i: number) {
   padding: 0 18px;
   border: 0;
   border-radius: 999px;
-  background: #121016;
+  background: #000;
   box-shadow: inset 0 0 0 1px var(--hair);
   color: rgba(255, 255, 255, .62);
   font: 800 11px/1 var(--display);
@@ -147,8 +147,8 @@ function onKey(e: KeyboardEvent, i: number) {
   cursor: pointer;
   transition: color .2s, background .25s;
 }
-.seg button[aria-selected="true"] { color: #fff; background: var(--blob); box-shadow: 0 4px 16px rgba(255, 79, 154, .3); }
-.seg button:focus-visible { outline: 2px solid #e3a3ff; outline-offset: 2px; }
+.seg button[aria-selected="true"] { color: #000000; background: var(--blob); box-shadow: 0 4px 16px rgba(255, 24, 59, .3); }
+.seg button:focus-visible { outline: 2px solid #ff4d5e; outline-offset: 2px; }
 
 /* ---------- stage grid ---------- */
 .stage {
@@ -174,9 +174,9 @@ function onKey(e: KeyboardEvent, i: number) {
 .spot__art { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--spot-position, center top); }
 .spot--noart {
   background:
-    radial-gradient(70% 90% at 85% 15%, rgba(178, 107, 255, .55), transparent 65%),
+    radial-gradient(70% 90% at 85% 15%, rgba(255, 77, 94, .55), transparent 65%),
     radial-gradient(60% 80% at 60% 85%, rgba(255, 24, 59, .45), transparent 65%),
-    radial-gradient(60% 70% at 20% 20%, rgba(255, 84, 187, .35), transparent 65%),
+    radial-gradient(60% 70% at 20% 20%, rgba(255, 77, 94, .35), transparent 65%),
     #0b0a0f;
 }
 .spot__mono {
@@ -204,14 +204,14 @@ function onKey(e: KeyboardEvent, i: number) {
 }
 .glass__label { margin: 0; font-size: 12px; font-weight: 800; color: rgba(255, 255, 255, .62); }
 .glass__name { margin: 6px 0 0; font: 900 clamp(24px, 2.3vw, 30px)/1.05 var(--display); text-transform: uppercase; letter-spacing: -.02em; }
-.glass__tag { margin: 5px 0 0; font-size: 12px; font-weight: 700; color: #ffb3e1; }
+.glass__tag { margin: 5px 0 0; font-size: 12px; font-weight: 700; color: #ff4d5e; }
 .glass__row { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; margin-top: 14px; }
 .glass__big { display: flex; align-items: baseline; gap: 6px; margin: 0; font: 900 clamp(30px, 2.8vw, 38px)/1 var(--display); letter-spacing: -.03em; background: var(--blob); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .glass__big small { font: 800 12px/1 var(--ui); letter-spacing: 0; -webkit-text-fill-color: rgba(255, 255, 255, .7); }
 .glass__mood { display: flex; gap: 12px; margin: 0; }
 .m dt { font-size: 11px; font-weight: 700; color: rgba(255, 255, 255, .55); }
 .m dd { margin: 2px 0 0; font: 900 14px/1 var(--display); }
-.m--loved dd { color: #ff8fd0; }
+.m--loved dd { color: #ff4d5e; }
 .m--critical dd { color: #ff6b81; }
 .meter { display: flex; gap: 3px; height: 5px; margin-top: 12px; }
 .meter__seg { min-width: 4px; border-radius: 999px; }
@@ -238,7 +238,7 @@ function onKey(e: KeyboardEvent, i: number) {
   font: inherit;
   text-align: left;
   cursor: pointer;
-  background: linear-gradient(120deg, #ffb3df, #642a96 48%, #353238);
+  background: linear-gradient(120deg, #dcdce0, #8a1424 48%, #353537);
 }
 .rtile__surface {
   position: absolute;
@@ -247,15 +247,15 @@ function onKey(e: KeyboardEvent, i: number) {
   isolation: isolate;
   overflow: hidden;
   border-radius: 0;
-  background: var(--tile-background, #121016);
+  background: var(--tile-background, #000000);
   pointer-events: none;
 }
 /* each tile carries its own soft colour field */
-.rtile--1 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 84, 187, .5), transparent 70%), radial-gradient(50% 120% at 70% 100%, rgba(160, 92, 255, .4), transparent 70%), #120e16; }
-.rtile--2 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(160, 92, 255, .5), transparent 70%), radial-gradient(50% 120% at 70% 0%, rgba(255, 61, 106, .3), transparent 70%), #110e18; }
-.rtile--3 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 45, 85, .45), transparent 70%), radial-gradient(50% 120% at 70% 100%, rgba(255, 84, 187, .3), transparent 70%), #140d12; }
-.rtile--4 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 95, 180, .3), transparent 70%), #100e14; }
-.rtile--5 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(160, 92, 255, .3), transparent 70%), #100e14; }
+.rtile--1 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 77, 94, .5), transparent 70%), radial-gradient(50% 120% at 70% 100%, rgba(255, 77, 94, .4), transparent 70%), #000000; }
+.rtile--2 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 77, 94, .5), transparent 70%), radial-gradient(50% 120% at 70% 0%, rgba(255, 61, 106, .3), transparent 70%), #000000; }
+.rtile--3 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 45, 85, .45), transparent 70%), radial-gradient(50% 120% at 70% 100%, rgba(255, 77, 94, .3), transparent 70%), #000000; }
+.rtile--4 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 77, 94, .3), transparent 70%), #000000; }
+.rtile--5 { --tile-background: radial-gradient(70% 140% at 100% 50%, rgba(255, 77, 94, .3), transparent 70%), #000000; }
 .rtile__art { position: absolute; z-index: -1; top: 0; right: 0; width: 62%; height: 100%; object-fit: cover; -webkit-mask-image: linear-gradient(90deg, transparent, #000 60%); mask-image: linear-gradient(90deg, transparent, #000 60%); opacity: .85; transition: opacity .25s ease; }
 .rtile.has-art .rtile__surface::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .55)); transition: opacity .25s ease; }
 .rtile.is-on .rtile__art { opacity: 1; }
@@ -265,7 +265,7 @@ function onKey(e: KeyboardEvent, i: number) {
 .rtile__who b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 900 14px/1.2 var(--display); text-transform: uppercase; letter-spacing: -.005em; }
 .rtile__who small { margin-top: 4px; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, .6); }
 .rtile__v { font: 900 15px/1 var(--display); }
-.rtile:focus-visible { outline: 2px solid #e3a3ff; outline-offset: 2px; }
+.rtile:focus-visible { outline: 2px solid #ff4d5e; outline-offset: 2px; }
 
 .fade-enter-active, .fade-leave-active { transition: opacity .25s ease; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }

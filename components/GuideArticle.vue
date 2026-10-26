@@ -135,7 +135,7 @@ useSeoMeta({
   line-height: 1.7;
 }
 .ga-art figcaption a {
-  color: #d8baff;
+  color: #ff4d5e;
 }
 
 .ga-layout {
@@ -172,13 +172,13 @@ useSeoMeta({
 }
 .ga-toc .ga-toc__back {
   margin-top: 18px;
-  color: #d8baff;
+  color: #ff4d5e;
 }
 
 .ga-takeaway {
   padding: 24px 26px;
   background:
-    radial-gradient(120% 120% at 0% 0%, rgba(255, 84, 187, 0.12), transparent 60%),
+    radial-gradient(120% 120% at 0% 0%, rgba(255, 77, 94, 0.12), transparent 60%),
     var(--gd-panel);
 }
 .ga-takeaway .gd-eyebrow {

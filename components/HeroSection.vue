@@ -81,7 +81,7 @@ function run() {
 }
 // hand a card back to its CSS transition so it settles smoothly
 function release(el: HTMLElement) {
-  el.classList.remove('is-live', 'is-over')
+  el.classList.remove('is-live')
   for (const p of ['--tx', '--ty', '--mx', '--my', '--lift']) el.style.removeProperty(p)
 }
 
@@ -113,7 +113,6 @@ function track(e: PointerEvent) {
   target.mx = Math.min(1, Math.max(0, x)) * 100
   target.my = Math.min(1, Math.max(0, y)) * 100
   target.lift = over ? 1 : 0
-  el.classList.toggle('is-over', over)
   run()
 }
 // a lifted (or scroll-claimed) finger has no hover — settle the card back to rest
@@ -124,7 +123,6 @@ function endTouch(e: PointerEvent) {
 }
 function untrack() {
   Object.assign(target, { rx: 0, ry: 0, mx: 50, my: 50, lift: 0 })
-  live?.classList.remove('is-over')
   run()
 }
 watch(active, () => {
@@ -242,7 +240,6 @@ onBeforeUnmount(() => {
               :loading="i === 2 ? 'eager' : 'lazy'"
             />
             <div class="card__holo" aria-hidden="true" />
-            <div class="card__shine" aria-hidden="true" />
           </div>
 
           <div class="card__chip">
@@ -319,20 +316,21 @@ onBeforeUnmount(() => {
 }
 .hero__title em {
   font-style: normal;
-  /* Matching endpoints keep the pink → red → purple cycle seamless. */
+  /* Matching endpoints keep the red → light grey cycle seamless. */
   background: linear-gradient(
       90deg,
-      #ff54bb 0%,
-      #ff183b 33.333%,
-      #b26bff 66.667%,
-      #ff54bb 100%
+      #ff183b 0%,
+      #ff183b 30%,
+      #dcdce0 50%,
+      #ff183b 70%,
+      #ff183b 100%
     )
     0 50% / 200% 100% repeat-x;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   text-shadow: none;
-  filter: drop-shadow(0 0 18px rgba(255, 84, 187, 0.3)) drop-shadow(0 0 10px rgba(178, 107, 255, 0.2));
+  filter: drop-shadow(0 0 18px rgba(255, 24, 59, 0.3)) drop-shadow(0 0 10px rgba(220, 220, 224, 0.15));
   animation: shimmer 10s linear infinite;
 }
 @keyframes shimmer {
@@ -493,6 +491,8 @@ onBeforeUnmount(() => {
   height: 100%;
   object-fit: cover;
   scale: 1.04;
+  /* black and white, a little more contrast, slightly dimmed */
+  filter: grayscale(1) contrast(1.15) brightness(0.85);
   transition: scale 0.9s var(--ease);
   pointer-events: none;
 }
@@ -500,7 +500,7 @@ onBeforeUnmount(() => {
   scale: 1.1;
 }
 
-/* neon sheen in the logo's red→pink — follows the (eased) pointer position */
+/* neon sheen in red → light grey — follows the (eased) pointer position */
 .card__holo {
   position: absolute;
   inset: 0;
@@ -508,9 +508,9 @@ onBeforeUnmount(() => {
     115deg,
     transparent 24%,
     rgba(232, 16, 28, 0.3) 39%,
-    rgba(255, 47, 110, 0.45) 47%,
-    rgba(255, 179, 200, 0.4) 53%,
-    rgba(255, 47, 110, 0.38) 61%,
+    rgba(255, 24, 59, 0.42) 47%,
+    rgba(220, 220, 224, 0.4) 53%,
+    rgba(255, 24, 59, 0.36) 61%,
     transparent 76%
   );
   background-size: 260% 260%;
@@ -521,23 +521,6 @@ onBeforeUnmount(() => {
   pointer-events: none;
 }
 .card[data-pos='0'] .card__holo {
-  opacity: 1;
-}
-.card__shine {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at var(--mx, 50%) var(--my, 30%),
-    rgba(255, 90, 140, 0.3),
-    rgba(232, 16, 28, 0.12) 30%,
-    transparent 52%
-  );
-  mix-blend-mode: screen;
-  opacity: 0;
-  transition: opacity 0.5s;
-  pointer-events: none;
-}
-.card.is-over .card__shine {
   opacity: 1;
 }
 
@@ -581,7 +564,7 @@ onBeforeUnmount(() => {
     opacity: 0;
   }
 }
-/* avatar ring: a red → pink → purple gradient spinning behind the picture */
+/* avatar ring: a red → light grey gradient spinning behind the picture */
 .card__avatar {
   position: relative;
   flex-shrink: 0;
@@ -597,7 +580,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: -25%;
   z-index: -1;
-  background: conic-gradient(#ff183b 0%, #ff54bb 33.333%, #b26bff 66.667%, #ff183b 100%);
+  background: conic-gradient(#ff183b 0%, #ff183b 30%, #dcdce0 50%, #ff183b 70%, #ff183b 100%);
   animation: ring-spin 3s linear infinite;
 }
 @keyframes ring-spin {
@@ -611,6 +594,7 @@ onBeforeUnmount(() => {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+  filter: grayscale(1) contrast(1.15) brightness(0.85);
 }
 .card__chip small {
   display: block;

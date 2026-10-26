@@ -207,7 +207,7 @@ onBeforeUnmount(() => {
               <!-- verified seal, in neon purple -->
               <svg class="creator-avatar__badge" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
                 <path
-                  fill="#b26bff"
+                  fill="#ff4d5e"
                   stroke="#0b0b0e"
                   stroke-width="2.2"
                   paint-order="stroke"
@@ -249,7 +249,7 @@ onBeforeUnmount(() => {
             <span class="creator-cta__content" aria-hidden="true">
               <Transition name="creator-cta-text">
                 <span :key="creator.handle" class="creator-cta__group">
-                  <AppImage src="/images/streamers/twitch-glitch.svg" alt="" width="26" height="26" />
+                  <AppImage src="/images/streamers/twitch-glitch-red.svg" alt="" width="26" height="26" />
                   <span>Watch {{ creator.name }} on Twitch</span>
                   <svg viewBox="0 0 24 24" width="17" height="17">
                     <path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
@@ -267,11 +267,11 @@ onBeforeUnmount(() => {
 <style scoped>
 .creator-section {
   --creator-red: #ff183b;
-  --creator-pink: #ff54bb;
-  --creator-purple: #b26bff;
+  --creator-pink: #ff4d5e;
+  --creator-purple: #ff4d5e;
   --creator-panel: #0b0b0e;
   --creator-line: rgba(255, 255, 255, 0.1);
-  --creator-grad: linear-gradient(100deg, var(--creator-purple), var(--creator-red) 52%, var(--creator-pink));
+  --creator-grad: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0);
   position: relative;
   /* no top padding: the games section above already leaves room */
   padding: 0 0 clamp(80px, 10vw, 136px);
@@ -341,7 +341,7 @@ onBeforeUnmount(() => {
   border-radius: var(--creator-radius);
   background:
     linear-gradient(var(--creator-panel), var(--creator-panel)) padding-box,
-    conic-gradient(from var(--card-outline-angle), #ff69c8, #b26bff, #ff3158, #ff69c8) border-box;
+    conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b) border-box;
   animation: card-outline-turn 3s linear infinite;
 }
 
@@ -402,7 +402,7 @@ onBeforeUnmount(() => {
   inset: -1px;
   padding: 1.5px;
   border-radius: inherit;
-  background: linear-gradient(110deg, #ffb3df, #d8b4ff);
+  background: linear-gradient(110deg, #ff183b, #ff183b 55%, #dcdce0);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -445,8 +445,8 @@ onBeforeUnmount(() => {
     box-shadow 0.3s;
 }
 .creator-bars button.is-active span {
-  background: linear-gradient(90deg, #ff9bdd, #c69aff);
-  box-shadow: 0 0 7px rgba(221, 154, 255, 0.65);
+  background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0);
+  box-shadow: 0 0 7px rgba(255, 77, 94, 0.65);
 }
 
 /* ---------- profile ---------- */
@@ -518,7 +518,7 @@ onBeforeUnmount(() => {
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #cf9bff;
+  color: #ff4d5e;
 }
 .creator-identity h3 {
   margin: 0;
@@ -549,7 +549,7 @@ onBeforeUnmount(() => {
   border: 1px solid transparent;
   border-radius: 10px;
   background:
-    linear-gradient(115deg, rgba(178, 107, 255, 0.18), rgba(255, 24, 59, 0.14)) padding-box,
+    linear-gradient(115deg, rgba(220, 220, 224, 0.14), rgba(255, 24, 59, 0.14)) padding-box,
     var(--creator-grad) border-box;
   color: #fff;
   font-size: 13px;
@@ -634,7 +634,7 @@ onBeforeUnmount(() => {
   }
   .creator-cta:hover {
     background:
-      linear-gradient(115deg, rgba(178, 107, 255, 0.3), rgba(255, 24, 59, 0.24)) padding-box,
+      linear-gradient(115deg, rgba(220, 220, 224, 0.22), rgba(255, 24, 59, 0.24)) padding-box,
       var(--creator-grad) border-box;
   }
 }

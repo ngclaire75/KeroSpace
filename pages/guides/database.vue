@@ -191,10 +191,10 @@ const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step
   --cb-panel: #0a0a0d;
   --cb-head: 44px;
   --cb-head-gap: 18px;
-  --cb-grad: linear-gradient(100deg, #ff2a3d, #ff54bb 50%, #b26bff);
-  /* small number badges: the full red → purple sweep bands harshly over ~22px, so use a
+  --cb-grad: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0);
+  /* small number badges: the full red → light grey sweep bands harshly over ~22px, so use a
      shorter, diagonal blend between neighbouring hues */
-  --cb-grad-soft: linear-gradient(135deg, #ff4f9a 0%, #e266d6 50%, #b97cff 100%);
+  --cb-grad-soft: linear-gradient(135deg, #ff183b 0%, #ff183b 55%, #dcdce0 100%);
   background: transparent;
   color: #fff;
 }
@@ -245,7 +245,7 @@ const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step
   place-items: center;
   width: 64px;
   height: 64px;
-  background: radial-gradient(70% 70% at 50% 60%, rgba(178, 107, 255, 0.22), transparent 70%), #111015;
+  background: radial-gradient(70% 70% at 50% 60%, rgba(255, 77, 94, 0.22), transparent 70%), #111015;
 }
 .cb-pick__art img {
   max-width: 54px;
@@ -259,7 +259,7 @@ const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step
   gap: 4px;
 }
 .cb-pick__slot {
-  color: #ff9fd6;
+  color: #ff4d5e;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -286,7 +286,7 @@ const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step
 .cb-note {
   max-width: 760px;
   margin: calc(clamp(24px, 3vw, 36px) * -0.5) 0 clamp(24px, 3vw, 36px);
-  color: #c9c2ce;
+  color: #c8c8ca;
   font: 600 13px / 1.6 var(--ui);
 }
 .cb-h2 {
@@ -624,7 +624,7 @@ const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step
   gap: 12px;
 }
 .cb :is(a, button):focus-visible {
-  outline: 2px solid #ffc0e8;
+  outline: 2px solid #ff4d5e;
   outline-offset: 4px;
 }
 

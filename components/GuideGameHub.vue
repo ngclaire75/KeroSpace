@@ -29,21 +29,6 @@ useHead(() => ({
 const koreanTitles: Record<string, string> = {
   hsr: '붕괴: 스타레일', genshin: '원신', hi3: '붕괴3rd', wuwa: '명조: 워더링 웨이브', nte: '이환', mlbb: '모바일 레전드: 뱅뱅',
 }
-// The band continues each banner's own colours: stops sampled left to right along the bottom
-// edge of the desktop banner (deepened so the white words stay readable), and stars in the
-// banner's brightest tint.
-const marqueeTones: Record<string, { stops: string[]; star: string }> = {
-  hsr: { stops: ['#2c3358', '#413d52', '#54423a', '#3d3c53', '#52403c', '#2f2867', '#393955'], star: '#b6afe9' },
-  genshin: { stops: ['#33435c', '#374258', '#2c3e5d', '#42243d', '#3a2e41', '#1e3c53', '#152e4b'], star: '#b8c5e0' },
-  hi3: { stops: ['#5d3241', '#59363d', '#711e4e', '#5f3043', '#5d324d', '#612e4d', '#5e216e'], star: '#dfacec' },
-  wuwa: { stops: ['#23376b', '#25396a', '#2d3f62', '#1a3b75', '#213b6e', '#2f3b60', '#2b2867'], star: '#b3b0e8' },
-  nte: { stops: ['#575538', '#3c3f53', '#42414e', '#3d4552', '#4d513e', '#4d3659', '#4f404b'], star: '#d6dcbc' },
-  mlbb: { stops: ['#1b1932', '#2d2d4f', '#292237', '#2e3561', '#30365f', '#4c335c', '#652638'], star: '#b3bae5' },
-}
-const marqueeStyle = computed(() => {
-  const tone = marqueeTones[props.gameId]
-  return tone ? { background: `linear-gradient(90deg, ${tone.stops.join(', ')})`, '--gx-star': tone.star } : {}
-})
 const marqueeWords = computed(() => {
   const words = [`${koreanTitles[props.gameId] || game.value.short} 공략`, '캐릭터 가이드', '추천 빌드', '장비 추천', '스탯 우선순위', '육성 순서', '팀 조합']
   return [...words, ...words, ...words]
@@ -93,7 +78,7 @@ onBeforeUnmount(() => observer?.disconnect())
       </header>
 
       <!-- ===== marquee ===== -->
-      <div class="gx-marquee" :style="marqueeStyle" aria-hidden="true">
+      <div class="gx-marquee" aria-hidden="true">
         <div class="gx-marquee__track">
           <template v-for="n in 2" :key="n">
             <template v-for="(word, index) in marqueeWords" :key="`${n}-${index}`">
@@ -215,9 +200,10 @@ onBeforeUnmount(() => observer?.disconnect())
 
 /* ============ marquee ============ */
 .gx-marquee {
-  /* slim like the footer ticker, flush under the hero; coloured per game by marqueeStyle */
+  /* slim like the footer ticker, flush under the hero, in the same red → dark red */
   overflow: hidden;
-  background: var(--gd-grad);
+  background: var(--marquee-grad);
+  color: var(--marquee-ink);
   padding: 6px 0;
 }
 .gx-marquee__track {
@@ -231,7 +217,6 @@ onBeforeUnmount(() => observer?.disconnect())
   font: 800 clamp(12px, 1vw, 14px) / 1.4 'Apple SD Gothic Neo', 'Noto Sans KR', 'Noto Sans CJK KR', 'Malgun Gothic', var(--ui);
   letter-spacing: 0.02em;
   white-space: nowrap;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 18px rgba(255, 210, 235, 0.55);
 }
 /* as in the footer: trim the text box to the glyphs so the Korean sits centred in the band */
 @supports (text-box: trim-both cap alphabetic) {
@@ -247,8 +232,7 @@ onBeforeUnmount(() => observer?.disconnect())
   display: block;
   width: clamp(10px, 0.9vw, 12px);
   height: auto;
-  color: var(--gx-star, #fff);
-  filter: drop-shadow(0 0 5px var(--gx-star, rgba(255, 255, 255, 0.8)));
+  color: var(--marquee-ink);
 }
 
 /* ============ section scaffolding ============ */

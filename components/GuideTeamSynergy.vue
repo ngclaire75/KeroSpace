@@ -84,13 +84,13 @@ function retryIcon(image: string) { failedIcons.value[image] = (failedIcons.valu
 .team-synergy__icons { display: flex; align-items: center; gap: 5px; flex-shrink: 0; margin-left: auto; }
 .team-synergy__icons img { display: block; width: 24px; height: 24px; object-fit: contain; }
 .team-synergy__plan { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 30px; }
-.team-synergy__roles { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 0; padding: 0; list-style: none; color: #e8c4fa; font: 800 12px / 1.6 var(--ui); text-transform: uppercase; }
+.team-synergy__roles { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 0; padding: 0; list-style: none; color: #ff4d5e; font: 800 12px / 1.6 var(--ui); text-transform: uppercase; }
 .team-synergy__tips { margin: 0; padding-left: 18px; }
 .team-synergy__tips li + li { margin-top: 10px; }
-.team-synergy__tips, .team-synergy__status, .team-synergy__caption { color: #c9c2ce; font: 600 14px / 1.7 var(--ui); }
+.team-synergy__tips, .team-synergy__status, .team-synergy__caption { color: #c8c8ca; font: 600 14px / 1.7 var(--ui); }
 .team-synergy__caption { font-size: 13px; line-height: 1.6; } /* same as the build note (.cb-note) */
-.team-synergy__caption a { color: #e8c4fa; text-underline-offset: 3px; }
-.team-synergy a:focus-visible { outline: 2px solid #e8c4fa; outline-offset: 4px; }
+.team-synergy__caption a { color: #ff4d5e; text-underline-offset: 3px; }
+.team-synergy a:focus-visible { outline: 2px solid #ff4d5e; outline-offset: 4px; }
 @media (max-width: 640px) {
   .team-synergy__slots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .team-synergy__plan { grid-template-columns: 1fr; gap: 26px; }

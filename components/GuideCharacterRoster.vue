@@ -229,7 +229,7 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
   position: relative;
   display: flex;
   border: 2px solid transparent;
-  border-image: linear-gradient(110deg, #ffb3df, #c69aff) 1;
+  border-image: linear-gradient(110deg, #ff183b, #ff183b 55%, #dcdce0) 1;
   background: var(--gd-panel);
 }
 .gk-search__icon {
@@ -255,7 +255,8 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
   text-transform: uppercase;
 }
 .gk-search input::placeholder {
-  color: #8f899a;
+  color: #fff;
+  opacity: 1;
 }
 .gk-search input:focus {
   outline: none;
@@ -264,8 +265,10 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
   flex-shrink: 0;
   padding: 0 22px;
   border: 0;
-  background: linear-gradient(110deg, #ffb3df 0%, #e8a2eb 50%, #c69aff 100%) border-box no-repeat;
-  color: #211026;
+  background: linear-gradient(110deg, #ff183b 0%, #ff183b 55%, #dcdce0 100%) border-box no-repeat;
+  color: #fff;
+  /* keeps the white label readable where the gradient fades to light grey */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -336,8 +339,8 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
   display: block;
   overflow: hidden;
   background:
-    radial-gradient(90% 70% at 50% 100%, rgba(178, 107, 255, 0.22), transparent 70%),
-    #121016;
+    radial-gradient(90% 70% at 50% 100%, rgba(255, 77, 94, 0.22), transparent 70%),
+    #000000;
 }
 .gk-card__art img {
   position: absolute;
@@ -368,7 +371,7 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
 }
 .gk-card__more {
   margin-top: auto;
-  color: #d8baff;
+  color: #ff4d5e;
   font-size: 12px;
   font-weight: 800;
 }

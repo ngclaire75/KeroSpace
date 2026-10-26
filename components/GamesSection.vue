@@ -236,7 +236,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .games {
-  --grad: linear-gradient(90deg, #e8101c, #ff2f6e);
+  --grad: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0);
   --panel: #0b0b0e;
   --edge: rgba(255, 255, 255, 0.08);
   position: relative;
@@ -284,7 +284,7 @@ onBeforeUnmount(() => {
 }
 .games__title em {
   font-style: normal;
-  background: linear-gradient(90deg, #e8101c, #ff2f6e 55%, #ffb3c8);
+  background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -376,8 +376,8 @@ onBeforeUnmount(() => {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
 }
 .banner-indicators button.is-active span {
-  background: linear-gradient(90deg, #ff9bdd, #c69aff);
-  box-shadow: 0 0 7px rgba(221, 154, 255, 0.65);
+  background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0);
+  box-shadow: 0 0 7px rgba(255, 77, 94, 0.65);
 }
 .feature__body {
   position: relative;
@@ -411,7 +411,7 @@ onBeforeUnmount(() => {
 }
 .feature__title em {
   font-style: normal;
-  background: linear-gradient(90deg, #e8101c, #ff2f6e 58%, #ffb3c8);
+  background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -477,7 +477,7 @@ onBeforeUnmount(() => {
 }
 .cover::after {
   opacity: 1;
-  background: conic-gradient(from var(--card-outline-angle), #ffb3df, #d8b4ff, #ffb3df);
+  background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b);
   animation: card-outline-turn 3s linear infinite;
 }
 .cover__icon {
@@ -728,8 +728,8 @@ onBeforeUnmount(() => {
   border: 1px solid transparent;
   border-radius: 0;
   background:
-    linear-gradient(100deg, rgba(255, 69, 101, .26), rgba(255, 114, 185, .24) 25%, rgba(189, 137, 255, .26) 50%, rgba(255, 114, 185, .24) 75%, rgba(255, 69, 101, .26)) padding-box,
-    linear-gradient(100deg, #ff4565, #ff72b9 25%, #bd89ff 50%, #ff72b9 75%, #ff4565) border-box;
+    linear-gradient(100deg, rgba(255, 24, 59, .26), rgba(220, 220, 224, .2) 50%, rgba(255, 24, 59, .26)) padding-box,
+    linear-gradient(100deg, #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b) border-box;
   background-size: 300% 100%;
   animation: stat-gradient-flow 10s ease-in-out infinite alternate;
 }

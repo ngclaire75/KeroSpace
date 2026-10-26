@@ -18,7 +18,7 @@ defineProps<{ platform: GamePlatform }>()
   width: 28px;
   height: 28px;
   flex-shrink: 0;
-  background: linear-gradient(135deg, #ff3859 5%, #ff83cf 48%, #bd91ff 95%);
+  background: linear-gradient(135deg, #ff183b 5%, #ff183b 55%, #dcdce0 95%);
   -webkit-mask-image: var(--platform-image);
   mask-image: var(--platform-image);
   -webkit-mask-size: contain;
@@ -28,5 +28,5 @@ defineProps<{ platform: GamePlatform }>()
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }
-.platform-mark__label { color: #ded5e7; font-size: 10px; font-weight: 800; line-height: 1.4; white-space: nowrap; }
+.platform-mark__label { color: #dedee0; font-size: 10px; font-weight: 800; line-height: 1.4; white-space: nowrap; }
 </style>

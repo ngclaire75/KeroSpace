@@ -59,7 +59,7 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
 .party-detail__logo { width: 140px; max-width: 100%; height: 64px; object-fit: contain; object-position: center; filter: drop-shadow(0 4px 14px rgba(0, 0, 0, .7)); }
 
 .party-detail__platforms { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 16px 22px; }
-.party-detail__label, .party-mode__note > span { color: var(--together-purple, #bd91ff); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.party-detail__label, .party-mode__note > span { color: var(--together-purple, #ff4d5e); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 .party-detail__platforms ul { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 0; padding: 0; list-style: none; }
 .party-detail__platforms :deep(.platform-mark__icon) { width: 26px; height: 26px; }
 .party-detail__platforms :deep(.platform-mark[title^="Windows PC"] .platform-mark__icon) { width: 24px; height: 24px; }
@@ -68,19 +68,19 @@ const platformNames = computed(() => props.game.platforms.map(platform => platfo
 .party-detail__platforms :deep(.platform-mark[title^="Mac"] .platform-mark__icon),
 .party-detail__platforms :deep(.platform-mark[title^="iOS"] .platform-mark__icon) { width: 31px; height: 31px; }
 .party-detail__platforms :deep(.platform-mark[title="Android"] .platform-mark__icon) { width: 37px; height: 37px; }
-.party-detail__platform-note { flex-basis: 100%; margin: 0; color: var(--together-muted, #c1b9c9); font-size: 11px; }
+.party-detail__platform-note { flex-basis: 100%; margin: 0; color: var(--together-muted, #c1c1c3); font-size: 11px; }
 
 .party-detail__modes { margin: 0; padding: 0; list-style: none; }
 .party-mode { position: relative; padding: 18px 22px 12px; }
 .party-mode__name { display: block; font: 800 12px/1.4 var(--display); letter-spacing: .06em; text-transform: uppercase; }
 .party-mode h4 { margin: 12px 0 6px; font-size: 19px; font-weight: 800; line-height: 1.3; letter-spacing: -.02em; }
-.party-mode p { margin: 0; color: #f3edf7; font-size: 14px; line-height: 1.65; }
-.party-mode .party-mode__note { display: grid; gap: 3px; margin-top: 10px; color: var(--together-muted, #c1b9c9); font-size: 13px; line-height: 1.6; }
+.party-mode p { margin: 0; color: #f2f2f4; font-size: 14px; line-height: 1.65; }
+.party-mode .party-mode__note { display: grid; gap: 3px; margin-top: 10px; color: var(--together-muted, #c1c1c3); font-size: 13px; line-height: 1.6; }
 /* one continuous underline drawn under the label and the arrow together */
 .party-mode a { display: inline-block; padding-block: 11px; margin-top: 4px; font-size: 12px; font-weight: 800; line-height: 18px; background: linear-gradient(currentColor, currentColor) 0 calc(100% - 8px) / 0 1px no-repeat; transition: background-size .25s ease; }
 .party-mode a > span { margin-left: 2px; }
 .party-mode a:hover { background-size: 100% 1px; }
-.party-mode a > span { color: #ff83cf; font-size: 16px; }
+.party-mode a > span { color: #ff4d5e; font-size: 16px; }
 
 @media (max-width: 860px) {
   .party-detail__art { height: 190px; }

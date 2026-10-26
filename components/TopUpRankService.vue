@@ -36,13 +36,13 @@
 .rank-service__eyebrow { display: flex; align-items: center; gap: 10px; margin: 0; color: #fff; font-size: 11px; font-weight: 800; line-height: 1.6; letter-spacing: .15em; text-transform: uppercase; white-space: nowrap; }
 .rank-service__pitch { max-width: 900px; }
 .rank-service h2 { margin: 0; color: #fff; font: 900 clamp(28px, 3.8vw, 50px)/1.2 var(--display); letter-spacing: -.03em; text-transform: uppercase; }
-.rank-service h2 em { font-style: normal; background: linear-gradient(100deg, var(--shop-red), var(--shop-pink) 50%, var(--shop-purple)); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.rank-service h2 em { font-style: normal; background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .rank-service__lead { margin: 24px 0 14px; color: #fff; font-size: 18px; font-weight: 800; line-height: 1.65; }
 .rank-service__description { max-width: 760px; margin: 0; color: var(--shop-muted); font-size: 16px; line-height: 1.85; }
 .rank-service__showcase { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: stretch; gap: 16px; margin-top: 30px; }
 .rank-service__banner { margin: 0; min-width: 0; aspect-ratio: 1672 / 941; background: #000; }
 .rank-service__banner img { display: block; width: 100%; height: 100%; object-fit: contain; }
-.rank-reasons { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 20px; min-width: 0; min-height: 0; contain: size; padding: 24px; border: 2px solid #493350; background: #000; }
+.rank-reasons { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 20px; min-width: 0; min-height: 0; contain: size; padding: 24px; border: 2px solid transparent; background: linear-gradient(#000, #000) padding-box, var(--shop-outline) border-box; }
 .rank-reasons > h3 { margin: 0; color: #fff; font-family: var(--display); font-size: 20px; font-weight: 800; line-height: 1.5; }
 .rank-reasons ul { display: grid; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
 .rank-reasons li { min-height: 0; }
