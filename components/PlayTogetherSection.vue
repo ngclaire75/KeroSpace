@@ -84,7 +84,7 @@ onBeforeUnmount(() => observer?.disconnect())
         @touchstart.passive="onTouchStart" @touchend.passive="onTouchEnd">
         <div class="pt-stage__art">
           <!-- every poster is stacked here so switching games is an instant crossfade -->
-          <AppImage v-for="(g, i) in compatibilityGames" :key="g.id" :class="{ 'is-active': i === active }" :src="artFor(g.id).src"
+          <AppImage v-for="(g, i) in compatibilityGames" :key="g.id" :class="[`pt-stage__img--${g.id}`, { 'is-active': i === active }]" :src="artFor(g.id).src"
             :style="{ objectPosition: artFor(g.id).stagePos ?? artFor(g.id).pos }" alt="" sizes="(max-width: 1100px) 100vw, 440px" width="480" height="600" loading="lazy" />
         </div>
         <!-- every breakdown sits in the same cell, so the panel is always as tall as the
@@ -158,6 +158,8 @@ onBeforeUnmount(() => observer?.disconnect())
 /* black-and-white art with the red holographic sheen (the rail keeps its own look) */
 .pt-stage__art > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: var(--bw-art); opacity: 0; scale: 1.06; transition: opacity .6s var(--ease), scale 1.2s var(--ease); }
 .pt-stage__art > img.is-active { opacity: 1; scale: 1; }
+/* NTE's art is darker than the rest, so it is brightened instead of dimmed */
+.pt-stage__art > img.pt-stage__img--nte { filter: grayscale(1) contrast(1.15) brightness(1.1); }
 .pt-stage__art::before { content: ''; position: absolute; inset: 0; z-index: 1; mix-blend-mode: screen; background: var(--red-holo); animation: red-holo-sweep 7s ease-in-out infinite alternate; pointer-events: none; }
 .pt-stage__art::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, .85) 100%), linear-gradient(90deg, rgba(0, 0, 0, 0) 70%, #000 100%); pointer-events: none; }
 .pt-stage__body { display: grid; min-width: 0; }
