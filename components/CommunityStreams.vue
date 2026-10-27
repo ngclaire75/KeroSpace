@@ -77,11 +77,10 @@ function titleLines(name: string): [string, string] {
           <div id="stream-channel-list" class="directory__table-wrap">
             <table>
               <caption class="sr-only">{{ game.name }} channels ranked by viewing hours over 30 days. Page {{ page + 1 }} of 3.</caption>
-              <colgroup><col class="rank" /><col /><col class="language" /><col class="hours" /><col class="watch" /></colgroup>
-              <thead><tr><th scope="col" class="rank"><svg class="rank-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="m7.784 14l.42-4H4V8h4.415l.525-5h2.011l-.525 5h3.989l.525-5h2.011l-.525 5H20v2h-3.784l-.42 4H20v2h-4.415l-.525 5h-2.011l.525-5H9.585l-.525 5H7.049l.525-5H4v-2zm2.011 0h3.99l.42-4h-3.99z" /></svg><span class="sr-only">Rank</span></th><th scope="col" class="channel-col">Channel</th><th scope="col" class="language">Language</th><th scope="col" class="hours" colspan="2"><span class="hours-label">Hours watched</span></th></tr></thead>
+              <colgroup><col /><col class="language" /><col class="hours" /><col class="watch" /></colgroup>
+              <thead><tr><th scope="col" class="channel-col">Channel</th><th scope="col" class="language">Language</th><th scope="col" class="hours" colspan="2"><span class="hours-label">Hours watched</span></th></tr></thead>
               <tbody :key="`${game.id}-${page}`">
-                <tr v-for="(streamer, index) in visible" :key="streamer.handle">
-                  <td class="rank"><span>{{ String(page * 5 + index + 1).padStart(2, '0') }}</span></td>
+                <tr v-for="streamer in visible" :key="streamer.handle">
                   <th scope="row" class="channel-col">
                     <a class="channel" :href="`https://www.twitch.tv/${streamer.handle}`" target="_blank" rel="noopener noreferrer" :aria-label="`${streamer.name} on Twitch (opens in a new tab)`">
                       <span class="channel__avatar">
@@ -142,37 +141,36 @@ function titleLines(name: string): [string, string] {
 .directory__heading h3 { display: grid; align-items: center; }
 .directory__heading h3 > span { grid-area: 1 / 1; min-width: 0; visibility: hidden; }
 .directory__heading h3 > span.is-active { visibility: visible; }
-.directory__table-wrap { --table-inset: 12px; width: 100%; min-width: 0; }
+/* side inset matches the heading's padding, so the rows line up with "Most watched" */
+.directory__table-wrap { --table-inset: 26px; width: 100%; min-width: 0; }
 table { width: 100%; table-layout: fixed; border-collapse: collapse; text-align: left; }
 thead { background: linear-gradient(100deg, #3d1a20, #272729 55%, #222225); opacity: 1; border: 0; }
 thead th { height: 35px; vertical-align: middle; color: #fff; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
-.rank { width: calc(36px + var(--table-inset)); padding-left: var(--table-inset); color: var(--muted); text-align: center; font-variant-numeric: tabular-nums; }
 .language { width: 69px; text-align: center; }
 .hours { width: 120px; text-align: right; padding: 0 6px 0 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
-thead .rank-icon { display: block; width: 14px; height: 14px; margin: 0 auto; transform: translateY(-0.5px); }
 /* cancel the trailing letter-spacing so the label's last letter sits flush with the right edge */
 .hours-label { display: inline-block; margin-right: -.04em; }
 /* Match the heading's right edge to the watch arrow below. */
-thead th.hours { padding-right: calc(6px + var(--table-inset)); }
+thead th.hours { padding-right: var(--table-inset); }
 .watch { width: calc(48px + var(--table-inset)); padding: 0 var(--table-inset) 0 0; }
 tbody tr { height: 64px; border: 0; background: #000; }
 tbody tr:first-child { height: 70px; }
 tbody tr:first-child > :is(td, th) { padding-top: 6px; }
 tbody tr:nth-child(even) { background: #000; }
-tbody .rank { color: #ff4d5e; }
 tbody tr:last-child { border-bottom: 0; }
 tbody td { font-size: 13px; font-weight: 700; }
 tbody th { padding: 0; }
-/* breathing room between the rank number and the channel */
-.channel-col { padding-left: 12px; }
+/* the channel column opens the row, so it carries the table's left inset */
+.channel-col { padding-left: var(--table-inset); }
 .channel-col .channel { padding-left: 0; }
 .channel { display: flex; align-items: center; gap: 12px; min-width: 0; height: 62px; padding: 10px 4px; }
 .channel__avatar { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background: #1e1e20; color: var(--pink); }
 .channel__avatar img { width: 100%; height: 100%; object-fit: cover; }
 .channel__name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 800; }
 .channel__name small { display: block; margin-top: 3px; font-size: 11px; font-weight: 600; color: var(--muted); overflow: hidden; text-overflow: ellipsis; }
-.language abbr { text-decoration: none; font-size: 11px; color: #ff4d5e; }
-.watch a { display: flex; align-items: center; justify-content: flex-end; gap: 5px; min-height: 44px; padding-right: 6px; }
+/* same size as the hours watched figures (inherits the cell's font size) */
+.language abbr { text-decoration: none; color: #ff4d5e; }
+.watch a { display: flex; align-items: center; justify-content: flex-end; gap: 5px; min-height: 44px; }
 .watch img { width: 15px; height: 18px; object-fit: contain; }
 .watch span { font-size: 16px; color: #ff4d5e; }
 .directory__pagination { display: flex; align-items: center; justify-content: center; height: 69px; padding: 16px 12px; }
@@ -181,7 +179,7 @@ tbody th { padding: 0; }
 .directory__pagination button span { width: 40px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .55); box-shadow: 0 1px 5px rgba(0, 0, 0, .8); }
 .directory__pagination button[aria-current] span { background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0); box-shadow: 0 0 7px rgba(255, 77, 94, .65); }
 .streams :is(a, button, [tabindex]):focus-visible { outline: 2px solid #ff4d5e; outline-offset: 3px; }
-tbody :is(.channel, .rank > span, .language abbr, .hours-value, .watch a) { animation: channels-in .3s ease-out both; }
+tbody :is(.channel, .language abbr, .hours-value, .watch a) { animation: channels-in .3s ease-out both; }
 @keyframes channels-in { from { opacity: 0; } to { opacity: 1; } }
 @media (hover: hover) { tbody tr:hover { background: #000; } .channel:hover .channel__name { color: #ff4d5e; } .directory__tabs button:hover { background: #000; } }
 @media (min-width: 901px) {
@@ -197,14 +195,13 @@ tbody :is(.channel, .rank > span, .language abbr, .hours-value, .watch a) { anim
   .directory__tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
   .directory__tabs button { padding: 8px 6px; }
   .directory__tabs span { font-size: 11px; }
-  .directory__table-wrap { --table-inset: 8px; }
+  .directory__table-wrap { --table-inset: 18px; }
   .directory__pagination { padding-inline: 8px; }
   .directory__heading { justify-content: center; min-height: 0; padding: 20px 18px 18px; text-align: center; }
   .directory__heading h3 { font-size: 22px; }
   /* phones: the game name always sits on two lines */
   .directory__heading h3 .title-line { display: block; }
   .directory__heading p { justify-content: center; font-size: 11px; gap: 6px 8px; margin-bottom: 6px; }
-  .rank { width: calc(27px + var(--table-inset)); font-size: 10px; }
   .language { width: 39px; }
   thead .language { font-size: 0; }
   thead .language::after { content: 'Lang'; font-size: 9px; }
@@ -214,14 +211,11 @@ tbody :is(.channel, .rank > span, .language abbr, .hours-value, .watch a) { anim
   .watch img { display: none; }
   .watch span { font-size: 15px; }
   thead th { font-size: 9px; letter-spacing: 0; }
-  thead .rank-icon { width: 12px; height: 12px; }
   tbody td { font-size: 11px; }
   .channel { gap: 7px; padding-inline: 0; }
-  .channel-col { padding-left: 8px; }
   .channel__avatar { flex-basis: 34px; width: 34px; height: 34px; }
   .channel__name { max-width: 14ch; font-size: 12px; }
   .channel__name small { font-size: 10px; }
-  .language abbr { font-size: 10px; }
 }
-@media (prefers-reduced-motion: reduce) { .directory__panel.neon-hover-outline::after { animation: none; } .directory__heading h3, tbody :is(.channel, .rank > span, .language abbr, .hours-value, .watch a) { animation: none; } .directory__tabs button, .directory__tabs button::after { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .directory__panel.neon-hover-outline::after { animation: none; } .directory__heading h3, tbody :is(.channel, .language abbr, .hours-value, .watch a) { animation: none; } .directory__tabs button, .directory__tabs button::after { transition: none; } }
 </style>

@@ -2,89 +2,92 @@
 import { compatibilityModes, type CompatibilityGame } from '~/data/playTogether'
 import { platformMarks } from '~/data/platforms'
 
-const props = defineProps<{ game: CompatibilityGame; idPrefix: string }>()
+const props = defineProps<{ game: CompatibilityGame }>()
 
-// card artwork + focus point so faces stay in frame
-const art: Record<string, { src: string; pos: string }> = {
-  hsr: { src: '/images/games/hsr-mod-esrgan.webp', pos: 'center 22%' },
-  genshin: { src: '/images/games/genshin-mod-esrgan.webp', pos: 'center 18%' },
-  hi3: { src: '/images/games/hi3-mod-esrgan.webp', pos: 'center 20%' },
-  wuwa: { src: '/images/games/wuwa-mod-esrgan.webp', pos: 'center 100%' },
-  nte: { src: '/images/games/nte-mod-esrgan.webp', pos: 'center 64%' },
-  mlbb: { src: '/images/games/mlbb-mod-esrgan.webp', pos: 'center 34%' },
-}
-const cardArt = computed(() => art[props.game.id] ?? { src: `/images/games/card-${props.game.id}.webp`, pos: 'center 30%' })
 // one icon per logo: Mac + iOS share the Apple mark
 const icons = computed(() => props.game.platforms.filter((platform, i, all) =>
   all.findIndex(other => platformMarks[other].asset === platformMarks[platform].asset) === i))
 const platformNames = computed(() => props.game.platforms.map(platform => platformMarks[platform].name).join(', '))
+// shorter titles so "Plays on" fits on the same row
+const shortNames: Record<string, string> = { mlbb: 'Mobile Legends' }
+// three-bar strength meter: full support, with limits, solo
+const strength = { yes: 3, limited: 2, solo: 1 } as const
 </script>
 
 <template>
-  <div class="party-detail">
-    <div class="party-detail__art">
-      <AppImage :src="cardArt.src" sizes="(max-width: 760px) 100vw, 420px" :style="{ objectPosition: cardArt.pos }" alt="" loading="lazy" width="480" height="300" />
-      <div class="party-detail__art-copy">
-        <AppImage class="party-detail__logo" :src="`/images/games/${game.id}-logo.webp`" :alt="game.name" width="140" height="64" loading="lazy" />
+  <div class="pt-detail">
+    <div class="pt-detail__top">
+      <div>
+        <p class="pt-detail__genre">{{ game.category }}</p>
+        <h3 class="pt-detail__name">{{ shortNames[game.id] ?? game.name }}</h3>
+      </div>
+      <div class="pt-detail__platforms">
+        <span class="pt-detail__label">Plays on</span>
+        <ul :aria-label="`${game.name} platforms: ${platformNames}`" :title="platformNames">
+          <li v-for="platform in icons" :key="platform" aria-hidden="true"><PlatformMark :platform="platform" /></li>
+        </ul>
       </div>
     </div>
 
-    <div class="party-detail__platforms">
-      <span class="party-detail__label">Plays on</span>
-      <ul :aria-label="`${game.name} platforms: ${platformNames}`" :title="platformNames">
-        <li v-for="platform in icons" :key="platform" aria-hidden="true"><PlatformMark :platform="platform" /></li>
-      </ul>
-      <p v-if="game.platformNote" class="party-detail__platform-note">{{ game.platformNote.replace(/^¹\s*/, '') }}</p>
-    </div>
-
-    <ol class="party-detail__modes">
-      <li v-for="mode in compatibilityModes" :key="mode.id" class="party-mode" :class="`party-mode--${game.details[mode.id].tone}`">
-        <span class="party-mode__name">{{ mode.name }}</span>
-        <h4 :id="`${idPrefix}-${game.id}-${mode.id}`">{{ game.details[mode.id].headline }}</h4>
-        <p>{{ game.details[mode.id].description }}</p>
-        <p class="party-mode__note"><span>Good to know</span>{{ game.details[mode.id].note }}</p>
-        <a :href="game.details[mode.id].source" target="_blank" rel="noopener noreferrer"
-          :aria-label="`Official ${mode.name} information for ${game.name} (opens in a new tab)`">Official details&nbsp;<span aria-hidden="true">↗</span></a>
+    <ol class="pt-modes">
+      <li v-for="mode in compatibilityModes" :key="mode.id" class="pt-mode" :class="`pt-mode--${game.details[mode.id].tone}`">
+        <div class="pt-mode__head">
+          <span class="pt-mode__name">{{ mode.name }}</span>
+          <span class="pt-mode__meter" aria-hidden="true">
+            <i v-for="n in 3" :key="n" :class="{ 'is-on': n <= strength[game.details[mode.id].tone] }" />
+          </span>
+        </div>
+        <p class="pt-mode__status">{{ game.details[mode.id].status }}</p>
+        <h4>{{ game.details[mode.id].headline }}</h4>
+        <p class="pt-mode__desc">{{ game.details[mode.id].description }}</p>
+        <p class="pt-mode__note"><span>Good to know</span>{{ game.details[mode.id].note }}</p>
       </li>
     </ol>
   </div>
 </template>
 
 <style scoped>
-.party-detail { display: flex; flex: 1; flex-direction: column; min-width: 0; }
-.party-detail__art { position: relative; height: 210px; overflow: hidden; border-radius: 0; background: #000; }
-.party-detail__art > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
-.party-detail__art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, .05) 0%, rgba(0, 0, 0, .3) 60%, #000 100%); }
-.party-detail__art-copy { position: absolute; z-index: 1; left: 22px; right: 22px; bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 16px; }
-.party-detail__logo { width: 140px; max-width: 100%; height: 64px; object-fit: contain; object-position: center; filter: drop-shadow(0 4px 14px rgba(0, 0, 0, .7)); }
+.pt-detail { display: flex; flex-direction: column; height: 100%; }
 
-.party-detail__platforms { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 16px 22px; }
-.party-detail__label, .party-mode__note > span { color: var(--together-purple, #ff4d5e); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-.party-detail__platforms ul { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 0; padding: 0; list-style: none; }
-.party-detail__platforms :deep(.platform-mark__icon) { width: 26px; height: 26px; }
-.party-detail__platforms :deep(.platform-mark[title^="Windows PC"] .platform-mark__icon) { width: 24px; height: 24px; }
-.party-detail__platforms :deep(.platform-mark__label) { display: none; }
-.party-detail__platforms :deep(.platform-mark[title="PlayStation 5"] .platform-mark__icon) { width: 36px; height: 36px; }
-.party-detail__platforms :deep(.platform-mark[title^="Mac"] .platform-mark__icon),
-.party-detail__platforms :deep(.platform-mark[title^="iOS"] .platform-mark__icon) { width: 31px; height: 31px; }
-.party-detail__platforms :deep(.platform-mark[title="Android"] .platform-mark__icon) { width: 37px; height: 37px; }
-.party-detail__platform-note { flex-basis: 100%; margin: 0; color: var(--together-muted, #c1c1c3); font-size: 11px; }
+/* ---------- top bar: name + platforms ---------- */
+.pt-detail__top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; padding: 40px 28px 6px; }
+.pt-detail__genre { margin: 0 0 8px; color: var(--together-pink, #ff4d5e); font-size: 10px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+.pt-detail__name { margin: 0; font: 800 clamp(20px, 2vw, 26px)/1.15 var(--display); letter-spacing: -.01em; text-transform: uppercase; }
+.pt-detail__platforms { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; max-width: 320px; }
+.pt-detail__label, .pt-mode__note > span { color: var(--together-muted, #c1c1c3); font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.pt-detail__platforms ul { display: flex; align-items: center; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.pt-detail__platforms :deep(.platform-mark__icon) { width: 22px; height: 22px; }
+.pt-detail__platforms :deep(.platform-mark[title^="Windows PC"] .platform-mark__icon) { width: 20px; height: 20px; }
+.pt-detail__platforms :deep(.platform-mark__label) { display: none; }
+.pt-detail__platforms :deep(.platform-mark[title="PlayStation 5"] .platform-mark__icon) { width: 30px; height: 30px; }
+.pt-detail__platforms :deep(.platform-mark[title^="Mac"] .platform-mark__icon),
+.pt-detail__platforms :deep(.platform-mark[title^="iOS"] .platform-mark__icon) { width: 26px; height: 26px; }
+.pt-detail__platforms :deep(.platform-mark[title="Android"] .platform-mark__icon) { width: 31px; height: 31px; }
 
-.party-detail__modes { margin: 0; padding: 0; list-style: none; }
-.party-mode { position: relative; padding: 18px 22px 12px; }
-.party-mode__name { display: block; font: 800 12px/1.4 var(--display); letter-spacing: .06em; text-transform: uppercase; }
-.party-mode h4 { margin: 12px 0 6px; font-size: 19px; font-weight: 800; line-height: 1.3; letter-spacing: -.02em; }
-.party-mode p { margin: 0; color: #f2f2f4; font-size: 14px; line-height: 1.65; }
-.party-mode .party-mode__note { display: grid; gap: 3px; margin-top: 10px; color: var(--together-muted, #c1c1c3); font-size: 13px; line-height: 1.6; }
-/* one continuous underline drawn under the label and the arrow together */
-.party-mode a { display: inline-block; padding-block: 11px; margin-top: 4px; font-size: 12px; font-weight: 800; line-height: 18px; background: linear-gradient(currentColor, currentColor) 0 calc(100% - 8px) / 0 1px no-repeat; transition: background-size .25s ease; }
-.party-mode a > span { margin-left: 2px; }
-.party-mode a:hover { background-size: 100% 1px; }
-.party-mode a > span { color: #ff4d5e; font-size: 16px; }
+/* ---------- three mode tiles ---------- */
+.pt-modes { display: grid; flex: 1; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.pt-mode { display: flex; flex-direction: column; padding: 24px 24px 20px; transition: background-color .25s; }
+.pt-mode__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.pt-mode__name { font: 800 11px/1.4 var(--display); letter-spacing: .1em; text-transform: uppercase; }
+.pt-mode__meter { display: flex; gap: 3px; }
+.pt-mode__meter i { width: 14px; height: 4px; background: #2a2a2f; }
+.pt-mode__meter i.is-on { background: #ff183b; box-shadow: 0 0 8px rgba(255, 24, 59, .6); }
+.pt-mode--solo .pt-mode__meter i.is-on { background: #8d8d93; box-shadow: none; }
 
-@media (max-width: 860px) {
-  .party-detail__art { height: 190px; }
-  .party-detail__logo { width: 120px; height: 52px; }
-  .party-detail__platforms, .party-mode { padding-inline: 18px; }
+.pt-mode__status { margin: 18px 0 0; font: 800 clamp(17px, 1.6vw, 21px)/1.2 var(--display); letter-spacing: -.01em; text-transform: uppercase; }
+.pt-mode--yes .pt-mode__status { background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.pt-mode--solo .pt-mode__status { color: #8d8d93; }
+.pt-mode h4 { margin: 10px 0 0; font-size: 15px; font-weight: 800; line-height: 1.35; }
+.pt-mode__desc { margin: 8px 0 0; color: #e6e6e9; font-size: 13.5px; line-height: 1.6; }
+.pt-mode__note { display: grid; gap: 3px; margin: 16px 0 0; color: var(--together-muted, #c1c1c3); font-size: 12.5px; line-height: 1.55; }
+/* link sits at the foot of every tile so they line up across the row */
+@media (hover: hover) {
+  .pt-mode:hover { background-color: rgba(255, 255, 255, .025); }
+}
+
+@media (max-width: 760px) {
+  .pt-detail__top { align-items: flex-start; flex-direction: column; padding: 32px 20px 4px; }
+  .pt-modes { grid-template-columns: minmax(0, 1fr); }
+  .pt-mode { padding: 20px; }
 }
 </style>

@@ -1,48 +1,40 @@
 <script setup lang="ts">
-import { compatibilityGames } from '~/data/playTogether'
+import { compatibilityGames, playTogetherArt } from '~/data/playTogether'
 
-const track = ref<HTMLElement>()
-const activeIndex = ref(0)
-// while a bar click is scrolling the track, hold the highlight on the target
-// so the bars don't flash through every card in between
-let target: number | null = null
-let settle: ReturnType<typeof setTimeout> | undefined
+const artFor = (id: string) => playTogetherArt[id] ?? { src: `/images/games/card-${id}.webp`, pos: 'center 30%' }
 
-function stepOf(el: HTMLElement) {
-  const first = el.firstElementChild as HTMLElement | null
-  if (!first) return 0
-  return first.offsetWidth + parseFloat(getComputedStyle(el).columnGap || '0')
+// one game on stage at a time, picked from the poster rail (an ARIA tab list)
+const active = ref(0)
+const game = computed(() => compatibilityGames[active.value]!)
+const tabs: HTMLButtonElement[] = []
+
+function select(i: number, focus = false) {
+  const count = compatibilityGames.length
+  active.value = (i + count) % count
+  const tab = tabs[active.value]
+  // keep the picked poster in view when the rail scrolls sideways on phones
+  tab?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+  if (focus) tab?.focus({ preventScroll: true })
 }
-function release() {
-  target = null
-  clearTimeout(settle)
+// phones: swipe the panel sideways to change game
+let touchX = 0
+let touchY = 0
+function onTouchStart(e: TouchEvent) {
+  touchX = e.touches[0]!.clientX
+  touchY = e.touches[0]!.clientY
 }
-function onScroll() {
-  const el = track.value
-  if (!el) return
-  const step = stepOf(el)
-  if (!step) return
-  const index = Math.min(compatibilityGames.length - 1, Math.max(0, Math.round(el.scrollLeft / step)))
-  if (target !== null) {
-    // keep waiting until the smooth scroll lands (or stalls)
-    clearTimeout(settle)
-    settle = setTimeout(release, 150)
-    if (index !== target) return
-    release()
-  }
-  if (index !== activeIndex.value) activeIndex.value = index
+function onTouchEnd(e: TouchEvent) {
+  const dx = e.changedTouches[0]!.clientX - touchX
+  const dy = e.changedTouches[0]!.clientY - touchY
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) select(active.value + (dx < 0 ? 1 : -1))
 }
-function goTo(i: number) {
-  const el = track.value
-  if (!el) return
-  const step = stepOf(el)
-  if (!step) return
-  const index = Math.max(0, Math.min(compatibilityGames.length - 1, i))
-  activeIndex.value = index
-  target = index
-  clearTimeout(settle)
-  settle = setTimeout(release, 900)
-  el.scrollTo({ left: index * step, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+function onKey(e: KeyboardEvent) {
+  const step: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }
+  if (e.key in step) select(active.value + step[e.key]!, true)
+  else if (e.key === 'Home') select(0, true)
+  else if (e.key === 'End') select(compatibilityGames.length - 1, true)
+  else return
+  e.preventDefault()
 }
 
 const section = ref<HTMLElement>()
@@ -61,10 +53,7 @@ onMounted(() => {
   section.value?.querySelectorAll('[data-together-reveal]').forEach(element => observer?.observe(element))
   armed.value = true
 })
-onBeforeUnmount(() => {
-  observer?.disconnect()
-  clearTimeout(settle)
-})
+onBeforeUnmount(() => observer?.disconnect())
 </script>
 
 <template>
@@ -80,16 +69,35 @@ onBeforeUnmount(() => {
         </div>
       </header>
 
-      <div class="party-cards" :aria-label="`${compatibilityGames.length} games`" @scroll.passive="onScroll"
-        @pointerdown="release" @touchstart.passive="release" ref="track">
-        <article v-for="game in compatibilityGames" :key="game.id" class="party-card neon-hover-outline"
-:aria-labelledby="`card-${game.id}-crossplay`">
-          <PlayTogetherDetail :game="game" id-prefix="card" />
-        </article>
+      <!-- ===== poster rail ===== -->
+      <div class="pt-rail" role="tablist" aria-label="Choose a game" @keydown="onKey">
+        <button v-for="(g, i) in compatibilityGames" :id="`pt-tab-${g.id}`" :key="g.id" :ref="el => { if (el) tabs[i] = el as HTMLButtonElement }"
+          type="button" role="tab" class="pt-tab" :class="{ 'is-active': i === active }" :aria-label="g.name"
+          :aria-selected="i === active" aria-controls="pt-panel" :tabindex="i === active ? 0 : -1" @click="select(i)">
+          <AppImage class="pt-tab__art" :src="artFor(g.id).src" :style="{ objectPosition: artFor(g.id).pos }" alt="" sizes="220px" width="220" height="110" loading="lazy" />
+          <AppImage class="pt-tab__logo" :class="`pt-tab__logo--${g.id}`" :src="`/images/games/${g.id}-logo.webp`" alt="" width="110" height="44" loading="lazy" />
+        </button>
       </div>
-      <div class="party-indicators" role="group" aria-label="Choose a game">
-        <button v-for="(game, i) in compatibilityGames" :key="game.id" type="button" :class="{ 'is-active': i === activeIndex }"
-          :aria-label="`Show ${game.name}`" :aria-pressed="i === activeIndex" @click="goTo(i)"><span aria-hidden="true" /></button>
+
+      <!-- ===== stage: big art + the selected game's breakdown ===== -->
+      <div id="pt-panel" class="pt-stage" role="tabpanel" :aria-labelledby="`pt-tab-${game.id}`"
+        @touchstart.passive="onTouchStart" @touchend.passive="onTouchEnd">
+        <div class="pt-stage__art">
+          <!-- every poster is stacked here so switching games is an instant crossfade -->
+          <AppImage v-for="(g, i) in compatibilityGames" :key="g.id" :class="{ 'is-active': i === active }" :src="artFor(g.id).src"
+            :style="{ objectPosition: artFor(g.id).stagePos ?? artFor(g.id).pos }" alt="" sizes="(max-width: 1100px) 100vw, 440px" width="480" height="600" loading="lazy" />
+        </div>
+        <!-- every breakdown sits in the same cell, so the panel is always as tall as the
+             longest one and never jumps when switching games -->
+        <div class="pt-stage__body">
+          <PlayTogetherDetail v-for="(g, i) in compatibilityGames" :key="g.id" :game="g" :class="{ 'is-active': i === active }" />
+        </div>
+      </div>
+
+      <!-- phones swap the poster rail for thin indicator bars -->
+      <div class="pt-indicators" role="group" aria-label="Choose a game">
+        <button v-for="(g, i) in compatibilityGames" :key="g.id" type="button" :class="{ 'is-active': i === active }"
+          :aria-label="`Show ${g.name}`" :aria-pressed="i === active" aria-controls="pt-panel" @click="select(i)"><span aria-hidden="true" /></button>
       </div>
 
       <div class="together__foot" data-together-reveal>
@@ -122,13 +130,42 @@ onBeforeUnmount(() => {
 .together__head { margin-bottom: 32px; }
 .together__intro p { margin: 0; color: var(--together-muted); font-size: 16px; font-weight: 600; line-height: 1.8; }
 
+/* ---------- poster rail: black and white until picked ---------- */
+.pt-rail { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
+.pt-tab { position: relative; height: 92px; padding: 0; overflow: hidden; border: 0; background: #000; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.pt-tab::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(0, 0, 0, .1), rgba(0, 0, 0, .75)); }
+/* masked to a frame: 1px sides, 3px underline */
+.pt-tab::after { content: ''; position: absolute; inset: 0; z-index: 2; padding: 1px; background: #2a2a2f; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; }
+.pt-tab__art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(.6); transition: filter .4s var(--ease), scale .5s var(--ease); }
+.pt-tab__logo { position: absolute; z-index: 1; left: 50%; bottom: 10px; translate: -50% 0; width: 72%; max-width: 110px; height: 36px; object-fit: contain; opacity: .75; filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .8)); transition: opacity .3s; }
+.pt-tab.is-active .pt-tab__art { filter: none; }
+.pt-tab.is-active .pt-tab__logo { opacity: 1; }
+/* these marks have lots of empty space in their artwork, so they read small */
+.pt-tab__logo--hsr, .pt-tab__logo--nte, .pt-tab__logo--hi3 { width: 86%; max-width: 140px; height: 48px; bottom: 6px; }
+.pt-tab.is-active::after { padding: 1px 1px 3px; background: #dcdce0; }
+.pt-tab:focus-visible { outline: 2px solid #ff4d5e; outline-offset: 3px; }
+@media (hover: hover) {
+  .pt-tab:hover .pt-tab__art { filter: grayscale(.2) brightness(.85); scale: 1.06; }
+  .pt-tab.is-active:hover .pt-tab__art { filter: none; }
+  .pt-tab:hover .pt-tab__logo { opacity: 1; }
+}
 
-/* cards */
-.party-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 20px; }
-.party-card { display: flex; flex-direction: column; min-width: 0; border: 0; border-radius: 0; background: #000; overflow: hidden; }
-.party-card :deep(.party-detail__art) { border-radius: 0; }
-.party-card::after { opacity: 1; background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b); animation: card-outline-turn 3s linear infinite; }
-.party-indicators { display: none; }
+/* ---------- stage ---------- */
+.pt-stage { position: relative; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); min-height: 400px; background: #000; }
+/* permanent outline: a dark red gradient that slowly turns */
+.pt-stage::after { content: ''; position: absolute; inset: 0; z-index: 3; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ff183b, #a30d22 25%, #4a050e 50%, #a30d22 75%, #ff183b); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; animation: card-outline-turn 8s linear infinite; pointer-events: none; }
+.pt-stage__art { position: relative; overflow: hidden; background: #050507; }
+/* black-and-white art with the red holographic sheen (the rail keeps its own look) */
+.pt-stage__art > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: var(--bw-art); opacity: 0; scale: 1.06; transition: opacity .6s var(--ease), scale 1.2s var(--ease); }
+.pt-stage__art > img.is-active { opacity: 1; scale: 1; }
+.pt-stage__art::before { content: ''; position: absolute; inset: 0; z-index: 1; mix-blend-mode: screen; background: var(--red-holo); animation: red-holo-sweep 7s ease-in-out infinite alternate; pointer-events: none; }
+.pt-stage__art::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, .85) 100%), linear-gradient(90deg, rgba(0, 0, 0, 0) 70%, #000 100%); pointer-events: none; }
+.pt-stage__body { display: grid; min-width: 0; }
+/* the breakdown swaps with a quick fade-up */
+.pt-stage__body > * { grid-area: 1 / 1; visibility: hidden; opacity: 0; translate: 0 10px; transition: opacity .22s ease, translate .22s ease, visibility 0s .22s; }
+.pt-stage__body > .is-active { visibility: visible; opacity: 1; translate: 0 0; transition: opacity .3s ease .12s, translate .3s ease .12s, visibility 0s; }
+
+.pt-indicators { display: none; }
 
 /* footer */
 .together__foot { display: flex; align-items: baseline; gap: 30px; margin-top: 30px; padding: 0; }
@@ -138,8 +175,11 @@ onBeforeUnmount(() => {
 [data-together-reveal] { transition: opacity .65s ease; }
 .is-armed [data-together-reveal]:not(.is-visible) { opacity: 0; }
 
+/* tablet: art becomes a banner above the breakdown */
 @media (max-width: 1100px) {
-  .party-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pt-stage { grid-template-columns: minmax(0, 1fr); }
+  .pt-stage__art { height: 260px; }
+  .pt-stage__art::after { background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, #000 100%); }
 }
 
 @media (max-width: 960px) {
@@ -147,22 +187,22 @@ onBeforeUnmount(() => {
   .together__intro p { font-size: 15px; line-height: 1.75; }
 }
 
-/* phone: swipeable cards */
-@media (max-width: 700px) {
+/* phone: indicator bars + swipe instead of the poster rail */
+@media (max-width: 760px) {
   .together__head { margin-bottom: 24px; }
-  .party-cards { display: flex; gap: 16px; overflow-x: auto; overflow-y: hidden; touch-action: pan-x pan-y; overscroll-behavior-y: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
-  .party-cards::-webkit-scrollbar { display: none; }
-  .party-card { flex: 0 0 100%; scroll-snap-align: center; scroll-snap-stop: always; }
-  .party-indicators { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
-  .party-indicators button { display: grid; place-items: center; width: 48px; height: 36px; padding: 0; border: 0; border-radius: 4px; background: transparent; cursor: pointer; }
-  .party-indicators span { width: 40px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, 0.55); box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8); }
+  .pt-rail { display: none; }
+  .pt-indicators { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+  .pt-indicators button { display: grid; place-items: center; width: 48px; height: 36px; padding: 0; border: 0; border-radius: 4px; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .pt-indicators span { width: 40px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .55); box-shadow: 0 1px 5px rgba(0, 0, 0, .8); transition: background .3s; }
+  .pt-indicators button.is-active span { background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0); box-shadow: 0 0 7px rgba(255, 77, 94, .65); }
+  .pt-stage__art { height: 210px; }
   .together__foot { flex-direction: column; gap: 9px; }
-  .party-indicators button.is-active span { background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0); box-shadow: 0 0 7px rgba(255, 77, 94, 0.65); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   [data-together-reveal] { transition: none; }
   .is-armed [data-together-reveal]:not(.is-visible) { opacity: 1; }
-  .party-card::after { animation: none; }
+  .pt-stage::after, .pt-stage__art::before { animation: none; }
+  .pt-stage__art > img, .pt-tab__art, .pt-stage__body > * { transition: none; }
 }
 </style>

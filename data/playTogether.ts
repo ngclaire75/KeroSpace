@@ -16,7 +16,6 @@ export type CompatibilityGame = {
   name: string
   category: string
   platforms: GamePlatform[]
-  platformNote?: string
   details: Record<CompatibilityMode, CompatibilityDetail>
 }
 
@@ -88,7 +87,6 @@ export const compatibilityGames: CompatibilityGame[] = [
   {
     id: 'mlbb', name: 'Mobile Legends: Bang Bang', category: '5v5 MOBA',
     platforms: ['googleplay', 'ios', 'android'],
-    platformNote: '¹ PC via Google Play Games, where available.',
     details: {
       crossplay: { status: 'Supported', tone: 'yes', headline: 'iOS + Android', description: 'Mobile players can squad up and compete together across iOS and Android.', note: 'App editions and matchmaking availability can vary by region.', source: mlbbStore },
       coop: { status: 'Team-based PvP', tone: 'limited', headline: 'Five on your side', description: 'Coordinate heroes, roles and builds with teammates in 5v5 battles against another team.', note: 'This is competitive team play, rather than a co-op story campaign.', source: mlbbStore },
@@ -96,3 +94,13 @@ export const compatibilityGames: CompatibilityGame[] = [
     },
   },
 ]
+
+// card artwork + focus point so faces stay in frame (stagePos: framing in the big panel, if different)
+export const playTogetherArt: Record<string, { src: string; pos: string; stagePos?: string }> = {
+  hsr: { src: '/images/games/hsr-mod-esrgan.webp', pos: 'center 22%' },
+  genshin: { src: '/images/games/genshin-mod-esrgan.webp', pos: 'center 18%', stagePos: '58% 18%' },
+  hi3: { src: '/images/games/hi3-mod-esrgan.webp', pos: 'center 20%' },
+  wuwa: { src: '/images/games/wuwa-mod-esrgan.webp', pos: 'center 100%' },
+  nte: { src: '/images/games/nte-mod-esrgan.webp', pos: 'center 64%' },
+  mlbb: { src: '/images/games/mlbb-mod-esrgan.webp', pos: 'center 34%' },
+}

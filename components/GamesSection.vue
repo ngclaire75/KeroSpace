@@ -17,22 +17,7 @@ const facts = [
   { k: 'Discover', v: 'Items & equipment' },
   { k: 'Get started', v: 'Beginner introductions' },
 ]
-const banners = [
-  { src: '/images/games/banner-hsr-chrysos.webp', mobile: '/images/games/banner-hsr-mobile.webp', alt: 'Honkai: Star Rail — Crimson Heir of Chrysos banner', width: 2560, height: 1096 },
-  { src: '/images/games/banner-wuwa-desktop-jpg-esrgan.webp', mobile: '/images/games/banner-wuwa-mobile-5461-esrgan.webp', alt: 'Wuthering Waves — Crimson character banner', width: 3832, height: 1642 },
-]
-const activeBanner = ref(0)
-let bannerTimer: ReturnType<typeof setInterval> | undefined
-function startBannerTimer() {
-  if (bannerTimer !== undefined) clearInterval(bannerTimer)
-  bannerTimer = setInterval(() => {
-    if (!document.hidden) activeBanner.value = (activeBanner.value + 1) % banners.length
-  }, 3000)
-}
-function selectBanner(index: number) {
-  activeBanner.value = index
-  startBannerTimer()
-}
+const banner = { src: '/images/games/banner-wuwa-desktop-jpg-esrgan.webp', mobile: '/images/games/banner-wuwa-mobile-5461-esrgan.webp', alt: 'Wuthering Waves — Crimson character banner', width: 3832, height: 1642 }
 
 const artwork = {
   3: '/images/ChatGPT Image Oct 14, 2026 at 02_41_12 PM-3.png',
@@ -77,7 +62,6 @@ const armed = ref(false)
 let io: IntersectionObserver | undefined
 
 onMounted(() => {
-  startBannerTimer()
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
   const els = root.value?.querySelectorAll<HTMLElement>('[data-reveal]')
   if (!els?.length) return
@@ -94,10 +78,7 @@ onMounted(() => {
   els.forEach((el) => io!.observe(el))
   armed.value = true
 })
-onBeforeUnmount(() => {
-  io?.disconnect()
-  if (bannerTimer !== undefined) clearInterval(bannerTimer)
-})
+onBeforeUnmount(() => io?.disconnect())
 </script>
 
 <template>
@@ -114,29 +95,11 @@ onBeforeUnmount(() => {
       </header>
 
       <article id="game-introduction" tabindex="-1" class="feature" data-reveal aria-labelledby="feature-title">
-        <div id="banner-slides" class="feature__media">
-          <picture
-            v-for="(banner, index) in banners"
-            :key="banner.src"
-            class="feature__slide"
-            :class="{ 'is-active': activeBanner === index }"
-            :aria-hidden="activeBanner !== index"
-          >
-            <source v-if="banner.mobile" media="(max-width: 560px)" :srcset="imageSources(banner.mobile).srcset || banner.mobile" sizes="100vw" />
+        <div class="feature__media">
+          <picture class="feature__slide">
+            <source media="(max-width: 560px)" :srcset="imageSources(banner.mobile).srcset || banner.mobile" sizes="100vw" />
             <AppImage class="feature__art" :width="banner.width" :height="banner.height" :src="banner.src" :alt="banner.alt" loading="lazy" sizes="(max-width: 1240px) 100vw, 1240px" />
           </picture>
-          <div class="banner-indicators" role="group" aria-label="Choose a banner">
-            <button
-              v-for="(banner, index) in banners"
-              :key="banner.src"
-              type="button"
-              :class="{ 'is-active': activeBanner === index }"
-              :aria-label="`Show ${banner.alt}`"
-              :aria-pressed="activeBanner === index"
-              aria-controls="banner-slides"
-              @click="selectBanner(index)"
-            ><span aria-hidden="true" /></button>
-          </div>
         </div>
         <div class="feature__body">
           <div class="feature__summary">
@@ -337,8 +300,6 @@ onBeforeUnmount(() => {
 .feature__slide {
   position: absolute;
   inset: 0;
-  opacity: 0;
-  transition: opacity 0.65s ease;
 }
 .feature__art {
   display: block;
@@ -346,38 +307,6 @@ onBeforeUnmount(() => {
   height: 100%;
   min-height: 0;
   object-fit: cover;
-}
-.feature__slide.is-active { opacity: 1; }
-.banner-indicators {
-  position: absolute;
-  bottom: 6px;
-  left: 50%;
-  translate: -50% 0;
-  z-index: 2;
-  display: flex;
-  gap: 6px;
-}
-.banner-indicators button {
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 36px;
-  padding: 0;
-  border: 0;
-  border-radius: 4px;
-  background: transparent;
-  cursor: pointer;
-}
-.banner-indicators span {
-  width: 40px;
-  height: 3px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.55);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
-}
-.banner-indicators button.is-active span {
-  background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0);
-  box-shadow: 0 0 7px rgba(255, 77, 94, 0.65);
 }
 .feature__body {
   position: relative;
@@ -395,7 +324,7 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 9px;
   margin: 0 0 12px;
-  color: #ff5a8a;
+  color: #ff183b;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.16em;
@@ -810,9 +739,6 @@ onBeforeUnmount(() => {
     grid-template-columns: minmax(0, 1fr);
     gap: 20px;
   }
-  .banner-indicators {
-    bottom: -5px;
-  }
   .games__lede {
     font-size: 15px;
   }
@@ -863,9 +789,7 @@ onBeforeUnmount(() => {
   }
   .cover::after, .gcard__link::after { animation: none; }
   .feature { animation: none; }
-  .feature__slide,
   .feature__art,
-  .banner-indicators span,
   .games [data-reveal],
   .gcard__link,
   .gcard__poster,

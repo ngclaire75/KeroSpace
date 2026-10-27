@@ -152,7 +152,7 @@ h2 em {
   min-height: 40px;
   padding: 0 14px 0 6px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
+  background: #000;
   box-shadow: inset 0 0 0 1px var(--c-line);
   font-size: 13px;
   font-weight: 800;
