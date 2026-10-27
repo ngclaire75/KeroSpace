@@ -152,7 +152,7 @@ h2 em {
   min-height: 40px;
   padding: 0 14px 0 6px;
   border-radius: 999px;
-  background: #000;
+  background: rgba(255, 255, 255, 0.05);
   box-shadow: inset 0 0 0 1px var(--c-line);
   font-size: 13px;
   font-weight: 800;
@@ -196,10 +196,14 @@ h2 em {
   /* black and white, a little more contrast, slightly dimmed */
   filter: var(--bw-art);
 }
-/* these two stay in full colour */
+/* these two stay in full colour, without the red sheen */
 .mosaic__tile--genshin .mosaic__bg,
 .mosaic__tile--nte .mosaic__bg {
   filter: none;
+}
+.mosaic__tile.mosaic__tile--genshin::before,
+.mosaic__tile.mosaic__tile--nte::before {
+  content: none;
 }
 /* red holographic sheen sweeping across the tile,
    above the bottom fade and below the creator label */

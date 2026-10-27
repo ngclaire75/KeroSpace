@@ -35,7 +35,7 @@ import { communityDiscordServers } from '~/data/communityDiscord'
       </div>
 
       <figure class="discord-art">
-        <AppImage src="/images/community/hutao-esrgan-2x.webp" width="2400" height="4164" sizes="(max-width: 900px) 420px, 500px" alt="Hu Tao community banner" loading="lazy" />
+        <AppImage src="/images/community/hutao-red-esrgan-2x.webp" width="2400" height="4164" sizes="(max-width: 900px) 420px, 500px" alt="Hu Tao community banner" loading="lazy" />
       </figure>
     </div>
   </section>

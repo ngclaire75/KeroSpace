@@ -162,7 +162,8 @@ useHead(() => ({
 /* red holographic sheen over the black-and-white banner */
 .story-promo::after { content: ''; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; background: var(--red-holo); animation: red-holo-sweep 7s ease-in-out infinite alternate; }
 @media (prefers-reduced-motion: reduce) { .story-promo::after { animation: none; } }
-.story-promo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: var(--bw-art); }
+/* the site's black-and-white treatment with a little extra contrast */
+.story-promo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(1) contrast(1.35) brightness(0.8); }
 .blog-ticker { position: relative; display: flex; align-items: center; min-height: 28px; width: 100%; overflow: hidden; padding: 0; background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); color: #000; margin-bottom: clamp(28px, 3vw, 44px); box-shadow: 0 0 18px #ff183b66, 0 0 40px #ff183b33, inset 0 1px 0 #ffffff59; }
 .blog-ticker__track { display: flex; width: max-content; will-change: transform; animation: blog-ticker-scroll 40s linear infinite; }
 .blog-ticker__group { display: flex; align-items: center; justify-content: space-around; flex-shrink: 0; min-width: 100vw; }
