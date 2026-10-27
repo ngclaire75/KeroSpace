@@ -1,5 +1,6 @@
 <script setup lang="ts">
 useHead({ title: 'KeroSpace — Explore Every Game Item' })
+useSeoMeta({ ogUrl: 'https://kerospace.vercel.app/' })
 </script>
 
 <template>
