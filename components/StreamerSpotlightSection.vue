@@ -216,9 +216,6 @@ onBeforeUnmount(() => {
                 <path d="m7.8 11.5 2.9 2.9 5.5-5.6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </div>
-            <span class="creator-count" aria-hidden="true">
-              <b>{{ String(activeIndex + 1).padStart(2, '0') }}</b> / {{ String(creators.length).padStart(2, '0') }}
-            </span>
           </div>
 
           <!-- every creator's text is stacked in the same grid cell, so the box is
@@ -494,17 +491,6 @@ onBeforeUnmount(() => {
      visibly jiggles. Own layer so the fade underneath can't nudge it. */
   overflow: visible;
   transform: translateZ(0);
-}
-.creator-count {
-  font-family: var(--display);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--ink-3);
-}
-.creator-count b {
-  font-size: 20px;
-  color: #fff;
 }
 
 .creator-identity {
