@@ -170,12 +170,13 @@
   font-size: 14px;
   transition: border-color 0.3s ease;
 }
+/* fills red → dark red on hover/focus; the middle stop keeps the blend even on a small box */
 .gd-go::before {
   content: '';
   position: absolute;
   inset: -2px;
   z-index: -1;
-  background: linear-gradient(110deg, #ff183b, #ff183b 55%, #dcdce0);
+  background: linear-gradient(135deg, #ff183b, #c8102e 45%, #6e0614);
   opacity: 0;
   transition: opacity 0.3s ease;
 }

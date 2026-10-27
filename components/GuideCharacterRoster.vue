@@ -265,10 +265,8 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
   flex-shrink: 0;
   padding: 0 22px;
   border: 0;
-  background: linear-gradient(110deg, #ff183b 0%, #ff183b 55%, #dcdce0 100%) border-box no-repeat;
+  background: linear-gradient(110deg, #ff183b, #6e0614) border-box no-repeat;
   color: #fff;
-  /* keeps the white label readable where the gradient fades to light grey */
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.06em;

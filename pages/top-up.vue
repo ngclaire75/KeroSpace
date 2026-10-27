@@ -115,8 +115,6 @@ async function copyEnquiry() {
         </div>
       </header>
 
-      <TopUpRankService />
-
       <section id="shop-games" class="shop-catalog" aria-labelledby="catalog-title">
         <header class="catalog-heading">
           <div><p class="shop-eyebrow shop-eyebrow--line">A little more for your next adventure</p><h2 id="catalog-title">Your game.<br /><em>Your next move.</em></h2></div>
@@ -206,17 +204,17 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .catalog-heading > p { max-width: 360px; margin-bottom: 4px; font-size: 15px; line-height: 1.75; color: var(--shop-muted); }
 .service-picker { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 26px; }
 .service-picker--rank-up { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.service-picker button { display: flex; justify-content: space-between; align-items: center; gap: 8px; min-width: 0; min-height: 58px; padding: 14px 18px; border: 1px solid transparent; border-radius: 0; background: linear-gradient(#000, #000) padding-box, var(--shop-outline-dim) border-box; color: #fff; font: 800 11px/1.5 var(--display); text-transform: uppercase; cursor: pointer; transition: box-shadow .2s ease; }
+.service-picker button { display: flex; justify-content: space-between; align-items: center; gap: 8px; min-width: 0; min-height: 58px; padding: 14px 18px; border: 1px solid transparent; border-radius: 0; background: linear-gradient(#000, #000) padding-box, var(--shop-outline-dim) border-box; color: #fff; font: 800 11px/1.5 var(--display); text-transform: uppercase; cursor: pointer; }
 .service-picker button span { color: var(--shop-purple); font: 400 20px/1 var(--ui); }
 @media (min-width: 761px) { .sel-br { display: none; } }
 /* the button is a flex container, so the label lives in ONE wrapper (otherwise each text run,
    and the <br> would become separate flex items and scatter across the button) */
 .sel-label { display: block; font: inherit; }
-.service-picker button[aria-pressed='true'] { background: linear-gradient(#000, #000) padding-box, var(--shop-outline) border-box; box-shadow: 0 0 16px rgba(255, 24, 59, .35); }
+.service-picker button[aria-pressed='true'] { background: linear-gradient(#000, #000) padding-box, var(--shop-outline) border-box; }
 .catalog-layout { display: grid; grid-template-columns: minmax(0, 1fr) 355px; gap: 28px; align-items: stretch; }
 .game-picker { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .shop-game { position: relative; isolation: isolate; padding: 2px; border: 0; border-radius: 0; min-width: 0; background: var(--shop-outline-dim); cursor: pointer; text-align: left; }
-.shop-game.is-selected { background: var(--shop-outline); box-shadow: 0 0 16px rgba(255, 24, 59, .35); }
+.shop-game.is-selected { background: var(--shop-outline); }
 .shop-game__surface { display: flex; flex-direction: column; position: relative; min-height: 254px; height: 100%; overflow: hidden; border-radius: 0; background: #000; }
 /* fills the space above the name bar and centres the logo in it, both ways */
 .shop-game__logo { position: relative; display: flex; flex: 1; align-items: center; justify-content: center; min-height: 0; padding: 20px; }
@@ -249,12 +247,12 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .enquiry__actions { display: grid; gap: 10px; }
 .copy-button, .instagram-button { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px; font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
 .copy-button { border: 1px solid transparent; background: linear-gradient(#000, #000) padding-box, var(--shop-outline) border-box; color: #fff; }
-.instagram-button { background: linear-gradient(105deg, #ff183b, #ff183b 55%, #a8a8ae); color: #fff; }
+.instagram-button { background: linear-gradient(105deg, #ff183b, #6e0614); color: #fff; }
 .enquiry__actions svg { flex-shrink: 0; }
 .enquiry__status { margin: 14px 0 0; min-height: 3.3em; font-size: 11px; line-height: 1.65; color: var(--shop-muted); }
 .copied-dialog { width: min(820px, calc(100vw - 64px)); max-width: none; max-height: calc(100dvh - 120px); padding: 0; border: 0; overflow: visible; background: transparent; color: #fff; }
 .copied-dialog::backdrop { background: rgb(0 0 0 / .8); backdrop-filter: blur(7px); }
-.copied-banner { position: relative; isolation: isolate; display: grid; grid-template-columns: 42% 58%; border: 1px solid #ff2446; background: #000; box-shadow: 0 0 12px #ff173d55, 0 0 32px #ff173d22, 0 24px 100px #0009; }
+.copied-banner { position: relative; isolation: isolate; display: grid; grid-template-columns: 42% 58%; border: 1px solid #ff2446; background: #000; box-shadow: 0 24px 100px #0009; }
 .copied-banner::before { content: ''; position: absolute; inset: -2px; padding: 2px; pointer-events: none; background: linear-gradient(115deg, #720015, #ff173d, #ff9a9f, #ff2446, #720015, #ff173d); background-size: 300% 300%; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; }
 .copied-banner__art { position: relative; min-height: 420px; }
 .copied-banner__art img { position: absolute; bottom: 0; left: -10%; width: 156%; height: 148%; object-fit: contain; object-position: bottom; filter: drop-shadow(0 8px 18px #0007); pointer-events: none; }
@@ -300,7 +298,6 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .shop-page :is(a, button):focus-visible { outline: 2px solid var(--shop-pink); outline-offset: 4px; }
 .shop-page .copied-banner .instagram-button:focus { outline: none; }
 .shop-page .copied-banner .instagram-button:focus-visible { text-decoration: none; box-shadow: none; outline: none; }
-@media (hover: hover) { .service-picker button:hover { box-shadow: 0 0 12px rgba(255, 24, 59, .25); } }
 /* narrower than full width the promo column would outgrow the banner beside it, so stack */
 @media (max-width: 1300px) { .shop-showcase { grid-template-columns: minmax(0, 1fr); gap: 16px; } }
 @media (max-width: 1100px) { .catalog-layout { grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; } .game-picker { grid-template-columns: repeat(2, minmax(0, 1fr)); } .shop-game__surface { min-height: 230px; } .enquiry__inner { padding: 20px; } .shop-hero__intro { gap: 32px; } }

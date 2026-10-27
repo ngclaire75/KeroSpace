@@ -107,7 +107,7 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   border: 1.5px solid transparent;
   background:
     linear-gradient(#000000, #000000) padding-box,
-    linear-gradient(110deg, #ff183b, #ff183b 55%, #dcdce0) border-box;
+    linear-gradient(110deg, #ff183b, #6e0614) border-box;
   box-shadow: 0 0 14px rgba(255, 77, 94, 0.16);
   color: #fff;
   font: 800 14px / 1.4 var(--ui);
@@ -121,7 +121,7 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   gap: 12px;
   margin-top: 32px;
   padding: 15px 22px;
-  background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0);
+  background: linear-gradient(100deg, #ff183b, #6e0614);
   color: #fff;
   font: 800 14px / 1 var(--ui);
   letter-spacing: 0.06em;
