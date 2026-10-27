@@ -1,21 +1,13 @@
 <script setup lang="ts">
 import { imageSources } from '~/utils/responsiveImages'
+
 const year = new Date().getFullYear()
+const desktopArtSrcset = `${imageSources('/images/footer-art-8x-esrgan.webp').srcset}, /images/footer-art-8x-esrgan.webp 5888w`
 
 // ticker words (Korean gaming vocabulary)
 const tickerWords = ['게임', '아이템', '레벨 업', '크로스 플레이', '협동 플레이', '퀘스트', '보스 레이드', '파티 모집', '랭크전', '모험', '장비', '승리']
 
 const columns = [
-  {
-    title: 'Explore',
-    links: [
-      { label: 'Home', href: '/' },
-      { label: 'Games', href: '/#supported-games' },
-      { label: 'Community', href: '/community' },
-      { label: 'Guides', href: '/guides' },
-      { label: 'Top Up', href: '/top-up' },
-    ],
-  },
   {
     title: 'Games',
     links: [
@@ -24,7 +16,17 @@ const columns = [
       { label: 'Honkai Impact 3rd', href: '/#supported-games' },
       { label: 'Wuthering Waves', href: '/#supported-games' },
       { label: 'Neverness to Everness', href: '/#supported-games' },
-      { label: 'Mobile Legends: Bang Bang', href: '/#supported-games' },
+      { label: 'Mobile Legends', href: '/#supported-games' },
+    ],
+  },
+  {
+    title: 'Explore',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'Games', href: '/#supported-games' },
+      { label: 'Community', href: '/community' },
+      { label: 'Guides', href: '/guides' },
+      { label: 'Top Up', href: '/top-up' },
     ],
   },
 ]
@@ -47,11 +49,12 @@ const columns = [
       </div>
     </div>
 
-    <!-- Vexana artwork, fading into the black footer -->
+    <!-- Character artwork, fading into the black footer -->
     <figure class="footer__art">
       <picture>
-        <source media="(max-width: 700px)" :srcset="imageSources('/images/vexana-mobile-red-esrgan.webp').srcset" sizes="100vw" width="2160" height="1216" />
-        <AppImage src="/images/vexana-red-esrgan.webp" alt="Vexana character banner from Mobile Legends: Bang Bang" width="6400" height="2134" loading="lazy" decoding="async" />
+        <!-- desktop gets the 8x upscale, full size included for high-DPI screens -->
+        <source media="(min-width: 701px)" :srcset="desktopArtSrcset" sizes="100vw" width="5888" height="4256" />
+        <AppImage src="/images/footer-art-esrgan.webp" alt="Character in a red jacket stretching" width="1472" height="1064" loading="lazy" decoding="async" />
       </picture>
     </figure>
 
@@ -192,7 +195,7 @@ const columns = [
 }
 .footer__art img {
   object-fit: cover;
-  object-position: center 35%;
+  object-position: center 45%;
   filter: saturate(1.2);
 }
 .footer__wrap {
@@ -303,6 +306,15 @@ const columns = [
 
 /* desktop: tuck the content up into the faded bottom of the art */
 @media (min-width: 701px) {
+  /* a little taller than mobile so more of the art shows, fading out from higher up */
+  .footer__art {
+    height: clamp(300px, 38vw, 580px);
+    --fade: linear-gradient(180deg,
+      #000 0%, #000 12%,
+      rgba(0, 0, 0, 0.94) 22%, rgba(0, 0, 0, 0.82) 32%, rgba(0, 0, 0, 0.64) 44%,
+      rgba(0, 0, 0, 0.44) 56%, rgba(0, 0, 0, 0.26) 68%, rgba(0, 0, 0, 0.11) 80%,
+      rgba(0, 0, 0, 0.03) 92%, transparent 100%);
+  }
   .grid {
     margin-top: clamp(-72px, -4.5vw, -40px);
     padding-top: 12px;

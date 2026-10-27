@@ -271,7 +271,8 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .copied-banner :is(a, button):focus-visible { outline-color: #ff3654; }
 .copied-banner__note { margin: 12px 0 0; color: #fff; font-size: 11px; line-height: 1.65; }
 @media (max-width: 600px) {
-  .copied-dialog { width: min(440px, calc(100vw - 40px)); max-height: calc(100dvh - 100px); margin: auto; }
+  /* the art pokes ~70px above the box, so nudge the box down to centre the whole thing */
+  .copied-dialog { width: min(440px, calc(100vw - 40px)); max-height: calc(100dvh - 100px); margin: auto; translate: 0 24px; }
   .copied-banner { grid-template-columns: 1fr; }
   .copied-banner__art { min-height: 140px; margin-bottom: 6px; }
   .copied-banner__art img { left: 4px; bottom: 0; width: 220px; height: 210px; object-fit: cover; object-position: center top; mask-image: linear-gradient(#000 70%, transparent); }
@@ -284,7 +285,7 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
   .copied-banner .instagram-button { min-height: 48px; font-size: 12px; letter-spacing: .02em; padding-inline: 16px; }
 }
 @media (max-width: 600px) and (max-height: 600px) {
-  .copied-dialog { max-height: calc(100dvh - 40px); }
+  .copied-dialog { max-height: calc(100dvh - 40px); translate: 0 12px; }
   .copied-banner__art { min-height: 70px; }
   .copied-banner__art img { height: 110px; width: 150px; }
   .copied-banner__content { max-height: calc(100dvh - 138px); }
