@@ -18,23 +18,21 @@ function close() {
   open.value = false
 }
 
-// once the page scrolls, the nav pins to the top as a solid black bar
+// after mount the bar is always fixed to the top; scrolling only fades a black
+// backdrop in behind it, so the logo and links never move or re-layout
 const bar = ref<HTMLElement | null>(null)
-const stuck = ref(false)
+const pinned = ref(false)
+const scrolled = ref(false)
 const shellHeight = ref(0)
-// back at the top, the bar fades into its resting place instead of snapping
-const settling = ref(false)
+let raf = 0
 function onScroll() {
-  const y = window.scrollY
-  if (!stuck.value && y > 8) {
-    shellHeight.value = bar.value?.offsetHeight ?? 0
-    settling.value = false
-    stuck.value = true
-  } else if (stuck.value && y <= 8) {
-    stuck.value = false
-    settling.value = true
-  }
+  if (raf) return
+  raf = requestAnimationFrame(() => {
+    raf = 0
+    scrolled.value = window.scrollY > 8
+  })
 }
+let ro: ResizeObserver | undefined
 function onKey(e: KeyboardEvent) {
   if (e.key === 'Escape') close()
 }
@@ -49,13 +47,24 @@ watch(open, (v) => {
 onMounted(() => {
   window.addEventListener('keydown', onKey)
   window.addEventListener('scroll', onScroll, { passive: true })
-  onScroll()
+  scrolled.value = window.scrollY > 8
+  // the shell keeps the bar's in-flow height so the page below never jumps
+  if (bar.value) {
+    shellHeight.value = bar.value.offsetHeight
+    ro = new ResizeObserver(() => {
+      if (bar.value) shellHeight.value = bar.value.offsetHeight
+    })
+    ro.observe(bar.value)
+  }
+  pinned.value = true
   mq = window.matchMedia('(min-width: 901px)')
   mq.addEventListener('change', onMq)
 })
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', onKey)
   window.removeEventListener('scroll', onScroll)
+  cancelAnimationFrame(raf)
+  ro?.disconnect()
   mq?.removeEventListener('change', onMq)
   document.documentElement.classList.remove('menu-lock')
 })
@@ -63,11 +72,11 @@ onBeforeUnmount(() => {
 
 <template>
   <!-- holds the nav's space once it pins to the top, so the page doesn't jump -->
-  <div class="nav-shell" :style="stuck ? { height: `${shellHeight}px` } : undefined">
-    <!-- pinned, the bar moves to <body> so no page wrapper's stacking context
-         (hero / page isolation) can paint over it -->
-    <Teleport to="body" :disabled="!stuck">
-      <header ref="bar" class="nav" :class="{ 'is-open': open, 'is-stuck': stuck, 'is-settling': settling }" @animationend="settling = false">
+  <div class="nav-shell" :style="pinned ? { height: `${shellHeight}px` } : undefined">
+    <!-- pinned (from mount on), the bar lives in <body> so no page wrapper's
+         stacking context (hero / page isolation) can paint over it -->
+    <Teleport to="body" :disabled="!pinned">
+      <header ref="bar" class="nav" :class="{ 'is-open': open, 'is-pinned': pinned, 'is-scrolled': scrolled }">
         <NuxtLink to="/" class="nav__brand" aria-label="KeroSpace home">
           <AppImage class="nav__mark" loading="eager" src="/images/logo.webp" alt="" width="34" height="34" />
           <AppImage class="nav__word" loading="eager" sizes="180px" src="/images/wordmark-neon.webp" alt="" width="840" height="206" />
@@ -159,36 +168,30 @@ onBeforeUnmount(() => {
   gap: 24px;
   padding: 30px clamp(18px, 3vw, 36px) 0;
 }
-/* pinned: a full-width black bar with square corners (no backdrop-filter — it
-   would trap the fixed mobile menu inside the bar) */
-.nav.is-stuck {
+/* pinned: fixed at the exact spot it rests in, so pinning never moves it */
+.nav.is-pinned {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  padding-top: 30px;
-  padding-bottom: 22px;
-  border-radius: 0;
+}
+/* scrolled: a full-width black bar fades in behind the (unmoving) contents.
+   Only opacity animates — no top/padding/transform changes, so no layout work
+   and no sub-pixel text shimmer. (No backdrop-filter — it would trap the fixed
+   mobile menu inside the bar.) */
+.nav::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -22px;
+  z-index: -1;
   background: #000;
-  animation: nav-pin 0.4s var(--ease) both;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease);
 }
-.nav.is-settling {
-  animation: nav-settle 0.35s var(--ease) both;
-}
-/* slide with `top`, not transform — a (filled) transform animation turns the
-   bar into the containing block for the fixed mobile menu, trapping it inside */
-@keyframes nav-pin {
-  from {
-    opacity: 0;
-    top: -120px;
-  }
-}
-@keyframes nav-settle {
-  from {
-    opacity: 0;
-    top: -10px;
-  }
+.nav.is-scrolled::before {
+  opacity: 1;
 }
 
 .nav__brand {
@@ -299,9 +302,8 @@ onBeforeUnmount(() => {
     padding-top: 22px;
     gap: 12px;
   }
-  .nav.is-stuck {
-    padding-top: 22px;
-    padding-bottom: 16px;
+  .nav::before {
+    bottom: -16px;
   }
   .nav__links {
     display: none;
@@ -484,12 +486,11 @@ onBeforeUnmount(() => {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nav.is-stuck,
-  .nav.is-settling,
   .menu__credit,
   .menu__label {
     animation: none !important;
   }
+  .nav::before,
   .menu,
   .menu__item,
   .menu__foot,
