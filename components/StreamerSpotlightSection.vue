@@ -521,15 +521,14 @@ onBeforeUnmount(() => {
   padding: 14px 20px;
   border: 1px solid transparent;
   border-radius: 10px;
-  background:
-    linear-gradient(115deg, rgba(220, 220, 224, 0.14), rgba(255, 24, 59, 0.14)) padding-box,
-    var(--creator-grad) border-box;
+  /* solid red → dark red fill; border-box origin so the gradient runs edge to edge with no seam */
+  background: linear-gradient(135deg, #ff183b, #c8102e 50%, #6e0614) border-box;
   color: #fff;
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  transition: background 0.3s var(--ease);
+  transition: filter 0.3s var(--ease);
 }
 .creator-cta img {
   width: 26px;
@@ -606,9 +605,7 @@ onBeforeUnmount(() => {
     background: rgba(255, 255, 255, 0.7);
   }
   .creator-cta:hover {
-    background:
-      linear-gradient(115deg, rgba(220, 220, 224, 0.22), rgba(255, 24, 59, 0.24)) padding-box,
-      var(--creator-grad) border-box;
+    filter: brightness(1.12);
   }
 }
 

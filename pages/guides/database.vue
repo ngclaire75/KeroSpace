@@ -192,9 +192,8 @@ const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step
   --cb-head: 44px;
   --cb-head-gap: 18px;
   --cb-grad: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0);
-  /* small number badges: the full red → light grey sweep bands harshly over ~22px, so use a
-     shorter, diagonal blend between neighbouring hues */
-  --cb-grad-soft: linear-gradient(135deg, #ff183b 0%, #ff183b 55%, #dcdce0 100%);
+  /* small number badges: smooth red → dark red; the middle stop keeps the blend even on ~24px */
+  --cb-grad-soft: linear-gradient(135deg, #ff183b, #c8102e 50%, #6e0614);
   background: transparent;
   color: #fff;
 }
@@ -583,9 +582,11 @@ const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step
   min-width: 0;
   line-height: 24px;
 }
-.cb-chain li:first-child .cb-chain__number {
+.cb-chain__number {
   border-color: transparent;
-  background: var(--cb-grad-soft);
+  /* border-box origin so the fill runs under the 1px border without a repeated seam */
+  background: var(--cb-grad-soft) border-box;
+  color: #fff;
 }
 
 /* ============ states & credit ============ */
