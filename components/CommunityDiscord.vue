@@ -35,7 +35,7 @@ import { communityDiscordServers } from '~/data/communityDiscord'
       </div>
 
       <figure class="discord-art">
-        <AppImage src="/images/Ganyu_%20Icy%20Petals%20of%20Liyue.png" width="1086" height="1448" sizes="(max-width: 900px) 420px, 500px" alt="Ganyu community banner" loading="lazy" />
+        <AppImage src="/images/community/hutao-esrgan-2x.webp" width="2400" height="4164" sizes="(max-width: 900px) 420px, 500px" alt="Hu Tao community banner" loading="lazy" />
       </figure>
     </div>
   </section>
@@ -61,7 +61,8 @@ import { communityDiscordServers } from '~/data/communityDiscord'
 .server-list { margin: 0; padding: 0; list-style: none; }
 .server-list li { border-top: 1px solid #2a2a2e; }
 .server { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: 78px minmax(0, 1fr) auto; align-items: center; gap: 18px; min-height: 88px; padding: 14px 22px; }
-.server__background { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+/* black and white; no extra darkening, the row's own shade already dims it */
+.server__background { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15); pointer-events: none; }
 .server::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, .9), rgba(0, 0, 0, .8) 48%, rgba(0, 0, 0, .55)); box-shadow: inset 0 0 0 100vmax rgba(110, 6, 20, 0); transform: translateZ(0); transition: box-shadow .28s ease; pointer-events: none; }
 .server__logo { position: relative; display: block; min-width: 0; height: 48px; overflow: hidden; }
 .server__logo img { position: absolute; inset: 0; width: 100%; height: 100%; min-width: 0; min-height: 0; object-fit: contain; }
@@ -75,8 +76,8 @@ import { communityDiscordServers } from '~/data/communityDiscord'
 .server:focus-visible { outline: 2px solid var(--discord-purple); outline-offset: 5px; }
 .server-directory__foot { padding: 19px 24px 23px; color: #b8b8bb; font-size: 12px; line-height: 1.6; }
 .discord-art { position: relative; width: 100%; aspect-ratio: 3 / 4; margin: 0; border: 0; border-radius: 0; overflow: hidden; }
-.discord-art > img { display: block; width: 100%; height: 100%; object-fit: contain; filter: var(--bw-art); }
-.discord-art::after { content: ''; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; background: var(--red-holo); animation: red-holo-sweep 7s ease-in-out infinite alternate; }
+/* full-colour art, a touch more saturated; the tall artwork fills the frame, cropped to keep her face in view */
+.discord-art > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; filter: saturate(1.45); }
 @media (min-width: 901px) {
   .discord__layout { align-items: stretch; }
   .server-directory { contain: size; min-height: 0; }
@@ -113,5 +114,5 @@ import { communityDiscordServers } from '~/data/communityDiscord'
   .server__join > span { display: none; }
   .server-directory__foot { padding: 18px; }
 }
-@media (prefers-reduced-motion: reduce) { .server-directory, .discord-art::after { animation: none; } .server::after { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .server-directory { animation: none; } .server::after { transition: none; } }
 </style>

@@ -42,7 +42,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
           </div>
 
           <div class="mosaic" aria-hidden="true">
-            <div v-for="(c, i) in creators" :key="c.handle" class="mosaic__tile" :class="`mosaic__tile--${i + 1}`">
+            <div v-for="(c, i) in creators" :key="c.handle" class="mosaic__tile" :class="[`mosaic__tile--${i + 1}`, `mosaic__tile--${c.game}`]">
               <AppImage class="mosaic__bg" loading="eager" sizes="(max-width: 700px) 45vw, 240px" :src="c.tile" alt="" width="480" height="640" />
               <span class="mosaic__who">
                 <span class="mosaic__ring"><AppImage loading="eager" :src="c.photo" alt="" width="40" height="40" /></span>
@@ -163,7 +163,7 @@ h2 em {
   min-width: 28px;
   height: 28px;
   border-radius: 999px;
-  background: var(--c-grad);
+  background: var(--logo-red);
   font: 800 10px/1 var(--display);
 }
 
@@ -195,6 +195,11 @@ h2 em {
   object-fit: cover;
   /* black and white, a little more contrast, slightly dimmed */
   filter: var(--bw-art);
+}
+/* these two stay in full colour */
+.mosaic__tile--genshin .mosaic__bg,
+.mosaic__tile--nte .mosaic__bg {
+  filter: none;
 }
 /* red holographic sheen sweeping across the tile,
    above the bottom fade and below the creator label */
