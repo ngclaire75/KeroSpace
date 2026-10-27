@@ -366,7 +366,6 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: var(--bw-art);
   transform-origin: center;
   transform: scale(1);
   transition: transform 4.5s cubic-bezier(0.2, 0.45, 0.35, 1);
