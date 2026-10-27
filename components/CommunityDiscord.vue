@@ -35,7 +35,7 @@ import { communityDiscordServers } from '~/data/communityDiscord'
       </div>
 
       <figure class="discord-art">
-        <AppImage src="/images/community/hutao-red-esrgan-2x.webp" width="2400" height="4164" sizes="(max-width: 900px) 420px, 500px" alt="Hu Tao community banner" loading="lazy" />
+        <AppImage src="/images/community/arlecchino.webp" width="1200" height="1725" sizes="(max-width: 900px) 420px, 500px" alt="Arlecchino community banner" loading="lazy" />
       </figure>
     </div>
   </section>
@@ -76,8 +76,8 @@ import { communityDiscordServers } from '~/data/communityDiscord'
 .server:focus-visible { outline: 2px solid var(--discord-purple); outline-offset: 5px; }
 .server-directory__foot { padding: 19px 24px 23px; color: #b8b8bb; font-size: 12px; line-height: 1.6; }
 .discord-art { position: relative; width: 100%; aspect-ratio: 3 / 4; margin: 0; border: 0; border-radius: 0; overflow: hidden; }
-/* full-colour art, a touch more saturated; the tall artwork fills the frame, cropped to keep her face in view */
-.discord-art > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; filter: saturate(1.45); }
+/* the tall artwork fills the frame, cropped to keep her face in view; a little extra saturation */
+.discord-art > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; filter: saturate(1.35); }
 @media (min-width: 901px) {
   .discord__layout { align-items: stretch; }
   .server-directory { contain: size; min-height: 0; }

@@ -147,7 +147,8 @@ function onKey(e: KeyboardEvent, i: number) {
   cursor: pointer;
   transition: color .2s, background .25s;
 }
-.seg button[aria-selected="true"] { color: #000000; background: var(--blob); box-shadow: 0 4px 16px rgba(255, 24, 59, .3); }
+/* picked game: smooth red → dark red with white text */
+.seg button[aria-selected="true"] { color: #fff; background: linear-gradient(135deg, #ff183b, #6e0614); box-shadow: none; }
 .seg button:focus-visible { outline: 2px solid #ff4d5e; outline-offset: 2px; }
 
 /* ---------- stage grid ---------- */

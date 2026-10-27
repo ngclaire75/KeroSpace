@@ -2,12 +2,12 @@
 import rankings from '~/data/communityRankings.json'
 
 const games = [
-  { id: 'hsr', name: 'Honkai: Star Rail', short: 'Star Rail' },
+  { id: 'hsr', name: 'Honkai: Star Rail', short: 'HSR' },
   { id: 'genshin', name: 'Genshin Impact', short: 'Genshin' },
-  { id: 'hi3', name: 'Honkai Impact 3rd', short: 'Honkai Impact' },
-  { id: 'wuwa', name: 'Wuthering Waves', short: 'Wuthering Waves' },
+  { id: 'hi3', name: 'Honkai Impact 3rd', short: 'HI3' },
+  { id: 'wuwa', name: 'Wuthering Waves', short: 'WuWa' },
   { id: 'nte', name: 'Neverness to Everness', short: 'NTE' },
-  { id: 'mlbb', name: 'Mobile Legends: Bang Bang', short: 'Mobile Legends' },
+  { id: 'mlbb', name: 'Mobile Legends: Bang Bang', short: 'MLBB' },
 ] as const
 const active = ref(0)
 const page = ref(0)
@@ -55,7 +55,7 @@ function titleLines(name: string): [string, string] {
 
     <div class="streams__layout">
       <figure class="streams__poster">
-        <AppImage src="/images/streamers/community-poster.png" width="1086" height="1448" sizes="(max-width: 900px) 420px, 500px" alt="Crimson Neverness to Everness character artwork" loading="lazy" />
+        <AppImage src="/images/streamers/community-poster-deep-red.webp" width="1086" height="1448" sizes="(max-width: 900px) 420px, 500px" alt="Crimson Neverness to Everness character artwork" loading="lazy" />
       </figure>
 
       <div class="directory">
@@ -130,7 +130,8 @@ function titleLines(name: string): [string, string] {
 .directory__tabs button::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0); opacity: 0; transition: opacity .2s ease; }
 .directory__tabs button[aria-selected="true"] { background: #000; }
 .directory__tabs button[aria-selected="true"]::after { opacity: 1; }
-.directory__tabs span { display: block; font: 900 12px/1.4 var(--display); text-transform: uppercase; white-space: normal; }
+/* short names (HSR, HI3, WuWa, MLBB…) keep every tab on one line */
+.directory__tabs span { display: block; font: 900 12px/1.4 var(--display); text-transform: uppercase; white-space: nowrap; }
 .directory__panel { width: 100%; min-width: 0; padding: 2px; border: 0; background: #000; }
 .directory__panel.neon-hover-outline::after { opacity: 1; background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b); animation: card-outline-turn 3s linear infinite; }
 .directory__heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 88px; padding: 16px 26px; }
@@ -169,7 +170,7 @@ tbody th { padding: 0; }
 .channel__name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 800; }
 .channel__name small { display: block; margin-top: 3px; font-size: 11px; font-weight: 600; color: var(--muted); overflow: hidden; text-overflow: ellipsis; }
 /* same size as the hours watched figures (inherits the cell's font size) */
-.language abbr { text-decoration: none; color: #ff4d5e; }
+.language abbr { text-decoration: none; color: #fff; }
 .watch a { display: flex; align-items: center; justify-content: flex-end; gap: 5px; min-height: 44px; }
 .watch img { width: 15px; height: 18px; object-fit: contain; }
 .watch span { font-size: 16px; color: #ff4d5e; }
@@ -187,20 +188,20 @@ tbody :is(.channel, .language abbr, .hours-value, .watch a) { animation: channel
   .streams__poster { position: relative; min-height: 0; }
   .streams__poster > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: left top; transform: scale(1.0125); transform-origin: left top; }
 }
-@media (max-width: 1100px) and (min-width: 901px) { .streams__layout { grid-template-columns: minmax(0, .65fr) minmax(0, 1.35fr); } .directory__tabs span { font-size: 11px; } }
+@media (max-width: 1100px) and (min-width: 901px) { .streams__layout { grid-template-columns: minmax(0, .65fr) minmax(0, 1.35fr); } }
 @media (max-width: 900px) { .streams__layout { grid-template-columns: minmax(0, 1fr); gap: 28px; } .streams__poster { width: min(100%, 420px); margin-inline: auto; } .streams__heading { align-items: flex-start; } .streams__intro { max-width: 280px; font-size: 14px; } }
 @media (max-width: 600px) {
   .streams__heading { display: block; margin-bottom: 26px; }
   .streams__intro { max-width: 420px; margin-top: 18px; font-size: 15px; }
+  /* same layout as the "Watch them play" selector: two rows of three */
   .directory__tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
   .directory__tabs button { padding: 8px 6px; }
   .directory__tabs span { font-size: 11px; }
   .directory__table-wrap { --table-inset: 18px; }
   .directory__pagination { padding-inline: 8px; }
   .directory__heading { justify-content: center; min-height: 0; padding: 20px 18px 18px; text-align: center; }
-  .directory__heading h3 { font-size: 22px; }
-  /* phones: the game name always sits on two lines */
-  .directory__heading h3 .title-line { display: block; }
+  /* phones: the game name stays on one line, sized so the longest (Mobile Legends: Bang Bang) fits */
+  .directory__heading h3 { font-size: min(22px, calc((100vw - 72px) * .056)); white-space: nowrap; }
   .directory__heading p { justify-content: center; font-size: 11px; gap: 6px 8px; margin-bottom: 6px; }
   .language { width: 39px; }
   thead .language { font-size: 0; }
