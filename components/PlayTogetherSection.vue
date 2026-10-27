@@ -94,7 +94,7 @@ onBeforeUnmount(() => observer?.disconnect())
         </div>
       </div>
 
-      <!-- phones swap the poster rail for thin indicator bars -->
+      <!-- thin indicator bars pick the game -->
       <div class="pt-indicators" role="group" aria-label="Choose a game">
         <button v-for="(g, i) in compatibilityGames" :key="g.id" type="button" :class="{ 'is-active': i === active }"
           :aria-label="`Show ${g.name}`" :aria-pressed="i === active" aria-controls="pt-panel" @click="select(i)"><span aria-hidden="true" /></button>
@@ -165,7 +165,13 @@ onBeforeUnmount(() => observer?.disconnect())
 .pt-stage__body > * { grid-area: 1 / 1; visibility: hidden; opacity: 0; translate: 0 10px; transition: opacity .22s ease, translate .22s ease, visibility 0s .22s; }
 .pt-stage__body > .is-active { visibility: visible; opacity: 1; translate: 0 0; transition: opacity .3s ease .12s, translate .3s ease .12s, visibility 0s; }
 
-.pt-indicators { display: none; }
+/* the poster rail is kept in the markup (it names the panel for screen readers) but every
+   screen size picks games with the thin indicator bars instead */
+.pt-rail { display: none; }
+.pt-indicators { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+.pt-indicators button { display: grid; place-items: center; width: 48px; height: 36px; padding: 0; border: 0; border-radius: 4px; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.pt-indicators span { width: 40px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .55); box-shadow: 0 1px 5px rgba(0, 0, 0, .8); transition: background .3s; }
+.pt-indicators button.is-active span { background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0); box-shadow: 0 0 7px rgba(255, 77, 94, .65); }
 
 /* footer */
 .together__foot { display: flex; align-items: baseline; gap: 30px; margin-top: 30px; padding: 0; }
@@ -190,11 +196,6 @@ onBeforeUnmount(() => observer?.disconnect())
 /* phone: indicator bars + swipe instead of the poster rail */
 @media (max-width: 760px) {
   .together__head { margin-bottom: 24px; }
-  .pt-rail { display: none; }
-  .pt-indicators { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
-  .pt-indicators button { display: grid; place-items: center; width: 48px; height: 36px; padding: 0; border: 0; border-radius: 4px; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-  .pt-indicators span { width: 40px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .55); box-shadow: 0 1px 5px rgba(0, 0, 0, .8); transition: background .3s; }
-  .pt-indicators button.is-active span { background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0); box-shadow: 0 0 7px rgba(255, 77, 94, .65); }
   .pt-stage__art { height: 210px; }
   .together__foot { flex-direction: column; gap: 9px; }
 }

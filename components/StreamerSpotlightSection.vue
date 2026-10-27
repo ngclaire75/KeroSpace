@@ -393,19 +393,6 @@ onBeforeUnmount(() => {
 .creator-banner__brand {
   right: 14px;
 }
-.creator-banner__brand::after {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  padding: 1.5px;
-  border-radius: inherit;
-  background: linear-gradient(110deg, #ff183b, #ff183b 55%, #dcdce0);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
-}
 .creator-banner__brand img {
   width: 58px;
   height: 20px;
