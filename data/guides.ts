@@ -4,7 +4,7 @@ export const guideGames = games.map(game => ({
   ...game,
   short: ({ hsr: 'Star Rail', genshin: 'Genshin', hi3: 'Honkai 3rd', wuwa: 'WuWa', nte: 'NTE', mlbb: 'MLBB' } as Record<string, string>)[game.id],
   image: `/images/community/discord/${game.id}-banner.webp`,
-  banner: game.id === 'nte' ? '/images/guide-hubs/nte-esrgan-2x.webp' : `/images/guide-hubs/${game.id}.webp`,
+  banner: `/images/guide-hubs/${game.id}-esrgan-2x.webp`,
   artSource: `https://discord.com/invite/${({ hsr: 'honkaistarrail', genshin: 'genshinimpact', hi3: 'hi3', wuwa: 'wutheringwaves', nte: 'nte', mlbb: 'mobilelegendsbangbang' } as Record<string, string>)[game.id]}`,
 }))
 export type Guide = {

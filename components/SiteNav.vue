@@ -176,16 +176,18 @@ onBeforeUnmount(() => {
 .nav.is-settling {
   animation: nav-settle 0.35s var(--ease) both;
 }
+/* slide with `top`, not transform — a (filled) transform animation turns the
+   bar into the containing block for the fixed mobile menu, trapping it inside */
 @keyframes nav-pin {
   from {
     opacity: 0;
-    transform: translateY(-100%);
+    top: -120px;
   }
 }
 @keyframes nav-settle {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    top: -10px;
   }
 }
 

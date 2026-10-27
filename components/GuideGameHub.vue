@@ -63,7 +63,7 @@ onBeforeUnmount(() => observer?.disconnect())
     <main>
       <!-- ===== hero: the game's banner at full strength, text on a solid panel ===== -->
       <header class="gx-hero">
-        <AppImage class="gx-hero__bg" :src="game.banner" :alt="`${game.name} artwork`" width="2400" height="1350" sizes="100vw" fetchpriority="high" loading="eager" />
+        <AppImage class="gx-hero__bg" :class="`gx-hero__bg--${game.id}`" :src="game.banner" :alt="`${game.name} artwork`" width="2400" height="1350" sizes="100vw" fetchpriority="high" loading="eager" />
         <div class="gx-shell gx-hero__inner">
           <!-- the page title stays for screen readers and search engines; the banner shows art only -->
           <h1 class="sr-only">{{ game.name }}</h1>
@@ -141,6 +141,10 @@ onBeforeUnmount(() => observer?.disconnect())
   height: 100%;
   object-fit: cover;
   filter: var(--bw-art);
+}
+/* Genshin's art is already dark: keep it black and white at its original brightness */
+.gx-hero__bg--genshin {
+  filter: grayscale(1) contrast(1.15);
 }
 /* sheen sits over the art, under the scroll badge */
 .gx-hero::after {

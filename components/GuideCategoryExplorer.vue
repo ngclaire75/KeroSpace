@@ -144,7 +144,8 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
-  filter: var(--bw-art);
+  /* black and white like the other art, but without --bw-art's darkening */
+  filter: grayscale(1) contrast(1.15);
 }
 .explorer__cta:focus-visible {
   outline: 2px solid #ff4d5e;
