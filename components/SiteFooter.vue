@@ -50,8 +50,8 @@ const columns = [
     <!-- Vexana artwork, fading into the black footer -->
     <figure class="footer__art">
       <picture>
-        <source media="(max-width: 700px)" :srcset="imageSources('/images/vexana-mobile-red-esrgan.webp').srcset" sizes="100vw" width="1080" height="608" />
-        <AppImage src="/images/vexana-red-esrgan.webp" alt="Vexana character banner from Mobile Legends: Bang Bang" width="3200" height="1067" loading="lazy" decoding="async" />
+        <source media="(max-width: 700px)" :srcset="imageSources('/images/vexana-mobile-red-esrgan.webp').srcset" sizes="100vw" width="2160" height="1216" />
+        <AppImage src="/images/vexana-red-esrgan.webp" alt="Vexana character banner from Mobile Legends: Bang Bang" width="6400" height="2134" loading="lazy" decoding="async" />
       </picture>
     </figure>
 
@@ -193,6 +193,7 @@ const columns = [
 .footer__art img {
   object-fit: cover;
   object-position: center 35%;
+  filter: saturate(1.2);
 }
 .footer__wrap {
   width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px));

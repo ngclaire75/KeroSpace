@@ -35,7 +35,7 @@ import { communityDiscordServers } from '~/data/communityDiscord'
       </div>
 
       <figure class="discord-art">
-        <AppImage src="/images/community/arlecchino.webp" width="1200" height="1725" sizes="(max-width: 900px) 420px, 500px" alt="Arlecchino community banner" loading="lazy" />
+        <AppImage src="/images/community/discord-art-esrgan.webp" width="1664" height="2432" sizes="(max-width: 900px) 420px, 500px" alt="Community banner art" loading="lazy" />
       </figure>
     </div>
   </section>
@@ -77,7 +77,7 @@ import { communityDiscordServers } from '~/data/communityDiscord'
 .server-directory__foot { padding: 19px 24px 23px; color: #b8b8bb; font-size: 12px; line-height: 1.6; }
 .discord-art { position: relative; width: 100%; aspect-ratio: 3 / 4; margin: 0; border: 0; border-radius: 0; overflow: hidden; }
 /* the tall artwork fills the frame, cropped to keep her face in view; a little extra saturation */
-.discord-art > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; filter: saturate(1.35); }
+.discord-art > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; filter: saturate(.8); }
 @media (min-width: 901px) {
   .discord__layout { align-items: stretch; }
   .server-directory { contain: size; min-height: 0; }

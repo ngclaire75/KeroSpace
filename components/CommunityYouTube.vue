@@ -60,7 +60,7 @@ function navigate(event: KeyboardEvent, index: number) {
   <section ref="imageSection" id="community-youtube" class="video-library" aria-labelledby="videos-title">
     <header class="video-library__heading">
       <div>
-        <p class="video-library__eyebrow"><svg viewBox="0 0 28 20" width="23" height="17" aria-hidden="true"><defs><linearGradient id="community-youtube-brand-gradient" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff183b" /><stop offset="1" stop-color="#dcdce0" /></linearGradient></defs><rect width="28" height="20" rx="5" fill="url(#community-youtube-brand-gradient)" /><path d="m11 5 9 5-9 5z" fill="#fff" /></svg> On YouTube</p>
+        <p class="video-library__eyebrow"><svg viewBox="0 0 28 20" width="23" height="17" aria-hidden="true"><defs><linearGradient id="community-youtube-brand-gradient" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff183b" /><stop offset="1" stop-color="#6e0614" /></linearGradient></defs><rect width="28" height="20" rx="5" fill="url(#community-youtube-brand-gradient)" /><path d="m11 5 9 5-9 5z" fill="#fff" /></svg> On YouTube</p>
         <h2 id="videos-title">Watch them play.<br /><em>Find your next main.</em></h2>
       </div>
       <p class="video-library__intro">Character guides, gameplay and official trailers. Pick a game and see its characters in action.</p>
@@ -131,7 +131,7 @@ function navigate(event: KeyboardEvent, index: number) {
 .video-card__preview { position: absolute; inset: 0; display: block; width: 100%; height: 100%; padding: 0; border: 0; overflow: hidden; background: #000000; cursor: pointer; }
 .video-card__preview img { width: 100%; height: 100%; object-fit: cover; }
 .video-card__preview::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, #000a); pointer-events: none; }
-.video-card__play { position: absolute; z-index: 1; left: 50%; top: 50%; display: grid; place-items: center; width: 54px; height: 40px; margin: -20px 0 0 -27px; border: 0; border-radius: 10px; background: linear-gradient(120deg, #ff183b, #ff183b 55%, #dcdce0); color: #fff; }
+.video-card__play { position: absolute; z-index: 1; left: 50%; top: 50%; display: grid; place-items: center; width: 54px; height: 40px; margin: -20px 0 0 -27px; border: 0; border-radius: 10px; background: var(--logo-red); color: #fff; }
 .video-card__preview-label { position: absolute; z-index: 1; left: 18px; bottom: 12px; color: #fff; font-size: 11px; font-weight: 800; }
 .video-card__body { display: flex; flex: 1; flex-direction: column; min-width: 0; padding: 18px 18px 8px; }
 .video-card__context { margin: 0 0 10px; color: #ff4d5e; font-size: 10px; text-transform: uppercase; letter-spacing: .1em; }
