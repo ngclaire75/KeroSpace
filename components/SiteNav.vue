@@ -18,6 +18,18 @@ function close() {
   open.value = false
 }
 
+// the logo always leads home; already there, a link to the same page would do
+// nothing, so it scrolls back to the top instead
+async function goHome(e: MouseEvent) {
+  close()
+  if (route.path !== '/' || e.metaKey || e.ctrlKey || e.shiftKey) return
+  e.preventDefault()
+  if (route.hash) await navigateTo('/', { replace: true })
+  await nextTick()
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  window.scrollTo({ top: 0, behavior: still ? 'auto' : 'smooth' })
+}
+
 // after mount the bar is always fixed to the top; scrolling only fades a black
 // backdrop in behind it, so the logo and links never move or re-layout
 const bar = ref<HTMLElement | null>(null)
@@ -77,7 +89,7 @@ onBeforeUnmount(() => {
          stacking context (hero / page isolation) can paint over it -->
     <Teleport to="body" :disabled="!pinned">
       <header ref="bar" class="nav" :class="{ 'is-open': open, 'is-pinned': pinned, 'is-scrolled': scrolled }">
-        <NuxtLink to="/" class="nav__brand" aria-label="KeroSpace home">
+        <NuxtLink to="/" class="nav__brand" aria-label="KeroSpace home" @click="goHome">
           <AppImage class="nav__mark" loading="eager" src="/images/logo.webp" alt="" width="34" height="34" />
           <AppImage class="nav__word" loading="eager" sizes="180px" src="/images/wordmark-neon.webp" alt="" width="840" height="206" />
         </NuxtLink>

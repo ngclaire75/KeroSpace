@@ -40,21 +40,21 @@ export const compatibilityModes: { id: CompatibilityMode; name: string; question
 
 export const compatibilityGames: CompatibilityGame[] = [
   {
-    id: 'hsr', name: 'Honkai: Star Rail', category: 'Turn-based RPG',
-    platforms: ['windows', 'ps5', 'ios', 'android'],
-    details: {
-      crossplay: { status: 'Limited', tone: 'limited', headline: 'A solo-first journey', description: 'The Trailblaze story is single-player. Social features and special events do not make it a shared campaign.', note: 'Playing on different devices is mainly about continuing your own save.', source: hsrStore },
-      coop: { status: 'Solo campaign', tone: 'solo', headline: 'Your own adventure', description: 'Build and command your own team through the main story. Multiplayer features are separate from campaign progression.', note: 'A four-character team is controlled by one player.', source: hsrStore },
-      crosssave: { status: 'Supported', tone: 'yes', headline: 'One Trailblaze, many screens', description: 'Continue on PC, iOS, Android or PS5 with your linked HoYoverse account.', note: 'Use the same server. Progress does not transfer between regions.', source: hsrPs5 },
-    },
-  },
-  {
     id: 'genshin', name: 'Genshin Impact', category: 'Open-world RPG',
     platforms: ['windows', 'ps5', 'xbox', 'ios', 'android'],
     details: {
       crossplay: { status: 'Supported', tone: 'yes', headline: 'Meet across devices', description: 'Explore together across supported PC, console and mobile versions of the game.', note: 'Choose the same server as your friends before you begin.', source: genshinCoop },
       coop: { status: 'Up to 4 players', tone: 'yes', headline: 'Bring a party to Teyvat', description: 'Join friends for exploration, bosses and eligible Domains after unlocking Co-Op at Adventure Rank 16.', note: 'Required quests and World Level can affect who can join.', source: genshinCoop },
       crosssave: { status: 'Supported', tone: 'yes', headline: 'Take Teyvat with you', description: 'Your linked HoYoverse account carries progress across PC, mobile, PlayStation and Xbox.', note: 'Sign in to the same account and server on each device.', source: hoyoSync },
+    },
+  },
+  {
+    id: 'hsr', name: 'Honkai: Star Rail', category: 'Turn-based RPG',
+    platforms: ['windows', 'ps5', 'ios', 'android'],
+    details: {
+      crossplay: { status: 'Limited', tone: 'limited', headline: 'A solo-first journey', description: 'The Trailblaze story is single-player. Social features and special events do not make it a shared campaign.', note: 'Playing on different devices is mainly about continuing your own save.', source: hsrStore },
+      coop: { status: 'Solo campaign', tone: 'solo', headline: 'Your own adventure', description: 'Build and command your own team through the main story. Multiplayer features are separate from campaign progression.', note: 'A four-character team is controlled by one player.', source: hsrStore },
+      crosssave: { status: 'Supported', tone: 'yes', headline: 'One Trailblaze, many screens', description: 'Continue on PC, iOS, Android or PS5 with your linked HoYoverse account.', note: 'Use the same server. Progress does not transfer between regions.', source: hsrPs5 },
     },
   },
   {
