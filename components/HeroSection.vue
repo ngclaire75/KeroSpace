@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { imageSources } from '~/utils/responsiveImages'
-const heroImage = imageSources('/images/IMG_5726.JPG')
-useHead({ link: [{ rel: 'preload', as: 'image', href: heroImage.src, imagesrcset: heroImage.srcset, imagesizes: '(max-width: 720px) 70vw, 360px', fetchpriority: 'high' }] })
 type Item = {
   img: string
   name: string
@@ -18,8 +16,13 @@ const items: Item[] = [
   { img: '/images/IMG_5728.JPG', name: 'Lounge Yolk', tag: 'Tips from players', type: 'Food', rarity: 'Uncommon' },
 ]
 
+// the carousel always opens on the "Spot rare loot" card in the centre
+const START = 0
+const heroImage = imageSources(items[START].img)
+useHead({ link: [{ rel: 'preload', as: 'image', href: heroImage.src, imagesrcset: heroImage.srcset, imagesizes: '(max-width: 720px) 70vw, 360px', fetchpriority: 'high' }] })
+
 const n = items.length
-const active = ref(2)
+const active = ref(START)
 
 // signed distance from the centre card, wrapped to -2..2 (5 cards, all on stage)
 function pos(i: number) {
@@ -232,12 +235,12 @@ onBeforeUnmount(() => {
               class="card__img"
               :src="it.img"
               sizes="(max-width: 720px) 70vw, 360px"
-              :fetchpriority="i === 2 ? 'high' : 'auto'"
+              :fetchpriority="i === START ? 'high' : 'auto'"
               :alt="it.name"
               width="900"
               height="900"
               draggable="false"
-              :loading="i === 2 ? 'eager' : 'lazy'"
+              :loading="i === START ? 'eager' : 'lazy'"
             />
             <div class="card__holo" aria-hidden="true" />
           </div>

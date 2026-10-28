@@ -95,16 +95,19 @@ useHead(() => ({
     <GuideWall />
     <SiteNav />
     <div class="story-promo">
-      <img
-        src="/images/lavender-chibi-banner-esrgan-2x-1920.webp"
-        srcset="/images/lavender-chibi-banner-esrgan-2x-640.webp 640w, /images/lavender-chibi-banner-esrgan-2x-1280.webp 1280w, /images/lavender-chibi-banner-esrgan-2x-1920.webp 1920w, /images/lavender-chibi-banner-esrgan-2x-2560.webp 2560w, /images/lavender-chibi-banner-esrgan-2x-3200.webp 3200w, /images/lavender-chibi-banner-esrgan-2x-4344.webp 4344w"
-        sizes="100vw"
-        width="4344"
-        height="1448"
-        alt="Chibi Keqing framed by lavender and cream ribbons in a fantasy landscape"
-        fetchpriority="high"
-        decoding="async"
-      >
+      <picture>
+        <source media="(max-width: 760px)" srcset="/images/hooded-banner-mobile-2x-768.webp 768w, /images/hooded-banner-mobile-2x-1152.webp 1152w, /images/hooded-banner-mobile-2x-1536.webp 1536w" sizes="100vw">
+        <img
+          src="/images/hooded-banner-8x-1920.webp"
+          srcset="/images/hooded-banner-8x-1280.webp 1280w, /images/hooded-banner-8x-1920.webp 1920w, /images/hooded-banner-8x-2560.webp 2560w, /images/hooded-banner-8x-3840.webp 3840w, /images/hooded-banner-8x-6144.webp 6144w"
+          sizes="100vw"
+          width="6144"
+          height="6616"
+          alt="Blue-haired character in a dark hood raising a gloved hand in the rain"
+          fetchpriority="high"
+          decoding="async"
+        >
+      </picture>
     </div>
     <div class="blog-ticker" role="region" aria-label="저희 블로그에 오신 것을 환영합니다!">
       <div class="blog-ticker__track" aria-hidden="true">
@@ -159,11 +162,8 @@ useHead(() => ({
 .story-main { --story-radius: 10px; --story-edge: #2f2f31; --story-gradient: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); --ink: #fff; --ink-2: #fff; --ink-3: #fff; color: #fff; width: calc(100% - 2 * clamp(16px, 4vw, 40px)); max-width: 1240px; margin-inline: auto; padding-top: clamp(26px, 3.6vw, 48px); padding-bottom: clamp(72px, 9vw, 120px); }
 .story-main ::selection { color: #000; background: #ff4d5e; }
 .story-promo { position: relative; width: 100%; aspect-ratio: 3.5 / 1; overflow: hidden; margin-top: clamp(24px, 3vw, 40px); }
-/* red holographic sheen over the black-and-white banner */
-.story-promo::after { content: ''; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; background: var(--red-holo); animation: red-holo-sweep 7s ease-in-out infinite alternate; }
-@media (prefers-reduced-motion: reduce) { .story-promo::after { animation: none; } }
-/* the site's black-and-white treatment with a little extra contrast */
-.story-promo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(1) contrast(1.35) brightness(0.8); }
+.story-promo picture { display: block; width: 100%; height: 100%; }
+.story-promo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
 .blog-ticker { position: relative; display: flex; align-items: center; min-height: 28px; width: 100%; overflow: hidden; padding: 0; background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); color: #000; margin-bottom: clamp(28px, 3vw, 44px); box-shadow: 0 0 18px #ff183b66, 0 0 40px #ff183b33, inset 0 1px 0 #ffffff59; }
 .blog-ticker__track { display: flex; width: max-content; will-change: transform; animation: blog-ticker-scroll 40s linear infinite; }
 .blog-ticker__group { display: flex; align-items: center; justify-content: space-around; flex-shrink: 0; min-width: 100vw; }
@@ -203,11 +203,12 @@ h1, .story-chapter h2 { color: #ff4d5e; }
 .skip-link:focus { top: 16px; }
 
 @media (min-width: 1024px) {
-  .story-promo { aspect-ratio: 4.8 / 1; margin-top: clamp(16px, 2vw, 28px); }
-  .story-promo img { height: auto; aspect-ratio: 4.5 / 1; object-position: center; }
+  .story-promo { aspect-ratio: 4 / 1; margin-top: clamp(16px, 2vw, 28px); }
+  .story-promo img { object-position: center 40%; }
 }
 
 @media (max-width: 760px) {
+  .story-promo { aspect-ratio: 2.6 / 1; }
   .story-main { padding-top: 22px; }
   .story-header { margin-bottom: 40px; }
   .story-category { font-size: 12px; margin-bottom: 22px; }
