@@ -11,9 +11,10 @@ const game = computed(() => communityVideoGames[active.value]!)
 const pageCount = computed(() => Math.ceil(game.value.videos.length / 3))
 const visibleVideos = computed(() => game.value.videos.slice(page.value * 3, page.value * 3 + 3))
 const tabs = ref<HTMLButtonElement[]>([])
+// the same short names as the Twitch directory's tabs
 const gameLabels: Record<string, string> = {
-  hsr: 'Star Rail', genshin: 'Genshin', hi3: 'Honkai Impact',
-  wuwa: 'Wuthering Waves', nte: 'NTE', mlbb: 'Mobile Legends',
+  hsr: 'HSR', genshin: 'Genshin', hi3: 'HI3',
+  wuwa: 'WuWa', nte: 'NTE', mlbb: 'MLBB',
 }
 const categoryLabels = { guide: 'Character guide', gameplay: 'Gameplay', trailer: 'Character trailer' }
 const thumbnail = (id: string) => `/images/community/youtube/${id}.jpg`
@@ -70,8 +71,7 @@ function navigate(event: KeyboardEvent, index: number) {
       <button v-for="(entry, index) in communityVideoGames" :id="`video-tab-${entry.id}`" :key="entry.id" ref="tabs"
         type="button" role="tab" :aria-selected="active === index" :tabindex="active === index ? 0 : -1"
         :aria-label="entry.name" aria-controls="video-library-panel" @click="select(index)" @keydown="navigate($event, index)" @pointerenter="prepare(index)" @focus="prepare(index)">
-        <span v-if="entry.id === 'mlbb'" class="video-tabs__split"><span>Mobile</span> <span>Legends</span></span>
-        <span v-else>{{ gameLabels[entry.id] || entry.name }}</span>
+        <span>{{ gameLabels[entry.id] || entry.name }}</span>
       </button>
     </div>
 
@@ -122,7 +122,7 @@ function navigate(event: KeyboardEvent, index: number) {
 .video-tabs button::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0); opacity: 0; transition: opacity .2s ease; }
 .video-tabs button[aria-selected="true"] { background: #000; }
 .video-tabs button[aria-selected="true"]::after { opacity: 1; }
-.video-tabs span { display: block; font: 900 12px/1.4 var(--display); text-transform: uppercase; white-space: normal; }
+.video-tabs span { display: block; font: 900 12px/1.4 var(--display); text-transform: uppercase; white-space: nowrap; }
 .video-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .video-card { min-width: 0; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b); animation: card-outline-turn 3s linear infinite; }
 .video-card__inner { display: flex; flex-direction: column; height: 100%; min-width: 0; background: #000; }
@@ -156,8 +156,6 @@ function navigate(event: KeyboardEvent, index: number) {
   .video-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
   .video-tabs button { padding: 8px 6px; }
   .video-tabs span { font-size: 11px; }
-  /* "Mobile / Legends" always stacks on two lines on phones */
-  .video-tabs .video-tabs__split > span { display: block; }
 }
 @media (prefers-reduced-motion: reduce) { .video-card { animation: none; } .video-tabs button, .video-tabs button::after, .video-card__play { transition: none; } }
 </style>

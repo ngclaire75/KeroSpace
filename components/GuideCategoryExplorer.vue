@@ -102,12 +102,12 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   display: flex;
   align-items: center;
   gap: 14px;
-  /* each feature in its own dark grey box with a neon purple → pink edge */
+  /* each feature in its own black box with a red → light grey edge */
   padding: 10px 16px;
   border: 1.5px solid transparent;
   background:
     linear-gradient(#000000, #000000) padding-box,
-    linear-gradient(110deg, #ff183b, #6e0614) border-box;
+    linear-gradient(100deg, #ff183b, #ff183b 45%, #dcdce0) border-box;
   box-shadow: 0 0 14px rgba(255, 77, 94, 0.16);
   color: #fff;
   font: 800 14px / 1.4 var(--ui);
