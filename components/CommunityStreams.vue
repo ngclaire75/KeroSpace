@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import rankings from '~/data/communityRankings.json'
+import snapshot from '~/data/communityRankings.json'
 
 const games = [
   { id: 'hsr', name: 'Honkai: Star Rail', short: 'HSR' },
@@ -12,7 +12,9 @@ const games = [
 const active = ref(0)
 const page = ref(0)
 const game = computed(() => games[active.value]!)
-const ranking = computed(() => rankings[game.value.id])
+// The page renders the saved snapshot, then swaps in today's rankings once they arrive.
+const { data: rankings } = useFetch('/api/community-rankings', { server: false, lazy: true, default: () => snapshot })
+const ranking = computed(() => (rankings.value ?? snapshot)[game.value.id])
 const visible = computed(() => ranking.value.streamers.slice(page.value * 5, page.value * 5 + 5))
 const tabs = ref<HTMLButtonElement[]>([])
 const failedAvatars = ref<string[]>([])
