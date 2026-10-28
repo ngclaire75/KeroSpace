@@ -96,10 +96,10 @@ export const compatibilityGames: CompatibilityGame[] = [
 ]
 
 // card artwork + focus point so faces stay in frame (stagePos: framing in the big panel, if different)
-export const playTogetherArt: Record<string, { src: string; pos: string; stagePos?: string }> = {
+export const playTogetherArt: Record<string, { src: string; pos: string; stagePos?: string; widePos?: string; phonePos?: string }> = {
   hsr: { src: '/images/games/hsr-mod-esrgan.webp', pos: 'center 22%' },
-  genshin: { src: '/images/games/genshin-hutao-4x-esrgan.webp', pos: 'center 17%' },
-  hi3: { src: '/images/games/hi3-mod-esrgan.webp', pos: 'center 20%' },
+  genshin: { src: '/images/games/genshin-hutao-4x-esrgan.webp', pos: 'center 12%', stagePos: 'center 6%', widePos: 'center 24%', phonePos: 'center 6%' },
+  hi3: { src: '/images/games/hi3-mod-esrgan.webp', pos: 'center 20%', stagePos: 'center 4%', widePos: 'center 30%', phonePos: 'center 6%' },
   wuwa: { src: '/images/games/wuwa-mod-esrgan.webp', pos: 'center 100%' },
   nte: { src: '/images/games/nte-mod-esrgan.webp', pos: 'center 64%' },
   mlbb: { src: '/images/games/mlbb-mod-esrgan.webp', pos: 'center 34%' },

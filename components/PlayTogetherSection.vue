@@ -2,6 +2,13 @@
 import { compatibilityGames, playTogetherArt } from '~/data/playTogether'
 
 const artFor = (id: string) => playTogetherArt[id] ?? { src: `/images/games/card-${id}.webp`, pos: 'center 30%' }
+// the stage art is a tall panel on desktop but a wide strip on tablet and phone,
+// so each game can frame the face separately for each shape
+function stageFrame(id: string) {
+  const a = artFor(id)
+  const stage = a.stagePos ?? a.pos
+  return { '--pos-stage': stage, '--pos-wide': a.widePos ?? stage, '--pos-phone': a.phonePos ?? a.widePos ?? stage }
+}
 
 // one game on stage at a time, picked from the poster rail (an ARIA tab list)
 const active = ref(0)
@@ -85,7 +92,7 @@ onBeforeUnmount(() => observer?.disconnect())
         <div class="pt-stage__art">
           <!-- every poster is stacked here so switching games is an instant crossfade -->
           <AppImage v-for="(g, i) in compatibilityGames" :key="g.id" :class="[`pt-stage__img--${g.id}`, { 'is-active': i === active }]" :src="artFor(g.id).src"
-            :style="{ objectPosition: artFor(g.id).stagePos ?? artFor(g.id).pos }" alt="" sizes="(max-width: 1100px) 100vw, 440px" width="480" height="600" loading="lazy" />
+            :style="stageFrame(g.id)" alt="" sizes="(max-width: 1100px) 100vw, 440px" width="480" height="600" loading="lazy" />
         </div>
         <!-- every breakdown sits in the same cell, so the panel is always as tall as the
              longest one and never jumps when switching games -->
@@ -156,7 +163,7 @@ onBeforeUnmount(() => observer?.disconnect())
 .pt-stage::after { content: ''; position: absolute; inset: 0; z-index: 3; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ff183b, #a30d22 25%, #4a050e 50%, #a30d22 75%, #ff183b); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; animation: card-outline-turn 8s linear infinite; pointer-events: none; }
 .pt-stage__art { position: relative; overflow: hidden; background: #050507; }
 /* black-and-white art with the red holographic sheen (the rail keeps its own look) */
-.pt-stage__art > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: var(--bw-art); opacity: 0; scale: 1.06; transition: opacity .6s var(--ease), scale 1.2s var(--ease); }
+.pt-stage__art > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos-stage); filter: var(--bw-art); opacity: 0; scale: 1.06; transition: opacity .6s var(--ease), scale 1.2s var(--ease); }
 .pt-stage__art > img.is-active { opacity: 1; scale: 1; }
 /* NTE's art is darker than the rest, so it is brightened instead of dimmed */
 .pt-stage__art > img.pt-stage__img--nte { filter: grayscale(1) contrast(1.15) brightness(1.1); }
@@ -186,8 +193,11 @@ onBeforeUnmount(() => observer?.disconnect())
 /* tablet: art becomes a banner above the breakdown */
 @media (max-width: 1100px) {
   .pt-stage { grid-template-columns: minmax(0, 1fr); }
-  .pt-stage__art { height: 260px; }
-  .pt-stage__art::after { background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, #000 100%); }
+  .pt-stage__art { height: 300px; }
+  .pt-stage__art > img { object-position: var(--pos-wide); }
+  /* solid black just before the edge, so no sliver of art shows at the seam
+     when the browser rounds the strip height */
+  .pt-stage__art::after { background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, #000 97%); }
 }
 
 @media (max-width: 960px) {
@@ -198,7 +208,8 @@ onBeforeUnmount(() => observer?.disconnect())
 /* phone: indicator bars + swipe instead of the poster rail */
 @media (max-width: 760px) {
   .together__head { margin-bottom: 24px; }
-  .pt-stage__art { height: 210px; }
+  .pt-stage__art { height: 240px; }
+  .pt-stage__art > img { object-position: var(--pos-phone); }
   .together__foot { flex-direction: column; gap: 9px; }
 }
 
