@@ -298,21 +298,23 @@ const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step
 .cb-variants {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  padding: 4px;
-  border: 1px solid var(--cb-edge);
+  gap: 8px;
+  /* three stops keep the red → dark red blend even across a wide button */
+  --cb-variant-grad: linear-gradient(100deg, #ff183b, #c8102e 50%, #6e0614);
 }
+/* each build is its own box, not one shared container */
 .cb-variants button {
   padding: 10px 16px;
-  border: 0;
+  border: 1px solid var(--cb-edge);
   background: transparent;
   color: #fff;
   font: 800 12px / 1.4 var(--ui);
   cursor: pointer;
   transition: background 0.2s;
 }
+/* the outline stays; only the fill turns red → dark red (padding-box, no-repeat: no seam under the border) */
 .cb-variants button[aria-pressed='true'] {
-  background: var(--cb-grad);
+  background: var(--cb-variant-grad) padding-box no-repeat;
 }
 
 /* ============ layout ============ */
