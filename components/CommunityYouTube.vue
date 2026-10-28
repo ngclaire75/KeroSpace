@@ -70,7 +70,8 @@ function navigate(event: KeyboardEvent, index: number) {
       <button v-for="(entry, index) in communityVideoGames" :id="`video-tab-${entry.id}`" :key="entry.id" ref="tabs"
         type="button" role="tab" :aria-selected="active === index" :tabindex="active === index ? 0 : -1"
         :aria-label="entry.name" aria-controls="video-library-panel" @click="select(index)" @keydown="navigate($event, index)" @pointerenter="prepare(index)" @focus="prepare(index)">
-        <span>{{ gameLabels[entry.id] || entry.name }}</span>
+        <span v-if="entry.id === 'mlbb'" class="video-tabs__split"><span>Mobile</span> <span>Legends</span></span>
+        <span v-else>{{ gameLabels[entry.id] || entry.name }}</span>
       </button>
     </div>
 
@@ -155,6 +156,8 @@ function navigate(event: KeyboardEvent, index: number) {
   .video-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
   .video-tabs button { padding: 8px 6px; }
   .video-tabs span { font-size: 11px; }
+  /* "Mobile / Legends" always stacks on two lines on phones */
+  .video-tabs .video-tabs__split > span { display: block; }
 }
 @media (prefers-reduced-motion: reduce) { .video-card { animation: none; } .video-tabs button, .video-tabs button::after, .video-card__play { transition: none; } }
 </style>
