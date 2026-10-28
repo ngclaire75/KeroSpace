@@ -35,3 +35,30 @@ export function isReleasedCatalogEntry(metadata: { title: string; categories: st
   }
   return true
 }
+
+// Leaks, cut and test content never show. Officially announced characters do, marked upcoming.
+const NOT_ANNOUNCED = /\b(?:unimplemented|unannounced|unused|cancelled|canceled|cut content|leaked|in development|future content|advanced server|test server|beta[- ]only|alpha[- ]only)\b/i
+
+export function isAnnouncedCatalogEntry(metadata: { title: string; categories: string[]; lead: string }) {
+  if (NOT_ANNOUNCED.test(metadata.title.replaceAll('_', ' ')) || metadata.categories.some(category => NOT_ANNOUNCED.test(category.replaceAll('_', ' ')))) return false
+  return !/\{\{\s*(?:unimplemented|leak(?:ed)?)(?:[\s|}])/i.test(metadata.lead)
+}
+
+/**
+ * When a character came out (or comes out), from the infobox: "|release_date = 2026-11-04 11:00:00 GMT+8"
+ * gives `time` (ms) and `date` (YYYY-MM-DD); Honkai Impact 3rd only gives "|version = 6.4".
+ */
+export function releaseOf(lead: string): { time?: number; date?: string; version?: number } {
+  for (const [, value] of lead.matchAll(/^\s*\|\s*release[ _]?date\s*=\s*([^\n]*)/gim)) {
+    const match = value.match(/\b(20\d{2})-(\d{1,2})-(\d{1,2})(?:[ T](\d{1,2}):(\d{2})(?::\d{2})?\s*(?:GMT|UTC)?\s*([+-]\d{1,2})?)?/i)
+    if (match) {
+      const [, year, month, day, hour = '0', minute = '0', offset = '0'] = match
+      const time = Date.UTC(+year, +month - 1, +day, +hour - +offset, +minute)
+      if (Number.isFinite(time)) return { time, date: `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}` }
+    }
+    const time = datesIn(value)[0]
+    if (time !== undefined) return { time, date: new Date(time).toISOString().slice(0, 10) }
+  }
+  const version = lead.match(/^\s*\|\s*version\s*=\s*(\d+)\.(\d+)/im)
+  return version ? { version: +version[1] * 1000 + +version[2] } : {}
+}

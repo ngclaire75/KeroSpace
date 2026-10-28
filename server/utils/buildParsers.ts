@@ -143,7 +143,7 @@ export function parseHonkaiEquipment(html: string, base: string): CharacterBuild
   if (!table) return []
   const builds: CharacterBuild[] = []
   let build: CharacterBuild | undefined
-  for (const row of findAll(el => el.name === 'tr', [table])) {
+  for (const row of findAll(el => el.name === 'tr', tables)) {
     const label = text(row)
     if (/^(?:Recommended|Auxiliary|Universal|Transitional) Equipment$/.test(label)) {
       build = { name: label, groups: [], stats: [], priorities: [] }
@@ -238,6 +238,106 @@ export function parseKqmBuild(html: string, base: string): CharacterBuild {
     if (/^h[12]$/.test((node as Element).name || '')) break
     const value = text(node)
     if (/^Substat Priority/i.test(value) && value.length < 400) priorities.push({ label: 'Substats', value: value.replace(/^Substat Priority\s*:?\s*/i, '') })
+  }
+  return { name: 'Recommended build', groups, stats, priorities }
+}
+
+// Game8 build table: header rows ("Best Weapon", "Alternative Weapons", "Best Artifact",
+// "Artifact Stats", "Sonata Effect", "Main Echo"…) each followed by a row of cells in the same
+// order. Item names, pictures and stat choices only; Game8's tooltips and prose are left out.
+const GAME8_GROUPS: Record<string, { weapons: string; sets: string }> = {
+  genshin: { weapons: 'Weapons', sets: 'Artifact sets' },
+  hsr: { weapons: 'Light cones', sets: 'Relic sets' },
+  wuwa: { weapons: 'Weapons', sets: 'Echo sets' },
+  nte: { weapons: 'Arcs', sets: 'Cartridge sets' },
+}
+// A cell's text with its line breaks kept: "Sands: Elemental Mastery", "1. CRIT DMG"…
+function cellLines(node: AnyNode): string[] {
+  const lines: string[] = ['']
+  const walk = (current: AnyNode) => {
+    const el = current as Element
+    if (el.type === 'text') lines[lines.length - 1] += (current as unknown as { data: string }).data
+    else if (el.name === 'template') return
+    else {
+      const block = ['br', 'div', 'hr', 'li', 'p', 'tr'].includes(el.name)
+      if (block) lines.push('')
+      for (const child of el.children || []) walk(child)
+      if (block) lines.push('')
+    }
+  }
+  walk(node)
+  return lines.map(line => line.replace(/\s+/g, ' ').trim()).filter(Boolean)
+}
+export function parseGame8Build(game: string, html: string, base: string): CharacterBuild {
+  const labels = GAME8_GROUPS[game]
+  const document = cleanDocument(html)
+  const heading = findAll(el => el.name === 'h2' && /\b(?:Best Builds?|Build Guide)\b/i.test(text(el)), document.children)[0]
+  const groups: BuildGroup[] = []
+  const stats: BuildStat[] = []
+  const priorities: BuildStat[] = []
+  if (!heading || !labels) return { name: 'Recommended build', groups, stats, priorities }
+  // The first build's tables: everything after the heading until the next build's sub-heading.
+  const tables: Element[] = []
+  for (let node: AnyNode | null = heading.next; node; node = node.next) {
+    const el = node as Element
+    if (el.name === 'h2' || (el.name === 'h3' && tables.length)) break
+    tables.push(...(el.name === 'table' ? [el] : findAll(child => child.name === 'table', el.children || [])))
+  }
+  const add = (label: string, items: BuildItem[]) => {
+    const group = groups.find(item => item.label === label)
+    if (group) group.items = uniqueItems([...group.items, ...items])
+    else if (items.length) groups.push({ label, items: uniqueItems(items) })
+  }
+  const relicSeen = new Set<string>()
+  const inTemplate = (node: AnyNode) => { for (let up = node.parent; up; up = up.parent) if ((up as Element).name === 'template') return true; return false }
+  const span = (cell: Element, name: string) => Math.max(1, Number.parseInt(cell.attribs[name] || '1', 10) || 1)
+  for (const table of tables) {
+    // Cells are placed in columns as a browser would, so a cell under a rowspan finds its heading.
+    let headers: { label: string; from: number; to: number }[] = []
+    let blocked: number[] = []
+    for (const row of findAll(el => el.name === 'tr', [table])) {
+      const cells = row.children.filter(node => ['th', 'td'].includes((node as Element).name)) as Element[]
+      const placed: { cell: Element; from: number; to: number }[] = []
+      let column = 0
+      for (const cell of cells) {
+        while (blocked[column] > 0) column++
+        const width = span(cell, 'colspan')
+        placed.push({ cell, from: column, to: column + width })
+        for (let at = column; at < column + width; at++) blocked[at] = Math.max(blocked[at] || 0, span(cell, 'rowspan'))
+        column += width
+      }
+      blocked = blocked.map(rows => Math.max(0, (rows || 0) - 1))
+      if (cells.length && cells.every(cell => cell.name === 'th')) { headers = placed.map(({ cell, from, to }) => ({ label: text(cell), from, to })); continue }
+      // Some tables run sideways instead ("Best Weapon | Unspoken Rue"); a bare "1", "2" is a rank.
+      let inline = ''
+      for (const { cell, from } of placed) {
+        if (cell.name === 'th') { inline = /^\d*$/.test(text(cell)) ? '' : text(cell); continue }
+        const header = inline || headers.find(item => item.from <= from && from < item.to)?.label || ''
+        const links = findAll(el => el.name === 'a' && !!text(el) && !inTemplate(el), [cell])
+        const items = links.map(link => ({ name: text(link), image: imageOf(link, base) }))
+        if (/stat|cost/i.test(header) && !items.length) {
+          const lines = cellLines(cell).map(line => line.replace(/\s*★+$/, ''))
+          if (/cost pattern/i.test(header)) { stats.push({ label: 'Echo cost', value: lines.join(' ').split(/\s+/).join('-') }); continue }
+          // Main stat per echo slot: "4 COST" → "Crit DMG or Crit Rate"
+          if (/^\d\s*cost$/i.test(header)) { stats.push({ label: `${header.replace(/\s+/, '-').replace('COST', 'cost')} echo`, value: lines.join(' ') }); continue }
+          const main = lines.map(line => line.match(/^([^:]{2,30}):\s*(.+)$/)).filter((stat): stat is RegExpMatchArray => !!stat)
+          for (const stat of main) stats.push({ label: stat[1].trim(), value: stat[2].trim() })
+          // Substats come numbered ("1. CRIT DMG") or one per line ranked by stars.
+          const numbered = lines.map(line => line.match(/^\d+\.\s*(.+)$/)?.[1]).filter((line): line is string => !!line)
+          const ranked = numbered.length ? numbered : /sub/i.test(header) && !main.length ? lines.filter(line => !/sub\s*stats?/i.test(line)) : []
+          if (ranked.length) priorities.push({ label: 'Substats', value: ranked.join(' > ') })
+        }
+        else if (/main echo/i.test(header)) add('Main Echo options', items)
+        // "Relics and Ornament" holds the relic set, then the planar ornament under it.
+        else if (game === 'hsr' && /relic|ornament|planar/i.test(header)) {
+          const both = /relic/i.test(header) && /ornament|planar/i.test(header)
+          add(/relic/i.test(header) && !(both && relicSeen.has(header)) ? labels.sets : 'Planar ornaments', items)
+          if (items.length) relicSeen.add(header)
+        }
+        else if (/weapon|light cone|\barcs?\b/i.test(header)) add(labels.weapons, items)
+        else if (/artifact|relic|sonata|echo|cartridge|set/i.test(header)) add(labels.sets, items)
+      }
+    }
   }
   return { name: 'Recommended build', groups, stats, priorities }
 }

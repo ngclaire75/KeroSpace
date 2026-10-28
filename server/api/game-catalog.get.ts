@@ -1,9 +1,10 @@
-import { hasUnreleasedMarker, isReleasedCatalogEntry } from '~/utils/catalogRelease'
+import { hasUnreleasedMarker, isAnnouncedCatalogEntry, isReleasedCatalogEntry, releaseOf } from '~/utils/catalogRelease'
 import { hasCatalogArtwork } from '~/utils/catalogImages'
 import { gameCatalogs, catalogKinds, type CatalogKind, type CatalogEntry } from '~/data/gameCatalogs'
+import { mlbbRoster } from '../utils/buildSources'
 
 type WikiPage = { index?: number; pageid: number; ns: number; title: string; thumbnail?: { source: string }; original?: { source: string }; categories?: { title: string }[]; revisions?: { slots?: { main?: { '*': string } } }[]; images?: { title: string }[]; imageinfo?: { url?: string; thumburl?: string }[] }
-type WikiResponse = { batchcomplete?: string; error?: { info?: string }; continue?: Record<string, string | number>; query?: { pages?: Record<string, WikiPage>; normalized?: { from: string; to: string }[]; redirects?: { from: string; to: string }[] } }
+type WikiResponse = { batchcomplete?: string; error?: { info?: string }; continue?: Record<string, string | number>; query?: { pages?: Record<string, WikiPage>; search?: { title: string }[]; normalized?: { from: string; to: string }[]; redirects?: { from: string; to: string }[] } }
 type Cursor = { queue: string[]; seen: string[]; continuation?: Record<string, string | number> }
 const headers = { 'User-Agent': 'KeroSpace/1.0 (game reference index)', Accept: 'application/json' }
 
@@ -53,35 +54,41 @@ function pagesWithAliases(result: WikiResponse) {
   return pages
 }
 
-// Resolve current release metadata before showing artwork, including search and pagination.
-async function filterReleasedItems(host: string, items: CatalogEntry[], kind: CatalogKind) {
-  const released = new Set<string>()
-  const characterRoots = Object.values(gameCatalogs).find(config => config.host === host)?.categories.characters || []
+type Metadata = { title: string; categories: string[]; lead: string }
+// Each page's categories (following their continuation) and infobox, keyed by requested title.
+async function readMetadata(host: string, items: CatalogEntry[]) {
+  const metadata = new Map<string, Metadata>()
   for (let start = 0; start < items.length; start += 20) {
-    const batch = items.slice(start, start + 20)
-    const titles = batch.map(item => item.title).join('|')
+    const titles = items.slice(start, start + 20).map(item => item.title).join('|')
     const result = await loadWiki(host, { prop: 'categories|revisions', titles, redirects: 1, cllimit: 'max', rvprop: 'content', rvslots: 'main', rvsection: 0 })
-    const metadata = new Map<string, { title: string; categories: string[]; lead: string }>()
+    const batch = new Map<string, Metadata>()
     for (const [title, page] of pagesWithAliases(result)) {
-      if (page.pageid > 0) metadata.set(title, { title, categories: (page.categories || []).map(category => category.title), lead: page.revisions?.[0]?.slots?.main?.['*'] || '' })
+      if (page.pageid > 0) batch.set(title, { title, categories: (page.categories || []).map(category => category.title), lead: page.revisions?.[0]?.slots?.main?.['*'] || '' })
     }
     let next = result.continue?.clcontinue ? result.continue : undefined
     for (let call = 0; next && call < 10; call++) {
       const extra = await loadWiki(host, { prop: 'categories', titles, redirects: 1, cllimit: 'max', ...next })
       for (const [title, page] of pagesWithAliases(extra)) {
-        const record = metadata.get(title)
+        const record = batch.get(title)
         if (record) record.categories.push(...(page.categories || []).map(category => category.title))
       }
       next = extra.continue?.clcontinue ? extra.continue : undefined
     }
     if (next) throw new Error('Release metadata incomplete')
-    for (const item of batch) {
-      const record = metadata.get(item.title.replaceAll('_', ' '))
-      const isCharacter = kind !== 'characters' || record?.categories.some(category => characterRoots.some(root => category.toLowerCase() === `category:${root}`.toLowerCase()))
-      if (record && isCharacter && isReleasedCatalogEntry(record, kind)) released.add(item.title)
-    }
+    for (const [title, record] of batch) metadata.set(title, record)
   }
-  items.splice(0, items.length, ...items.filter(item => released.has(item.title)))
+  return metadata
+}
+
+// Resolve current release metadata before showing artwork, including search and pagination.
+async function filterReleasedItems(host: string, items: CatalogEntry[], kind: CatalogKind) {
+  const characterRoots = Object.values(gameCatalogs).find(config => config.host === host)?.categories.characters || []
+  const metadata = await readMetadata(host, items)
+  items.splice(0, items.length, ...items.filter(item => {
+    const record = metadata.get(item.title.replaceAll('_', ' '))
+    const isCharacter = kind !== 'characters' || record?.categories.some(category => characterRoots.some(root => category.toLowerCase() === `category:${root}`.toLowerCase()))
+    return record && isCharacter && isReleasedCatalogEntry(record, kind)
+  }))
 }
 
 // The Mobile Legends wiki gives unfinished heroes a blank silhouette ("Hero000"); that is
@@ -197,7 +204,8 @@ async function useHouseStyle(game: string, host: string, items: CatalogEntry[]) 
     }
     for (const [item, files] of candidates) {
       const url = files.map(file => urls.get(file)).find(Boolean)
-      if (url || game === 'genshin') { item.image = url; item.imageLabel = undefined }
+      // Wish art only exists once a character is out; until then the page's own art stands in.
+      if (url || (game === 'genshin' && !item.upcoming)) { item.image = url; item.imageLabel = undefined }
     }
   } catch (error) {
     if (game === 'genshin') throw error
@@ -218,6 +226,85 @@ async function prepareArtwork(game: string, kind: CatalogKind, host: string, ite
   dropPlaceholders(items)
 }
 
+const entryFor = (root: string, page: WikiPage): CatalogEntry => ({ id: page.pageid, title: page.title, url: `${root}/wiki/${encodeURIComponent(page.title.replaceAll(' ', '_'))}`, image: safeImage(page.thumbnail?.source || page.original?.source) })
+
+// Overview pages filed among the characters, Mobile Legends skin squads (S.A.B.E.R., V.E.N.O.M.)
+// and their subpages ("The Exorcists/Member Introduction"), and esports archives aren't characters.
+function isCharacterTitle(game: string, title: string) {
+  if (/^(?:Characters?|Playable Characters|Resonators?|Battlesuits|Heroes|Cancelled heroes|Assassin|Fighter|Mage|Marksman|Support|Tank)$/i.test(title)) return false
+  if (game === 'mlbb' && (title.includes('/') || /^(?:[A-Z]\.){2,}$/.test(title) || /^(Esports|Mobile Legends: Bang Bang Professional League|Mobile Legends: Bang Bang Southeast Asia Cup|MPL Indonesia Season)/i.test(title))) return false
+  return true
+}
+
+async function categoryMembers(host: string, category: string) {
+  const items: CatalogEntry[] = []
+  let next: Record<string, string | number> | undefined
+  for (let call = 0; call < 20; call++) {
+    const result = await loadWiki(host, { generator: 'categorymembers', gcmtitle: `Category:${category}`, gcmtype: 'page', gcmlimit: 50, prop: 'pageimages', piprop: 'thumbnail|original', pilicense: 'any', pithumbsize: THUMB, ...next })
+    for (const page of Object.values(result.query?.pages || {})) if (page.ns === 0) items.push(entryFor(`https://${host}`, page))
+    next = result.continue?.gcmcontinue ? result.continue : undefined
+    if (!next) return items
+  }
+  throw new Error('Character category incomplete')
+}
+
+// The wiki sometimes drops a hero from its category (Argus). The official hero list is the
+// authority on who is in the game, so any hero it names is looked up on the wiki by name, with
+// the wiki's standard portrait for that hero ID ("Hero451-portrait.png" for hero 45).
+async function officialHeroes(host: string, known: Set<string>) {
+  try {
+    const heroes = (await mlbbRoster()).filter(hero => hero.name && /^\d+$/.test(String(hero.heroid)) && !known.has(String(hero.name).toLowerCase()))
+    const items: CatalogEntry[] = []
+    for (let start = 0; start < heroes.length; start += 25) {
+      const batch = heroes.slice(start, start + 25)
+      const portrait = (hero: Record<string, any>) => `File:Hero${hero.heroid}1-portrait.png`
+      const pages = pagesWithAliases(await loadWiki(host, { titles: batch.map(hero => hero.name).join('|'), redirects: 1, prop: 'info' }))
+      const files = pagesWithAliases(await loadWiki(host, { titles: batch.map(portrait).join('|'), prop: 'imageinfo', iiprop: 'url', iiurlwidth: THUMB }))
+      for (const hero of batch) {
+        const page = pages.get(String(hero.name)), file = files.get(portrait(hero))
+        const image = safeImage(file?.imageinfo?.[0]?.thumburl || file?.imageinfo?.[0]?.url)
+        if (page && page.ns === 0 && page.pageid > 0 && image) items.push({ ...entryFor(`https://${host}`, page), image })
+      }
+    }
+    return items
+  } catch { return [] } // the wiki's own category still stands
+}
+
+// The whole roster in one list: announced characters first (soonest release first), then every
+// released character newest first, so a character that came out today is the first card.
+const loadRoster = defineCachedFunction(async (game: string) => {
+  const config = gameCatalogs[game]
+  const entries = new Map<number, CatalogEntry>()
+  const add = (items: CatalogEntry[]) => { for (const item of items) if (!entries.has(item.id) && isCharacterTitle(game, item.title)) entries.set(item.id, item) }
+  for (const category of config.categories.characters) add(await categoryMembers(config.host, category))
+  for (const category of config.upcoming || []) add(await categoryMembers(config.host, category))
+  if (game === 'mlbb') add(await officialHeroes(config.host, new Set([...entries.values()].map(item => item.title.toLowerCase()))))
+  const items = [...entries.values()]
+  const metadata = await readMetadata(config.host, items)
+  const now = Date.now()
+  const order = new Map<number, number>()
+  const shown = items.filter(item => {
+    const record = metadata.get(item.title.replaceAll('_', ' '))
+    if (!record || !isAnnouncedCatalogEntry(record)) return false
+    const release = releaseOf(record.lead)
+    // Wiki editors can take a while to drop "upcoming" on launch day; the release date decides.
+    const released = isReleasedCatalogEntry(record, 'characters', now) || (release.time !== undefined && release.time <= now)
+    if (!released) item.upcoming = true
+    if (release.date) item.releaseDate = release.date
+    order.set(item.id, release.time ?? release.version ?? 0)
+    return true
+  })
+  await prepareArtwork(game, 'characters', config.host, shown)
+  const visible = shown.filter(hasCatalogArtwork)
+  if (!visible.some(item => !item.upcoming)) throw new Error('No released characters found')
+  return visible.sort((a, b) => Number(!!b.upcoming) - Number(!!a.upcoming)
+    || (a.upcoming ? (order.get(a.id) || Infinity) - (order.get(b.id) || Infinity) : order.get(b.id)! - order.get(a.id)!)
+    || (a.upcoming ? a.id - b.id : b.id - a.id))
+}, { name: 'game-roster-v2', maxAge: 1800, swr: true, getKey: game => game })
+
+const PAGE = 40
+const comparable = (text: string) => text.normalize('NFKD').toLowerCase().replace(/[^\p{L}\p{N}]/gu, '')
+
 export default defineEventHandler(async event => {
   const query = getQuery(event), game = String(query.game || 'hsr'), kind = String(query.kind || 'characters') as CatalogKind
   const config = gameCatalogs[game]
@@ -229,13 +316,27 @@ export default defineEventHandler(async event => {
   let next: string | null = null
   try {
     setHeader(event, 'cache-control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=604800')
+    if (kind === 'characters') {
+      // Pages of the full roster; the cursor is simply where the next page starts.
+      const start = Number(query.cursor || query.offset || 0)
+      if (!Number.isSafeInteger(start) || start < 0 || start > 10000) throw createError({ statusCode: 400, statusMessage: 'Invalid catalogue cursor' })
+      // A search matches a name, or the wiki search's best hit for a nickname ("Childe" → Tartaglia).
+      let bestHit = ''
+      if (search) {
+        try { bestHit = (await loadWiki(config.host, { list: 'search', srsearch: search, srnamespace: 0, srlimit: 1 })).query?.search?.[0]?.title || '' }
+        catch { /* names alone still match */ }
+      }
+      const roster = (await loadRoster(game)).filter(item => !search || comparable(item.title).includes(comparable(search)) || item.title === bestHit)
+      const page = roster.slice(start, start + PAGE)
+      const sourceLink = search ? `${root}/wiki/Special:Search?query=${encodeURIComponent(search)}` : sourceUrl
+      return { game, kind, items: page, next: start + PAGE < roster.length ? String(start + PAGE) : null, search: !!search, source: { name: config.name, url: sourceLink }, checkedAt: new Date().toISOString(), status: 'available', traversalLimited: false }
+    }
     if (search) {
       const offset = Number(query.offset || 0)
       if (!Number.isSafeInteger(offset) || offset < 0 || offset > 10000) throw createError({ statusCode: 400, statusMessage: 'Invalid search offset' })
       // Search the entire game's wiki, including pages outside a root category.
       const result = await loadWiki(config.host, { generator: 'search', gsrsearch: search, gsrnamespace: 0, gsrlimit: 24, gsroffset: offset, prop: 'pageimages', piprop: 'thumbnail|original', pilicense: 'any', pithumbsize: THUMB })
-      const titleMatch = (title: string) => title.normalize('NFKD').toLowerCase().replace(/[^\p{L}\p{N}]/gu, '').includes(search.normalize('NFKD').toLowerCase().replace(/[^\p{L}\p{N}]/gu, ''))
-      for (const page of Object.values(result.query?.pages || {}).sort((a, b) => Number(b.title.toLowerCase() === search.toLowerCase()) - Number(a.title.toLowerCase() === search.toLowerCase()) || (a.index || 0) - (b.index || 0))) if (page.ns === 0 && (kind !== 'characters' || titleMatch(page.title))) items.push({ id: page.pageid, title: page.title, url: `${root}/wiki/${encodeURIComponent(page.title.replaceAll(' ', '_'))}`, image: safeImage(page.thumbnail?.source || page.original?.source) })
+      for (const page of Object.values(result.query?.pages || {}).sort((a, b) => Number(b.title.toLowerCase() === search.toLowerCase()) - Number(a.title.toLowerCase() === search.toLowerCase()) || (a.index || 0) - (b.index || 0))) if (page.ns === 0) items.push(entryFor(root, page))
       await filterReleasedItems(config.host, items, kind)
       await prepareArtwork(game, kind, config.host, items)
       const nextOffset = result.continue?.gsroffset
@@ -261,12 +362,8 @@ export default defineEventHandler(async event => {
             if (!hasUnreleasedMarker(page.title) && !cursor.seen.includes(page.title) && !cursor.queue.includes(page.title)) cursor.queue.push(page.title)
           } else if (page.ns === 0 && !items.some(item => item.id === page.pageid)) {
             // Keep community/esports archive subjects off this gameplay page.
-            if (kind === 'characters' && /^(?:Characters?|Playable Characters|Resonators?|Battlesuits|Heroes|Cancelled heroes|Assassin|Fighter|Mage|Marksman|Support|Tank)$/i.test(page.title)) continue
-            // Mobile Legends skin squads (S.A.B.E.R., V.E.N.O.M.) and their subpages
-          // ("The Exorcists/Member Introduction") reuse hero art but are not heroes.
-          if (game === 'mlbb' && kind === 'characters' && (page.title.includes('/') || /^(?:[A-Z]\.){2,}$/.test(page.title))) continue
-          if (game === 'mlbb' && /^(Esports|Mobile Legends: Bang Bang Professional League|Mobile Legends: Bang Bang Southeast Asia Cup|MPL Indonesia Season)/i.test(page.title)) continue
-            items.push({ id: page.pageid, title: page.title, url: `${root}/wiki/${encodeURIComponent(page.title.replaceAll(' ', '_'))}`, image: safeImage(page.thumbnail?.source || page.original?.source) })
+            if (game === 'mlbb' && /^(Esports|Mobile Legends: Bang Bang Professional League|Mobile Legends: Bang Bang Southeast Asia Cup|MPL Indonesia Season)/i.test(page.title)) continue
+            items.push(entryFor(root, page))
           }
         }
         if (result.continue?.gcmcontinue) cursor.continuation = result.continue

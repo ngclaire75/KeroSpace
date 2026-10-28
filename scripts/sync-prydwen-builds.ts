@@ -21,6 +21,8 @@ const GAMES = { hsr: 'star-rail', wuwa: 'wuthering-waves', nte: 'neverness-to-ev
 const FILE = new URL('../data/guideBuildSnapshots.json', import.meta.url)
 // Prydwen writes "The Shorekeeper"; the wiki roster writes "Shorekeeper".
 const key = (name: string) => normalizedName(name.replace(/^the\s+/i, ''))
+// The wiki's names for characters Prydwen files under another one.
+const WIKI_ALIASES: Record<string, string> = { aeonaha: 'aha' }
 
 async function catalogue(game: string) {
   const titles: string[] = []
@@ -56,17 +58,25 @@ for (const [game, path] of Object.entries(GAMES)) {
     anchor.getAttribute('href') || '',
     (anchor.textContent || anchor.querySelector('img')?.getAttribute('alt') || '').split('\n')[0].trim(),
   ]))
+  // The newest characters carry a badge in their link text ("PearlNew", "Aha4.7"), so each link
+  // is also found by its address ("/pearl"). "March 7th • Evernight" and "Tingyun • Fugue" are
+  // "Evernight" and "Fugue" on the wiki, so the part after "•" is a last resort.
   const hrefs = new Map<string, string>()
-  for (const [href, name] of links) if (name && !hrefs.has(key(name))) hrefs.set(key(name), href)
+  const names = links.filter(([href]) => href.split('/').filter(Boolean).length === 3).map(([href, text]) => {
+    const name = text.replace(/(?:New|\d+\.\d+)$/, '').trim()
+    return { href, keys: [key(name), key(href.split('/').filter(Boolean).pop()!), ...(name.includes('•') ? [key(name.split('•').pop()!)] : [])] }
+  })
+  for (const rank of [0, 1, 2]) for (const { href, keys } of names) if (keys[rank] && !hrefs.has(keys[rank])) hrefs.set(keys[rank], href)
+  const hrefFor = (title: string) => hrefs.get(WIKI_ALIASES[key(title)] || key(title))
   await page.close()
 
   const saved = snapshots[game] ||= {}
   let refreshed = 0
-  const queue = titles.filter(title => hrefs.has(key(title)))
+  const queue = titles.filter(title => hrefFor(title))
   await Promise.all(Array.from({ length: 3 }, async () => {
     const tab = await context.newPage()
     for (let title = queue.shift(); title; title = queue.shift()) {
-      const url = PRYDWEN + hrefs.get(key(title))
+      const url = PRYDWEN + hrefFor(title)
       try {
         await tab.goto(url, { waitUntil: 'domcontentloaded', timeout: 90000 })
         await tab.waitForSelector('.section-build, .build-tips, .nte-weapon-accordion', { timeout: 30000 }).catch(() => {})

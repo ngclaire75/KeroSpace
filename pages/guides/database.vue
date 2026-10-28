@@ -22,6 +22,7 @@ const selectedBuild = ref(0)
 watch(profile, () => { selectedBuild.value = 0 })
 const build = computed(() => profile.value?.builds[selectedBuild.value])
 const loading = computed(() => status.value === 'pending' || status.value === 'idle')
+const releaseText = computed(() => profile.value?.releaseDate ? new Date(`${profile.value.releaseDate}T00:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }) : '')
 const rosterLink = computed(() => `/guides/${game.value!.id}/characters`)
 
 const attempts = ref<Record<string, number>>({})
@@ -66,7 +67,7 @@ const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step
       <!-- ===== hero: no character art here; the roster card already showed it ===== -->
       <header class="cb-hero">
         <div class="cb-hero__copy">
-          <p class="gd-eyebrow">{{ game!.name }} · Character build</p>
+          <p class="gd-eyebrow">{{ game!.name }} · {{ profile?.upcoming ? `Upcoming${releaseText ? ` · ${releaseText}` : ''}` : 'Character build' }}</p>
           <h1 class="cb-title">{{ title }}</h1>
         </div>
 
@@ -100,8 +101,8 @@ const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step
         <p>Loading equipment and stat recommendations…</p>
       </div>
       <section v-else-if="!build" class="cb-empty" role="status">
-        <h2>{{ profile?.status === 'missing' ? 'No verified build yet.' : 'This build couldn’t be loaded.' }}</h2>
-        <p>{{ profile?.status === 'missing' ? 'This character does not have equipment recommendations in the connected build database yet.' : 'The build database is temporarily unavailable. Try loading it again.' }}</p>
+        <h2>{{ profile?.upcoming ? `${title} isn’t out yet.` : profile?.status === 'missing' ? 'No verified build yet.' : 'This build couldn’t be loaded.' }}</h2>
+        <p>{{ profile?.upcoming ? `${releaseText ? `Releases ${releaseText}. ` : ''}The recommended build appears here as soon as the build guides publish one.` : profile?.status === 'missing' ? 'This character does not have equipment recommendations in the connected build database yet.' : 'The build database is temporarily unavailable. Try loading it again.' }}</p>
         <div class="cb-empty__actions">
           <button v-if="profile?.status !== 'missing'" type="button" class="gd-btn" @click="refresh()">Try again</button>
           <NuxtLink :to="rosterLink" class="gd-btn gd-btn--ghost">Back to characters</NuxtLink>

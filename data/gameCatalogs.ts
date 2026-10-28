@@ -23,16 +23,18 @@ export const catalogKindDescriptions: Record<CatalogKind, string> = {
   story: 'Story chapters and quests, in order.',
   items: 'Items and materials: where they come from and what they are for.',
 }
-type CatalogSource = { host: string; name: string; categories: Record<CatalogKind, string[]> }
+// `upcoming`: where the wiki files announced characters that aren't out yet.
+type CatalogSource = { host: string; name: string; categories: Record<CatalogKind, string[]>; upcoming?: string[] }
 export const gameCatalogs: Record<string, CatalogSource> = {
-  hsr: { host: 'honkai-star-rail.fandom.com', name: 'Honkai: Star Rail Wiki', categories: { characters: ['Playable Characters'], skins: ['Outfits'], weapons: ['Light Cones', 'Relics'], bosses: ['Enemies'], events: ['Events'], banners: ['Character Event Warps', 'Light Cone Event Warps'], 'skin-events': ['Outfits'], story: ['Missions'], items: ['Items'] } },
-  genshin: { host: 'genshin-impact.fandom.com', name: 'Genshin Impact Wiki', categories: { characters: ['Playable Characters'], skins: ['Outfits'], weapons: ['Weapons', 'Artifacts'], bosses: ['Enemies'], events: ['Events'], banners: ['Character Event Wishes', 'Weapon Event Wishes'], 'skin-events': ['Outfits'], story: ['Quests'], items: ['Items'] } },
+  hsr: { host: 'honkai-star-rail.fandom.com', name: 'Honkai: Star Rail Wiki', categories: { characters: ['Playable Characters'], skins: ['Outfits'], weapons: ['Light Cones', 'Relics'], bosses: ['Enemies'], events: ['Events'], banners: ['Character Event Warps', 'Light Cone Event Warps'], 'skin-events': ['Outfits'], story: ['Missions'], items: ['Items'] }, upcoming: ['Upcoming Characters'] },
+  genshin: { host: 'genshin-impact.fandom.com', name: 'Genshin Impact Wiki', categories: { characters: ['Playable Characters'], skins: ['Outfits'], weapons: ['Weapons', 'Artifacts'], bosses: ['Enemies'], events: ['Events'], banners: ['Character Event Wishes', 'Weapon Event Wishes'], 'skin-events': ['Outfits'], story: ['Quests'], items: ['Items'] }, upcoming: ['Upcoming Characters'] },
   hi3: { host: 'honkaiimpact3.fandom.com', name: 'Honkai Impact 3 Wiki', categories: { characters: ['Battlesuits'], skins: ['Outfits'], weapons: ['Weapons', 'Stigmata'], bosses: ['Enemies'], events: ['Events'], banners: ['Supplies'], 'skin-events': ['Outfits'], story: ['Story Chapters'], items: ['Items'] } },
-  wuwa: { host: 'wutheringwaves.fandom.com', name: 'Wuthering Waves Wiki', categories: { characters: ['Resonators'], skins: ['Outfits'], weapons: ['Weapons', 'Echoes'], bosses: ['Enemies'], events: ['Events'], banners: ['Featured Resonator Convenes', 'Featured Weapon Convenes'], 'skin-events': ['Outfits'], story: ['Quests'], items: ['Items'] } },
-  nte: { host: 'neverness-to-everness.fandom.com', name: 'Neverness to Everness Wiki', categories: { characters: ['Playable Characters'], skins: ['Outfits'], weapons: ['Arcs', 'Cartridges'], bosses: ['Boss'], events: ['Event'], banners: ['Limited Boards'], 'skin-events': ['Outfits'], story: ['Quest'], items: ['Items'] } },
+  wuwa: { host: 'wutheringwaves.fandom.com', name: 'Wuthering Waves Wiki', categories: { characters: ['Resonators'], skins: ['Outfits'], weapons: ['Weapons', 'Echoes'], bosses: ['Enemies'], events: ['Events'], banners: ['Featured Resonator Convenes', 'Featured Weapon Convenes'], 'skin-events': ['Outfits'], story: ['Quests'], items: ['Items'] }, upcoming: ['Upcoming Resonators'] },
+  nte: { host: 'neverness-to-everness.fandom.com', name: 'Neverness to Everness Wiki', categories: { characters: ['Playable Characters'], skins: ['Outfits'], weapons: ['Arcs', 'Cartridges'], bosses: ['Boss'], events: ['Event'], banners: ['Limited Boards'], 'skin-events': ['Outfits'], story: ['Quest'], items: ['Items'] }, upcoming: ['Upcoming Characters'] },
   mlbb: { host: 'mobile-legends.fandom.com', name: 'Mobile Legends Wiki', categories: { characters: ['Heroes'], skins: ['Hero skin', 'Skins', 'Skin series'], weapons: ['Equipment'], bosses: ['Common Creeps', 'Elite Creeps', 'Legend Creeps'], events: ['Events'], banners: ['Events'], 'skin-events': ['Events'], story: ['Lore Characters'], items: ['Equipment'] } },
 }
-export type CatalogEntry = { id: number; title: string; url: string; image?: string; imageLabel?: string }
+/** `upcoming`: announced but not out yet; `releaseDate`: YYYY-MM-DD when the wiki gives one. */
+export type CatalogEntry = { id: number; title: string; url: string; image?: string; imageLabel?: string; upcoming?: boolean; releaseDate?: string }
 export type CatalogResponse = {
   game: string; kind: string; items: CatalogEntry[]; next: string | null; search: boolean
   source: { name: string; url: string }; checkedAt: string | null; status: string; traversalLimited: boolean

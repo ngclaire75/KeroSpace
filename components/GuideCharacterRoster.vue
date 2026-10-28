@@ -69,14 +69,6 @@ const buffered = ref<CatalogEntry[]>([])
 let prefetchRun = 0
 watch(data, value => {
   if ((!value || value.status !== 'available') && !search.value && entries.value.length) return
-  // A live list missing saved characters means the wiki changed, not the game: keep ours.
-  if (value && value !== savedRoster.value && !search.value && savedRoster.value) {
-    const live = new Set(value.items.map(item => item.title))
-    if (savedRoster.value.items.filter(item => !live.has(item.title)).length > 2) {
-      if (entries.value.length) return
-      value = savedRoster.value
-    }
-  }
   entries.value = value?.items || []
   cursor.value = value?.next || null
   traversalLimited.value = value?.traversalLimited || false
@@ -116,6 +108,9 @@ async function loadMore() {
   await prefetch()
 }
 
+// "2026-11-04" → "4 Nov", as the date reads at release, not shifted by the visitor's time zone.
+const releaseLabel = (date: string) => new Date(`${date}T00:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' })
+
 const visibleEntries = computed(() => entries.value.filter(entry => hasCatalogArtwork(entry) && entryImage(entry)))
 const isLoading = computed(() => !visibleEntries.value.length && (status.value === 'pending' || status.value === 'idle'))
 </script>
@@ -127,7 +122,7 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
         <div class="gk-head__copy">
           <p class="gd-eyebrow">{{ game.short }} · Character builds</p>
           <component :is="headingLevel" id="character-roster-title" class="gk-head__title">Characters &amp;<br /><em class="gd-em">best builds.</em></component>
-          <p class="gk-head__lede">Choose a released character to see recommended equipment and stat priorities.</p>
+          <p class="gk-head__lede">Newest characters first, with announced ones on top. Choose a character to see recommended equipment and stat priorities.</p>
           <form class="gk-search" role="search" @submit.prevent="submitSearch">
             <label for="gk-search-input">Search {{ game.short }} characters</label>
             <div class="gk-search__row">
@@ -166,6 +161,7 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
             <NuxtLink :to="{ path: '/guides/database', query: { game: game.id, title: entry.title } }" class="gk-card neon-hover-outline" :title="entry.title">
               <!-- every game's artwork is shown whole, fitted inside the frame -->
               <span class="gk-card__art">
+                <span v-if="entry.upcoming" class="gk-card__badge">Upcoming<template v-if="entry.releaseDate"> · {{ releaseLabel(entry.releaseDate) }}</template></span>
                 <img :key="entryImage(entry)" :src="entryImage(entry)" :srcset="entrySrcset(entry)" :sizes="entrySrcset(entry) ? '(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 300px' : undefined" :alt="entry.title" :loading="index < 6 ? 'eager' : 'lazy'" decoding="async" referrerpolicy="no-referrer" @error="retryImage(entry)" />
               </span>
               <span class="gk-card__body">
@@ -407,7 +403,23 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
   margin-top: 32px;
 }
 .gk-more .gd-btn {
+  border: 0;
+  background: linear-gradient(110deg, #ff183b, #6e0614) border-box no-repeat;
+  color: #fff;
   font-family: var(--display);
+}
+.gk-card__badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  padding: 5px 9px;
+  background: linear-gradient(110deg, #ff183b, #6e0614);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 .gk-more p,
 .gk-fine {

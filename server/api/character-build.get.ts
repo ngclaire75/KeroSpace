@@ -1,10 +1,11 @@
 import { gameCatalogs } from '~/data/gameCatalogs'
-import { hasUnreleasedMarker, isReleasedCatalogEntry } from '~/utils/catalogRelease'
+import { hasUnreleasedMarker, isAnnouncedCatalogEntry, isReleasedCatalogEntry, releaseOf } from '~/utils/catalogRelease'
 import type { CharacterBuildResponse } from '~/data/characterBuilds'
 import buildSnapshots from '~/data/guideBuildSnapshots.json'
-import { liveProblem } from '../utils/buildQuality'
+import { buildProblem, liveProblem } from '../utils/buildQuality'
 import { withCurrentMlbbItems } from '../utils/mlbbItems'
-import { honkaiBuild, kqmBuild, mlbbBuild, prydwenBuild } from '../utils/buildSources'
+import { game8Build, honkaiBuild, kqmBuild, mlbbBuild, mlbbRoster, prydwenBuild } from '../utils/buildSources'
+import { normalizedName } from '../utils/buildParsers'
 
 const loadBuild = defineCachedFunction(async (game: string, title: string) => {
   const config = gameCatalogs[game]
@@ -14,15 +15,36 @@ const loadBuild = defineCachedFunction(async (game: string, title: string) => {
   })
   const page = Object.values(metadata.query?.pages || {})[0] as any
   const categories = (page?.categories || []).map((category: { title: string }) => category.title)
-  const valid = page?.pageid > 0 && categories.some((category: string) => config.categories.characters.some(root => category.toLowerCase() === `category:${root}`.toLowerCase()))
-    && isReleasedCatalogEntry({ title, categories, lead: page.revisions?.[0]?.slots?.main?.['*'] || '' }, 'characters')
+  const lead = page?.revisions?.[0]?.slots?.main?.['*'] || ''
+  const filed = (roots: string[]) => categories.some((category: string) => roots.some(root => category.toLowerCase() === `category:${root}`.toLowerCase()))
+  // Same rule as the roster: the character's category, an announced-character category, or
+  // (Mobile Legends) the official hero list, which keeps heroes the wiki has mis-filed.
+  const listed = filed(config.categories.characters) || filed(config.upcoming || [])
+    || (game === 'mlbb' && (await mlbbRoster().catch(() => [])).some(hero => normalizedName(String(hero.name || '')) === normalizedName(title)))
+  const valid = page?.pageid > 0 && listed && isAnnouncedCatalogEntry({ title, categories, lead })
   if (!valid) return { game, title, builds: [], status: 'missing', source: { name: config.name, url: `https://${config.host}` }, checkedAt: new Date().toISOString() } satisfies CharacterBuildResponse
-  const result = game === 'genshin' ? await kqmBuild(title) : game === 'mlbb' ? await mlbbBuild(title) : game === 'hi3' ? await honkaiBuild(title) : await prydwenBuild(game, title)
+  const release = releaseOf(lead)
+  const upcoming = !isReleasedCatalogEntry({ title, categories, lead }, 'characters') && !(release.time !== undefined && release.time <= Date.now())
+  const primary = () => game === 'genshin' ? kqmBuild(title) : game === 'mlbb' ? mlbbBuild(title) : game === 'hi3' ? honkaiBuild(title) : prydwenBuild(game, title)
+  let result: CharacterBuildResponse
+  try { result = await primary() }
+  catch (error) {
+    // The main guide failing outright: Game8 stands in briefly (a saved build still wins).
+    const fallback = await game8Build(game, title).catch(() => undefined)
+    if (fallback?.status !== 'available' || buildProblem(game, fallback)) throw error
+    result = { ...fallback, provisional: true }
+  }
+  // The main guide has nothing yet (an upcoming or brand-new character): use Game8's build.
+  if (result.status !== 'available') {
+    const fallback = await game8Build(game, title).catch(() => undefined)
+    if (fallback?.status === 'available' && !buildProblem(game, fallback)) result = { ...fallback, teams: result.teams?.length ? result.teams : fallback.teams }
+  }
+  if (upcoming) Object.assign(result, { upcoming: true, ...(release.date ? { releaseDate: release.date } : {}) })
   const image = page.thumbnail?.source || page.original?.source
   if (typeof image === 'string' && image.startsWith('https://static.wikia.nocookie.net/')) result.image = image
   return result
 }, {
-  name: 'character-best-build-v11', maxAge: 3600, swr: true, getKey: (game, title) => `${game}:${title}`,
+  name: 'character-best-build-v17', maxAge: 3600, swr: true, getKey: (game, title) => `${game}:${title}`,
   // A fallback answer is never stored, so the next request tries the preferred source again.
   validate: entry => entry.value !== undefined && !(entry.value as CharacterBuildResponse).provisional,
 })
@@ -30,7 +52,19 @@ const loadBuild = defineCachedFunction(async (game: string, title: string) => {
 // Live builds come first. KeroSpace's saved builds (scripts/sync-guide-builds.py) are the
 // safety net: when a guide site is down, slow, or its new layout parses into something wrong,
 // the visitor gets the last verified build instead of junk or an error.
-const snapshots = buildSnapshots as Record<string, Record<string, CharacterBuildResponse>>
+type Snapshots = Record<string, Record<string, CharacterBuildResponse>>
+// The daily Prydwen refresh commits its builds to GitHub, and a commit doesn't redeploy the site,
+// so read the latest saved builds from the repository. The copy deployed with the site is the
+// fallback when GitHub can't be reached.
+const SNAPSHOTS_URL = 'https://raw.githubusercontent.com/ngclaire75/KeroSpace/main/data/guideBuildSnapshots.json'
+const latestSnapshots = defineCachedFunction(async () => {
+  const latest = await $fetch<Snapshots>(SNAPSHOTS_URL, { responseType: 'json', timeout: 8000, retry: 1 })
+  if (!latest || typeof latest !== 'object' || !['hsr', 'wuwa', 'nte'].every(game => Object.keys(latest[game] || {}).length >= Object.keys((buildSnapshots as Snapshots)[game] || {}).length * 0.8)) throw new Error('Saved builds incomplete')
+  return latest
+}, { name: 'build-snapshots-v1', maxAge: 900, swr: true })
+async function savedBuilds(): Promise<Snapshots> {
+  try { return await latestSnapshots() } catch { return buildSnapshots as Snapshots }
+}
 const LIVE_WAIT = 2500
 const DAILY_REFRESHED = new Set(['hsr', 'wuwa', 'nte'])
 
@@ -38,7 +72,7 @@ export default defineEventHandler(async event => {
   const query = getQuery(event)
   const game = String(query.game || ''), title = String(query.title || '').trim()
   if (!Object.hasOwn(gameCatalogs, game) || !title || title.length > 120 || /[<>|\x00-\x1f]/.test(title) || /^(?:Special|File|Category|User|Template|Talk):/i.test(title) || hasUnreleasedMarker(title)) throw createError({ statusCode: 400, statusMessage: 'Invalid character' })
-  const saved = snapshots[game]?.[title]
+  const saved = (await savedBuilds())[game]?.[title]
   // Prydwen (HSR, WuWa, NTE) blocks servers, so a live read here only reaches an outdated mirror.
   // Those builds are refreshed daily in a real browser (scripts/sync-prydwen-builds.ts), which
   // makes the saved build the current one.

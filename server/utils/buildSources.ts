@@ -1,6 +1,6 @@
 import { parsePrydwenTeams, parseKqmTeams, parseHonkaiTeams, parseMobileLegendsTeams } from './teamParsers'
 import type { CharacterBuildResponse } from '~/data/characterBuilds'
-import { normalizedName, parseHonkaiEquipment, parseKqmBuild, parsePrydwenBuild, richStatLines } from './buildParsers'
+import { normalizedName, parseGame8Build, parseHonkaiEquipment, parseKqmBuild, parsePrydwenBuild, richStatLines } from './buildParsers'
 
 // Public static data and HTML used by Prydwen's Gatsby site; no private APIs or credentials.
 const PRYDWEN = 'https://www.prydwen.gg'
@@ -155,7 +155,7 @@ export async function kqmBuild(title: string): Promise<CharacterBuildResponse> {
   return { game: 'genshin', title, builds: [], status: 'missing', source, checkedAt: new Date().toISOString() }
 }
 
-const mlbbRoster = defineCachedFunction(async () => {
+export const mlbbRoster = defineCachedFunction(async () => {
   const result = await $fetch<ProviderRecord>('https://mapi.mobilelegends.com/hero/list', { query: { language: 'en' }, headers, timeout: 12000, retry: 1 })
   if (result.code !== 2000 || !Array.isArray(result.data)) throw new Error('Official hero index unavailable')
   return result.data as ProviderRecord[]
@@ -200,6 +200,61 @@ export async function honkaiBuild(title: string): Promise<CharacterBuildResponse
   return {
     game: 'hi3', title, teams: parseHonkaiTeams(response.parse.text['*'], title), builds, status: builds.length ? 'available' : 'missing',
     source: { name: 'Honkai Impact 3 Wiki · BBS equipment database', url: `https://honkaiimpact3.fandom.com/wiki/${encodeURIComponent(title.replaceAll(' ', '_'))}#BBS_Equipment_Builds`, updated: `Revision ${response.parse.revid}` },
+    checkedAt: new Date().toISOString(),
+  }
+}
+
+// Game8 publishes builds the moment a character is announced, so it covers characters the
+// main guide sites haven't written up yet (upcoming and brand-new releases).
+const GAME8 = 'https://game8.co'
+const game8Games: Record<string, { slug: string; lists: number[] }> = {
+  genshin: { slug: 'Genshin-Impact', lists: [296707] },
+  hsr: { slug: 'Honkai-Star-Rail', lists: [404256] },
+  wuwa: { slug: 'Wuthering-Waves', lists: [453303] },
+  nte: { slug: 'Neverness-to-Everness', lists: [592067] },
+}
+const game8Headers = { ...headers, Accept: 'text/html' }
+// Character name → article, read from the game's character list and home page menus.
+const game8Index = defineCachedFunction(async (game: string) => {
+  const config = game8Games[game]
+  const pages = await Promise.allSettled([`/games/${config.slug}`, ...config.lists.map(id => `/games/${config.slug}/archives/${id}`)].map(path => $fetch<string>(GAME8 + path, { responseType: 'text', headers: game8Headers, timeout: 15000, retry: 1 })))
+  const index: Record<string, string> = {}
+  for (const page of pages) {
+    if (page.status !== 'fulfilled') continue
+    for (const [, path, label] of page.value.matchAll(/href=['"](?:https:\/\/game8\.co)?(\/games\/[\w-]+\/archives\/\d+)['"][^>]*>(?:\s*<img[^>]*>)?\s*([^<]{2,60}?)\s*</g)) {
+      const key = normalizedName(label)
+      if (key && !index[key] && path.startsWith(`/games/${config.slug}/`)) index[key] = path
+    }
+  }
+  if (!Object.keys(index).length) throw new Error('Game8 character index unavailable')
+  return index
+}, { name: 'build-game8-index-v1', maxAge: 21600, swr: true, getKey: game => game })
+
+export async function game8Build(game: string, title: string): Promise<CharacterBuildResponse> {
+  const source = { name: 'Game8', url: game8Games[game] ? `${GAME8}/games/${game8Games[game].slug}` : GAME8 }
+  const missing = { game, title, builds: [], status: 'missing', source, checkedAt: new Date().toISOString() } satisfies CharacterBuildResponse
+  if (!game8Games[game]) return missing
+  const index = await game8Index(game)
+  // "Dan Heng • Imbibitor Lunae" is "Imbibitor Lunae", "Arataki Itto" is "Itto" on Game8, and
+  // build links can use a first name alone ("Akane Build").
+  const names = [...new Set([title, title.split('•').pop()!, KQM_ALIASES[normalizedName(title)] || ''].map(normalizedName).filter(Boolean))]
+  const words = title.split(/[\s•]+/).filter(Boolean)
+  const short = [words[0], words.at(-1)!].map(normalizedName)
+  // Prefer the build article ("Linko Best Build and Arcs") over a profile page ("Linko").
+  const keys = Object.keys(index)
+  const buildKey = (name: string) => keys.filter(key => key.startsWith(name) && key.includes('build') && !/history|tier|team/.test(key)).sort((a, b) => a.length - b.length)[0]
+  const path = [...names, ...short].map(buildKey).filter(Boolean).map(key => index[key!])[0] || [...names, ...short].map(name => index[name]).find(Boolean)
+  if (!path) return missing
+  source.url = GAME8 + path
+  const html = await $fetch<string>(source.url, { responseType: 'text', headers: game8Headers, timeout: 20000, retry: 1 })
+  // The article must be this character's build guide, not a teaser or a list.
+  const heading = html.match(/<title>([^<]*)<\/title>/i)?.[1] || ''
+  if (![...names, ...short].some(name => normalizedName(heading).startsWith(name)) || !/build/i.test(heading)) return missing
+  const build = parseGame8Build(game, html, GAME8)
+  if (!build.groups.length) return missing
+  return {
+    game, title, builds: [build], status: 'available',
+    source: { ...source, updated: html.match(/article:modified_time["']\s+content=["']([^"']+)/i)?.[1] || html.match(/"dateModified"\s*:\s*"([^"]+)"/)?.[1] },
     checkedAt: new Date().toISOString(),
   }
 }

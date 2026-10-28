@@ -18,4 +18,7 @@ export type CharacterBuildResponse = {
   provisional?: boolean
   /** Why a freshly parsed build was refused (see server/utils/buildQuality.ts). */
   rejected?: string
+  /** Announced but not out yet; `releaseDate` is YYYY-MM-DD when known. */
+  upcoming?: boolean
+  releaseDate?: string
 }
