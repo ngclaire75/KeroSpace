@@ -161,14 +161,18 @@ onBeforeUnmount(() => observer?.disconnect())
 .pt-stage { position: relative; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); min-height: 400px; background: #000; }
 /* permanent outline: a dark red gradient that slowly turns */
 .pt-stage::after { content: ''; position: absolute; inset: 0; z-index: 3; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ff183b, #a30d22 25%, #4a050e 50%, #a30d22 75%, #ff183b); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; animation: card-outline-turn 8s linear infinite; pointer-events: none; }
-.pt-stage__art { position: relative; overflow: hidden; background: #050507; }
+/* The art fades out by its own mask over a pure black box rather than under a black
+   overlay: iOS Safari rounds each filtered layer to device pixels on its own, which
+   let a hairline of bright art peek past the overlay at the seam. With the edge
+   pixels themselves transparent there is nothing left to peek through. */
+.pt-stage__art { --art-fade: linear-gradient(90deg, #000 70%, transparent 100%); position: relative; isolation: isolate; overflow: hidden; background: #000; }
 /* black-and-white art with the red holographic sheen (the rail keeps its own look) */
-.pt-stage__art > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos-stage); filter: var(--bw-art); opacity: 0; scale: 1.06; transition: opacity .6s var(--ease), scale 1.2s var(--ease); }
+.pt-stage__art > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos-stage); -webkit-mask-image: var(--art-fade); mask-image: var(--art-fade); filter: var(--bw-art); opacity: 0; scale: 1.06; transition: opacity .6s var(--ease), scale 1.2s var(--ease); }
 .pt-stage__art > img.is-active { opacity: 1; scale: 1; }
 /* NTE's art is darker than the rest, so it is brightened instead of dimmed */
 .pt-stage__art > img.pt-stage__img--nte { filter: grayscale(1) contrast(1.15) brightness(1.1); }
-.pt-stage__art::before { content: ''; position: absolute; inset: 0; z-index: 1; mix-blend-mode: screen; background: var(--red-holo); animation: red-holo-sweep 7s ease-in-out infinite alternate; pointer-events: none; }
-.pt-stage__art::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, .85) 100%), linear-gradient(90deg, rgba(0, 0, 0, 0) 70%, #000 100%); pointer-events: none; }
+.pt-stage__art::before { content: ''; position: absolute; inset: 0; z-index: 1; -webkit-mask-image: var(--art-fade); mask-image: var(--art-fade); mix-blend-mode: screen; background: var(--red-holo); animation: red-holo-sweep 7s ease-in-out infinite alternate; pointer-events: none; }
+.pt-stage__art::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, .85) 100%); pointer-events: none; }
 .pt-stage__body { display: grid; min-width: 0; }
 /* the breakdown swaps with a quick fade-up */
 .pt-stage__body > * { grid-area: 1 / 1; visibility: hidden; opacity: 0; translate: 0 10px; transition: opacity .22s ease, translate .22s ease, visibility 0s .22s; }
@@ -193,11 +197,10 @@ onBeforeUnmount(() => observer?.disconnect())
 /* tablet: art becomes a banner above the breakdown */
 @media (max-width: 1100px) {
   .pt-stage { grid-template-columns: minmax(0, 1fr); }
-  .pt-stage__art { height: 300px; }
+  /* the strip fades out at the bottom, fully transparent a little before the edge */
+  .pt-stage__art { --art-fade: linear-gradient(180deg, #000 40%, transparent 96%); height: 300px; }
   .pt-stage__art > img { object-position: var(--pos-wide); }
-  /* solid black just before the edge, so no sliver of art shows at the seam
-     when the browser rounds the strip height */
-  .pt-stage__art::after { background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, #000 97%); }
+  .pt-stage__art::after { display: none; }
 }
 
 @media (max-width: 960px) {
