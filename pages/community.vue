@@ -179,12 +179,18 @@ h2 em {
   border-radius: 18px;
   background: #000000;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 20px 50px rgba(0, 0, 0, 0.6);
+  /* Safari stops clipping to the rounded corners once a tile is transformed and holds
+     filtered / blended layers: its own stacking context and GPU layer keep the clip on */
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 .mosaic__tile:nth-child(3n + 2) {
-  transform: translateY(28px);
+  transform: translate3d(0, 28px, 0);
 }
 .mosaic__tile:nth-child(3n + 1) {
-  transform: translateY(-10px);
+  transform: translate3d(0, -10px, 0);
 }
 .mosaic__bg {
   position: absolute;
@@ -192,6 +198,8 @@ h2 em {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* rounded itself too, so the square image edge can never show past the tile's corners */
+  border-radius: inherit;
   /* black and white, a little more contrast, slightly dimmed */
   filter: var(--bw-art);
 }
@@ -211,6 +219,7 @@ h2 em {
   position: absolute;
   z-index: 1;
   inset: 0;
+  border-radius: inherit;
   pointer-events: none;
   mix-blend-mode: screen;
   background: var(--red-holo);
@@ -224,7 +233,9 @@ h2 em {
 .mosaic__tile::after {
   content: '';
   position: absolute;
-  inset: 0;
+  /* 1px past the edges so no sub-pixel row of bright image peeks out under the fade */
+  inset: -1px;
+  border-radius: inherit;
   background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.85));
 }
 .mosaic__who {

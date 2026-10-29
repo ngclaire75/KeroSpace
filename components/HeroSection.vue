@@ -306,9 +306,6 @@ onBeforeUnmount(() => {
   letter-spacing: 0.01em;
   text-transform: uppercase;
   color: #fff;
-  text-shadow:
-    0 0 22px rgba(255, 255, 255, 0.35),
-    0 0 60px rgba(255, 255, 255, 0.12);
 }
 .hero__line {
   display: block;
@@ -332,8 +329,6 @@ onBeforeUnmount(() => {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: none;
-  filter: drop-shadow(0 0 18px rgba(255, 24, 59, 0.3)) drop-shadow(0 0 10px rgba(220, 220, 224, 0.15));
   animation: shimmer 10s linear infinite;
 }
 @keyframes shimmer {
