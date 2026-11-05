@@ -91,7 +91,6 @@ onBeforeUnmount(() => {
       <header ref="bar" class="nav" :class="{ 'is-open': open, 'is-pinned': pinned, 'is-scrolled': scrolled }">
         <NuxtLink to="/" class="nav__brand" aria-label="KeroSpace home" @click="goHome">
           <AppImage class="nav__mark" loading="eager" src="/images/logo.webp" alt="" width="34" height="34" />
-          <AppImage class="nav__word" loading="eager" sizes="180px" src="/images/wordmark-neon.webp" alt="" width="840" height="206" />
         </NuxtLink>
 
         <nav class="nav__links" aria-label="Primary">
@@ -159,11 +158,6 @@ onBeforeUnmount(() => {
                 </component>
               </li>
             </ol>
-
-            <div class="menu__foot" :style="{ '--d': `${0.12 + links.length * 0.05}s` }">
-              <AppImage class="menu__mark" src="/images/wordmark-neon.webp" alt="KeroSpace" width="840" height="206" />
-              <p class="menu__credit">designed by claire.</p>
-            </div>
           </div>
         </div>
       </header>
@@ -223,11 +217,6 @@ onBeforeUnmount(() => {
   height: 34px;
   object-fit: contain;
   filter: drop-shadow(0 0 10px rgba(255, 42, 61, 0.45));
-}
-.nav__word {
-  /* trimmed to the artwork incl. its glow; letters sit centred in the box */
-  height: 26px;
-  width: auto;
 }
 
 .nav__links {
@@ -324,10 +313,6 @@ onBeforeUnmount(() => {
     display: block;
     translate: 0 0.5px;
   }
-  /* logo mark only on mobile — wordmark hidden, mark a touch bigger */
-  .nav__word {
-    display: none;
-  }
   .nav__mark {
     width: 48px;
     height: 48px;
@@ -396,8 +381,7 @@ onBeforeUnmount(() => {
       opacity 0.3s,
       translate 0.3s;
   }
-  .is-open .menu__item,
-  .is-open .menu__foot {
+  .is-open .menu__item {
     opacity: 1;
     translate: 0 0;
     transition:
@@ -453,39 +437,6 @@ onBeforeUnmount(() => {
   .menu__item.is-active .menu__label {
     font-weight: 900;
   }
-  .menu__foot {
-    margin-top: auto;
-    padding-top: 36px;
-    opacity: 0;
-    translate: 0 24px;
-    transition:
-      opacity 0.3s,
-      translate 0.3s;
-  }
-  .menu__mark {
-    display: block;
-    height: 30px;
-    width: auto;
-  }
-  .menu__credit {
-    display: block;
-    width: fit-content;
-    margin: -2px 0 0;
-    font-family: var(--display);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    background: linear-gradient(90deg, #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b);
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: credit-gradient 3.5s linear infinite;
-    animation-play-state: paused;
-  }
-  .is-open .menu__credit {
-    animation-play-state: running;
-  }
 }
 
 @keyframes menu-neon {
@@ -493,19 +444,13 @@ onBeforeUnmount(() => {
   to { background-position: 100% 50%; }
 }
 
-@keyframes credit-gradient {
-  to { background-position: 200% 50%; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .menu__credit,
   .menu__label {
     animation: none !important;
   }
   .nav::before,
   .menu,
   .menu__item,
-  .menu__foot,
   .nav__burger span {
     transition-duration: 0.01s !important;
     transition-delay: 0s !important;
