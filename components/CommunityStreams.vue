@@ -121,7 +121,7 @@ function titleLines(name: string): [string, string] {
 .streams__eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; color: #fff; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .16em; }
 .streams__eyebrow img { object-fit: contain; }
 .streams h2 { margin: 0; font: 900 clamp(28px, 3.5vw, 46px)/1.16 var(--display); text-transform: uppercase; letter-spacing: -.025em; }
-.streams h2 em { font-style: normal; background: linear-gradient(100deg, #ff183b, #ff183b 55%, #6e0614); background-clip: text; -webkit-text-fill-color: transparent; }
+.streams h2 em { font-style: normal; background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); background-clip: text; -webkit-text-fill-color: transparent; }
 .streams__intro { max-width: 330px; margin: 0 0 3px; font-size: 16px; line-height: 1.75; color: #c1c1c3; }
 .streams__layout { display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); align-items: start; gap: clamp(24px, 3.2vw, 44px); }
 .streams__poster { margin: 0; border: 0; border-radius: 0; }
@@ -129,17 +129,17 @@ function titleLines(name: string): [string, string] {
 .directory { min-width: 0; }
 .directory__tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; margin-bottom: 20px; }
 .directory__tabs button { position: relative; display: grid; place-items: center; min-width: 0; min-height: 44px; padding: 10px 5px; border: 0; border-bottom: 2px solid var(--edge); background: #000; cursor: pointer; transition: background .2s ease; }
-.directory__tabs button::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #ff183b, #ff183b 55%, #6e0614); opacity: 0; transition: opacity .2s ease; }
+.directory__tabs button::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0); opacity: 0; transition: opacity .2s ease; }
 .directory__tabs button[aria-selected="true"] { background: #000; }
 .directory__tabs button[aria-selected="true"]::after { opacity: 1; }
 /* short names (HSR, HI3, WuWa, MLBB…) keep every tab on one line */
 .directory__tabs span { display: block; font: 900 12px/1.4 var(--display); text-transform: uppercase; white-space: nowrap; }
 .directory__panel { width: 100%; min-width: 0; padding: 2px; border: 0; background: #000; }
-.directory__panel.neon-hover-outline::after { opacity: 1; background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #6e0614 50%, #ff183b 65%, #ff183b); animation: card-outline-turn 3s linear infinite; }
+.directory__panel.neon-hover-outline::after { opacity: 1; background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b); animation: card-outline-turn 3s linear infinite; }
 .directory__heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 88px; padding: 16px 26px; }
 .directory__heading > div { min-width: 0; }
 .directory__heading p { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; margin: 0 0 8px; color: #fff; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; }
-.directory__heading h3 { margin: 0; font: 900 clamp(20px, 2vw, 26px)/1.15 var(--display); letter-spacing: -.02em; text-transform: uppercase; text-wrap: balance; color: #ff183b; background: linear-gradient(100deg, #ff183b, #ff183b 35%, #6e0614 50%, #ff183b 65%, #ff183b); background-size: 250% 100%; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: directory-title-flow 4s ease-in-out infinite alternate; }
+.directory__heading h3 { margin: 0; font: 900 clamp(20px, 2vw, 26px)/1.15 var(--display); letter-spacing: -.02em; text-transform: uppercase; text-wrap: balance; color: #ff183b; background: linear-gradient(100deg, #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b); background-size: 250% 100%; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: directory-title-flow 4s ease-in-out infinite alternate; }
 @keyframes directory-title-flow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 .directory__heading h3 { display: grid; align-items: center; }
 .directory__heading h3 > span { grid-area: 1 / 1; min-width: 0; visibility: hidden; }
@@ -180,7 +180,7 @@ tbody th { padding: 0; }
 .directory__pagination > div { display: flex; gap: 6px; }
 .directory__pagination button { display: grid; place-items: center; width: 48px; height: 36px; padding: 0; border: 0; border-radius: 4px; background: transparent; cursor: pointer; }
 .directory__pagination button span { width: 40px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .55); box-shadow: 0 1px 5px rgba(0, 0, 0, .8); }
-.directory__pagination button[aria-current] span { background: linear-gradient(90deg, #ff183b, #ff183b 55%, #6e0614); box-shadow: 0 0 7px rgba(255, 77, 94, .65); }
+.directory__pagination button[aria-current] span { background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0); box-shadow: 0 0 7px rgba(255, 77, 94, .65); }
 .streams :is(a, button, [tabindex]):focus-visible { outline: 2px solid #ff4d5e; outline-offset: 3px; }
 tbody :is(.channel, .language abbr, .hours-value, .watch a) { animation: channels-in .3s ease-out both; }
 @keyframes channels-in { from { opacity: 0; } to { opacity: 1; } }

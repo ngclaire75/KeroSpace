@@ -159,17 +159,17 @@ useHead(() => ({
 
 <style scoped>
 .game-story-page { position: relative; isolation: isolate; min-height: 100svh; background: transparent; }
-.story-main { --story-radius: 10px; --story-edge: #2f2f31; --story-gradient: linear-gradient(100deg, #ff183b, #ff183b 55%, #6e0614); --ink: #fff; --ink-2: #fff; --ink-3: #fff; color: #fff; width: calc(100% - 2 * clamp(16px, 4vw, 40px)); max-width: 1240px; margin-inline: auto; padding-top: clamp(26px, 3.6vw, 48px); padding-bottom: clamp(72px, 9vw, 120px); }
+.story-main { --story-radius: 10px; --story-edge: #2f2f31; --story-gradient: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); --ink: #fff; --ink-2: #fff; --ink-3: #fff; color: #fff; width: calc(100% - 2 * clamp(16px, 4vw, 40px)); max-width: 1240px; margin-inline: auto; padding-top: clamp(26px, 3.6vw, 48px); padding-bottom: clamp(72px, 9vw, 120px); }
 .story-main ::selection { color: #000; background: #ff4d5e; }
 .story-promo { position: relative; width: 100%; aspect-ratio: 3.5 / 1; overflow: hidden; margin-top: clamp(24px, 3vw, 40px); }
 .story-promo picture { display: block; width: 100%; height: 100%; }
 .story-promo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
-.blog-ticker { position: relative; display: flex; align-items: center; min-height: 28px; width: 100%; overflow: hidden; padding: 0; background: var(--marquee-grad); color: var(--marquee-ink); margin-bottom: clamp(28px, 3vw, 44px); box-shadow: 0 0 18px #ff183b66, 0 0 40px #ff183b33, inset 0 1px 0 #ffffff59; }
+.blog-ticker { position: relative; display: flex; align-items: center; min-height: 28px; width: 100%; overflow: hidden; padding: 0; background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); color: #000; margin-bottom: clamp(28px, 3vw, 44px); box-shadow: 0 0 18px #ff183b66, 0 0 40px #ff183b33, inset 0 1px 0 #ffffff59; }
 .blog-ticker__track { display: flex; width: max-content; will-change: transform; animation: blog-ticker-scroll 40s linear infinite; }
 .blog-ticker__group { display: flex; align-items: center; justify-content: space-around; flex-shrink: 0; min-width: 100vw; }
 .blog-ticker__item { display: flex; align-items: center; flex-shrink: 0; gap: clamp(14px, 1.8vw, 24px); padding-right: clamp(14px, 1.8vw, 24px); white-space: nowrap; }
-.blog-ticker__item span { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Noto Sans CJK KR', 'Malgun Gothic', var(--ui); font-size: clamp(12px, 1vw, 14px); font-weight: 800; line-height: 1.4; letter-spacing: .02em; color: var(--marquee-ink); text-shadow: none; }
-.blog-ticker__item svg { display: block; flex-shrink: 0; width: clamp(18px, 1.4vw, 22px); height: auto; margin-block: -5px; color: var(--marquee-ink); filter: none; }
+.blog-ticker__item span { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Noto Sans CJK KR', 'Malgun Gothic', var(--ui); font-size: clamp(12px, 1vw, 14px); font-weight: 800; line-height: 1.4; letter-spacing: .02em; color: #000; text-shadow: none; }
+.blog-ticker__item svg { display: block; flex-shrink: 0; width: clamp(18px, 1.4vw, 22px); height: auto; margin-block: -5px; color: #000; filter: none; }
 @supports (text-box: trim-both cap alphabetic) {
   .blog-ticker__item span { text-box: trim-both cap alphabetic; }
 }
@@ -191,7 +191,7 @@ h1, .story-chapter h2 { color: #ff4d5e; }
 .story-article { min-width: 0; display: grid; gap: 52px; }
 .story-chapter { min-width: 0; padding-top: 40px; scroll-margin-top: 28px; }
 .chapter-heading { max-width: 860px; margin-bottom: 24px; }
-.chapter-label { display: block; width: fit-content; margin: 0 0 16px; padding-bottom: 4px; color: #fff; background: linear-gradient(90deg, #ff183b, #ff183b 55%, #6e0614) left bottom / 100% 2px no-repeat; }
+.chapter-label { display: block; width: fit-content; margin: 0 0 16px; padding-bottom: 4px; color: #fff; background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0) left bottom / 100% 2px no-repeat; }
 .story-chapter h2 { font-family: var(--display); font-size: clamp(23px, 2.5vw, 32px); letter-spacing: -.035em; line-height: 1.5; margin: 0; text-wrap: balance; }
 .chapter-body, .chapter-paragraphs { min-width: 0; }
 .chapter-paragraphs { max-width: 780px; }

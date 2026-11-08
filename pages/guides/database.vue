@@ -192,7 +192,7 @@ const steps = (value: string) => value.split(/\s*(?:>(?!=)|→|->)\s*/).map(step
   --cb-panel: #0a0a0d;
   --cb-head: 44px;
   --cb-head-gap: 18px;
-  --cb-grad: linear-gradient(100deg, #ff183b, #ff183b 55%, #6e0614);
+  --cb-grad: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0);
   /* small number badges: smooth red → dark red; the middle stop keeps the blend even on ~24px */
   --cb-grad-soft: linear-gradient(135deg, #ff183b, #c8102e 50%, #6e0614);
   background: transparent;

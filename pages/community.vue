@@ -70,7 +70,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
   --c-muted: rgba(255, 255, 255, 0.66);
   --c-line: rgba(255, 255, 255, 0.1);
   --c-card: #0b0a0f;
-  --c-grad: linear-gradient(100deg, #ff183b, #ff183b 55%, #6e0614);
+  --c-grad: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0);
   min-height: 100vh;
   min-height: 100svh;
   position: relative;
@@ -267,7 +267,7 @@ h2 em {
   display: block;
   padding: 2px;
   border-radius: 50%;
-  background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #6e0614 50%, #ff183b 65%, #ff183b);
+  background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b);
   animation: card-outline-turn 3s linear infinite;
 }
 .mosaic__who b {

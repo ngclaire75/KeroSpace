@@ -173,7 +173,7 @@ async function copyEnquiry() {
 </template>
 
 <style scoped>
-.shop-page { --shop-pink: #ff4d5e; --shop-purple: #ff4d5e; --shop-red: #ff3858; --shop-muted: #c8c8cc; --shop-outline: linear-gradient(110deg, #ff183b, #ff183b 55%, #6e0614); --shop-outline-dim: linear-gradient(110deg, rgba(255, 24, 59, .5), rgba(255, 24, 59, .5) 55%, rgba(110, 6, 20, .4)); position: relative; isolation: isolate; background: transparent; min-height: 100svh; }
+.shop-page { --shop-pink: #ff4d5e; --shop-purple: #ff4d5e; --shop-red: #ff3858; --shop-muted: #c8c8cc; --shop-outline: linear-gradient(110deg, #ff183b, #ff183b 55%, #dcdce0); --shop-outline-dim: linear-gradient(110deg, rgba(255, 24, 59, .5), rgba(255, 24, 59, .5) 55%, rgba(220, 220, 224, .4)); position: relative; isolation: isolate; background: transparent; min-height: 100svh; }
 .shop-wrap { width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px)); margin-inline: auto; padding-bottom: clamp(88px, 10vw, 144px); }
 .shop-hero { padding-top: clamp(40px, 6vw, 88px); }
 .shop-hero__intro { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: last baseline; margin-bottom: 38px; }
@@ -181,7 +181,7 @@ async function copyEnquiry() {
 .shop-eyebrow--line { display: flex; align-items: center; gap: 10px; color: #fff; }
 h1, h2, h3, p, figure { margin-top: 0; }
 h1 { margin-bottom: 0; font: 900 clamp(32px, 5vw, 64px)/1.12 var(--display); letter-spacing: -.035em; text-transform: uppercase; }
-em { font-style: normal; background: linear-gradient(105deg, #ff183b, #ff183b 55%, #6e0614); background-clip: text; -webkit-background-clip: text; color: transparent; }
+em { font-style: normal; background: linear-gradient(105deg, #ff183b, #ff183b 55%, #dcdce0); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .shop-hero__aside { max-width: 450px; justify-self: end; }
 .shop-hero__aside > p:first-child { color: #fff; font-weight: 800; font-size: 15px; margin-bottom: 12px; }
 .shop-hero__aside > p:nth-child(2) { color: var(--shop-muted); font-size: 15px; line-height: 1.75; margin-bottom: 0; }
@@ -253,7 +253,7 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .copied-dialog { width: min(820px, calc(100vw - 64px)); max-width: none; max-height: calc(100dvh - 120px); padding: 0; border: 0; overflow: visible; background: transparent; color: #fff; }
 .copied-dialog::backdrop { background: rgb(0 0 0 / .8); backdrop-filter: blur(7px); }
 .copied-banner { position: relative; isolation: isolate; display: grid; grid-template-columns: 42% 58%; border: 1px solid #ff2446; background: #000; box-shadow: 0 24px 100px #0009; }
-.copied-banner::before { content: ''; position: absolute; inset: -2px; padding: 2px; pointer-events: none; background: linear-gradient(115deg, #720015, #ff173d, #a30d22, #ff2446, #720015, #ff173d); background-size: 300% 300%; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; }
+.copied-banner::before { content: ''; position: absolute; inset: -2px; padding: 2px; pointer-events: none; background: linear-gradient(115deg, #720015, #ff173d, #ff9a9f, #ff2446, #720015, #ff173d); background-size: 300% 300%; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; }
 .copied-banner__art { position: relative; min-height: 420px; }
 .copied-banner__art img { position: absolute; bottom: 0; left: -10%; width: 156%; height: 148%; object-fit: contain; object-position: bottom; filter: drop-shadow(0 8px 18px #0007); pointer-events: none; }
 .copied-banner__content { position: relative; padding: 42px 36px 32px 20px; }
@@ -262,7 +262,7 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .copied-banner__status > span { display: grid; place-items: center; width: 22px; height: 22px; flex-shrink: 0; line-height: 0; letter-spacing: 0; border: 1px solid #ff2446; border-radius: 50%; color: #ff3654; }
 .copied-banner__status svg { display: block; }
 .copied-banner h2 { font-size: clamp(24px, 3vw, 32px); line-height: 1.25; margin-bottom: 18px; color: #ff3654; text-shadow: 0 0 18px #ff173d40; }
-.copied-banner h2 em { background: linear-gradient(105deg, #ff173d, #c4102b, #ff2446); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.copied-banner h2 em { background: linear-gradient(105deg, #ff173d, #ff6b78, #ff2446); background-clip: text; -webkit-background-clip: text; color: transparent; }
 .copied-banner__content > p:not([class]) { margin-bottom: 18px; color: #fff; font-size: 14px; line-height: 1.75; }
 .copied-banner__content strong { color: #fff; }
 .copied-banner__selection { display: flex; flex-wrap: wrap; gap: 6px 12px; padding: 12px 0; margin-bottom: 20px; border-block: 1px solid #7d1527; color: #fff; font-size: 14px; line-height: 1.75; }

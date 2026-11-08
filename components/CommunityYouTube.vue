@@ -115,16 +115,16 @@ function navigate(event: KeyboardEvent, index: number) {
 .video-library__heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 32px; }
 .video-library__eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
 .video-library h2 { margin: 0; font: 900 clamp(28px, 3.5vw, 46px)/1.16 var(--display); text-transform: uppercase; letter-spacing: -.025em; }
-.video-library h2 em { font-style: normal; background: linear-gradient(100deg, #ff183b, #ff183b 55%, #6e0614); background-clip: text; -webkit-text-fill-color: transparent; }
+.video-library h2 em { font-style: normal; background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); background-clip: text; -webkit-text-fill-color: transparent; }
 .video-library__intro { max-width: 310px; margin: 0 0 3px; color: #fff; font-size: 16px; line-height: 1.75; }
 .video-tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; margin-bottom: 20px; }
 .video-tabs button { position: relative; display: grid; place-items: center; min-width: 0; min-height: 44px; padding: 10px 5px; border: 0; border-bottom: 2px solid #68686b; background: #000; color: #fff; cursor: pointer; transition: background .2s ease; }
-.video-tabs button::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #ff183b, #ff183b 55%, #6e0614); opacity: 0; transition: opacity .2s ease; }
+.video-tabs button::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0); opacity: 0; transition: opacity .2s ease; }
 .video-tabs button[aria-selected="true"] { background: #000; }
 .video-tabs button[aria-selected="true"]::after { opacity: 1; }
 .video-tabs span { display: block; font: 900 12px/1.4 var(--display); text-transform: uppercase; white-space: nowrap; }
 .video-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-.video-card { min-width: 0; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #6e0614 50%, #ff183b 65%, #ff183b); animation: card-outline-turn 3s linear infinite; }
+.video-card { min-width: 0; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b); animation: card-outline-turn 3s linear infinite; }
 .video-card__inner { display: flex; flex-direction: column; height: 100%; min-width: 0; background: #000; }
 .video-card__category { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 18px; color: var(--video-pink); font: 800 10px/1.4 var(--display); text-transform: uppercase; letter-spacing: .04em; }
 .video-card__media { position: relative; width: 100%; aspect-ratio: 16 / 9; flex-shrink: 0; overflow: hidden; background: #000000; }
@@ -144,7 +144,7 @@ function navigate(event: KeyboardEvent, index: number) {
 .video-pagination { display: flex; justify-content: center; gap: 6px; margin-top: 18px; }
 .video-pagination button { display: grid; place-items: center; width: 48px; height: 36px; padding: 0; border: 0; background: transparent; cursor: pointer; }
 .video-pagination button span { display: block; width: 38px; height: 3px; border-radius: 2px; background: #767678; }
-.video-pagination button[aria-current] span { background: linear-gradient(90deg, #ff183b, #ff183b 55%, #6e0614); }
+.video-pagination button[aria-current] span { background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0); }
 .video-library__status { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .video-library :is(a, button):focus-visible { outline: 2px solid var(--video-purple); outline-offset: 3px; }
 .video-card__preview:focus-visible { outline-offset: -3px; }

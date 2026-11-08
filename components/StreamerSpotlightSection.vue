@@ -268,7 +268,7 @@ onBeforeUnmount(() => {
   --creator-purple: #ff4d5e;
   --creator-panel: #0b0b0e;
   --creator-line: rgba(255, 255, 255, 0.1);
-  --creator-grad: linear-gradient(100deg, #ff183b, #ff183b 55%, #6e0614);
+  --creator-grad: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0);
   position: relative;
   /* no top padding: the games section above already leaves room */
   padding: 0 0 clamp(80px, 10vw, 136px);
@@ -338,7 +338,7 @@ onBeforeUnmount(() => {
   border-radius: var(--creator-radius);
   background:
     linear-gradient(var(--creator-panel), var(--creator-panel)) padding-box,
-    conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #6e0614 50%, #ff183b 65%, #ff183b) border-box;
+    conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b) border-box;
   animation: card-outline-turn 3s linear infinite;
 }
 
@@ -429,7 +429,7 @@ onBeforeUnmount(() => {
     box-shadow 0.3s;
 }
 .creator-bars button.is-active span {
-  background: linear-gradient(90deg, #ff183b, #ff183b 55%, #6e0614);
+  background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0);
   box-shadow: 0 0 7px rgba(255, 77, 94, 0.65);
 }
 

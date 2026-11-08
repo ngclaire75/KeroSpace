@@ -199,7 +199,7 @@ onBeforeUnmount(() => io?.disconnect())
 
 <style scoped>
 .games {
-  --grad: linear-gradient(90deg, #ff183b, #ff183b 55%, #6e0614);
+  --grad: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0);
   --panel: #0b0b0e;
   --edge: rgba(255, 255, 255, 0.08);
   position: relative;
@@ -247,7 +247,7 @@ onBeforeUnmount(() => io?.disconnect())
 }
 .games__title em {
   font-style: normal;
-  background: linear-gradient(90deg, #ff183b, #ff183b 55%, #6e0614);
+  background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -279,7 +279,7 @@ onBeforeUnmount(() => io?.disconnect())
   padding: 2px;
   border-radius: 0;
   overflow: hidden;
-  background: conic-gradient(from var(--kero-banner-angle), #ff3859, #6e0614, #ff3859);
+  background: conic-gradient(from var(--kero-banner-angle), #ff3859, #d9d9df, #ff3859);
   animation: banner-outline 6s linear infinite;
   scroll-margin-top: 100px;
 }
@@ -340,7 +340,7 @@ onBeforeUnmount(() => io?.disconnect())
 }
 .feature__title em {
   font-style: normal;
-  background: linear-gradient(90deg, #ff183b, #ff183b 55%, #6e0614);
+  background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -406,7 +406,7 @@ onBeforeUnmount(() => io?.disconnect())
 }
 .cover::after {
   opacity: 1;
-  background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #6e0614 50%, #ff183b 65%, #ff183b);
+  background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b);
   animation: card-outline-turn 3s linear infinite;
 }
 .cover__icon {
