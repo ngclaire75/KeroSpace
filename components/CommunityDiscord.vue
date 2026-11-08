@@ -47,10 +47,10 @@ import { communityDiscordServers } from '~/data/communityDiscord'
 .discord__eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
 .discord__eyebrow img { object-fit: contain; }
 .discord h2 { margin: 0; font: 900 clamp(28px, 3.5vw, 46px)/1.16 var(--display); text-transform: uppercase; letter-spacing: -.025em; }
-.discord h2 em { font-style: normal; background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); background-clip: text; -webkit-text-fill-color: transparent; }
+.discord h2 em { font-style: normal; background: linear-gradient(100deg, #ff183b, #ff183b 55%, #6e0614); background-clip: text; -webkit-text-fill-color: transparent; }
 .discord__intro { max-width: 330px; margin: 0 0 3px; color: #fff; font-size: 16px; line-height: 1.75; }
 .discord__layout { display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(0, .78fr); align-items: start; gap: clamp(24px, 3.2vw, 44px); }
-.server-directory { min-width: 0; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b); animation: card-outline-turn 3s linear infinite; }
+.server-directory { min-width: 0; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #6e0614 50%, #ff183b 65%, #ff183b); animation: card-outline-turn 3s linear infinite; }
 .server-directory__inner { background: #000; }
 .server-directory__heading { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 24px; }
 .server-directory__heading p { margin: 0 0 7px; color: var(--discord-pink); font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }

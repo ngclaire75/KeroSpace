@@ -49,7 +49,7 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   position: absolute;
   inset: -2px;
   padding: 2px;
-  background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b);
+  background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #6e0614 50%, #ff183b 65%, #ff183b);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -107,7 +107,7 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   border: 1.5px solid transparent;
   background:
     linear-gradient(#000000, #000000) padding-box,
-    linear-gradient(100deg, #ff183b, #ff183b 45%, #dcdce0) border-box;
+    linear-gradient(100deg, #ff183b, #ff183b 45%, #6e0614) border-box;
   box-shadow: 0 0 14px rgba(255, 77, 94, 0.16);
   color: #fff;
   font: 800 14px / 1.4 var(--ui);

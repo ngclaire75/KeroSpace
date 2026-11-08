@@ -75,7 +75,7 @@ const strength = { yes: 3, limited: 2, solo: 1 } as const
 .pt-mode--solo .pt-mode__meter i.is-on { background: #8d8d93; box-shadow: none; }
 
 .pt-mode__status { margin: 18px 0 0; font: 800 clamp(17px, 1.6vw, 21px)/1.2 var(--display); letter-spacing: -.01em; text-transform: uppercase; }
-.pt-mode--yes .pt-mode__status { background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.pt-mode--yes .pt-mode__status { background: linear-gradient(100deg, #ff183b, #ff183b 55%, #6e0614); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .pt-mode--solo .pt-mode__status { color: #8d8d93; }
 .pt-mode h4 { margin: 10px 0 0; font-size: 15px; font-weight: 800; line-height: 1.35; }
 .pt-mode__desc { margin: 8px 0 0; color: #e6e6e9; font-size: 13.5px; line-height: 1.6; }

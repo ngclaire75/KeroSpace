@@ -132,7 +132,7 @@ onBeforeUnmount(() => observer?.disconnect())
 .together__head { display: grid; grid-template-columns: 1.2fr 1fr; align-items: end; gap: 48px; }
 .together__eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
 .together h2 { margin: 0; font: 800 clamp(28px, 3.4vw, 46px)/1.25 var(--display); letter-spacing: -.01em; text-transform: uppercase; }
-.together h2 em { font-style: normal; color: var(--together-pink); background: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.together h2 em { font-style: normal; color: var(--together-pink); background: linear-gradient(100deg, #ff183b, #ff183b 55%, #6e0614); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .together__intro { max-width: 480px; }
 .together__head { margin-bottom: 32px; }
 .together__intro p { margin: 0; color: var(--together-muted); font-size: 16px; font-weight: 600; line-height: 1.8; }
@@ -149,7 +149,7 @@ onBeforeUnmount(() => observer?.disconnect())
 .pt-tab.is-active .pt-tab__logo { opacity: 1; }
 /* these marks have lots of empty space in their artwork, so they read small */
 .pt-tab__logo--hsr, .pt-tab__logo--nte, .pt-tab__logo--hi3 { width: 86%; max-width: 140px; height: 48px; bottom: 6px; }
-.pt-tab.is-active::after { padding: 1px 1px 3px; background: #dcdce0; }
+.pt-tab.is-active::after { padding: 1px 1px 3px; background: linear-gradient(90deg, #ff183b, #6e0614); }
 .pt-tab:focus-visible { outline: 2px solid #ff4d5e; outline-offset: 3px; }
 @media (hover: hover) {
   .pt-tab:hover .pt-tab__art { filter: grayscale(1) brightness(.85); scale: 1.06; }
@@ -184,7 +184,7 @@ onBeforeUnmount(() => observer?.disconnect())
 .pt-indicators { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
 .pt-indicators button { display: grid; place-items: center; width: 48px; height: 36px; padding: 0; border: 0; border-radius: 4px; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .pt-indicators span { width: 40px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .55); box-shadow: 0 1px 5px rgba(0, 0, 0, .8); transition: background .3s; }
-.pt-indicators button.is-active span { background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0); box-shadow: 0 0 7px rgba(255, 77, 94, .65); }
+.pt-indicators button.is-active span { background: linear-gradient(90deg, #ff183b, #ff183b 55%, #6e0614); box-shadow: 0 0 7px rgba(255, 77, 94, .65); }
 
 /* footer */
 .together__foot { display: flex; align-items: baseline; gap: 30px; margin-top: 30px; padding: 0; }

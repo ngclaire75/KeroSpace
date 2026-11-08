@@ -115,7 +115,7 @@ svg {
   border-radius: inherit;
   background: conic-gradient(
     from var(--card-outline-angle),
-    #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b
+    #ff183b, #ff183b 35%, #6e0614 50%, #ff183b 65%, #ff183b
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;

@@ -96,7 +96,7 @@ const columns = [
   --f-purple: #ff4d5e;
   --f-panel: #0b0b0e;
   --f-line: rgba(255, 255, 255, 0.28);
-  --f-grad: linear-gradient(100deg, #ff183b, #ff183b 55%, #dcdce0);
+  --f-grad: linear-gradient(100deg, #ff183b, #ff183b 55%, #6e0614);
   position: relative;
   isolation: isolate;
   padding: 0 0 28px;

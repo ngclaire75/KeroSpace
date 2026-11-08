@@ -18,7 +18,7 @@ defineProps<{ platform: GamePlatform }>()
   width: 28px;
   height: 28px;
   flex-shrink: 0;
-  background: linear-gradient(135deg, #ff183b 5%, #ff183b 55%, #dcdce0 95%);
+  background: linear-gradient(135deg, #ff183b 5%, #ff183b 55%, #6e0614 95%);
   -webkit-mask-image: var(--platform-image);
   mask-image: var(--platform-image);
   -webkit-mask-size: contain;

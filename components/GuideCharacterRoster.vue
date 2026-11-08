@@ -225,7 +225,7 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
   position: relative;
   display: flex;
   border: 2px solid transparent;
-  border-image: linear-gradient(110deg, #ff183b, #ff183b 55%, #dcdce0) 1;
+  border-image: linear-gradient(110deg, #ff183b, #ff183b 55%, #6e0614) 1;
   background: var(--gd-panel);
 }
 .gk-search__icon {

@@ -321,7 +321,7 @@ onBeforeUnmount(() => {
       90deg,
       #ff183b 0%,
       #ff183b 30%,
-      #dcdce0 50%,
+      #6e0614 50%,
       #ff183b 70%,
       #ff183b 100%
     )
@@ -507,7 +507,7 @@ onBeforeUnmount(() => {
     transparent 24%,
     rgba(232, 16, 28, 0.3) 39%,
     rgba(255, 24, 59, 0.42) 47%,
-    rgba(220, 220, 224, 0.4) 53%,
+    rgba(110, 6, 20, 0.4) 53%,
     rgba(255, 24, 59, 0.36) 61%,
     transparent 76%
   );
@@ -578,7 +578,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: -25%;
   z-index: -1;
-  background: conic-gradient(#ff183b 0%, #ff183b 30%, #dcdce0 50%, #ff183b 70%, #ff183b 100%);
+  background: conic-gradient(#ff183b 0%, #ff183b 30%, #6e0614 50%, #ff183b 70%, #ff183b 100%);
   animation: ring-spin 3s linear infinite;
 }
 @keyframes ring-spin {
