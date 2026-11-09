@@ -461,7 +461,9 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
   }
 }
 @media (max-width: 560px) {
+  /* typed text stays at 16px so iOS doesn't zoom on focus; the placeholder matches the Search button */
   .gk-search input { font-size: 16px; }
+  .gk-search input::placeholder { font-size: 13px; font-weight: 800; letter-spacing: 0.06em; }
   .gk-search button { padding-inline: 14px; }
   .gk-card__body {
     padding: 12px 12px 14px;
