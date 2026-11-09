@@ -47,14 +47,14 @@ export default defineNuxtConfig({
         },
         // LinkedIn and other link previews need an absolute image URL; bump ?v= when the image
         // changes so their caches fetch the new one.
-        { property: 'og:image', content: 'https://kerospace.vercel.app/og-image.jpg?v=20261109' },
-        { property: 'og:image:secure_url', content: 'https://kerospace.vercel.app/og-image.jpg?v=20261109' },
+        { property: 'og:image', content: 'https://kerospace.vercel.app/og-image.jpg?v=202611092' },
+        { property: 'og:image:secure_url', content: 'https://kerospace.vercel.app/og-image.jpg?v=202611092' },
         { property: 'og:image:type', content: 'image/jpeg' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
         { property: 'og:image:alt', content: 'KeroSpace — Explore every item in your games' },
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:image', content: 'https://kerospace.vercel.app/og-image.jpg?v=20261109' },
+        { name: 'twitter:image', content: 'https://kerospace.vercel.app/og-image.jpg?v=202611092' },
       ],
       link: [
         { rel: 'icon', href: '/favicon-64.webp' },
