@@ -90,7 +90,7 @@ onBeforeUnmount(() => {
     <Teleport to="body" :disabled="!pinned">
       <header ref="bar" class="nav" :class="{ 'is-open': open, 'is-pinned': pinned, 'is-scrolled': scrolled }">
         <NuxtLink to="/" class="nav__brand" aria-label="KeroSpace home" @click="goHome">
-          <AppImage class="nav__mark" loading="eager" src="/images/logo.webp" alt="" width="34" height="34" />
+          <AppImage class="nav__mark" loading="eager" src="/images/logo.webp" alt="" width="48" height="48" />
         </NuxtLink>
 
         <nav class="nav__links" aria-label="Primary">
@@ -172,7 +172,7 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   gap: 24px;
-  padding: 30px clamp(18px, 3vw, 36px) 0;
+  padding: 34px clamp(18px, 3vw, 36px) 0;
 }
 /* pinned: fixed at the exact spot it rests in, so pinning never moves it */
 .nav.is-pinned {
@@ -189,7 +189,8 @@ onBeforeUnmount(() => {
 .nav::before {
   content: "";
   position: absolute;
-  inset: 0 0 -22px;
+  /* reaches as far below the contents as the padding sits above, so they centre */
+  inset: 0 0 -34px;
   z-index: -1;
   background: #000;
   opacity: 0;
@@ -207,14 +208,16 @@ onBeforeUnmount(() => {
   flex-shrink: 0;
   /* line the visible bear up with the left edge of the page content below
      (the 1240px centred container with a clamp(16px, 4vw, 40px) gutter).
-     The logo artwork has ~19.6% transparent padding, hence the 6.7px. */
+     The logo artwork has ~19.6% transparent padding, hence the 9.4px. */
   /* % = the nav's content width, so this stays exact even when the browser shows
      a scrollbar (100vw would include it and push the logo right) */
-  margin-left: calc(max(clamp(16px, 4vw, 40px) - clamp(18px, 3vw, 36px), 50% - 620px) - 6.7px);
+  margin-left: calc(max(clamp(16px, 4vw, 40px) - clamp(18px, 3vw, 36px), 50% - 620px) - 9.4px);
 }
 .nav__mark {
-  width: 34px;
-  height: 34px;
+  width: 48px;
+  height: 48px;
+  /* bigger mark without making the bar taller */
+  margin: -7px 0;
   object-fit: contain;
   filter: drop-shadow(0 0 10px rgba(255, 42, 61, 0.45));
 }
@@ -304,7 +307,7 @@ onBeforeUnmount(() => {
     gap: 12px;
   }
   .nav::before {
-    bottom: -16px;
+    bottom: -22px;
   }
   .nav__links {
     display: none;
@@ -316,6 +319,7 @@ onBeforeUnmount(() => {
   .nav__mark {
     width: 48px;
     height: 48px;
+    margin: 0;
     translate: 0 2px;
   }
   .nav__brand {
