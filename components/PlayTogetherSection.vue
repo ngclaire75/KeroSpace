@@ -141,15 +141,15 @@ onBeforeUnmount(() => observer?.disconnect())
 .pt-rail { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
 .pt-tab { position: relative; height: 92px; padding: 0; overflow: hidden; border: 0; background: #000; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .pt-tab::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(0, 0, 0, .1), rgba(0, 0, 0, .75)); }
-/* masked to a frame: 1px sides, 3px underline */
-.pt-tab::after { content: ''; position: absolute; inset: 0; z-index: 2; padding: 1px; background: #2a2a2f; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; }
+/* selected tab: a 3px underline, no frame */
+.pt-tab::after { content: ''; position: absolute; inset: auto 0 0; z-index: 2; height: 3px; background: transparent; }
 .pt-tab__art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(.6); transition: filter .4s var(--ease), scale .5s var(--ease); }
 .pt-tab__logo { position: absolute; z-index: 1; left: 50%; bottom: 10px; translate: -50% 0; width: 72%; max-width: 110px; height: 36px; object-fit: contain; opacity: .75; filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .8)); transition: opacity .3s; }
 .pt-tab.is-active .pt-tab__art { filter: grayscale(1); }
 .pt-tab.is-active .pt-tab__logo { opacity: 1; }
 /* these marks have lots of empty space in their artwork, so they read small */
 .pt-tab__logo--hsr, .pt-tab__logo--nte, .pt-tab__logo--hi3 { width: 86%; max-width: 140px; height: 48px; bottom: 6px; }
-.pt-tab.is-active::after { padding: 1px 1px 3px; background: #dcdce0; }
+.pt-tab.is-active::after { background: linear-gradient(90deg, #ff183b, #c8102e 50%, #6e0614); }
 .pt-tab:focus-visible { outline: 2px solid #ff4d5e; outline-offset: 3px; }
 @media (hover: hover) {
   .pt-tab:hover .pt-tab__art { filter: grayscale(1) brightness(.85); scale: 1.06; }
@@ -159,8 +159,6 @@ onBeforeUnmount(() => observer?.disconnect())
 
 /* ---------- stage ---------- */
 .pt-stage { position: relative; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); min-height: 400px; background: #000; }
-/* permanent outline: a dark red gradient that slowly turns */
-.pt-stage::after { content: ''; position: absolute; inset: 0; z-index: 3; padding: 2px; background: conic-gradient(from var(--card-outline-angle), #ff183b, #a30d22 25%, #4a050e 50%, #a30d22 75%, #ff183b); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; animation: card-outline-turn 8s linear infinite; pointer-events: none; }
 /* The art fades out by its own mask over a pure black box rather than under a black
    overlay: iOS Safari rounds each filtered layer to device pixels on its own, which
    let a hairline of bright art peek past the overlay at the seam. With the edge
@@ -184,7 +182,7 @@ onBeforeUnmount(() => observer?.disconnect())
 .pt-indicators { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
 .pt-indicators button { display: grid; place-items: center; width: 48px; height: 36px; padding: 0; border: 0; border-radius: 4px; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .pt-indicators span { width: 40px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .55); box-shadow: 0 1px 5px rgba(0, 0, 0, .8); transition: background .3s; }
-.pt-indicators button.is-active span { background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0); box-shadow: 0 0 7px rgba(255, 77, 94, .65); }
+.pt-indicators button.is-active span { background: linear-gradient(90deg, #ff183b, #c8102e 50%, #6e0614); box-shadow: 0 0 7px rgba(255, 77, 94, .65); }
 
 /* footer */
 .together__foot { display: flex; align-items: baseline; gap: 30px; margin-top: 30px; padding: 0; }
@@ -219,7 +217,7 @@ onBeforeUnmount(() => observer?.disconnect())
 @media (prefers-reduced-motion: reduce) {
   [data-together-reveal] { transition: none; }
   .is-armed [data-together-reveal]:not(.is-visible) { opacity: 1; }
-  .pt-stage::after, .pt-stage__art::before { animation: none; }
+  .pt-stage__art::before { animation: none; }
   .pt-stage__art > img, .pt-tab__art, .pt-stage__body > * { transition: none; }
 }
 </style>

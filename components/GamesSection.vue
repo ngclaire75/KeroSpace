@@ -123,7 +123,7 @@ onBeforeUnmount(() => io?.disconnect())
           <h3 class="shelf__title">Every introduction covers</h3>
         </div>
         <ol class="covers__list">
-          <li v-for="c in covers" :key="c.t" class="cover neon-hover-outline">
+          <li v-for="c in covers" :key="c.t" class="cover">
             <span class="cover__icon" :class="{ 'cover__icon--first-steps': c.t === 'First steps' }" aria-hidden="true">
               <AppImage :src="c.image" alt="" width="64" height="64" loading="lazy" />
             </span>
@@ -141,7 +141,7 @@ onBeforeUnmount(() => io?.disconnect())
 
         <ul class="shelf__list" data-reveal>
           <li v-for="(g, k) in games" :key="g.id" class="gcard" :style="{ '--k': k }">
-            <article class="gcard__link neon-hover-outline" :aria-label="g.name">
+            <article class="gcard__link" :aria-label="g.name">
               <span class="gcard__poster-frame">
                 <AppImage
                   class="gcard__poster"
@@ -401,13 +401,8 @@ onBeforeUnmount(() => io?.disconnect())
   padding: 22px;
   border: 2px solid transparent;
   border-radius: 0;
-  background: var(--panel);
+  background: #111114;
   transition: border-color 0.3s;
-}
-.cover::after {
-  opacity: 1;
-  background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b);
-  animation: card-outline-turn 3s linear infinite;
 }
 .cover__icon {
   display: grid;
@@ -487,7 +482,6 @@ onBeforeUnmount(() => io?.disconnect())
     var(--panel);
   transition: border-color 0.4s var(--ease);
 }
-.gcard__link::after { opacity: 1; animation: card-outline-turn 3s linear infinite; }
 .gcard__poster-frame {
   position: relative;
   display: block;
@@ -787,7 +781,6 @@ onBeforeUnmount(() => io?.disconnect())
     transform: none;
     will-change: auto;
   }
-  .cover::after, .gcard__link::after { animation: none; }
   .feature { animation: none; }
   .feature__art,
   .games [data-reveal],

@@ -334,12 +334,8 @@ onBeforeUnmount(() => {
   grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
   margin-top: clamp(28px, 4vw, 44px);
   overflow: hidden;
-  border: 2px solid transparent;
   border-radius: var(--creator-radius);
-  background:
-    linear-gradient(var(--creator-panel), var(--creator-panel)) padding-box,
-    conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b) border-box;
-  animation: card-outline-turn 3s linear infinite;
+  background: var(--creator-panel);
 }
 
 .creator-banner {
@@ -429,7 +425,7 @@ onBeforeUnmount(() => {
     box-shadow 0.3s;
 }
 .creator-bars button.is-active span {
-  background: linear-gradient(90deg, #ff183b, #ff183b 55%, #dcdce0);
+  background: linear-gradient(90deg, #ff183b, #c8102e 50%, #6e0614);
   box-shadow: 0 0 7px rgba(255, 77, 94, 0.65);
 }
 

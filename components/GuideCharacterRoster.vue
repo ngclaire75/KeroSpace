@@ -12,18 +12,6 @@ const kindId = computed(() => 'characters' as const)
 const game = computed(() => guideGames.find(item => item.id === gameId.value)!)
 const kind = { id: 'characters', label: 'Characters & heroes' }
 
-const query = ref('')
-const mobileSearch = ref(false)
-let searchViewport: MediaQueryList | undefined
-function updateSearchViewport() {
-  mobileSearch.value = searchViewport?.matches ?? false
-}
-onMounted(() => {
-  searchViewport = window.matchMedia('(max-width: 640px)')
-  updateSearchViewport()
-  searchViewport.addEventListener('change', updateSearchViewport)
-})
-onBeforeUnmount(() => searchViewport?.removeEventListener('change', updateSearchViewport))
 const search = ref('')
 const entries = ref<CatalogEntry[]>([])
 const cursor = ref<string | null>(null)
@@ -77,8 +65,7 @@ watch(data, value => {
   if (import.meta.client) prefetch()
 }, { immediate: true })
 
-function submitSearch() { search.value = query.value.trim() }
-function clearSearch() { query.value = ''; search.value = '' }
+function clearSearch() { search.value = '' }
 // Read ahead until the next new characters are found or the list ends.
 async function prefetch() {
   const run = ++prefetchRun
@@ -123,14 +110,6 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
           <p class="gd-eyebrow">{{ game.short }} · Character builds</p>
           <component :is="headingLevel" id="character-roster-title" class="gk-head__title">Characters &amp;<br /><em class="gd-em">best builds.</em></component>
           <p class="gk-head__lede">Newest characters first, with announced ones on top. Choose a character to see recommended equipment and stat priorities.</p>
-          <form class="gk-search" role="search" @submit.prevent="submitSearch">
-            <label for="gk-search-input">Search {{ game.short }} characters</label>
-            <div class="gk-search__row">
-              <svg class="gk-search__icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m21 21-4.34-4.34" /><circle cx="11" cy="11" r="8" /></svg>
-              <input id="gk-search-input" v-model="query" type="search" :placeholder="mobileSearch ? 'Search a character' : 'Search a character or hero…'" maxlength="120" />
-              <button type="submit">Search</button>
-            </div>
-          </form>
         </div>
       </header>
 
@@ -208,69 +187,6 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
   font-weight: 600;
   line-height: 1.65;
 }
-.gk-search {
-  max-width: 700px;
-  margin-top: 22px;
-}
-.gk-search label {
-  display: block;
-  margin-bottom: 10px;
-  color: var(--ink-3);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.gk-search__row {
-  position: relative;
-  display: flex;
-  border: 2px solid transparent;
-  border-image: linear-gradient(110deg, #ff183b, #ff183b 55%, #dcdce0) 1;
-  background: var(--gd-panel);
-}
-.gk-search__icon {
-  position: absolute;
-  left: 13px;
-  top: 50%;
-  translate: 0 -50%;
-  color: #fff;
-  opacity: 1;
-  pointer-events: none;
-}
-.gk-search input {
-  flex: 1;
-  min-width: 0;
-  min-height: 40px;
-  padding: 8px 12px 8px 42px;
-  border: 0;
-  background: transparent;
-  color: #fff;
-  font: 600 14px / 1.4 var(--ui);
-  /* shown in caps; the search itself still matches any case */
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-.gk-search input::placeholder {
-  color: #fff;
-  opacity: 1;
-}
-.gk-search input:focus {
-  outline: none;
-}
-.gk-search button {
-  flex-shrink: 0;
-  padding: 0 22px;
-  border: 0;
-  background: linear-gradient(110deg, #ff183b, #6e0614) border-box no-repeat;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: filter 0.2s;
-}
-
 .gk-status {
   display: flex;
   align-items: center;
@@ -437,9 +353,6 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
 }
 
 @media (hover: hover) {
-  .gk-search button:hover {
-    filter: brightness(1.08);
-  }
   .gk-sections a:not([aria-current='page']):hover {
     border-color: var(--gd-edge);
     color: #fff;
@@ -461,10 +374,6 @@ const isLoading = computed(() => !visibleEntries.value.length && (status.value =
   }
 }
 @media (max-width: 560px) {
-  /* typed text stays at 16px so iOS doesn't zoom on focus; the placeholder matches the Search button */
-  .gk-search input { font-size: 16px; }
-  .gk-search input::placeholder { font-size: 13px; font-weight: 800; letter-spacing: 0.06em; }
-  .gk-search button { padding-inline: 14px; }
   .gk-card__body {
     padding: 12px 12px 14px;
   }

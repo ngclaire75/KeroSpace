@@ -173,7 +173,7 @@ async function copyEnquiry() {
 </template>
 
 <style scoped>
-.shop-page { --shop-pink: #ff4d5e; --shop-purple: #ff4d5e; --shop-red: #ff3858; --shop-muted: #c8c8cc; --shop-outline: linear-gradient(110deg, #ff183b, #ff183b 55%, #dcdce0); --shop-outline-dim: linear-gradient(110deg, rgba(255, 24, 59, .5), rgba(255, 24, 59, .5) 55%, rgba(220, 220, 224, .4)); position: relative; isolation: isolate; background: transparent; min-height: 100svh; }
+.shop-page { --shop-pink: #ff4d5e; --shop-purple: #ff4d5e; --shop-red: #ff3858; --shop-muted: #c8c8cc; position: relative; isolation: isolate; background: transparent; min-height: 100svh; }
 .shop-wrap { width: min(1240px, 100% - 2 * clamp(16px, 4vw, 40px)); margin-inline: auto; padding-bottom: clamp(88px, 10vw, 144px); }
 .shop-hero { padding-top: clamp(40px, 6vw, 88px); }
 .shop-hero__intro { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: last baseline; margin-bottom: 38px; }
@@ -189,7 +189,7 @@ em { font-style: normal; background: linear-gradient(105deg, #ff183b, #ff183b 55
 .shop-showcase { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
 .shop-banner { margin: 0; min-width: 0; }
 .shop-banner > img { display: block; width: 100%; height: auto; }
-.shop-promo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-content: center; min-width: 0; padding: 24px; border: 2px solid transparent; background: linear-gradient(#000, #000) padding-box, var(--shop-outline) border-box; }
+.shop-promo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-content: center; min-width: 0; padding: 24px; border: 2px solid #9a0b20; background: #000; }
 .shop-promo .shop-eyebrow { margin-bottom: 12px; }
 /* type scale matches the rank-up "Why KeroSpace" box */
 .shop-promo h2 { font: 900 clamp(22px, 2.4vw, 30px)/1.25 var(--display); letter-spacing: -.02em; text-wrap: balance; }
@@ -204,17 +204,19 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .catalog-heading > p { max-width: 360px; margin-bottom: 4px; font-size: 15px; line-height: 1.75; color: var(--shop-muted); }
 .service-picker { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 26px; }
 .service-picker--rank-up { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.service-picker button { display: flex; justify-content: space-between; align-items: center; gap: 8px; min-width: 0; min-height: 58px; padding: 14px 18px; border: 1px solid transparent; border-radius: 0; background: linear-gradient(#000, #000) padding-box, var(--shop-outline-dim) border-box; color: #fff; font: 800 11px/1.5 var(--display); text-transform: uppercase; cursor: pointer; }
+.service-picker button { display: flex; justify-content: space-between; align-items: center; gap: 8px; min-width: 0; min-height: 58px; padding: 14px 18px; border: 0; border-radius: 0; background: #111114; color: #fff; font: 800 11px/1.5 var(--display); text-transform: uppercase; cursor: pointer; }
 .service-picker button span { color: var(--shop-purple); font: 400 20px/1 var(--ui); }
 @media (min-width: 761px) { .sel-br { display: none; } }
 /* the button is a flex container, so the label lives in ONE wrapper (otherwise each text run,
    and the <br> would become separate flex items and scatter across the button) */
 .sel-label { display: block; font: inherit; }
-.service-picker button[aria-pressed='true'] { background: linear-gradient(#000, #000) padding-box, var(--shop-outline) border-box; }
+.service-picker button { transition: background .2s, color .2s; }
+.service-picker button[aria-pressed='true'] { background: #fff; color: #000; }
+.service-picker button[aria-pressed='true'] span { color: #000; }
+@media (hover: hover) { .service-picker button:hover { background: #fff; color: #000; } .service-picker button:hover span { color: #000; } }
 .catalog-layout { display: grid; grid-template-columns: minmax(0, 1fr) 355px; gap: 28px; align-items: stretch; }
 .game-picker { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.shop-game { position: relative; isolation: isolate; padding: 2px; border: 0; border-radius: 0; min-width: 0; background: var(--shop-outline-dim); cursor: pointer; text-align: left; }
-.shop-game.is-selected { background: var(--shop-outline); }
+.shop-game { position: relative; isolation: isolate; padding: 0; border: 0; border-radius: 0; min-width: 0; background: transparent; cursor: pointer; text-align: left; }
 .shop-game__surface { display: flex; flex-direction: column; position: relative; min-height: 254px; height: 100%; overflow: hidden; border-radius: 0; background: #000; }
 /* fills the space above the name bar and centres the logo in it, both ways */
 .shop-game__logo { position: relative; display: flex; flex: 1; align-items: center; justify-content: center; min-height: 0; padding: 20px; }
@@ -227,7 +229,7 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .shop-game__check { display: grid; place-items: center; width: 22px; height: 22px; flex-shrink: 0; border: 1px solid #8a8a8e; border-radius: 50%; color: transparent; }
 .is-selected .shop-game__check { background: var(--shop-pink); border-color: var(--shop-pink); color: #000; }
 .enquiry__heading .shop-eyebrow { color: #fff; }
-.enquiry { padding: 2px; scroll-margin-top: 24px; background: var(--shop-outline); }
+.enquiry { scroll-margin-top: 24px; }
 .enquiry__inner { padding: 24px; background: #000; }
 .enquiry__heading { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
 .enquiry h3 { margin-bottom: 24px; font: 800 23px/1.3 var(--display); text-transform: uppercase; }
@@ -246,14 +248,13 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 .shop-field :is(input, textarea):focus { outline: none; box-shadow: none; border-color: var(--shop-pink); }
 .enquiry__actions { display: grid; gap: 10px; }
 .copy-button, .instagram-button { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px; font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
-.copy-button { border: 1px solid transparent; background: linear-gradient(#000, #000) padding-box, var(--shop-outline) border-box; color: #fff; }
+.copy-button { border: 0; background: #1a1a1e; color: #fff; }
 .instagram-button { background: linear-gradient(105deg, #ff183b, #6e0614); color: #fff; }
 .enquiry__actions svg { flex-shrink: 0; }
 .enquiry__status { margin: 14px 0 0; min-height: 3.3em; font-size: 11px; line-height: 1.65; color: var(--shop-muted); }
 .copied-dialog { width: min(820px, calc(100vw - 64px)); max-width: none; max-height: calc(100dvh - 120px); padding: 0; border: 0; overflow: visible; background: transparent; color: #fff; }
 .copied-dialog::backdrop { background: rgb(0 0 0 / .8); backdrop-filter: blur(7px); }
 .copied-banner { position: relative; isolation: isolate; display: grid; grid-template-columns: 42% 58%; border: 1px solid #ff2446; background: #000; box-shadow: 0 24px 100px #0009; }
-.copied-banner::before { content: ''; position: absolute; inset: -2px; padding: 2px; pointer-events: none; background: linear-gradient(115deg, #720015, #ff173d, #ff9a9f, #ff2446, #720015, #ff173d); background-size: 300% 300%; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; }
 .copied-banner__art { position: relative; min-height: 420px; }
 .copied-banner__art img { position: absolute; bottom: 0; left: -10%; width: 156%; height: 148%; object-fit: contain; object-position: bottom; filter: drop-shadow(0 8px 18px #0007); pointer-events: none; }
 .copied-banner__content { position: relative; padding: 42px 36px 32px 20px; }
@@ -292,9 +293,7 @@ h2 { margin-bottom: 0; font: 900 clamp(26px, 3.1vw, 40px)/1.2 var(--display); le
 }
 @media (prefers-reduced-motion: no-preference) {
   .copied-dialog[open] .copied-banner { animation: copied-arrive .24s ease-out both; }
-  .copied-dialog[open] .copied-banner::before { animation: copied-outline 4s ease-in-out infinite; }
   @keyframes copied-arrive { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes copied-outline { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 }
 .shop-page :is(a, button):focus-visible { outline: 2px solid var(--shop-pink); outline-offset: 4px; }
 .shop-page .copied-banner .instagram-button:focus { outline: none; }

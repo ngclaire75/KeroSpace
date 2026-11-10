@@ -43,20 +43,6 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   border: 2px solid transparent;
   background: #000;
 }
-.explorer__panel::after {
-  /* permanent neon outline, same recipe as the other guide cards */
-  content: '';
-  position: absolute;
-  inset: -2px;
-  padding: 2px;
-  background: conic-gradient(from var(--card-outline-angle), #ff183b, #ff183b 35%, #dcdce0 50%, #ff183b 65%, #ff183b);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  animation: card-outline-turn 8s linear infinite;
-  pointer-events: none;
-}
 
 /* ============ copy ============ */
 .explorer__copy {
@@ -211,11 +197,6 @@ const features = ['Recommended equipment', 'Stats to aim for', 'Upgrade prioriti
   .explorer__cta {
     align-self: stretch;
     justify-content: center;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .explorer__panel::after {
-    animation: none;
   }
 }
 </style>

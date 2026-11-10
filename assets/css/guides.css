@@ -2,9 +2,8 @@
    KeroSpace guides — shared styles for every /guides page.
    Classes are prefixed gd- so this file never touches other pages.
 
-   Outlines match the homepage cards exactly: square corners, a 2px
-   border, and the global .neon-hover-outline (a 2px animated gradient)
-   on hover / keyboard focus.
+   Outlines match the homepage cards exactly: square corners and a 2px
+   border.
    ============================================================ */
 
 .gd-page {
